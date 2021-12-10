@@ -1,12 +1,12 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Nuevotestamento } from '../../Nuevotestamento'
 import { CreateUser } from './createUser/CreateUser'
 import { DeleteUser } from './createUser/DeleteUser'
 import { SeeUser } from './createUser/SeeUser'
-import { Datatablee } from './datatable/Datatablee'
+import { DatatableUser } from './datatable/DatatableUser'
 import { Modal } from './modal/Modal'
 import { ModalUser } from './modal/ModalUser'
+import { UserList } from './userList/UserList'
 
 export const Dashboard = () => {
 
@@ -21,24 +21,14 @@ export const Dashboard = () => {
     // const [NuevoTesamento] = Nuevotestamento()
 
     // console.log(NuevoTesamento)
-
-    const {activeUser} = useSelector(state => state.auth)
     return (
         <>
             <h1 style = {{marginTop: '70px'}}>Listado de Usuarios</h1>
-            <Datatablee />
-            {
-                (activeUser)
-                    ?
-                    <>
-                    <SeeUser />
-                    <DeleteUser />
-                    </>
-                    :
-                    <CreateUser />
-            }
+            <UserList />
+            <CreateUser />
             <Modal />
             <ModalUser />
+            <SeeUser />
         </>
     )
 }

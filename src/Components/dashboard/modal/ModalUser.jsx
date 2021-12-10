@@ -45,7 +45,7 @@ export const ModalUser = () => {
                     <div className="modal-body">
                         <div className="col-12">
                             <div className="mb-3" style = {{border: 'none'}}>
-                                <h5 className="text-white text-center mt-2">Detalle de Usuario</h5>
+                                <h5 className="text-white text-center mt-2">Crear Usuario</h5>
                                 <div className="card-body">
                                     <form onSubmit = {handledSubmit} className = 'needs-validation'>
                                         <div className="row">

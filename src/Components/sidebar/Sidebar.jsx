@@ -14,7 +14,7 @@ export const Sidebar = () => {
         <>
             <i style = {{cursor: 'pointer', color: 'white', fontSize: '25px', marginLeft: '30px'}} onClick={handleShow} className="bi bi-list"></i>
 
-            <Offcanvas backdropClassNameName = 'Side-size' show={show} onHide={handleClose}>
+            <Offcanvas show={show} onHide={handleClose}>
                 <Offcanvas.Header closeButton>
                 <Offcanvas.Title>Offcanvas</Offcanvas.Title>
                 </Offcanvas.Header>
@@ -78,15 +78,17 @@ export const Sidebar = () => {
 
                 <ul className="list-group list-group-flush">        
                     <NavLink to = '/Main' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-collection"> </i>Carrusel principal</NavLink>
-                    <NavLink to = '/Images-home' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-images"> </i>Imagenes Home</NavLink>
+                    {/* <NavLink to = '/Images-home' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-images"> </i>Imagenes Home</NavLink> */}
+                    <NavLink to = '/MainList' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-list-ul"> </i>Listado del carrusel</NavLink>                
                 </ul>
 
                 <Offcanvas.Header>
-                    <Offcanvas.Title>Página principal</Offcanvas.Title>
+                    <Offcanvas.Title>Galería</Offcanvas.Title>
                 </Offcanvas.Header>
 
                 <ul className="list-group list-group-flush">        
-                    <NavLink to = '/Gallery-images' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-collection-fill"> </i>Galería de imagenes</NavLink>
+                    <NavLink to = '/Gallery-images' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-images"> </i>Galería de imagenes</NavLink>
+                    <NavLink to = '/GalleryList' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-list-ul"> </i>Listado de la galería</NavLink>                
                 </ul>
 
                 </Offcanvas.Body>

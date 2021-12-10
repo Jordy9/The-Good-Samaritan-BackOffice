@@ -1,32 +1,34 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { useForm } from '../../../hooks/useForm'
 import MaskedInput from 'react-text-mask'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { clearSetActive, startUpdateUser } from '../../../action/auth'
+import { startUpdateUser } from '../../../action/auth'
 
 export const Modal = () => {
 
     const dispatch = useDispatch()
 
-    const {activeUser} = useSelector(state => state.auth)
+    const {SetUser} = useSelector(state => state.us)
 
-    const [HandledInputChange, Value] = useForm(activeUser || '')
+    const [HandledInputChange, Value] = useForm(SetUser)
 
     const {name, lastName, email, password } = Value
-    
-    console.log(Value)
+
+    const nam = name || SetUser.name
+    const last = lastName || SetUser.lastName
+    const ema = email || SetUser.email
+    const pass = password || SetUser.password
 
     const handledSubmit = (e) => {
         e.preventDefault()
-        dispatch(startUpdateUser(Value))
-        dispatch(clearSetActive())
 
+        dispatch(startUpdateUser(nam, last, ema, pass))
     }
 
     return (
         <>
-            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="exampleModal2" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div className="modal-content shadow bg-dark">
                         <div className="modal-header" style = {{border: 'none'}}>
@@ -41,12 +43,12 @@ export const Modal = () => {
                                         <div className="row">
                                             <div className="col form-group">
                                                 <label>Nombre</label>
-                                                <input name = 'name' type="text" onChange = {HandledInputChange} value = {name} placeholder = 'Juan' className = 'form-control bg-transparent text-white' />
+                                                <input name = 'name' type="text" onChange = {HandledInputChange} value = {name ||SetUser.name} placeholder = 'Juan' className = 'form-control bg-transparent text-white' />
                                             </div>
 
                                             <div className="col form-group">
                                                 <label>Apellido</label>
-                                                <input name = 'lastName' type="text" onChange = {HandledInputChange} value = {lastName} placeholder = 'Taveras' className = 'form-control bg-transparent text-white' />
+                                                <input name = 'lastName' type="text" onChange = {HandledInputChange} value = {lastName ||SetUser.lastName} placeholder = 'Taveras' className = 'form-control bg-transparent text-white' />
                                             </div>
                                         </div>
                                             
@@ -65,7 +67,7 @@ export const Modal = () => {
                                         <div className="row">
                                             <div className="col form-group">
                                                 <label>Correo Electrónico</label>
-                                                <input name = 'email' type="text" onChange = {HandledInputChange} value = {email} placeholder = 'Juan123@hotmail.com' className = 'form-control bg-transparent text-white ' />
+                                                <input name = 'email' type="text" onChange = {HandledInputChange} value = {email ||SetUser.email} placeholder = 'Juan123@hotmail.com' className = 'form-control bg-transparent text-white ' />
                                             </div>
 
                                             {/* <div className="col form-group">
@@ -108,7 +110,7 @@ export const Modal = () => {
                                         <div className="row">
                                             <div className="col form-group">
                                                 <label>Contrasena</label>
-                                                <input name = 'password' type="text" onChange = {HandledInputChange} value = {password} placeholder = '********' className = 'form-control bg-transparent text-white' />
+                                                <input name = 'password' type="text" onChange = {HandledInputChange} value = {password ||SetUser.password} placeholder = '********' className = 'form-control bg-transparent text-white' />
                                             </div>
 
 
@@ -117,7 +119,7 @@ export const Modal = () => {
                                                 <input name = 'confirmar' type="text" onChange = {HandledInputChange} value = {confirmar} placeholder = '********' className = 'form-control bg-transparent text-white' />
                                             </div> */}
                                         </div>
-                                        <button className = 'btn btn-outline-primary form-control' data-bs-dismiss="modal" aria-label="Close">Guardar</button>
+                                        <button data-bs-dismiss="modal" aria-label="Close" className = 'btn btn-outline-primary form-control'>Guardar</button>
                                     </form>
                                 </div>
                             </div>

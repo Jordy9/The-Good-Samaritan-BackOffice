@@ -12,13 +12,14 @@ import { Sketch } from '../Components/sketch/Sketch';
 import { Petitions } from '../Components/petition/Petitions';
 import { Events } from '../Components/event/Events';
 import {SketchsList} from '../Components/sketch/sketchsList/SketchsList'
-import { PetitionsList } from '../Components/petition/petitionsList/PetitionsList';
-import { EventsList } from '../Components/event/eventsList/EventsList';
-import {MiniSeriesList} from '../Components/miniSeries/miniSeriesList/MiniSeriesList'
 import { LivesZoom } from '../Components/live/LivesZoom';
 import { Main } from '../Components/main/Main';
-import { ImagesHome } from '../Components/main/ImagesHome';
 import { GalleryImages } from '../Components/gallery/GalleryImages';
+import { MiniSeriesList } from '../Components/miniSeries/miniseriesLisr/MiniSeriesList';
+import { PetitionList } from '../Components/petition/petitionsList/PetitionList';
+import { EventsList } from '../Components/event/eventsList/EventsList';
+import { MainList } from '../Components/main/mainsList/MainList';
+import { GalleryList } from '../Components/gallery/galleryList/GalleryList';
 
 export const AuthRouter = () => {
     return (
@@ -33,13 +34,15 @@ export const AuthRouter = () => {
                     <Route path = '/Sketch' component = {Sketch} />
                     <Route path = '/SketchsList' component = {SketchsList} />
                     <Route path = '/Petition' component = {Petitions} />
-                    <Route path = '/PetitionsList' component = {PetitionsList} />
+                    <Route path = '/PetitionsList' component = {PetitionList} />
                     <Route path = '/Event' component = {Events} />
                     <Route path = '/EventsList' component = {EventsList} />
                     <Route path = '/LivesZoom' component = {LivesZoom} />
                     <Route path = '/Main' component = {Main} />
-                    <Route path = '/Images-home' component = {ImagesHome} />
+                    <Route path = '/MainList' component = {MainList} />
+                    {/* <Route path = '/Images-home' component = {ImagesHome} /> */}
                     <Route path = '/Gallery-Images' component = {GalleryImages} />
+                    <Route path = '/GalleryList' component = {GalleryList} />
                     <Route path = '/Profile' component = {Profile} />
                     
                     <Redirect to = '/Dashboard' />

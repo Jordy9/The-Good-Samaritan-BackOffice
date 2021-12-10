@@ -1,0 +1,96 @@
+import React, { useState } from 'react'
+import { useForm } from '../../../hooks/useForm'
+import { useDispatch, useSelector } from 'react-redux'
+import { startUpdateMain } from '../../../action/main'
+
+export const MainModal = () => {
+    const {activeMain} = useSelector(state => state.ma)
+
+    const [HandledInputChange, Value] = useForm(activeMain)
+
+    const {title, descripcion} = Value
+
+    const [fileupload, setFileUpload] = useState()
+
+    const dispatch = useDispatch()
+
+    const [imag, setimag] = useState()
+
+    const handledFileXhange = (e) => {
+        const reader = new FileReader()
+        const file = e.target.files[0]
+
+
+        reader.readAsDataURL(file)
+        setimag(URL.createObjectURL(file) || '')
+
+        if (file) {
+            setFileUpload(file)
+        }
+        
+    }
+
+    const hanldedSubmit = (e) => {
+        e.preventDefault()
+
+        dispatch(startUpdateMain(title, descripcion, fileupload))
+    }
+
+
+    return (
+        <>
+            <div className="modal fade" id="exampleModal7" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div className="modal-content shadow bg-dark">
+                        <div className="modal-header" style = {{border: 'none'}}>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                    <div className="modal-body">
+                        <div className="col-12">
+                            <div className="mb-3" style = {{border: 'none'}}>
+                                <h5 className="text-white text-center mt-2">Editar Bosquejo</h5>
+                                <div className="card-body">
+                                    <form onSubmit = {hanldedSubmit} className = 'needs-validation'>
+                                        <div className="row">
+                                            <div className="col form-group">
+                                                <label>Título</label>
+                                                <input name = 'title' type="text" onChange = {HandledInputChange} value = {title || activeMain.title} placeholder = 'El amor del Señor' className = 'form-control bg-transparent text-white' />
+                                            </div>
+
+                                            <div className="col-5">
+                                                <div className="form-group">
+                                                    <label>Imagen</label>
+                                                    <input onChange = {handledFileXhange} type="File" className = 'form-control' />
+                                                </div> 
+                                            </div>
+                                        </div>
+
+                                        <div className="row">
+                                            <div className="col-12">
+                                                <div className="form-group  d-flex justify-content-center">
+                                                    <img src = {imag || activeMain.image || ''} className="img-fluid rounded" alt="" style = {{ cursor: 'pointer', maxHeight: '225px'}} />
+                                                </div> 
+                                            </div>
+                                        </div>
+
+                                        <div className = 'row'>
+                                            <div className="col-12">
+                                                <div>
+                                                    <label>Descripción</label>
+                                                    <input type="text" className='form-control' placeholder='Dios has sido muy bueno' onChange={HandledInputChange} value={descripcion || activeMain.descripcion} name = 'descripcion' />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button className = 'btn btn-outline-primary form-control mt-4'>Guardar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </>
+    )
+}

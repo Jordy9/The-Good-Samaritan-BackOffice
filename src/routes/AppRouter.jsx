@@ -6,7 +6,13 @@ import {
     Redirect
 } from 'react-router-dom';
 import { startAuthCheking, startGetUsers } from '../action/auth';
+import { startGetEventos } from '../action/event';
+import { startGetGallery } from '../action/gallery';
+import { startGetMains } from '../action/main';
 import { startGetMiniSeries } from '../action/miniSerie';
+import { startGetPetitions } from '../action/petition';
+import { startGetBosquejos } from '../action/sketch';
+import { startGetZoom } from '../action/zoom';
 import { Footer } from '../Components/footer/Footer';
 import { LoginScreen } from '../Components/login/LoginScreen';
 import { Spinner } from '../Components/spinner/Spinner';
@@ -16,15 +22,20 @@ import { PublicRoute } from './PublicRoute';
 
 export const AppRouter = () => {
 
-
     const dispatch = useDispatch();
     const {checking, uid} = useSelector(state => state.auth)
-    console.log(checking)
+
 
     useEffect(() => {
         dispatch(startAuthCheking());
         dispatch(startGetUsers());
         dispatch(startGetMiniSeries())
+        dispatch(startGetBosquejos())
+        dispatch(startGetPetitions())
+        dispatch(startGetEventos())
+        dispatch(startGetZoom())
+        dispatch(startGetMains())
+        dispatch(startGetGallery())
     }, [dispatch])
 
 

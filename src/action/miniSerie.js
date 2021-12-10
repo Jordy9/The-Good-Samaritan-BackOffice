@@ -1,4 +1,4 @@
-import { fetchConToken, fetchSinToken, fetchUploadImage } from "../helper/fetch"
+import { fetchConToken, fetchSinToken } from "../helper/fetch"
 import axios from 'axios'
 import { Types } from "../types/Types"
 import Swal from "sweetalert2"
@@ -41,11 +41,19 @@ export const startCreateMiniSerie = (title, date, descripcion, file) => {
                 const resp = await fetchConToken('miniSerie', {title, date, image, idImage, descripcion}, 'POST');
                 const body = await resp.json()
 
+                dispatch(getMiniSerie(body))
+
                 console.log(body)
+                Swal.fire('Exito', 'Mini Serie creada exitosamente', 'success');
                 
             }
     }
 }
+
+const getMiniSerie = (Serie) => ({
+    type: Types.micreateSerie,
+    payload: Serie
+})
 
 export const SetActiveSerie = (serie) => ({
     type: Types.miSetSerie,
@@ -64,6 +72,7 @@ export const startUpdateSerie = (title, date, descripcion, fileupload) => {
 
         const token = localStorage.getItem('token') || '';
 
+        if(fileupload) {
             const ress = await axios.delete(`http://localhost:4000/api/image/upload/${activeSerie.idImage}`, {headers: {'x-token': token}})
 
             if (ress.data.ok) {
@@ -102,39 +111,55 @@ export const startUpdateSerie = (title, date, descripcion, fileupload) => {
                 Swal.fire('Error', ress.errors, 'error')
             }
 
-    }
-}
-
-const updateSerie = (user) => ({
-    type: Types.miUpdateSerie,
-    payload: user
-})
-
-
-export const startDeleteSerie = () => {
-    return async(dispatch, getState) => {
-        const {activeSerie} = getState().mi
-
-        const token = localStorage.getItem('token') || '';
-
-        if(activeSerie.idImage) {
-            await axios.delete(`http://localhost:4000/api/image/upload/${activeSerie.idImage}`, {headers: {'x-token': token}})
-
-            const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, activeSerie, 'DELETE')
-    
-            if(resp.ok) {
-                dispatch(deleteSerie(activeSerie))
-            }
         } else {
-            const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, activeSerie, 'DELETE')
-    
-            if(resp.ok) {
-                dispatch(deleteSerie(activeSerie))
+            const {image, idImage} = activeSerie
+            const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, {title, date, image, idImage, descripcion}, 'PUT');
+            const body = await resp.json()
+
+            if (body.ok) {
+
+                dispatch(updateSerie(activeSerie))
+                Swal.fire('Exito', 'Usuario actualizado exitosamente', 'success')
+            } else {
+                console.log(body.errors)
+                Swal.fire('Error', body.errors, 'error')
             }
         }
-
     }
 }
+    
+    const updateSerie = (user) => ({
+        type: Types.miUpdateSerie,
+        payload: user
+    })
+    
+    
+    export const startDeleteSerie = () => {
+        return async(dispatch, getState) => {
+            const {activeSerie} = getState().mi
+    
+            const token = localStorage.getItem('token') || '';
+    
+            if(activeSerie.idImage) {
+                await axios.delete(`http://localhost:4000/api/image/upload/${activeSerie.idImage}`, {headers: {'x-token': token}})
+    
+                const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, activeSerie, 'DELETE')
+        
+                if(resp.ok) {
+                    dispatch(deleteSerie(activeSerie))
+                }
+            } else {
+                const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, activeSerie, 'DELETE')
+        
+                if(resp.ok) {
+                    dispatch(deleteSerie(activeSerie))
+                }
+            }
+    
+            }
+
+            
+    }
 
 const deleteSerie = (user) => ({
     type: Types.miDeleteSerie,

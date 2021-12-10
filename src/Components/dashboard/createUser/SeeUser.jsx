@@ -4,7 +4,7 @@ import './SeeUser.css'
 export const SeeUser = () => {
     return (
         <>
-            <i className="bi bi-eye fabView" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+            <i style={{display: 'none'}} className="bi bi-eye fabView" data-bs-toggle="modal" data-bs-target="#exampleModal2"></i>
         </>
     )
 }

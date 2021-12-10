@@ -46,7 +46,7 @@ const register = (user) => ({
 })
 
 
-export const startGetUsers = (name, lastName, email, password) => {
+export const startGetUsers = () => {
     return async(dispatch) => {
         const resp = await fetchConToken('auth');
         const body = await resp.json()
@@ -62,21 +62,12 @@ const getUsers = (users) => ({
     payload: users
 })
 
-
-export const SetActive = (user) => ({
-    type: Types.authSetUser,
-    payload: user
-});
-
-export const clearSetActive = () => ({
-    type: Types.authClearSetUser
-});
-
-
-export const startUpdateUser = (user) => {
-    console.log(user.id)
-    return async(dispatch) => {
-            const resp = await fetchConToken(`auth/update/${user.id}`, user, 'PUT')
+export const startUpdateUser = (name, lastName, email, password) => {
+    return async(dispatch, getState) => {
+        const {SetUser} = getState().us
+        
+            const user = SetUser
+            const resp = await fetchConToken(`auth/update/${user.id}`, {name, lastName, email, password}, 'PUT')
             const body = await resp.json()
 
         if(body.ok) {

@@ -4,13 +4,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { SetActive } from '../../../action/auth'
 import { Spinner } from '../../spinner/Spinner'
 
-export const Datatablee = () => {
+export const DatatableUser = () => {
 
   const {users} = useSelector(state => state.auth)
   const dispatch = useDispatch()
 
   const handledSelectRow = (e) => {
-    dispatch(SetActive(e.selectedRows[0]))
 
   }
 

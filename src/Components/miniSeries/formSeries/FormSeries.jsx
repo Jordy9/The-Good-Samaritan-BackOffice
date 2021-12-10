@@ -2,14 +2,11 @@ import React, { useState } from 'react'
 import {useForm} from '../../../hooks/useForm'
 import { Editor } from '@tinymce/tinymce-react';
 import { useDispatch } from 'react-redux';
-import { startCreateMiniSerie, startUpdateSerie } from '../../../action/miniSerie';
-import { useSelector } from 'react-redux';
+import { startCreateMiniSerie } from '../../../action/miniSerie';
 
 export const FormSeries = () => {
 
-    const {activeSerie} = useSelector(state => state.mi)
-
-    const [handledInputChange, Value] = useForm(activeSerie || {
+    const [handledInputChange, Value] = useForm({
         title: '',
         date: '',
 
@@ -42,11 +39,7 @@ export const FormSeries = () => {
     const hanldedSubmit = (e) => {
         e.preventDefault()
 
-        if (activeSerie) {
-            dispatch(startUpdateSerie(title, date, state, fileupload))
-        } else {
-            dispatch(startCreateMiniSerie(title, date, state, fileupload))
-        }
+        dispatch(startCreateMiniSerie(title, date, state, fileupload))
     }
 
 
@@ -80,7 +73,7 @@ export const FormSeries = () => {
                 <div className="col-12">
                     <div className="form-group  d-flex justify-content-center">
                         {/* <img src = {imag} style = {{ cursor: 'pointer', height: '200px', maxWidth: '400px' }} className = 'img-fluid rounded' alt=''/> */}
-                        <img src = {imag || activeSerie.image || ''} className="img-fluid rounded" alt="" style = {{ cursor: 'pointer', maxHeight: '225px'}} />
+                        <img src = {imag || ''} className="img-fluid rounded" alt="" style = {{ cursor: 'pointer', maxHeight: '225px'}} />
                     </div> 
                 </div>
             </div>
@@ -89,9 +82,8 @@ export const FormSeries = () => {
                 <div className="col-12">
                     <div>
                         <Editor
-                            initialValue = {activeSerie.descripcion || ''}
                             onEditorChange = {(cont) => setstate(cont)}
-                            value = {state || activeSerie.descripcion}
+                            value = {state}
                             content="<p>This is the initial content of the editor</p>"
                             init={{
                             plugins: 'autolink link image lists print preview',

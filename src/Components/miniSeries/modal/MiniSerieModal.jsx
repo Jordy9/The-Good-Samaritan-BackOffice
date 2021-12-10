@@ -1,23 +1,47 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from '../../../hooks/useForm'
-import MaskedInput from 'react-text-mask'
+import { useDispatch, useSelector } from 'react-redux'
+import { startUpdateSerie } from '../../../action/miniSerie'
+import { Editor } from '@tinymce/tinymce-react'
 
 export const MiniSerieModal = () => {
+    const {activeSerie} = useSelector(state => state.mi)
 
-    const [HandledInputChange, {nombre, apellido, edad, fecha, correo, usuario, direccion, pais, ciudad, numero, contrasena, confirmar}] = useForm({
-        nombre: '', 
-        apellido: '', 
-        edad: '',
-        fecha: '',
-        correo: '',
-        usuario: '', 
-        direccion: '', 
-        pais: '', 
-        ciudad: '', 
-        numero: '',
-        contrasena: '', 
-        confirmar: ''
+    const [HandledInputChange, Value] = useForm({
+        title: '',
+        date: '',
     })
+
+    const {title, date} = Value
+
+    const [fileupload, setFileUpload] = useState()
+
+    const dispatch = useDispatch()
+
+    const [state, setstate] = useState('')
+
+    const [imag, setimag] = useState()
+
+    const handledFileXhange = (e) => {
+        const reader = new FileReader()
+        const file = e.target.files[0]
+
+
+        reader.readAsDataURL(file)
+        setimag(URL.createObjectURL(file) || '')
+
+        if (file) {
+            setFileUpload(file)
+        }
+        
+    }
+
+    const hanldedSubmit = (e) => {
+        e.preventDefault()
+
+        dispatch(startUpdateSerie(title, date, state, fileupload))
+    }
+
 
     return (
         <>
@@ -30,90 +54,61 @@ export const MiniSerieModal = () => {
                     <div className="modal-body">
                         <div className="col-12">
                             <div className="mb-3" style = {{border: 'none'}}>
-                                <h5 className="text-white text-center mt-2">Crear Usuario</h5>
+                                <h5 className="text-white text-center mt-2">Editar MiniSerie</h5>
                                 <div className="card-body">
-                                    <form className = 'needs-validation'>
+                                    <form onSubmit = {hanldedSubmit} className = 'needs-validation'>
                                         <div className="row">
                                             <div className="col form-group">
-                                                <label>Nombre</label>
-                                                <input name = 'nombre' type="text" onChange = {HandledInputChange} value = {nombre} placeholder = 'Juan' className = 'form-control bg-transparent text-white' />
+                                                <label>Título</label>
+                                                <input name = 'title' type="text" onChange = {HandledInputChange} value = {title || activeSerie?.title} placeholder = 'El amor del Señor' className = 'form-control bg-transparent text-white' />
                                             </div>
 
                                             <div className="col form-group">
-                                                <label>Apellido</label>
-                                                <input name = 'apellido' type="text" onChange = {HandledInputChange} value = {apellido} placeholder = 'Taveras' className = 'form-control bg-transparent text-white' />
-                                            </div>
-                                        </div>
-                                            
-                                        <div className="row">
-                                            <div className="col form-group">
-                                                <label>Edad</label>
-                                                <input name = 'edad' type="text" onChange = {HandledInputChange} value = {edad} placeholder = '25' className = 'form-control bg-transparent text-white' />
-                                            </div>
-
-                                            <div className="col form-group">
-                                                <label>Fecha de nacimiento</label>
-                                                <input name = 'fecha' type="date" onChange = {HandledInputChange} value = {fecha} placeholder = '26/8/1996' className = 'form-control bg-transparent text-white ' />
+                                                <label>Fecha</label>
+                                                <input name = 'date' type="date" onChange = {HandledInputChange} value = {date || activeSerie?.date} className = 'form-control bg-transparent text-white' />
                                             </div>
                                         </div>
 
                                         <div className="row">
-                                            <div className="col form-group">
-                                                <label>Correo Electrónico</label>
-                                                <input name = 'correo' type="text" onChange = {HandledInputChange} value = {correo} placeholder = 'Juan123@hotmail.com' className = 'form-control bg-transparent text-white ' />
-                                            </div>
-
-                                            <div className="col form-group">
-                                                <label>Nombre de usuario</label>
-                                                <input name = 'usuario' type="text" onChange = {HandledInputChange} value = {usuario} placeholder = 'Juan123' className = 'form-control bg-transparent text-white' />
+                                            <div className="col-5">
+                                                <div className="form-group">
+                                                    <label>Imagen</label>
+                                                    <input onChange = {handledFileXhange} type="File" className = 'form-control' />
+                                                </div> 
                                             </div>
                                         </div>
+
 
                                         <div className="row">
-                                            <div className="col form-group">
-                                                <label>Dirección</label>
-                                                <input name = 'direccion' type="text" onChange = {HandledInputChange} value = {direccion} placeholder = 'Los Santos' className = 'form-control bg-transparent text-white' />
+                                            <div className="col-12">
+                                                <div className="form-group  d-flex justify-content-center">
+                                                    <img src = {imag || activeSerie?.image || ''} className="img-fluid rounded" alt="" style = {{ cursor: 'pointer', maxHeight: '225px'}} />
+                                                </div> 
                                             </div>
                                         </div>
 
-                                        <div className="row">
-                                            <div className="col form-group">
-                                                <label>País</label>
-                                                <input name = 'pais' type="text" onChange = {HandledInputChange} value = {pais} placeholder = 'República Dominicana' className = 'form-control bg-transparent text-white' />
-                                            </div>
-
-                                            <div className="col form-group">
-                                                <label>Ciudad</label>
-                                                <input name = 'ciudad' type="text" onChange = {HandledInputChange} value = {ciudad} placeholder = 'Bonao' className = 'form-control bg-transparent text-white' />
-                                            </div>
-
-                                            <div className="col form-group">
-                                                <label cl>Numero de teléfono</label>
-                                                <MaskedInput
-                                                    name = 'numero'
-                                                    value = {numero}
-                                                    onChange = {HandledInputChange}
-                                                    className = 'form-control bg-transparent text-white'
-                                                    placeholder = '(809)-222-3333'
-                                                    mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-                                                />
+                                        <div className = 'row'>
+                                            <div className="col-12">
+                                                <div>
+                                                    <Editor
+                                                        onEditorChange = {(cont) => setstate(cont)}
+                                                        value = {state || activeSerie?.descripcion}
+                                                        content="<p>This is the initial content of the editor</p>"
+                                                        init={{
+                                                        plugins: 'autolink link image lists print preview',
+                                                        toolbar: 'undo redo | formatselect | fontselect | fontsizeselect ' +
+                                                        'bold italic backcolor | alignleft aligncenter ' +
+                                                        'alignright alignjustify | bullist numlist outdent indent | ' +
+                                                        'removeformat',
+                                                        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                                                        }}
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <div className="row">
-                                            <div className="col form-group">
-                                                <label>Contrasena</label>
-                                                <input name = 'contrasena' type="text" onChange = {HandledInputChange} value = {contrasena} placeholder = '********' className = 'form-control bg-transparent text-white' />
-                                            </div>
-
-
-                                            <div className="col form-group">
-                                                <label>Confirmar Contrasena</label>
-                                                <input name = 'confirmar' type="text" onChange = {HandledInputChange} value = {confirmar} placeholder = '********' className = 'form-control bg-transparent text-white' />
-                                            </div>
-                                        </div>
+                                        <button className = 'btn btn-outline-primary form-control mt-4'>Guardar</button>
                                     </form>
-                                    <button className = 'btn btn-outline-primary form-control'>Crear</button>
                                 </div>
                             </div>
                         </div>

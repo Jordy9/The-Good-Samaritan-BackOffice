@@ -2,7 +2,7 @@ import { Types } from "../types/Types";
 
 const initialState = {
     miniSeries: null,
-    activeSerie: ''
+    activeSerie: '',
 }
 
 export const miniSeriesReducer = (state = initialState, action) => {

@@ -3,9 +3,6 @@ import { Types } from '../types/Types';
 const initialState = {
     checking: true,
     users: null,
-    activeUser: null
-    // uid: null,
-    // name: null
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -24,18 +21,6 @@ export const authReducer = (state = initialState, action) => {
                     ...state.users,
                     action.payload
                 ]
-            }
-
-        case Types.authSetUser:
-            return {
-                ...state,
-                activeUser: action.payload
-            }
-
-        case Types.authClearSetUser:
-            return {
-                ...state,
-                activeUser: null
             }
 
         case Types.authStartGetUsers:

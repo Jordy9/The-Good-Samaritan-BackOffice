@@ -1,0 +1,167 @@
+import { fetchConToken, fetchSinToken } from "../helper/fetch"
+import axios from 'axios'
+import { Types } from "../types/Types"
+import Swal from "sweetalert2"
+
+
+
+export const startGetBosquejos = () => {
+    return async(dispatch) => {
+        const resp = await fetchSinToken('bosquejo')
+        const body = await resp.json()
+
+        if(body.ok) {
+            dispatch(Bosquejos(body.bosquejos))
+        }
+    }
+}
+
+const Bosquejos = (bosquejos) => ({
+    type: Types.sktgetBosquejos,
+    payload: bosquejos
+})
+
+export const startCreateBosquejo = (title, date, file, descripcion) => {
+    return async(dispatch) => {
+
+        const token = localStorage.getItem('token') || '';
+
+            const formData = new FormData()
+            formData.append('file', file)
+            formData.append('title', title)
+
+            const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}})
+
+            console.log(res)
+
+            
+            if(res.data.ok) {
+                const image = res.data.image.url
+                const idImage = res.data.image.id
+                const resp = await fetchConToken('bosquejo', {title, date, image, idImage, descripcion}, 'POST');
+                const body = await resp.json()
+
+                dispatch(createBosquejo(body))
+
+                console.log(body)
+                Swal.fire('Exito', 'Mini Serie creada exitosamente', 'success');
+                
+            }
+    }
+}
+
+const createBosquejo = (bosquejo) => ({
+    type: Types.sktcreateBosquejo,
+    payload: bosquejo
+})
+
+export const SetActiveBosquejo = (bosquejo) => ({
+    type: Types.sktSetBosquejo,
+    payload: bosquejo
+});
+
+export const clearSetActiveBosquejo = () => ({
+    type: Types.sktClearSetBosquejo
+});
+
+
+export const startUpdateBosquejo = (title, date, descripcion, fileupload) => {
+    return async(dispatch, getState) => {
+
+        const {activeBosquejo} = getState().skt
+
+        console.log(activeBosquejo)
+
+        const token = localStorage.getItem('token') || '';
+
+            if(fileupload) {
+                const ress = await axios.delete(`http://localhost:4000/api/image/upload/${activeBosquejo.idImage}`, {headers: {'x-token': token}})
+
+                if (ress.data.ok) {
+
+                    const formData = new FormData()
+                    formData.append('file', fileupload)
+                    formData.append('title', activeBosquejo.title)
+        
+                    const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}})
+        
+                    console.log(res)
+        
+                // 
+                // 
+                
+                    // const resp = await fetchConToken(`miniSerie/update/${serie.id}`, serie, 'PUT')
+                    // const body = await resp.json()
+        
+                    if(res.data.ok) {
+                        const image = res.data.image.url
+                        const idImage = res.data.image.id
+                        const resp = await fetchConToken(`bosquejo/${activeBosquejo._id}`, {title, date, image, idImage, descripcion}, 'PUT');
+                        const body = await resp.json()
+        
+                        if (body.ok) {
+        
+                            dispatch(updateBosquejo(activeBosquejo))
+                            Swal.fire('Exito', 'Usuario actualizado exitosamente', 'success')
+                        }
+                
+                    } else {
+                        console.log(res.errors)
+                        Swal.fire('Error', res.errors, 'error')
+                    }
+                } else {
+                    Swal.fire('Error', ress.errors, 'error')
+                }
+            } else {
+
+                const {image, idImage} = activeBosquejo
+                const resp = await fetchConToken(`bosquejo/${activeBosquejo._id}`, {title, date, image, idImage, descripcion}, 'PUT');
+                const body = await resp.json()
+
+                if (body.ok) {
+
+                    dispatch(updateBosquejo(activeBosquejo))
+                    Swal.fire('Exito', 'Usuario actualizado exitosamente', 'success')
+                }
+            }
+
+            
+
+    }
+}
+
+const updateBosquejo = (user) => ({
+    type: Types.sktUpdateBosquejo,
+    payload: user
+})
+
+
+export const startDeleteBosquejo = () => {
+    return async(dispatch, getState) => {
+        const {activeBosquejo} = getState().skt
+
+        const token = localStorage.getItem('token') || '';
+
+        if(activeBosquejo.idImage) {
+            await axios.delete(`http://localhost:4000/api/image/upload/${activeBosquejo.idImage}`, {headers: {'x-token': token}})
+
+            const resp = await fetchConToken(`bosquejo/${activeBosquejo._id}`, activeBosquejo, 'DELETE')
+    
+            if(resp.ok) {
+                dispatch(deleteBosquejo(activeBosquejo))
+            }
+        } else {
+            const resp = await fetchConToken(`bosquejo/${activeBosquejo._id}`, activeBosquejo, 'DELETE')
+    
+            if(resp.ok) {
+                dispatch(deleteBosquejo(activeBosquejo))
+            }
+        }
+
+    }
+}
+
+const deleteBosquejo = (bosquejo) => ({
+    type: Types.sktDeleteBosquejo,
+    payload: bosquejo
+})
