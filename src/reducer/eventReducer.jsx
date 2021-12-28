@@ -10,7 +10,7 @@ export const eventsReducer = (state = initialState, action) => {
         case Types.evgetEvents:
             return {
                 ...state,
-                Eventos: action.payload
+                Eventos: [...action.payload]
             }
 
         case Types.evcreateEvent:

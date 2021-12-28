@@ -23,19 +23,60 @@ export const startLogin = (email, password) => {
 }
 
 
-export const startRegister = (name, lastName, email, password) => {
+export const startRegister = (name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password) => {
     return async(dispatch) => {
-        const resp = await fetchConToken('auth/new', {name, lastName, email, password}, 'POST');
+        const resp = await fetchConToken('auth/new', {name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password}, 'POST');
         const body = await resp.json();
 
         if(body.ok) {
             dispatch(register({
-                name: body.name,
-                lastName: body.lastName,
-                email: body.email,
-                password: body.password
+                name: body?.name, 
+                lastName: body?.last, 
+                age: body?.age,
+                date: body?.date,
+                email: body?.email,
+                address: body?.address,
+                country: body?.country,
+                city: body?.city,
+                number: body?.number,
+                biliever: false,
+                discipleship: false,
+                tracking: false,
+                password: body?.password
             }))
-            Swal.fire('Exito', body.msg, 'success')
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 10000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              return Toast.fire({
+                icon: 'success',
+                title: 'Usuario creado exitosamente'
+              })
+        } else {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 10000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              return Toast.fire({
+                icon: 'error',
+                title: `${body.msg}`
+              })
         }
     }
 }
@@ -45,7 +86,6 @@ const register = (user) => ({
     payload: user
 })
 
-
 export const startGetUsers = () => {
     return async(dispatch) => {
         const resp = await fetchConToken('auth');
@@ -54,6 +94,8 @@ export const startGetUsers = () => {
         if(body.ok) {
             dispatch(getUsers(body.users))
         }
+
+        console.log(body)
     }
 }
 
@@ -62,20 +104,49 @@ const getUsers = (users) => ({
     payload: users
 })
 
-export const startUpdateUser = (name, lastName, email, password) => {
+export const startUpdateUser = (name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password) => {
     return async(dispatch, getState) => {
         const {SetUser} = getState().us
         
             const user = SetUser
-            const resp = await fetchConToken(`auth/update/${user.id}`, {name, lastName, email, password}, 'PUT')
+            const resp = await fetchConToken(`auth/update/${user.id}`, {name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password}, 'PUT')
             const body = await resp.json()
 
         if(body.ok) {
             dispatch(updateUser(user))
-            Swal.fire('Exito', 'Usuario actualizado exitosamente', 'success')
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 10000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              return Toast.fire({
+                icon: 'success',
+                title: 'Usuario actualizado correctamente'
+              })
         } else {
-            console.log(body.errors)
-            Swal.fire('Error', body.errors, 'error')
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 10000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              return Toast.fire({
+                icon: 'error',
+                title: `${body.errors.email.msg}`
+              })
         }
     }
 }
@@ -85,15 +156,35 @@ const updateUser = (user) => ({
     payload: user
 })
 
-
+export const ActiverUser = (user) => ({
+    type: Types.authSetUser,
+    payload: user
+})
 
 export const startDeleteUser = (user) => {
+     console.log(user)
     return async(dispatch) => {
         const resp = await fetchConToken(`auth/delete/${user.id}`, user, 'DELETE')
         const body = await resp.json()
 
         if(body.ok) {
             dispatch(deleteUser(user))
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 10000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              return Toast.fire({
+                icon: 'success',
+                title: 'Usuario eliminado correctamente'
+              })
         }
     }
 }

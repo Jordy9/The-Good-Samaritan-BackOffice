@@ -25,11 +25,6 @@ export const ModalContainer = (props) => {
         }).then((result) => {
           if (result.isConfirmed) {
             dispatch(startDeleteMain())
-            Swal.fire(
-              'Eliminado!',
-              'Usuario eliminado exitosamente',
-              'success'
-            )
           }
         })
       }

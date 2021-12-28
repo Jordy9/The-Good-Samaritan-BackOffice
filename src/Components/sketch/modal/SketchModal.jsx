@@ -1,49 +1,47 @@
 import React, { useState } from 'react'
-import { useForm } from '../../../hooks/useForm'
 import { useDispatch, useSelector } from 'react-redux'
 import { Editor } from '@tinymce/tinymce-react'
 import { startUpdateBosquejo } from '../../../action/sketch'
+import { useFormik } from 'formik';
+import * as Yup from 'yup'
 
 export const SketchModal = () => {
+
     const {activeBosquejo} = useSelector(state => state.skt)
-
-    const [HandledInputChange, Value] = useForm(activeBosquejo)
-
-    const {title, date} = Value
-
-    const [fileupload, setFileUpload] = useState()
 
     const dispatch = useDispatch()
 
-    const [state, setstate] = useState('')
-
     const [imag, setimag] = useState()
 
-    const handledFileXhange = (e) => {
-        const reader = new FileReader()
-        const file = e.target.files[0]
 
-
-        reader.readAsDataURL(file)
-        setimag(URL.createObjectURL(file) || '')
-
-        if (file) {
-            setFileUpload(file)
-        }
-        
-    }
-
-    const hanldedSubmit = (e) => {
-        e.preventDefault()
-
-        dispatch(startUpdateBosquejo(title, date, state, fileupload))
-    }
-
+    const {handleSubmit, getFieldProps, touched, errors, setFieldValue} = useFormik({
+        initialValues: {
+            title: activeBosquejo?.title, 
+            date: activeBosquejo?.date, 
+            descripcion: activeBosquejo?.descripcion,
+            image: ''
+        },
+        enableReinitialize: true,
+        onSubmit: ({title, date, descripcion, image}) => {
+            dispatch(startUpdateBosquejo(title, date, descripcion, image))
+        },
+        validationSchema: Yup.object({
+            title: Yup.string()
+                        .max(50, 'Debe de tener 15 caracteres o menos')
+                        .min(3, 'Debe de tener 3 caracteres o más')
+                        .required('Requerido'),
+            date: Yup.string()
+                        .required('Requerido'),
+            descripcion: Yup.string()
+                        .min(3, 'Debe de tener 3 caracteres o más')
+                        .required('Requerido')
+        })
+    })
 
     return (
         <>
-            <div className="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div className="modal fade" id="exampleModal4" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                     <div className="modal-content shadow bg-dark">
                         <div className="modal-header" style = {{border: 'none'}}>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -53,33 +51,42 @@ export const SketchModal = () => {
                             <div className="mb-3" style = {{border: 'none'}}>
                                 <h5 className="text-white text-center mt-2">Editar Bosquejo</h5>
                                 <div className="card-body">
-                                    <form onSubmit = {hanldedSubmit} className = 'needs-validation'>
-                                        <div className="row">
-                                            <div className="col form-group">
-                                                <label>Título</label>
-                                                <input name = 'title' type="text" onChange = {HandledInputChange} value = {title || activeBosquejo.title} placeholder = 'El amor del Señor' className = 'form-control bg-transparent text-white' />
-                                            </div>
-
-                                            <div className="col form-group">
-                                                <label>Fecha</label>
-                                                <input name = 'date' type="date" onChange = {HandledInputChange} value = {date || activeBosquejo.date} className = 'form-control bg-transparent text-white' />
-                                            </div>
-                                        </div>
-
-                                        <div className="row">
-                                            <div className="col-5">
+                                    <form onSubmit = {handleSubmit}>
+                                        <div className = 'row'>
+                                            <div className="col-6">
                                                 <div className="form-group">
-                                                    <label>Imagen</label>
-                                                    <input onChange = {handledFileXhange} type="File" className = 'form-control' />
-                                                </div> 
+                                                    <label>Título</label>
+                                                    <input type="text" className = 'form-control bg-transparent text-white' {...getFieldProps('title')} />
+                                                    {touched.title && errors.title && <span style={{color: 'red'}}>{errors.title}</span>}
+                                                </div>
+                                            </div>
+
+                                            <div className="col-6">
+                                                <div className="form-group">
+                                                    <label>Fecha</label>
+                                                    <input type="date" className = 'form-control bg-transparent text-white' {...getFieldProps('date')} />
+                                                    {touched.date && errors.date && <span style={{color: 'red'}}>{errors.date}</span>}
+                                                </div>
                                             </div>
                                         </div>
-
 
                                         <div className="row">
                                             <div className="col-12">
-                                                <div className="form-group  d-flex justify-content-center">
-                                                    <img src = {imag || activeBosquejo.image || ''} className="img-fluid rounded" alt="" style = {{ cursor: 'pointer', maxHeight: '225px'}} />
+                                                <div className="form-group">
+                                                    <label>Imagen</label>
+                                                    <input type="file" className='form-control bg-transparent text-white' name='image' onChange={(e) => {
+                                                        setFieldValue('image', e.currentTarget.files[0], setimag(URL.createObjectURL(e.currentTarget.files[0]) || ''))
+                                                    }} />
+                                                    {touched.image && errors.image && <span style={{color: 'red'}}>{errors.image}</span>}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="row">
+                                            <div className="col-12">
+                                                <div className="form-group d-flex justify-content-center">
+                                                    {/* <img src = {imag} style = {{ cursor: 'pointer', height: '200px', maxWidth: '400px' }} className = 'img-fluid rounded' alt=''/> */}
+                                                    <img src = {imag || activeBosquejo?.image} className="img-fluid rounded" alt="" style = {{ cursor: 'pointer', maxHeight: '225px'}} />
                                                 </div> 
                                             </div>
                                         </div>
@@ -88,8 +95,9 @@ export const SketchModal = () => {
                                             <div className="col-12">
                                                 <div>
                                                     <Editor
-                                                        onEditorChange = {(cont) => setstate(cont)}
-                                                        value = {state || activeBosquejo.descripcion}
+                                                        initialValue = {activeBosquejo?.descripcion}
+                                                        name = 'descripcion'
+                                                        onEditorChange = {(e) => setFieldValue('descripcion', e)}
                                                         content="<p>This is the initial content of the editor</p>"
                                                         init={{
                                                         plugins: 'autolink link image lists print preview',
@@ -99,12 +107,13 @@ export const SketchModal = () => {
                                                         'removeformat',
                                                         content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
                                                         }}
+                                                        // onChange={this.handleEditorChange}
                                                     />
+                                                    {touched.descripcion && errors.descripcion && <span style={{color: 'red'}}>{errors.descripcion}</span>}
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <button className = 'btn btn-outline-primary form-control mt-4'>Guardar</button>
+                                        <button type='submit' className = 'btn btn-outline-primary form-control my-3'>Guardar</button>
                                     </form>
                                 </div>
                             </div>

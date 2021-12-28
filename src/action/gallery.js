@@ -21,7 +21,7 @@ const Gallerys = (galeria) => ({
     payload: galeria
 })
 
-export const startCreateGallery = (title, file) => {
+export const startCreateGallery = (title, file, height, width) => {
     return async(dispatch) => {
 
         const token = localStorage.getItem('token') || '';
@@ -38,13 +38,28 @@ export const startCreateGallery = (title, file) => {
             if(res.data.ok) {
                 const image = res.data.image.url
                 const idImage = res.data.image.id
-                const resp = await fetchConToken('galeria', {title, image, idImage}, 'POST');
+                const resp = await fetchConToken('galeria', {title, image, idImage, height, width}, 'POST');
                 const body = await resp.json()
 
                 dispatch(createGallery(body))
 
                 console.log(body)
-                Swal.fire('Exito', 'Mini Serie creada exitosamente', 'success');
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 10000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  return Toast.fire({
+                    icon: 'success',
+                    title: 'Imagen de la galería creada correctamente'
+                  })
                 
             }
     }
@@ -65,7 +80,7 @@ export const clearSetActiveGallery = () => ({
 });
 
 
-export const startUpdateGallery = (title, fileupload) => {
+export const startUpdateGallery = (title, fileupload, height, width) => {
     return async(dispatch, getState) => {
 
         const {activeGallery} = getState().ga
@@ -96,13 +111,28 @@ export const startUpdateGallery = (title, fileupload) => {
                     if(res.data.ok) {
                         const image = res.data.image.url
                         const idImage = res.data.image.id
-                        const resp = await fetchConToken(`galeria/${activeGallery._id}`, {title, image, idImage}, 'PUT');
+                        const resp = await fetchConToken(`galeria/${activeGallery._id}`, {title, image, idImage, height, width}, 'PUT');
                         const body = await resp.json()
         
                         if (body.ok) {
         
-                            dispatch(updateGallery(activeGallery))
-                            Swal.fire('Exito', 'Usuario actualizado exitosamente', 'success')
+                            dispatch(updateGallery(body.galeria))
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 10000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                              })
+                              
+                              return Toast.fire({
+                                icon: 'success',
+                                title: 'Imagen de la galería actualizada correctamente'
+                              })
                         }
                 
                     } else {
@@ -115,13 +145,28 @@ export const startUpdateGallery = (title, fileupload) => {
             } else {
 
                 const {image, idImage} = activeGallery
-                const resp = await fetchConToken(`galeria/${activeGallery._id}`, {title, image, idImage}, 'PUT');
+                const resp = await fetchConToken(`galeria/${activeGallery._id}`, {title, image, idImage, height, width}, 'PUT');
                 const body = await resp.json()
 
                 if (body.ok) {
 
-                    dispatch(updateGallery(activeGallery))
-                    Swal.fire('Exito', 'Usuario actualizado exitosamente', 'success')
+                    dispatch(updateGallery(body.galeria))
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 10000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'success',
+                        title: 'Imagen de la galeria actualizada correctamente'
+                      })
                 }
             }
 
@@ -149,12 +194,44 @@ export const startDeleteGallery = () => {
     
             if(resp.ok) {
                 dispatch(deleteGallery(activeGallery))
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 10000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  return Toast.fire({
+                    icon: 'success',
+                    title: 'Imagen de la galeria eliminada correctamente'
+                  })
             }
         } else {
             const resp = await fetchConToken(`galeria/${activeGallery._id}`, activeGallery, 'DELETE')
     
             if(resp.ok) {
                 dispatch(deleteGallery(activeGallery))
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 10000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  return Toast.fire({
+                    icon: 'success',
+                    title: 'Imagen de la galeria eliminada correctamente'
+                  })
             }
         }
 

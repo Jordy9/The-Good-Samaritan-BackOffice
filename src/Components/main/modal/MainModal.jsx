@@ -1,41 +1,36 @@
 import React, { useState } from 'react'
-import { useForm } from '../../../hooks/useForm'
 import { useDispatch, useSelector } from 'react-redux'
 import { startUpdateMain } from '../../../action/main'
+import { useFormik } from 'formik';
+import * as Yup from 'yup'
 
 export const MainModal = () => {
     const {activeMain} = useSelector(state => state.ma)
-
-    const [HandledInputChange, Value] = useForm(activeMain)
-
-    const {title, descripcion} = Value
-
-    const [fileupload, setFileUpload] = useState()
 
     const dispatch = useDispatch()
 
     const [imag, setimag] = useState()
 
-    const handledFileXhange = (e) => {
-        const reader = new FileReader()
-        const file = e.target.files[0]
-
-
-        reader.readAsDataURL(file)
-        setimag(URL.createObjectURL(file) || '')
-
-        if (file) {
-            setFileUpload(file)
-        }
-        
-    }
-
-    const hanldedSubmit = (e) => {
-        e.preventDefault()
-
-        dispatch(startUpdateMain(title, descripcion, fileupload))
-    }
-
+    const {handleSubmit, getFieldProps, touched, errors, setFieldValue} = useFormik({
+        initialValues: {
+            title: activeMain?.title, 
+            descripcion: activeMain?.descripcion,
+            image: ''
+        },
+        enableReinitialize: true,
+        onSubmit: ({title, descripcion, image}) => {
+            dispatch(startUpdateMain(title, descripcion, image))
+        },
+        validationSchema: Yup.object({
+            title: Yup.string()
+                        .max(50, 'Debe de tener 50 caracteres o menos')
+                        .min(3, 'Debe de tener 3 caracteres o más')
+                        .required('Requerido'),
+            descripcion: Yup.string()
+                        .min(3, 'Debe de tener 3 caracteres o más')
+                        .required('Requerido')
+        })
+    })
 
     return (
         <>
@@ -48,41 +43,48 @@ export const MainModal = () => {
                     <div className="modal-body">
                         <div className="col-12">
                             <div className="mb-3" style = {{border: 'none'}}>
-                                <h5 className="text-white text-center mt-2">Editar Bosquejo</h5>
+                                <h5 className="text-white text-center mt-2">Imagen del carrusel</h5>
                                 <div className="card-body">
-                                    <form onSubmit = {hanldedSubmit} className = 'needs-validation'>
-                                        <div className="row">
-                                            <div className="col form-group">
-                                                <label>Título</label>
-                                                <input name = 'title' type="text" onChange = {HandledInputChange} value = {title || activeMain.title} placeholder = 'El amor del Señor' className = 'form-control bg-transparent text-white' />
-                                            </div>
-
-                                            <div className="col-5">
-                                                <div className="form-group">
-                                                    <label>Imagen</label>
-                                                    <input onChange = {handledFileXhange} type="File" className = 'form-control' />
-                                                </div> 
-                                            </div>
-                                        </div>
-
-                                        <div className="row">
-                                            <div className="col-12">
-                                                <div className="form-group  d-flex justify-content-center">
-                                                    <img src = {imag || activeMain.image || ''} className="img-fluid rounded" alt="" style = {{ cursor: 'pointer', maxHeight: '225px'}} />
-                                                </div> 
-                                            </div>
-                                        </div>
-
+                                    <form onSubmit = {handleSubmit}>
                                         <div className = 'row'>
-                                            <div className="col-12">
-                                                <div>
+                                            <div className="col-6">
+                                                <div className="form-group">
+                                                    <label>Título</label>
+                                                    <input type="text" className = 'form-control bg-transparent text-white' {...getFieldProps('title')} />
+                                                    {touched.title && errors.title && <span style={{color: 'red'}}>{errors.title}</span>}
+                                                </div>
+                                            </div>
+
+                                            <div className="col-6">
+                                                <div className="form-group">
                                                     <label>Descripción</label>
-                                                    <input type="text" className='form-control' placeholder='Dios has sido muy bueno' onChange={HandledInputChange} value={descripcion || activeMain.descripcion} name = 'descripcion' />
+                                                    <input type="text" placeholder='Dios tiene todo el control' className = 'form-control bg-transparent text-white' {...getFieldProps('descripcion')} />
+                                                    {touched.descripcion && errors.descripcion && <span style={{color: 'red'}}>{errors.descripcion}</span>}
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <button className = 'btn btn-outline-primary form-control mt-4'>Guardar</button>
+                                        <div className="row">
+                                            <div className="col-12">
+                                                <div className="form-group">
+                                                    <label>Imagen</label>
+                                                    <input type="file" className='form-control bg-transparent text-white' name='image' onChange={(e) => {
+                                                        setFieldValue('image', e.currentTarget.files[0], setimag(URL.createObjectURL(e.currentTarget.files[0]) || ''))
+                                                    }} />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="row">
+                                            <div className="col-12">
+                                                <div className="form-group d-flex justify-content-center">
+                                                    {/* <img src = {imag} style = {{ cursor: 'pointer', height: '200px', maxWidth: '400px' }} className = 'img-fluid rounded' alt=''/> */}
+                                                    <img src = {imag || activeMain?.image} className="img-fluid rounded" alt="" style = {{ cursor: 'pointer', maxHeight: '225px'}} />
+                                                </div> 
+                                            </div>
+                                        </div>
+
+                                    <button type='submit' className = 'btn btn-outline-primary form-control my-3'>Guardar</button>
                                     </form>
                                 </div>
                             </div>

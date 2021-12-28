@@ -2,7 +2,11 @@ import { Types } from "../types/Types";
 
 const initialState = {
     Peticiones: null,
-    activePetitions: ''
+    PeticionesUser: null,
+    PeticionSinCuenta: null,
+    activePetitions: '',
+    activePetitionesUser: '',
+    activePetitionSinCuenta: '',
 }
 
 export const petitionsReducer = (state = initialState, action) => {
@@ -11,6 +15,18 @@ export const petitionsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 Peticiones: action.payload
+            }
+
+        case Types.ptgetPetitionesUser:
+            return {
+                ...state,
+                PeticionesUser: action.payload
+            }
+
+        case Types.ptgetPetitionSinCuenta:
+            return {
+                ...state,
+                PeticionSinCuenta: action.payload
             }
 
         case Types.ptcreatePetition:
@@ -28,17 +44,29 @@ export const petitionsReducer = (state = initialState, action) => {
                 activePetitions: action.payload
             }
 
+        case Types.ptSetPetitionesUser:
+            return {
+                ...state,
+                activePetitionesUser: action.payload
+            }
+
+        case Types.ptSetPetitionSinCuenta:
+            return {
+                ...state,
+                activePetitionSinCuenta: action.payload
+            }
+
         case Types.ptClearSetPetition:
             return {
                 ...state,
-                activePetitions: null
+                activePetitions: ''
             }
 
         case Types.ptUpdatePetition:
             return {
                 ...state,
                 Peticiones: state.Peticiones.map(
-                    e => (e.id ===  action.payload.id) ? action.payload : e
+                    e => (e._id ===  action.payload._id) ? action.payload : e
                 )
             }  
             
@@ -46,9 +74,27 @@ export const petitionsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 Peticiones: state.Peticiones.filter( 
-                    e => (e.id !== state.activePetitions.id)
+                    e => (e._id !== state.activePetitions._id)
                 ),
-                activeSerie: null
+                activePetitions: ''
+            }
+
+        case Types.ptDeletePetitionesUser:
+            return {
+                ...state,
+                PeticionesUser: state.PeticionesUser.filter( 
+                    e => (e._id !== state.activePetitionesUser._id)
+                ),
+                activePetitionesUser: ''
+            }
+
+        case Types.ptDeletePetitionSinCuenta:
+            return {
+                ...state,
+                PeticionSinCuenta: state.PeticionSinCuenta.filter( 
+                    e => (e._id !== state.activePetitionSinCuenta._id)
+                ),
+                activePetitionSinCuenta: ''
             }
     
         default:

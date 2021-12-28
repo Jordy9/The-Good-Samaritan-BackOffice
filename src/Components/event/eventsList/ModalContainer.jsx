@@ -2,6 +2,8 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
 import { SetActiveEvent, startDeleteEvento } from '../../../action/event'
+import h2p from 'html2plaintext'
+import moment from 'moment'
 
 export const ModalContainer = (props) => {
 
@@ -25,11 +27,6 @@ export const ModalContainer = (props) => {
         }).then((result) => {
           if (result.isConfirmed) {
             dispatch(startDeleteEvento())
-            Swal.fire(
-              'Eliminado!',
-              'Usuario eliminado exitosamente',
-              'success'
-            )
           }
         })
       }
@@ -37,8 +34,8 @@ export const ModalContainer = (props) => {
         <>
           <tr>
               <th>{title}</th>
-              <td>{date}</td>
-              <td>{descripcion}</td>
+              <td>{moment(date).format('MMMM Do YYYY, h:mm a')}</td>
+              <td>{h2p(descripcion).slice(0, 40) + '...'}</td>
               <td><img src = {image} alt="" style = {{height: '60px', width: '60px'}} /></td>
               <td>
                   <button onClick = {handledSet} className = 'btn btn-outline-primary mr-1 mt-2' data-bs-toggle="modal" data-bs-target="#exampleModal4" style = {{borderRadius: '100%'}}><i className="bi bi-eye" style = {{color: '#0D6EFD'}}></i></button>

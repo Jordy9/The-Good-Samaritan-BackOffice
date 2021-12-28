@@ -1,8 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux';
+import { startGetMiniSeries } from '../../../action/miniSerie';
 import { MiniSerieModal } from '../modal/MiniSerieModal';
 import { ModalListContainer } from './ModalListContainer';
 
 export const MiniSeriesList = () => {
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(startGetMiniSeries())
+
+  }, [dispatch])
 
     return (
         <>

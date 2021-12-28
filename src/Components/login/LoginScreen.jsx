@@ -6,7 +6,7 @@ import { useForm } from '../../hooks/useForm'
 
 export const LoginScreen = () => {
     const [HandledInputChange, {correo, contrasena, recuerdame}] = useForm({
-        correo: 'Jordy@gmail.com',
+        correo: 'xilero23@gmail.com',
         contrasena: '123456', 
         recuerdame: '', 
     })

@@ -1,9 +1,5 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import { CreateUser } from './createUser/CreateUser'
-import { DeleteUser } from './createUser/DeleteUser'
-import { SeeUser } from './createUser/SeeUser'
-import { DatatableUser } from './datatable/DatatableUser'
 import { Modal } from './modal/Modal'
 import { ModalUser } from './modal/ModalUser'
 import { UserList } from './userList/UserList'
@@ -28,7 +24,6 @@ export const Dashboard = () => {
             <CreateUser />
             <Modal />
             <ModalUser />
-            <SeeUser />
         </>
     )
 }

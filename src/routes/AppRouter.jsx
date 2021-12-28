@@ -6,12 +6,15 @@ import {
     Redirect
 } from 'react-router-dom';
 import { startAuthCheking, startGetUsers } from '../action/auth';
+import { startGetCapsules } from '../action/capsule';
+import { startGetContact } from '../action/contact';
 import { startGetEventos } from '../action/event';
 import { startGetGallery } from '../action/gallery';
 import { startGetMains } from '../action/main';
 import { startGetMiniSeries } from '../action/miniSerie';
-import { startGetPetitions } from '../action/petition';
+import { startGetPetitionesUser, startGetPetitions, startGetPetitionSinCuenta } from '../action/petition';
 import { startGetBosquejos } from '../action/sketch';
+import { startGetYoutube } from '../action/youtubeImage';
 import { startGetZoom } from '../action/zoom';
 import { Footer } from '../Components/footer/Footer';
 import { LoginScreen } from '../Components/login/LoginScreen';
@@ -32,10 +35,15 @@ export const AppRouter = () => {
         dispatch(startGetMiniSeries())
         dispatch(startGetBosquejos())
         dispatch(startGetPetitions())
+        dispatch(startGetPetitionesUser())
+        dispatch(startGetPetitionSinCuenta())
         dispatch(startGetEventos())
         dispatch(startGetZoom())
         dispatch(startGetMains())
         dispatch(startGetGallery())
+        dispatch(startGetCapsules())
+        dispatch(startGetContact())
+        // dispatch(startGetYoutube())
     }, [dispatch])
 
 

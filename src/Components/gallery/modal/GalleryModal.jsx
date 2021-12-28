@@ -1,41 +1,40 @@
 import React, { useState } from 'react'
-import { useForm } from '../../../hooks/useForm'
 import { useDispatch, useSelector } from 'react-redux'
 import { startUpdateGallery } from '../../../action/gallery'
+import { useFormik } from 'formik';
+import * as Yup from 'yup'
 
 export const GalleryModal = () => {
     const {activeGallery} = useSelector(state => state.ga)
-
-    const [HandledInputChange, Value] = useForm(activeGallery)
-
-    const {title} = Value
-
-    const [fileupload, setFileUpload] = useState()
 
     const dispatch = useDispatch()
 
     const [imag, setimag] = useState()
 
-    const handledFileXhange = (e) => {
-        const reader = new FileReader()
-        const file = e.target.files[0]
-
-
-        reader.readAsDataURL(file)
-        setimag(URL.createObjectURL(file) || '')
-
-        if (file) {
-            setFileUpload(file)
-        }
-        
-    }
-
-    const hanldedSubmit = (e) => {
-        e.preventDefault()
-
-        dispatch(startUpdateGallery(title, fileupload))
-    }
-
+    const {handleSubmit, getFieldProps, touched, errors, setFieldValue} = useFormik({
+        initialValues: {
+            title: activeGallery?.title,
+            image: '',
+            height: activeGallery?.height,
+            width: activeGallery?.width
+        },
+        enableReinitialize: true,
+        onSubmit: ({title, image, height, width}) => {
+            dispatch(startUpdateGallery(title, image, height, width))
+        },
+        validationSchema: Yup.object({
+            title: Yup.string()
+                        .max(50, 'Debe de tener 50 caracteres o menos')
+                        .min(3, 'Debe de tener 3 caracteres o más')
+                        .required('Requerido'),
+            height: Yup.number()
+                        .min(1, 'La altura no puede ser menor a 1')
+                        .required('Requerido'),
+            width: Yup.number()
+                        .min(1, 'El ancho no puede ser menor a 1')
+                        .required('Requerido'),   
+        })
+    })
 
     return (
         <>
@@ -48,19 +47,41 @@ export const GalleryModal = () => {
                     <div className="modal-body">
                         <div className="col-12">
                             <div className="mb-3" style = {{border: 'none'}}>
-                                <h5 className="text-white text-center mt-2">Editar Bosquejo</h5>
+                                <h5 className="text-white text-center mt-2">Editar imagen de la galería</h5>
                                 <div className="card-body">
-                                    <form onSubmit = {hanldedSubmit} className = 'needs-validation'>
+                                    <form onSubmit = {handleSubmit} className = 'needs-validation'>
                                         <div className="row">
                                             <div className="col form-group">
                                                 <label>Título</label>
-                                                <input name = 'title' type="text" onChange = {HandledInputChange} value = {title || activeGallery.title} placeholder = 'El amor del Señor' className = 'form-control bg-transparent text-white' />
+                                                <input {...getFieldProps('title')} placeholder = 'El amor al Señor' type="text" className = 'form-control bg-transparent text-white' />
+                                                {touched.title && errors.title && <span style={{color: 'red'}}>{errors.title}</span>}
                                             </div>
 
                                             <div className="col-5">
                                                 <div className="form-group">
                                                     <label>Imagen</label>
-                                                    <input onChange = {handledFileXhange} type="File" className = 'form-control' />
+                                                    <input type="file" className='form-control bg-transparent text-white' name='image' onChange={(e) => {
+                                                        setFieldValue('image', e.currentTarget.files[0], setimag(URL.createObjectURL(e.currentTarget.files[0]) || ''))
+                                                    }} />
+                                                    {touched.image && errors.image && <span style={{color: 'red'}}>{errors.image}</span>}
+                                                </div> 
+                                            </div>
+                                        </div>
+
+                                        <div className="row">
+                                            <div className="col-6">
+                                                <div className="form-group">
+                                                    <label>Altura</label>
+                                                    <input {...getFieldProps('height')} type="number" className = 'form-control bg-transparent text-white' />
+                                                    {touched.height && errors.height && <span style={{color: 'red'}}>{errors.height}</span>}
+                                                </div> 
+                                            </div>
+
+                                            <div className="col-6">
+                                                <div className="form-group">
+                                                    <label>Ancho</label>
+                                                    <input {...getFieldProps('width')} type="number" className = 'form-control bg-transparent text-white' />
+                                                    {touched.width && errors.width && <span style={{color: 'red'}}>{errors.width}</span>}
                                                 </div> 
                                             </div>
                                         </div>
@@ -73,7 +94,7 @@ export const GalleryModal = () => {
                                             </div>
                                         </div>
 
-                                        <button className = 'btn btn-outline-primary form-control mt-4'>Guardar</button>
+                                        <button type='submit' className = 'btn btn-outline-primary form-control mt-4'>Guardar</button>
                                     </form>
                                 </div>
                             </div>

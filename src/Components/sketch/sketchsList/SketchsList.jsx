@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux';
+import { startGetBosquejos } from '../../../action/sketch';
 import { SketchModal } from '../modal/SketchModal';
 import { ModalListContainer } from './ModalListContainer';
 
 export const SketchsList = () => {
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(startGetBosquejos())
+  }, [dispatch])
 
     return (
         <>

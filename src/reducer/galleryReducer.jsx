@@ -38,7 +38,7 @@ export const galleryReducer = (state = initialState, action) => {
             return {
                 ...state,
                 Gallery: state.Gallery.map(
-                    e => (e.id ===  action.payload.id) ? action.payload : e
+                    e => (e._id ===  action.payload._id) ? action.payload : e
                 )
             }  
             
@@ -46,7 +46,7 @@ export const galleryReducer = (state = initialState, action) => {
             return {
                 ...state,
                 Gallery: state.Gallery.filter( 
-                    e => (e.id !== state.activeGallery.id)
+                    e => (e._id !== state.activeGallery._id)
                 ),
                 activeSerie: null
             }

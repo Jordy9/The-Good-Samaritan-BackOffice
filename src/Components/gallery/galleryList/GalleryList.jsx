@@ -1,8 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux';
+import { startGetGallery } from '../../../action/gallery';
 import { GalleryModal } from '../modal/GalleryModal';
 import { ModalListContainer } from './ModalListContainer';
 
 export const GalleryList = () => {
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(startGetGallery())
+
+  }, [dispatch])
 
     return (
         <>

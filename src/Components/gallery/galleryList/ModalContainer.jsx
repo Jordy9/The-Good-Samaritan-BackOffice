@@ -25,11 +25,6 @@ export const ModalContainer = (props) => {
         }).then((result) => {
           if (result.isConfirmed) {
             dispatch(startDeleteGallery())
-            Swal.fire(
-              'Eliminado!',
-              'Usuario eliminado exitosamente',
-              'success'
-            )
           }
         })
       }

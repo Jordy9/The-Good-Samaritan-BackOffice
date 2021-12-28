@@ -1,5 +1,28 @@
 export const Types = {
 
+    ytgetYoutube: '[YT] get Youtube',
+    ytcreateYoutube: '[YT] create Youtube',
+    ytSetYoutube: '[YT] set Youtube',
+    ytSetYoutubeForm: '[YT] set Youtube form',
+    ytClearSetYoutube: '[YT] clear set Youtube',
+    ytUpdateYoutube: '[YT] update Youtube',
+    ytDeleteYoutube: '[YT] delete Youtube',
+    // 
+    cogetContacts: '[CO] get Contacts',
+    cocreateContact: '[CO] create Contact',
+    coSetContact: '[CO] set Contact',
+    coSetContactForm: '[CO] set Contact form',
+    coClearSetContact: '[CO] clear set Contact',
+    coUpdateContact: '[CO] update Contact',
+    coDeleteContact: '[CO] delete Contact',
+    // 
+    cagetCapsules: '[CA] get Capsules',
+    catcreateCapsule: '[CA] create Capsule',
+    catSetCapsule: '[CA] set Capsule',
+    catClearSetCapsule: '[CA] clear set Capsule',
+    catUpdateCapsule: '[CA] update Capsule',
+    catDeleteCapsule: '[CA] delete Capsule',
+    // 
     gagetGallerys: '[GA] get Gallerys',
     gacreateGallery: '[GA] create Gallery',
     gaSetGallery: '[GA] set Gallery',
@@ -33,12 +56,18 @@ export const Types = {
     evDeleteEvent: '[EV] delete Event',
     // 
     ptgetPetitions: '[PT] get Petitions',
+    ptgetPetitionesUser: '[PT] get PetitionesUser',
+    ptgetPetitionSinCuenta: '[PT] get Petition Sin Cuenta',
     ptcreatePetition: '[PT] create Petition',
     ptSetPetition: '[PT] set Petition',
+    ptSetPetitionesUser: '[PT] set Petitiones User',
+    ptSetPetitionSinCuenta: '[PT] set Petition Sin Cuenta',
     ptSetPetitionForm: '[PT] set Petition form',
     ptClearSetPetition: '[PT] clear set Petition',
     ptUpdatePetition: '[PT] update Petition',
     ptDeletePetition: '[PT] delete Petition',
+    ptDeletePetitionesUser: '[PT] delete Petitiones User',
+    ptDeletePetitionSinCuenta: '[PT] delete Petition Sin Cuenta',
     // 
     usSetUser: '[US] set user',
     // 

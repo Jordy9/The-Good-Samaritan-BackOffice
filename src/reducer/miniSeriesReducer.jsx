@@ -38,7 +38,7 @@ export const miniSeriesReducer = (state = initialState, action) => {
             return {
                 ...state,
                 miniSeries: state.miniSeries.map(
-                    e => (e.id ===  action.payload.id) ? action.payload : e
+                    e => (e._id ===  action.payload._id) ? action.payload : e
                 )
             }  
             
@@ -46,7 +46,7 @@ export const miniSeriesReducer = (state = initialState, action) => {
             return {
                 ...state,
                 miniSeries: state.miniSeries.filter( 
-                    e => (e.id !== state.activeSerie.id)
+                    e => (e._id !== state.activeSerie._id)
                 ),
                 activeSerie: null
             }

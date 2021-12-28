@@ -44,7 +44,22 @@ export const startCreateMain = (title, descripcion, file) => {
                 dispatch(createMain(body))
 
                 console.log(body)
-                Swal.fire('Exito', 'Mini Serie creada exitosamente', 'success');
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 10000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  return Toast.fire({
+                    icon: 'success',
+                    title: 'Carrusel creado correctamente'
+                  })
                 
             }
     }
@@ -101,8 +116,23 @@ export const startUpdateMain = (title, descripcion, fileupload) => {
         
                         if (body.ok) {
         
-                            dispatch(updateMain(activeMain))
-                            Swal.fire('Exito', 'Usuario actualizado exitosamente', 'success')
+                            dispatch(updateMain(body.carrusel))
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 10000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                              })
+                              
+                              return Toast.fire({
+                                icon: 'success',
+                                title: 'Carrusel actualizado correctamente'
+                              })
                         }
                 
                     } else {
@@ -120,8 +150,23 @@ export const startUpdateMain = (title, descripcion, fileupload) => {
 
                 if (body.ok) {
 
-                    dispatch(updateMain(activeMain))
-                    Swal.fire('Exito', 'Usuario actualizado exitosamente', 'success')
+                    dispatch(updateMain(body.carrusel))
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 10000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'success',
+                        title: 'Carrusel actualizado correctamente'
+                      })
                 }
             }
 
@@ -149,12 +194,44 @@ export const startDeleteMain = () => {
     
             if(resp.ok) {
                 dispatch(deleteMain(activeMain))
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 10000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  return Toast.fire({
+                    icon: 'success',
+                    title: 'Carrusel eliminado correctamente'
+                  })
             }
         } else {
             const resp = await fetchConToken(`carrusel/${activeMain._id}`, activeMain, 'DELETE')
     
             if(resp.ok) {
                 dispatch(deleteMain(activeMain))
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 10000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  return Toast.fire({
+                    icon: 'success',
+                    title: 'Carrusel eliminado correctamente'
+                  })
             }
         }
 

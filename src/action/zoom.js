@@ -55,7 +55,22 @@ export const startCreateZoom = (title, date, file) => {
                     dispatch(createZoom(body))
 
                     console.log(body)
-                    Swal.fire('Exito', 'Mini Serie creada exitosamente', 'success');
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 10000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'success',
+                        title: 'Zoom creado correctamente'
+                      })
                     
                 }
             }
@@ -74,7 +89,22 @@ export const startCreateZoom = (title, date, file) => {
                 dispatch(createZoom(body))
 
                 console.log(body)
-                Swal.fire('Exito', 'Mini Serie creada exitosamente', 'success');
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 10000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  return Toast.fire({
+                    icon: 'success',
+                    title: 'Zoom actualizado correctamente'
+                  })
                 
             }
         }

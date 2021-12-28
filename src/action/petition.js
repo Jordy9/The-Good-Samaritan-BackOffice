@@ -3,7 +3,6 @@ import { Types } from "../types/Types"
 import Swal from "sweetalert2"
 
 
-
 export const startGetPetitions = () => {
     return async(dispatch) => {
         const resp = await fetchSinToken('peticion')
@@ -22,14 +21,65 @@ const Petitions = (peticiones) => ({
     payload: peticiones
 })
 
-export const startCreatePetition = (title, date, descripcion) => {
+export const startGetPetitionesUser = () => {
+    return async(dispatch) => {
+        const resp = await fetchSinToken('peticionesUser')
+        const body = await resp.json()
+
+        console.log(body)
+
+        if(body.ok) {
+            dispatch(PetitionesUser(body.peticionesUser))
+        }
+    }
+}
+
+const PetitionesUser = (peticiones) => ({
+    type: Types.ptgetPetitionesUser,
+    payload: peticiones
+})
+
+export const startGetPetitionSinCuenta = () => {
+    return async(dispatch) => {
+        const resp = await fetchSinToken('peticionSinCuenta')
+        const body = await resp.json()
+
+        console.log(body)
+
+        if(body.ok) {
+            dispatch(PetitionSinCuenta(body.peticiones))
+        }
+    }
+}
+
+const PetitionSinCuenta = (peticiones) => ({
+    type: Types.ptgetPetitionSinCuenta,
+    payload: peticiones
+})
+
+export const startCreatePetition = (title, date, descripcion, name, number) => {
     return async(dispatch) => {
 
-        const resp = await fetchConToken('peticion', {title, date, descripcion}, 'POST');
+        const resp = await fetchConToken('peticion', {title, date, descripcion, name, number}, 'POST');
         const body = await resp.json()
 
         dispatch(createPetition(body))
-        Swal.fire('Exito', 'Mini Serie creada exitosamente', 'success');
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 10000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          
+          return Toast.fire({
+            icon: 'success',
+            title: 'Petición creada correctamente'
+          })
         
     }
 }
@@ -41,6 +91,16 @@ const createPetition = (peticiones) => ({
 
 export const SetActivePetition = (peticiones) => ({
     type: Types.ptSetPetition,
+    payload: peticiones
+});
+
+export const SetActivePetitionesUser = (peticiones) => ({
+    type: Types.ptSetPetitionesUser,
+    payload: peticiones
+});
+
+export const SetActivePetitionSinCuenta = (peticiones) => ({
+    type: Types.ptSetPetitionSinCuenta,
     payload: peticiones
 });
 
@@ -60,8 +120,23 @@ export const startUpdatePetition = (title, date, descripcion) => {
 
         if (body.ok) {
 
-            dispatch(updatePetition(activePetitions))
-            Swal.fire('Exito', 'Usuario actualizado exitosamente', 'success')
+            dispatch(updatePetition(body.peticion))
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 10000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              return Toast.fire({
+                icon: 'success',
+                title: 'Petición actualizada correctamente'
+              })
         } else {
             console.log(body.errors)
             Swal.fire('Error', body.errors, 'error')
@@ -84,6 +159,22 @@ export const startDeletePetition = () => {
 
         if(resp.ok) {
             dispatch(deletePetition(activePetitions))
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 10000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              return Toast.fire({
+                icon: 'success',
+                title: 'Petición eliminada correctamente'
+              })
         }
     }
 
@@ -91,5 +182,73 @@ export const startDeletePetition = () => {
 
 const deletePetition = (peticiones) => ({
     type: Types.ptDeletePetition,
+    payload: peticiones
+})
+
+export const startDeletePetitionesUser = () => {
+    return async(dispatch, getState) => {
+        const {activePetitionesUser} = getState().pt
+
+        const resp = await fetchConToken(`peticionesUser/${activePetitionesUser._id}`, activePetitionesUser, 'DELETE')
+
+        if(resp.ok) {
+            dispatch(deletePetitionesUser(activePetitionesUser))
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 10000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              return Toast.fire({
+                icon: 'success',
+                title: 'Petición eliminada correctamente'
+              })
+        }
+    }
+
+}
+
+const deletePetitionesUser = (peticiones) => ({
+    type: Types.ptDeletePetitionesUser,
+    payload: peticiones
+})
+
+export const startDeletePetitionSinCuenta = () => {
+    return async(dispatch, getState) => {
+        const {activePetitionSinCuenta} = getState().pt
+
+        const resp = await fetchConToken(`peticionSinCuenta/${activePetitionSinCuenta._id}`, activePetitionSinCuenta, 'DELETE')
+
+        if(resp.ok) {
+            dispatch(deletePetitionSinCuenta(activePetitionSinCuenta))
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 10000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              return Toast.fire({
+                icon: 'success',
+                title: 'Petición eliminada correctamente'
+              })
+        }
+    }
+
+}
+
+const deletePetitionSinCuenta = (peticiones) => ({
+    type: Types.ptDeletePetitionSinCuenta,
     payload: peticiones
 })

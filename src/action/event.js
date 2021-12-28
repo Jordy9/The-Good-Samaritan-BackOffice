@@ -4,13 +4,13 @@ import { Types } from "../types/Types"
 import Swal from "sweetalert2"
 
 
-
 export const startGetEventos = () => {
     return async(dispatch) => {
         const resp = await fetchSinToken('evento')
         const body = await resp.json()
 
         if(body.ok) {
+            // console.log(prepareEvents(body.eventos))
             dispatch(Eventos(body.eventos))
         }
     }
@@ -44,7 +44,22 @@ export const startCreateEvento = (title, date, file, descripcion) => {
                 dispatch(createEvento(body))
 
                 console.log(body)
-                Swal.fire('Exito', 'Mini Serie creada exitosamente', 'success');
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 10000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  return Toast.fire({
+                    icon: 'success',
+                    title: 'Evento creado correctamente'
+                  })
                 
             }
     }
@@ -101,8 +116,23 @@ export const startUpdateEvento = (title, date, descripcion, fileupload) => {
         
                         if (body.ok) {
         
-                            dispatch(updateEvento(activeEvent))
-                            Swal.fire('Exito', 'Usuario actualizado exitosamente', 'success')
+                            dispatch(updateEvento(body.evento))
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 10000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                              })
+                              
+                              return Toast.fire({
+                                icon: 'success',
+                                title: 'Evento actualizado correctamente'
+                              })
                         }
                 
                     } else {
@@ -120,8 +150,23 @@ export const startUpdateEvento = (title, date, descripcion, fileupload) => {
 
                 if (body.ok) {
 
-                    dispatch(updateEvento(activeEvent))
-                    Swal.fire('Exito', 'Usuario actualizado exitosamente', 'success')
+                    dispatch(updateEvento(body.evento))
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 10000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'success',
+                        title: 'Evento actualizado correctamente'
+                      })
                 }
             }
 
@@ -145,16 +190,48 @@ export const startDeleteEvento = () => {
         if(activeEvent.idImage) {
             await axios.delete(`http://localhost:4000/api/image/upload/${activeEvent.idImage}`, {headers: {'x-token': token}})
 
-            const resp = await fetchConToken(`evento/${activeEvent._id}`, activeEvent, 'DELETE')
+            const resp = await fetchConToken(`evento/${activeEvent.id}`, activeEvent, 'DELETE')
     
             if(resp.ok) {
                 dispatch(deleteEvento(activeEvent))
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 10000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  return Toast.fire({
+                    icon: 'success',
+                    title: 'Evento eliminado correctamente'
+                  })
             }
         } else {
             const resp = await fetchConToken(`evento/${activeEvent._id}`, activeEvent, 'DELETE')
     
             if(resp.ok) {
                 dispatch(deleteEvento(activeEvent))
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 10000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  return Toast.fire({
+                    icon: 'success',
+                    title: 'Evento eliminado correctamente'
+                  })
             }
         }
 

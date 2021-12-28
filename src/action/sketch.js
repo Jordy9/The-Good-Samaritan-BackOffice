@@ -21,7 +21,7 @@ const Bosquejos = (bosquejos) => ({
     payload: bosquejos
 })
 
-export const startCreateBosquejo = (title, date, file, descripcion) => {
+export const startCreateBosquejo = (title, date, descripcion, file) => {
     return async(dispatch) => {
 
         const token = localStorage.getItem('token') || '';
@@ -44,8 +44,22 @@ export const startCreateBosquejo = (title, date, file, descripcion) => {
                 dispatch(createBosquejo(body))
 
                 console.log(body)
-                Swal.fire('Exito', 'Mini Serie creada exitosamente', 'success');
-                
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 10000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  return Toast.fire({
+                    icon: 'success',
+                    title: 'Bosquejo creado correctamente'
+                  })                
             }
     }
 }
@@ -101,8 +115,23 @@ export const startUpdateBosquejo = (title, date, descripcion, fileupload) => {
         
                         if (body.ok) {
         
-                            dispatch(updateBosquejo(activeBosquejo))
-                            Swal.fire('Exito', 'Usuario actualizado exitosamente', 'success')
+                            dispatch(updateBosquejo(body.bosquejo))
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 10000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                              })
+                              
+                              return Toast.fire({
+                                icon: 'success',
+                                title: 'Bosquejo actualizado correctamente'
+                              })
                         }
                 
                     } else {
@@ -119,9 +148,23 @@ export const startUpdateBosquejo = (title, date, descripcion, fileupload) => {
                 const body = await resp.json()
 
                 if (body.ok) {
-
-                    dispatch(updateBosquejo(activeBosquejo))
-                    Swal.fire('Exito', 'Usuario actualizado exitosamente', 'success')
+                    dispatch(updateBosquejo(body.bosquejo))
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 10000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'success',
+                        title: 'Bosquejo actualizado correctamente'
+                      })
                 }
             }
 
@@ -149,12 +192,44 @@ export const startDeleteBosquejo = () => {
     
             if(resp.ok) {
                 dispatch(deleteBosquejo(activeBosquejo))
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 10000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  return Toast.fire({
+                    icon: 'success',
+                    title: 'Bosquejo eliminado correctamente'
+                  })
             }
         } else {
             const resp = await fetchConToken(`bosquejo/${activeBosquejo._id}`, activeBosquejo, 'DELETE')
     
             if(resp.ok) {
                 dispatch(deleteBosquejo(activeBosquejo))
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 10000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  return Toast.fire({
+                    icon: 'success',
+                    title: 'Bosquejo eliminado correctamente'
+                  })
             }
         }
 

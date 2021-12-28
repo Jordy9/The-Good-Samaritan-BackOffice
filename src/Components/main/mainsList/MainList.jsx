@@ -1,8 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux';
+import { startGetMains } from '../../../action/main';
 import { MainModal } from '../modal/MainModal';
 import { ModalListContainer } from './ModalListContainer';
 
 export const MainList = () => {
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(startGetMains())
+
+  }, [dispatch])
 
     return (
         <>

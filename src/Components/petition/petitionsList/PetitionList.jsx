@@ -1,8 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux';
+import { startGetPetitions } from '../../../action/petition';
 import {PetitionModal} from '../modal/PetitionModal'
+import { PetitionModalUser } from '../modal/PetitionModalUser';
 import { ModalListContainer } from './ModalListContainer';
 
 export const PetitionList = () => {
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(startGetPetitions())
+  }, [dispatch])
+
 
     return (
         <>

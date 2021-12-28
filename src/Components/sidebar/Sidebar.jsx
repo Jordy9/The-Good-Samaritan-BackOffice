@@ -47,12 +47,23 @@ export const Sidebar = () => {
                 </ul>
 
                 <Offcanvas.Header>
+                    <Offcanvas.Title>Cápsulas</Offcanvas.Title>
+                </Offcanvas.Header>
+
+                <ul className="list-group list-group-flush">
+                    <NavLink to = '/Capsule' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-activity"> </i>Cápsula</NavLink>
+                    <NavLink to = '/CapsulesList' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-list-ul"> </i>Listado de Cápsulas</NavLink>
+                </ul>
+
+                <Offcanvas.Header>
                     <Offcanvas.Title>Peticiones</Offcanvas.Title>
                 </Offcanvas.Header>
 
                 <ul className="list-group list-group-flush">
                     <NavLink to = '/Petition' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-pencil-square"> </i>Petición</NavLink>
                     <NavLink to = '/PetitionsList' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-list-ul"> </i>Listado de Peticiónes</NavLink>
+                    <NavLink to = '/PetitionsListUser' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-list-ul"> </i>Listado de Peticiónes de usuarios</NavLink>
+                    <NavLink to = '/PetitionsListwhithoutAccount' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-list-ul"> </i>Listado de Peticiónes de usuarios sin cuenta</NavLink>
                 </ul>
 
                 <Offcanvas.Header>
@@ -90,6 +101,23 @@ export const Sidebar = () => {
                     <NavLink to = '/Gallery-images' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-images"> </i>Galería de imagenes</NavLink>
                     <NavLink to = '/GalleryList' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-list-ul"> </i>Listado de la galería</NavLink>                
                 </ul>
+
+                <Offcanvas.Header>
+                    <Offcanvas.Title>Listado de Contácto</Offcanvas.Title>
+                </Offcanvas.Header>
+
+                <ul className="list-group list-group-flush">        
+                    <NavLink to = '/ContactList' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-list-ul"> </i>Listado de Contácto</NavLink>
+                </ul>
+
+                {/* <Offcanvas.Header>
+                    <Offcanvas.Title>Youtube Links</Offcanvas.Title>
+                </Offcanvas.Header>
+
+                <ul className="list-group list-group-flush">   
+                    <NavLink to = '/LinkYoutube' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i class="bi bi-link-45deg"> </i>Link de videos de youtube</NavLink>
+                    <NavLink to = '/YoutubeList' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-list-ul"> </i>Listado de links de videos de youtube</NavLink>                
+                </ul> */}
 
                 </Offcanvas.Body>
             </Offcanvas>

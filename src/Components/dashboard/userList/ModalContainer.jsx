@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
-import { startDeleteUser } from '../../../action/auth'
+import { ActiverUser, startDeleteUser } from '../../../action/auth'
 import { SetActiveUser } from '../../../action/user'
 
 export const ModalContainer = (props) => {
@@ -16,6 +16,7 @@ export const ModalContainer = (props) => {
 
     const Handleddelete = () => {
       dispatch(SetActiveUser(props))
+      dispatch(ActiverUser(props))
         Swal.fire({
           title: '¿Esta seguro que desea eliminar este usuario?',
           icon: 'warning',
@@ -25,12 +26,7 @@ export const ModalContainer = (props) => {
           confirmButtonText: 'Eliminar'
         }).then((result) => {
           if (result.isConfirmed) {
-            dispatch(startDeleteUser())
-            Swal.fire(
-              'Eliminado!',
-              'Usuario eliminado exitosamente',
-              'success'
-            )
+            dispatch(startDeleteUser(props))
           }
         })
       }

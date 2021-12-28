@@ -38,7 +38,7 @@ export const mainReducer = (state = initialState, action) => {
             return {
                 ...state,
                 Mains: state.Mains.map(
-                    e => (e.id ===  action.payload.id) ? action.payload : e
+                    e => (e._id ===  action.payload._id) ? action.payload : e
                 )
             }  
             
@@ -46,7 +46,7 @@ export const mainReducer = (state = initialState, action) => {
             return {
                 ...state,
                 Mains: state.Mains.filter( 
-                    e => (e.id !== state.activeMain.id)
+                    e => (e._id !== state.activeMain._id)
                 ),
                 activeSerie: null
             }

@@ -4,7 +4,6 @@ import { Types } from "../types/Types"
 import Swal from "sweetalert2"
 
 
-
 export const startGetMiniSeries = () => {
     return async(dispatch) => {
         const resp = await fetchSinToken('miniserie')
@@ -42,9 +41,25 @@ export const startCreateMiniSerie = (title, date, descripcion, file) => {
                 const body = await resp.json()
 
                 dispatch(getMiniSerie(body))
-
+                
+                
                 console.log(body)
-                Swal.fire('Exito', 'Mini Serie creada exitosamente', 'success');
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 10000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  return Toast.fire({
+                    icon: 'success',
+                    title: 'Mini Serie creada correctamente'
+                  })
                 
             }
     }
@@ -81,7 +96,7 @@ export const startUpdateSerie = (title, date, descripcion, fileupload) => {
                 formData.append('file', fileupload)
                 formData.append('title', activeSerie.title)
     
-                const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}})
+                const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}, onUploadProgress(e) {console.log(e)}})
     
                 console.log(res)
     
@@ -99,8 +114,23 @@ export const startUpdateSerie = (title, date, descripcion, fileupload) => {
     
                     if (body.ok) {
     
-                        dispatch(updateSerie(activeSerie))
-                        Swal.fire('Exito', 'Usuario actualizado exitosamente', 'success')
+                        dispatch(updateSerie(body.miniSerie))
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 10000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                              toast.addEventListener('mouseenter', Swal.stopTimer)
+                              toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                          })
+                          
+                          return Toast.fire({
+                            icon: 'success',
+                            title: 'Mini Serie actualizada correctamente'
+                          })
                     }
             
                 } else {
@@ -118,8 +148,23 @@ export const startUpdateSerie = (title, date, descripcion, fileupload) => {
 
             if (body.ok) {
 
-                dispatch(updateSerie(activeSerie))
-                Swal.fire('Exito', 'Usuario actualizado exitosamente', 'success')
+                dispatch(updateSerie(body.miniSerie))
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 10000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  return Toast.fire({
+                    icon: 'success',
+                    title: 'Mini Serie actualizada correctamente'
+                  })
             } else {
                 console.log(body.errors)
                 Swal.fire('Error', body.errors, 'error')
@@ -147,12 +192,44 @@ export const startUpdateSerie = (title, date, descripcion, fileupload) => {
         
                 if(resp.ok) {
                     dispatch(deleteSerie(activeSerie))
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 10000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'success',
+                        title: 'Mini Serie eliminada correctamente'
+                      })
                 }
             } else {
                 const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, activeSerie, 'DELETE')
         
                 if(resp.ok) {
                     dispatch(deleteSerie(activeSerie))
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 10000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'success',
+                        title: 'Mini Serie eliminada correctamente'
+                      })
                 }
             }
     

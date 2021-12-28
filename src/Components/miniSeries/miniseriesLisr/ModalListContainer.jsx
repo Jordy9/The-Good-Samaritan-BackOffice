@@ -12,7 +12,7 @@ export const ModalListContainer = () => {
                     ?
                     miniSeries.map(series => {
                         return (
-                            <ModalContainer key = {series.id} {...series} />
+                            <ModalContainer key = {series._id} {...series} />
                         )
                     })
                     :

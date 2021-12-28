@@ -38,7 +38,7 @@ export const bosquejosReducer = (state = initialState, action) => {
             return {
                 ...state,
                 Bosquejos: state.Bosquejos.map(
-                    e => (e.id ===  action.payload.id) ? action.payload : e
+                    e => (e._id ===  action.payload._id) ? action.payload : e
                 )
             }  
             
@@ -46,7 +46,7 @@ export const bosquejosReducer = (state = initialState, action) => {
             return {
                 ...state,
                 Bosquejos: state.Bosquejos.filter( 
-                    e => (e.id !== state.activeBosquejo.id)
+                    e => (e._id !== state.activeBosquejo._id)
                 ),
                 activeSerie: null
             }
