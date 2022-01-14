@@ -1,5 +1,14 @@
 export const Types = {
 
+    chtImageMessage: '[CHT] image message',
+    chtClearState: '[CHT] clear state',
+    chtUsuariosCargados: '[CHT] usuarios cargados',
+    chtCargarChat: '[CHT] cargar chat',
+    chtActiveChat: '[CHT] active chat',
+    chtActiveMessage: '[CHT] active message',
+    // 
+    skStatusSocket: '[SK] status socket',
+    // 
     ytgetYoutube: '[YT] get Youtube',
     ytcreateYoutube: '[YT] create Youtube',
     ytSetYoutube: '[YT] set Youtube',
@@ -7,6 +16,7 @@ export const Types = {
     ytClearSetYoutube: '[YT] clear set Youtube',
     ytUpdateYoutube: '[YT] update Youtube',
     ytDeleteYoutube: '[YT] delete Youtube',
+    ytPaginateYoutube: '[YT] paginate Youtube',
     // 
     cogetContacts: '[CO] get Contacts',
     cocreateContact: '[CO] create Contact',
@@ -15,6 +25,7 @@ export const Types = {
     coClearSetContact: '[CO] clear set Contact',
     coUpdateContact: '[CO] update Contact',
     coDeleteContact: '[CO] delete Contact',
+    coPaginateContact: '[CO] paginate Contact',
     // 
     cagetCapsules: '[CA] get Capsules',
     catcreateCapsule: '[CA] create Capsule',
@@ -22,6 +33,7 @@ export const Types = {
     catClearSetCapsule: '[CA] clear set Capsule',
     catUpdateCapsule: '[CA] update Capsule',
     catDeleteCapsule: '[CA] delete Capsule',
+    caPaginateCapsule: '[CA] paginate Capsule',
     // 
     gagetGallerys: '[GA] get Gallerys',
     gacreateGallery: '[GA] create Gallery',
@@ -30,6 +42,7 @@ export const Types = {
     gaClearSetGallery: '[GA] clear set Gallery',
     gaUpdateGallery: '[GA] update Gallery',
     gaDeleteGallery: '[GA] delete Gallery',
+    gaPaginateGallery: '[GA] paginate Gallery',
     // 
     magetMains: '[Ma] get Mains',
     macreateMain: '[Ma] create Main',
@@ -38,6 +51,7 @@ export const Types = {
     maClearSetMain: '[Ma] clear set Main',
     maUpdateMain: '[Ma] update Main',
     maDeleteMain: '[Ma] delete Main',
+    maPaginateMain: '[MA] paginate Main',
     // 
     zmgetZooms: '[ZM] get Zooms',
     zmcreateZoom: '[ZM] create Zoom',
@@ -54,6 +68,7 @@ export const Types = {
     evClearSetEvent: '[EV] clear set Event',
     evUpdateEvent: '[EV] update Event',
     evDeleteEvent: '[EV] delete Event',
+    evPaginateEvent: '[EV] paginate Event',
     // 
     ptgetPetitions: '[PT] get Petitions',
     ptgetPetitionesUser: '[PT] get PetitionesUser',
@@ -68,6 +83,9 @@ export const Types = {
     ptDeletePetition: '[PT] delete Petition',
     ptDeletePetitionesUser: '[PT] delete Petitiones User',
     ptDeletePetitionSinCuenta: '[PT] delete Petition Sin Cuenta',
+    ptPaginatePetition: '[PT] paginate petition',
+    ptPaginatePetitionUser: '[PT] paginate petition user',
+    ptPaginatePetitionSinCuenta: '[PT] paginate petition sin cuenta',
     // 
     usSetUser: '[US] set user',
     // 
@@ -78,6 +96,7 @@ export const Types = {
     miClearSetSerie: '[Mi] clear set serie',
     miUpdateSerie: '[Mi] update serie',
     miDeleteSerie: '[Mi] delete serie',
+    miPaginateSerie: '[Mi] paginate serie',
     // 
     sktgetBosquejos: '[SKT] get bosquejos',
     sktcreateBosquejo: '[SKT] create bosquejo',
@@ -85,6 +104,7 @@ export const Types = {
     sktClearSetBosquejo: '[SKT] clear set bosquejo',
     sktUpdateBosquejo: '[SKT] update bosquejo',
     sktDeleteBosquejo: '[SKT] delete bosquejo',
+    sktPaginateBosquejo: '[SKT] paginate bosquejo',
     // 
     authChecking: '[Auth] checking login state',
     authCheckingFinish: '[Auth] finish checking login state',
@@ -92,9 +112,12 @@ export const Types = {
     authStartRegister: '[Auth] start register ',
     authStartGetUsers: '[Auth] start Get Users ',
     authStartUpdateUser: '[Auth] start update User ',
+    authStartUpdateUserAdmin: '[Auth] start update User admin ',
     authStartDeleteUser: '[Auth] start delete User ',
     authStartTokenRenew: '[Auth] start token renew ',
     authLogout: '[Auth] logout ',
     authSetUser: '[Auth set user',
-    authDeleteUser: '[Auth] delete user'
+    authSetUserAdmin: '[Auth set user admin',
+    authDeleteUser: '[Auth] delete user',
+    authPaginateUser: '[Auth] paginate user'
 }

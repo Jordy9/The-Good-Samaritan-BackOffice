@@ -38,6 +38,10 @@ export const MiniSerieModal = () => {
         })
     })
 
+    const handledImage = () => {
+        document.querySelector('#fileSelector').click()
+      }
+
     return (
         <>
             <div className="modal fade" id="exampleModal3" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -64,7 +68,7 @@ export const MiniSerieModal = () => {
                                             <div className="col-6">
                                                 <div className="form-group">
                                                     <label>Fecha</label>
-                                                    <input type="date" className = 'form-control bg-transparent text-white' {...getFieldProps('date')} />
+                                                    <input type="datetime-local" className = 'form-control bg-transparent text-white' {...getFieldProps('date')} />
                                                     {touched.date && errors.date && <span style={{color: 'red'}}>{errors.date}</span>}
                                                 </div>
                                             </div>
@@ -74,8 +78,9 @@ export const MiniSerieModal = () => {
                                             <div className="col-12">
                                                 <div className="form-group">
                                                     <label>Imagen</label>
-                                                    <input type="file" className='form-control bg-transparent text-white' name='image' onChange={(e) => {
-                                                        setFieldValue('image', e.currentTarget.files[0], setimag(URL.createObjectURL(e.currentTarget.files[0]) || ''))
+                                                    <button type='button' className='btn btn-outline-primary form-control' onClick={handledImage}>Seleccionar imagen</button>
+                                                    <input id='fileSelector' hidden = {true} type="file" className='form-control bg-transparent text-white' name='image' onChange={(e) => {
+                                                        setFieldValue('image', e.currentTarget.files[0], (e.currentTarget.files[0]) ? setimag(URL.createObjectURL(e.currentTarget.files[0]) || '') : setimag())
                                                     }} />
                                                     {touched.image && errors.image && <span style={{color: 'red'}}>{errors.image}</span>}
                                                 </div>

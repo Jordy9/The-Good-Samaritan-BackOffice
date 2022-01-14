@@ -4,6 +4,7 @@ const initialState = {
     checking: true,
     users: [],
     activeUser: '',
+    paginate: []
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -24,6 +25,18 @@ export const authReducer = (state = initialState, action) => {
                 ]
             }
 
+        case Types.authSetUser:
+            return {
+                ...state,
+                activeUser: action.payload
+            }
+
+        case Types.authPaginateUser:
+            return {
+                ...state,
+                paginate: action.payload
+            }
+
         case Types.authStartGetUsers:
             return {
                 ...state,
@@ -37,10 +50,13 @@ export const authReducer = (state = initialState, action) => {
                     e => (e.id ===  action.payload.id) ? action.payload : e
                 )
             }
-        case Types.authSetUser:
+            
+        case Types.authStartUpdateUserAdmin:
             return {
                 ...state,
-                activeUser: action.payload
+                users: state.users.map(
+                    e => (e.id ===  action.payload.id) ? action.payload : e
+                )
             }
 
         case Types.authStartDeleteUser:

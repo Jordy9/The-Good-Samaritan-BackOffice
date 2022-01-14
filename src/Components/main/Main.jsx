@@ -28,17 +28,14 @@ export const Main = () => {
             setimag()
         },
         validationSchema: Yup.object({
-            title: Yup.string()
-                        .max(50, 'Debe de tener 50 caracteres o menos')
-                        .min(3, 'Debe de tener 3 caracteres o más')
-                        .required('Requerido'),
-            descripcion: Yup.string()
-                        .min(3, 'Debe de tener 3 caracteres o más')
-                        .required('Requerido'),
             image: Yup.string()
                         .required('Requerido'),
         })
     })
+
+    const handledImage = () => {
+        document.querySelector('#fileSelector').click()
+      }
 
     return (
         <>
@@ -49,15 +46,15 @@ export const Main = () => {
                     <div className="form-group">
                         <label>Título</label>
                         <input type="text" className = 'form-control bg-transparent text-white' {...getFieldProps('title')} />
-                        {touched.title && errors.title && <span style={{color: 'red'}}>{errors.title}</span>}
                     </div>
                 </div>
 
                 <div className="col-5">
                     <div className="form-group">
                         <label>Imagen</label>
-                        <input type="file" id='image' className='form-control bg-transparent text-white' name='image' onChange={(e) => {
-                            setFieldValue('image', e.currentTarget.files[0], setimag(URL.createObjectURL(e.currentTarget.files[0]) || ''))
+                        <button type='button' className='btn btn-outline-primary form-control' onClick={handledImage}>Seleccionar imagen</button>
+                        <input id='fileSelector' hidden = {true} type="file" className='form-control bg-transparent text-white' name='image' onChange={(e) => {
+                            setFieldValue('image', e.currentTarget.files[0], (e.currentTarget.files[0]) ? setimag(URL.createObjectURL(e.currentTarget.files[0]) || '') : setimag())
                         }} />
                         {touched.image && errors.image && <span style={{color: 'red'}}>{errors.image}</span>}
                     </div>
@@ -67,7 +64,6 @@ export const Main = () => {
                     <div className="form-group">
                         <label>Descripción</label>
                         <input type="text" className = 'form-control bg-transparent text-white' {...getFieldProps('descripcion')} />
-                        {touched.descripcion && errors.descripcion && <span style={{color: 'red'}}>{errors.descripcion}</span>}
                     </div>
                 </div>
             </div>

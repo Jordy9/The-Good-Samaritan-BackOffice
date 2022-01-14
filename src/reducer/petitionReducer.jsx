@@ -7,6 +7,9 @@ const initialState = {
     activePetitions: '',
     activePetitionesUser: '',
     activePetitionSinCuenta: '',
+    Paginate: [],
+    PaginateUser: [],
+    PaginateSinCuenta: []
 }
 
 export const petitionsReducer = (state = initialState, action) => {
@@ -54,6 +57,24 @@ export const petitionsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 activePetitionSinCuenta: action.payload
+            }
+
+        case Types.ptPaginatePetition:
+            return {
+                ...state,
+                Paginate: action.payload
+            }
+
+        case Types.ptPaginatePetitionUser:
+            return {
+                ...state,
+                PaginateUser: action.payload
+            }
+
+        case Types.ptPaginatePetitionSinCuenta:
+            return {
+                ...state,
+                PaginateSinCuenta: action.payload
             }
 
         case Types.ptClearSetPetition:

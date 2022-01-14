@@ -2,7 +2,8 @@ import { Types } from "../types/Types";
 
 const initialState = {
     Gallery: null,
-    activeGallery: ''
+    activeGallery: '',
+    Paginate: []
 }
 
 export const galleryReducer = (state = initialState, action) => {
@@ -26,6 +27,12 @@ export const galleryReducer = (state = initialState, action) => {
             return {
                 ...state,
                 activeGallery: action.payload
+            }
+
+        case Types.gaPaginateGallery:
+            return {
+                ...state,
+                Paginate: action.payload
             }
 
         case Types.gaClearSetGallery:

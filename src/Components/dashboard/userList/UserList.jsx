@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Pagination } from '../../pagination/Pagination';
 import { ModalListContainer } from './ModalListContainer';
 
 export const UserList = () => {
+
+    const [currentPage, setCurrentPage] = useState(0)
 
     return (
         <>
@@ -15,9 +18,11 @@ export const UserList = () => {
               </tr>
             </thead>
             <tbody>
-              <ModalListContainer />
+              <ModalListContainer currentPage = {currentPage} />
             </tbody>
           </table>
+
+          <Pagination setCurrentPage = {setCurrentPage} />
         </>
     )
 }

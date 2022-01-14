@@ -3,6 +3,7 @@ import { Types } from "../types/Types";
 const initialState = {
     miniSeries: null,
     activeSerie: '',
+    Paginate: []
 }
 
 export const miniSeriesReducer = (state = initialState, action) => {
@@ -26,6 +27,12 @@ export const miniSeriesReducer = (state = initialState, action) => {
             return {
                 ...state,
                 activeSerie: action.payload
+            }
+
+        case Types.miPaginateSerie:
+            return {
+                ...state,
+                Paginate: action.payload
             }
 
         case Types.miClearSetSerie:

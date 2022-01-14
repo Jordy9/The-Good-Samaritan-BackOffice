@@ -4,17 +4,37 @@ import { Types } from "../types/Types"
 import Swal from "sweetalert2"
 
 
-export const startGetEventos = () => {
+// export const startGetEventos = () => {
+//     return async(dispatch) => {
+//         const resp = await fetchSinToken('evento')
+//         const body = await resp.json()
+
+//         if(body.ok) {
+//             // console.log(prepareEvents(body.eventos))
+//             dispatch(Eventos(body.eventos))
+//         }
+//     }
+// }
+
+export const startGetPaginateEventos = (page) => {
     return async(dispatch) => {
-        const resp = await fetchSinToken('evento')
+        const resp = await fetchSinToken(`evento/eve?page=${page || 1}`)
         const body = await resp.json()
 
         if(body.ok) {
-            // console.log(prepareEvents(body.eventos))
             dispatch(Eventos(body.eventos))
+            dispatch(PaginateEventos({
+                page: body.page,
+                total: body.total
+            }))
         }
     }
 }
+
+const PaginateEventos = (eventos) => ({
+    type: Types.evPaginateEvent,
+    payload: eventos
+})
 
 const Eventos = (eventos) => ({
     type: Types.evgetEvents,

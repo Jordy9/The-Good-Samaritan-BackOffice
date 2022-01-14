@@ -2,19 +2,40 @@ import { fetchConToken, fetchSinToken } from "../helper/fetch"
 import axios from 'axios'
 import { Types } from "../types/Types"
 import Swal from "sweetalert2"
+import moment from "moment"
 
 
 
-export const startGetGallery = () => {
+// export const startGetGallery = () => {
+//     return async(dispatch) => {
+//         const resp = await fetchSinToken('galeria')
+//         const body = await resp.json()
+
+//         if(body.ok) {
+//             dispatch(Gallerys(body.galeria))
+//         }
+//     }
+// }
+
+export const startGetPaginateGallery = (page) => {
     return async(dispatch) => {
-        const resp = await fetchSinToken('galeria')
+        const resp = await fetchSinToken(`galeria/ga?page=${page || 1}`)
         const body = await resp.json()
 
         if(body.ok) {
             dispatch(Gallerys(body.galeria))
+            dispatch(PaginateGallery({
+                page: body.page,
+                total: body.total
+            }))
         }
     }
 }
+
+const PaginateGallery = (eventos) => ({
+    type: Types.gaPaginateGallery,
+    payload: eventos
+})
 
 const Gallerys = (galeria) => ({
     type: Types.gagetGallerys,
@@ -23,6 +44,8 @@ const Gallerys = (galeria) => ({
 
 export const startCreateGallery = (title, file, height, width) => {
     return async(dispatch) => {
+
+        const date = moment()
 
         const token = localStorage.getItem('token') || '';
 
@@ -38,7 +61,7 @@ export const startCreateGallery = (title, file, height, width) => {
             if(res.data.ok) {
                 const image = res.data.image.url
                 const idImage = res.data.image.id
-                const resp = await fetchConToken('galeria', {title, image, idImage, height, width}, 'POST');
+                const resp = await fetchConToken('galeria', {title, date, image, idImage, height, width}, 'POST');
                 const body = await resp.json()
 
                 dispatch(createGallery(body))
@@ -85,6 +108,8 @@ export const startUpdateGallery = (title, fileupload, height, width) => {
 
         const {activeGallery} = getState().ga
 
+        const date = activeGallery?.date
+
         console.log(activeGallery)
 
         const token = localStorage.getItem('token') || '';
@@ -111,7 +136,7 @@ export const startUpdateGallery = (title, fileupload, height, width) => {
                     if(res.data.ok) {
                         const image = res.data.image.url
                         const idImage = res.data.image.id
-                        const resp = await fetchConToken(`galeria/${activeGallery._id}`, {title, image, idImage, height, width}, 'PUT');
+                        const resp = await fetchConToken(`galeria/${activeGallery._id}`, {title, date, image, idImage, height, width}, 'PUT');
                         const body = await resp.json()
         
                         if (body.ok) {
@@ -145,7 +170,7 @@ export const startUpdateGallery = (title, fileupload, height, width) => {
             } else {
 
                 const {image, idImage} = activeGallery
-                const resp = await fetchConToken(`galeria/${activeGallery._id}`, {title, image, idImage, height, width}, 'PUT');
+                const resp = await fetchConToken(`galeria/${activeGallery._id}`, {title, date, image, idImage, height, width}, 'PUT');
                 const body = await resp.json()
 
                 if (body.ok) {

@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas'
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import './Sidebar.css'
 
 export const Sidebar = () => {
+
+    const {activeUser} = useSelector(state => state.auth)
 
         const [show, setShow] = useState(false);
       
@@ -16,7 +19,7 @@ export const Sidebar = () => {
 
             <Offcanvas show={show} onHide={handleClose}>
                 <Offcanvas.Header closeButton>
-                <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+                <Offcanvas.Title>{activeUser?.name} {activeUser?.lastName}</Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
 
@@ -110,14 +113,22 @@ export const Sidebar = () => {
                     <NavLink to = '/ContactList' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-list-ul"> </i>Listado de Contácto</NavLink>
                 </ul>
 
-                {/* <Offcanvas.Header>
+                <Offcanvas.Header>
                     <Offcanvas.Title>Youtube Links</Offcanvas.Title>
                 </Offcanvas.Header>
 
                 <ul className="list-group list-group-flush">   
-                    <NavLink to = '/LinkYoutube' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i class="bi bi-link-45deg"> </i>Link de videos de youtube</NavLink>
+                    <NavLink to = '/LinkYoutube' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-link-45deg"> </i>Link de videos de youtube</NavLink>
                     <NavLink to = '/YoutubeList' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-list-ul"> </i>Listado de links de videos de youtube</NavLink>                
-                </ul> */}
+                </ul>
+
+                <Offcanvas.Header>
+                    <Offcanvas.Title>Chat</Offcanvas.Title>
+                </Offcanvas.Header>
+
+                <ul className="list-group list-group-flush">   
+                    <NavLink to = '/Chat' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-chat-text-fill"> </i>Chat</NavLink>
+                </ul>
 
                 </Offcanvas.Body>
             </Offcanvas>

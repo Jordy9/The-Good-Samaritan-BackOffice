@@ -1,7 +1,8 @@
+import { useEffect } from 'react'
 import { Container, Nav, Navbar } from 'react-bootstrap'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { startLogout } from '../../action/auth'
+import { setActiveUser, startLogout } from '../../action/auth'
 import perfil1 from '../../heroes/Perfil1.jpg'
 import { Sidebar } from '../sidebar/Sidebar'
 import './Navb.css'
@@ -9,6 +10,8 @@ import './Navb.css'
 
 export const Navb = () => {
     const dispatch = useDispatch()
+
+    const {activeUser} = useSelector(state => state.auth)
 
     const handledLogout = () => {
         dispatch(startLogout())
@@ -33,7 +36,7 @@ export const Navb = () => {
 
                     <Nav>
                         {/* <i className="bi bi-person-circle" style = {{fontSize: '32px', cursor: 'pointer', color: 'white'}}></i> */}
-                        <NavLink to = '/Profile'><img src={perfil1} className = 'img-fluid rounded-circle' style = {{width: '32px', height: '32px', cursor: 'pointer', top: '5px', position: 'relative', padding: '0px', margin: '0px'}} alt="" /></NavLink>
+                        <NavLink onClick={() => dispatch(setActiveUser())} to = '/Profile'>{(activeUser?.urlImage) ? <img src={activeUser?.urlImage} className='img-fluid rounded-circle mt-2' style = {{width: '32px', height: '32px', cursor: 'pointer'}} alt='' /> : <i className="bi bi-person-circle" style = {{fontSize: '32px', cursor: 'pointer', color: 'white'}}></i>}</NavLink>
                         <NavLink to = '/Login' onClick = {handledLogout} className = 'nav-link mt-1'>Cerrar sesión</NavLink>
                     </Nav>
 

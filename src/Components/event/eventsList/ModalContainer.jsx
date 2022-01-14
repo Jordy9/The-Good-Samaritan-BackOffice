@@ -34,7 +34,7 @@ export const ModalContainer = (props) => {
         <>
           <tr>
               <th>{title}</th>
-              <td>{moment(date).format('MMMM Do YYYY, h:mm a')}</td>
+              <td>{(!date) ? '' : moment(date).format('MMMM Do YYYY, h:mm a')}</td>
               <td>{h2p(descripcion).slice(0, 40) + '...'}</td>
               <td><img src = {image} alt="" style = {{height: '60px', width: '60px'}} /></td>
               <td>

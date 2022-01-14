@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
-import { startGetCapsules } from '../../../action/capsule';
+import { startGetPaginateCapsules } from '../../../action/capsule';
 import { CapsuleModal } from '../modal/CapsuleModal';
+import { PaginateCapsule } from '../paginate/PaginateCapsule';
 import { ModalListContainer } from './ModalListContainer';
 
 export const CapsulesList = () => {
@@ -9,7 +10,7 @@ export const CapsulesList = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(startGetCapsules())
+    dispatch(startGetPaginateCapsules())
 
   }, [dispatch])
 
@@ -32,6 +33,8 @@ export const CapsulesList = () => {
           </table>
 
              <CapsuleModal />
+
+             <PaginateCapsule />
         </>
     )
 }

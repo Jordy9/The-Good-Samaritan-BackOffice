@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
-import { startGetBosquejos } from '../../../action/sketch';
+import { startGetPaginateBosquejos } from '../../../action/sketch';
 import { SketchModal } from '../modal/SketchModal';
+import { PaginateSketch } from '../paginate/PaginateSketch';
 import { ModalListContainer } from './ModalListContainer';
 
 export const SketchsList = () => {
@@ -9,7 +10,7 @@ export const SketchsList = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(startGetBosquejos())
+    dispatch(startGetPaginateBosquejos())
   }, [dispatch])
 
     return (
@@ -31,6 +32,8 @@ export const SketchsList = () => {
           </table>
 
              <SketchModal />
+
+             <PaginateSketch />
         </>
     )
 }

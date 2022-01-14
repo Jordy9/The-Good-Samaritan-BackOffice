@@ -1,6 +1,8 @@
 import { fetchConToken, fetchSinToken } from "../helper/fetch"
 import {Types} from '../types/Types';
 import Swal from 'sweetalert2'
+import axios from "axios";
+import { clearChat } from "./chat";
 
 
 export const startLogin = (email, password) => {
@@ -12,10 +14,11 @@ export const startLogin = (email, password) => {
             localStorage.setItem('token', body.token)
             localStorage.setItem('token-init-date', new Date().getTime());
 
-            dispatch(login({
+            await dispatch(login({
                 uid: body.uid,
                 name: body.name
             }))
+            dispatch(setActiveUser())
         } else {
             Swal.fire('Error', body.msg, 'error')
         }
@@ -44,6 +47,7 @@ export const startRegister = (name, lastName, age, date, email, address, country
                 tracking: false,
                 password: body?.password
             }))
+            await dispatch(setActiveUser(body.users))
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -86,18 +90,28 @@ const register = (user) => ({
     payload: user
 })
 
-export const startGetUsers = () => {
+export const startGetUsers = (page) => {
     return async(dispatch) => {
         const resp = await fetchConToken('auth');
         const body = await resp.json()
 
         if(body.ok) {
             dispatch(getUsers(body.users))
+            dispatch(setActiveUser(body.users))
+            dispatch(paginateuser({
+                page: body.page,
+                total: body.total
+            }))
         }
 
         console.log(body)
     }
 }
+
+const paginateuser = (paginate) => ({
+    type: Types.authPaginateUser,
+    payload: paginate
+})
 
 const getUsers = (users) => ({
     type: Types.authStartGetUsers,
@@ -113,7 +127,8 @@ export const startUpdateUser = (name, lastName, age, date, email, address, count
             const body = await resp.json()
 
         if(body.ok) {
-            dispatch(updateUser(user))
+            dispatch(updateUser(body.usuario))
+            dispatch(setActiveUser(body.usuario))
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -153,6 +168,233 @@ export const startUpdateUser = (name, lastName, age, date, email, address, count
 
 const updateUser = (user) => ({
     type: Types.authStartUpdateUser,
+    payload: user
+})
+
+export const startUpdateUserAdmin = (name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password, file) => {
+    return async(dispatch, getState) => {
+        const {activeUser} = getState().auth
+        
+            const user = activeUser
+            const token = localStorage.getItem('token') || '';
+
+        if(file) {
+            const formData = new FormData()
+            formData.append('file', file)
+            formData.append('title', name)
+
+            if (user?.urlImage) {
+                const ress = await axios.delete(`http://localhost:4000/api/image/upload/${user.idImage}`, {headers: {'x-token': token}})
+
+                if (ress.data.ok) {
+                    console.log(ress, 'eliminada esa imagen')
+    
+                    const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}})
+    
+                    if (res.data.ok) {
+                        const urlImage = res.data.image.url
+                        const idImage = res.data.image.id
+                    
+                        const resp = await fetchConToken(`auth/update/${user.id}`, {name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password, urlImage, idImage}, 'PUT')
+                        const body = await resp.json()
+    
+                        console.log(body.usuario)
+    
+                        if(body.ok) {
+                            dispatch(updateUserAdmin(body.usuario))
+                            dispatch(setActiveUser(body.usuario))
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 10000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                            })
+                        
+                            return Toast.fire({
+                                icon: 'success',
+                                title: 'Usuario actualizado correctamente'
+                            })
+                        } else {
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 10000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                            })
+                            
+                            return Toast.fire({
+                                icon: 'error',
+                                title: `${body.msg}`
+                            })
+                        }
+                    } else {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 10000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
+                        
+                        return Toast.fire({
+                            icon: 'error',
+                            title: `${res.data.msg}`
+                        })
+                    }
+                } else {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 10000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                    
+                    return Toast.fire({
+                        icon: 'error',
+                        title: `${ress.data.msg}`
+                    })
+                }
+
+            } else{
+                const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}})
+    
+                if (res.data.ok) {
+                    const urlImage = res.data.image.url
+                    const idImage = res.data.image.id
+                
+                    const resp = await fetchConToken(`auth/update/${user.id}`, {name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password, urlImage, idImage}, 'PUT')
+                    const body = await resp.json()
+
+                    console.log(body.usuario)
+
+                    if(body.ok) {
+                        dispatch(updateUserAdmin(body.usuario))
+                        dispatch(setActiveUser(body.usuario))
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 10000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
+                    
+                        return Toast.fire({
+                            icon: 'success',
+                            title: 'Usuario actualizado correctamente'
+                        })
+                    } else {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 10000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
+                        
+                        return Toast.fire({
+                            icon: 'error',
+                            title: `${body.msg}`
+                        })
+                    }
+                } else {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 10000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                    
+                    return Toast.fire({
+                        icon: 'error',
+                        title: `${res.data.msg}`
+                    })
+                }
+            }
+
+            
+        } else {
+            const urlImage = user.urlImage
+            const idImage = user.idImage
+            const resp = await fetchConToken(`auth/update/${user.id}`, {name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password, urlImage, idImage}, 'PUT')
+            const body = await resp.json()
+
+            console.log(body)
+
+            if(body.usuario) {
+                dispatch(updateUserAdmin(body.usuario))
+                dispatch(setActiveUser(body.usuario))
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 10000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+                
+                return Toast.fire({
+                    icon: 'success',
+                    title: 'Usuario actualizado correctamente'
+                })
+            } else {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 10000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+                
+                return Toast.fire({
+                    icon: 'error',
+                    title: `${body.msg}`
+                })
+            }
+        }
+    }
+}
+
+const updateUserAdmin = (user) => ({
+    type: Types.authStartUpdateUserAdmin,
     payload: user
 })
 
@@ -231,9 +473,28 @@ export const startLogout = () => {
         localStorage.removeItem('token')
         localStorage.removeItem('token-init-date')
         dispatch(logout())
+        dispatch(clearChat())
+        dispatch(startGetUsers())
     }
 }
 
 const logout = () => ({
     type: Types.authLogout
+})
+
+export const setActiveUser = () => {
+    return async(dispatch, getState) => {
+
+        const {uid, users} = getState().auth
+
+        const user = users?.find(user => user.id === uid)
+
+        dispatch(activeUser(user))
+        
+    }
+}
+
+const activeUser = (user) => ({
+    type: Types.authSetUser,
+    payload: user
 })

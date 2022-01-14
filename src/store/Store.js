@@ -3,14 +3,16 @@ import thunk from 'redux-thunk';
 import { authReducer } from '../reducer/authReducer';
 import { bosquejosReducer } from '../reducer/bosquejosReducer';
 import { capsulesReducer } from '../reducer/capsuleReducer';
+import { chatReducer } from '../reducer/chatReducer';
 import { contactReducer } from '../reducer/contactReducer';
 import { eventsReducer } from '../reducer/eventReducer';
 import { galleryReducer } from '../reducer/galleryReducer';
 import { mainReducer } from '../reducer/mainReducer';
 import { miniSeriesReducer } from '../reducer/miniSeriesReducer';
 import { petitionsReducer } from '../reducer/petitionReducer';
+import { socketReducer } from '../reducer/socketReducer';
 import { userReducer } from '../reducer/userReducer';
-// import { youtubeReducer } from '../reducer/youtubeReducer';
+import { youtubeReducer } from '../reducer/youtubeReducer';
 import { zoomReducer } from '../reducer/zoomReducer';
 
 
@@ -28,7 +30,9 @@ const reducers = combineReducers({
     ga: galleryReducer,
     ca: capsulesReducer,
     co: contactReducer,
-    // yt: youtubeReducer,
+    yt: youtubeReducer,
+    sk: socketReducer,
+    cht: chatReducer
 });
 
 export const store =  createStore(

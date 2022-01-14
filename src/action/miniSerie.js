@@ -4,16 +4,36 @@ import { Types } from "../types/Types"
 import Swal from "sweetalert2"
 
 
-export const startGetMiniSeries = () => {
+// export const startGetMiniSeries = () => {
+//     return async(dispatch) => {
+//         const resp = await fetchSinToken('miniserie')
+//         const body = await resp.json()
+
+//         if(body.ok) {
+//             dispatch(miniSeries(body.miniSeries))
+//         }
+//     }
+// }
+
+export const startGetPaginateMiniSeries = (page) => {
     return async(dispatch) => {
-        const resp = await fetchSinToken('miniserie')
+        const resp = await fetchSinToken(`miniserie/series?page=${page || 1}`)
         const body = await resp.json()
 
         if(body.ok) {
             dispatch(miniSeries(body.miniSeries))
+            dispatch(PaginateminiSeries({
+                page: body.page,
+                total: body.total
+            }))
         }
     }
 }
+
+const PaginateminiSeries = (series) => ({
+    type: Types.miPaginateSerie,
+    payload: series
+})
 
 const miniSeries = (series) => ({
     type: Types.migetSeries,

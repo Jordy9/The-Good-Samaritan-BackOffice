@@ -3,16 +3,36 @@ import axios from 'axios'
 import { Types } from "../types/Types"
 import Swal from "sweetalert2"
 
-export const startGetCapsules = () => {
+// export const startGetCapsules = () => {
+//     return async(dispatch) => {
+//         const resp = await fetchSinToken('capsule')
+//         const body = await resp.json()
+
+//         if(body.ok) {
+//             dispatch(Capsules(body.capsules))
+//         }
+//     }
+// }
+
+export const startGetPaginateCapsules = (page) => {
     return async(dispatch) => {
-        const resp = await fetchSinToken('capsule')
+        const resp = await fetchSinToken(`capsule/cap?page=${page || 1}`)
         const body = await resp.json()
 
         if(body.ok) {
             dispatch(Capsules(body.capsules))
+            dispatch(PaginateCapsules({
+                page: body.page,
+                total: body.total
+            }))
         }
     }
 }
+
+const PaginateCapsules = (capsules) => ({
+    type: Types.caPaginateCapsule,
+    payload: capsules
+})
 
 const Capsules = (capsules) => ({
     type: Types.cagetCapsules,

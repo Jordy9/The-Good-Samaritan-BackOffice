@@ -5,16 +5,36 @@ import Swal from "sweetalert2"
 
 
 
-export const startGetBosquejos = () => {
+// export const startGetBosquejos = () => {
+//     return async(dispatch) => {
+//         const resp = await fetchSinToken('bosquejo')
+//         const body = await resp.json()
+
+//         if(body.ok) {
+//             dispatch(Bosquejos(body.bosquejos))
+//         }
+//     }
+// }
+
+export const startGetPaginateBosquejos = (page) => {
     return async(dispatch) => {
-        const resp = await fetchSinToken('bosquejo')
+        const resp = await fetchSinToken(`bosquejo/bosquejos?page=${page || 1}`)
         const body = await resp.json()
 
         if(body.ok) {
             dispatch(Bosquejos(body.bosquejos))
+            dispatch(PaginateBosquejos({
+                page: body.page,
+                total: body.total
+            }))
         }
     }
 }
+
+const PaginateBosquejos = (bosquejos) => ({
+    type: Types.sktPaginateBosquejo,
+    payload: bosquejos
+})
 
 const Bosquejos = (bosquejos) => ({
     type: Types.sktgetBosquejos,

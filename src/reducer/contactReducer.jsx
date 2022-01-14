@@ -2,7 +2,8 @@ import { Types } from "../types/Types";
 
 const initialState = {
     Contactos: null,
-    activeContact: ''
+    activeContact: '',
+    Paginate: []
 }
 
 export const contactReducer = (state = initialState, action) => {
@@ -17,6 +18,12 @@ export const contactReducer = (state = initialState, action) => {
             return {
                 ...state,
                 activeContact: action.payload
+            } 
+
+        case Types.coPaginateContact:
+            return {
+                ...state,
+                Paginate: action.payload
             } 
             
         case Types.coDeleteContact:

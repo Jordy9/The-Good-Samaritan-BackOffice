@@ -2,7 +2,8 @@ import { Types } from "../types/Types";
 
 const initialState = {
     Eventos: null,
-    activeEvent: ''
+    activeEvent: '',
+    Paginate: []
 }
 
 export const eventsReducer = (state = initialState, action) => {
@@ -26,6 +27,12 @@ export const eventsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 activeEvent: action.payload
+            }
+
+        case Types.evPaginateEvent:
+            return {
+                ...state,
+                Paginate: action.payload
             }
 
         case Types.evClearSetEvent:

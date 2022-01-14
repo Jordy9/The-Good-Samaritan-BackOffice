@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
-import { startGetPetitions } from '../../../action/petition';
+import { startGetPaginateContact } from '../../../action/contact';
 import { ContactModal } from '../modal/ContactModal';
+import { PaginateContact } from '../paginate/PaginateContact';
 import { ModalListContainer } from './ModalListContainer';
 
 export const ContactList = () => {
@@ -9,7 +10,7 @@ export const ContactList = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(startGetPetitions())
+    dispatch(startGetPaginateContact())
   }, [dispatch])
 
 
@@ -30,6 +31,8 @@ export const ContactList = () => {
           </table>
 
              <ContactModal />
+
+             <PaginateContact />
           </>
     )
 }

@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
-import { startGetYoutube } from '../../../action/youtubeImage';
+import { startGetPaginateYoutube } from '../../../action/youtubeImage';
 import { YoutubeModal } from '../modal/YoutubeModal';
+import { PaginateYoutube } from '../paginate/PaginateYoutube';
 import { ModalListContainer } from './ModalListContainer';
 
 export const YoutubeList = () => {
@@ -9,7 +10,7 @@ export const YoutubeList = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(startGetYoutube())
+    dispatch(startGetPaginateYoutube())
 
   }, [dispatch])
 
@@ -30,6 +31,8 @@ export const YoutubeList = () => {
           </table>
 
              <YoutubeModal />
+
+             <PaginateYoutube />
         </>
     )
 }

@@ -2,7 +2,8 @@ import { Types } from "../types/Types";
 
 const initialState = {
     Capsules: null,
-    activeCapsule: ''
+    activeCapsule: '',
+    Paginate: []
 }
 
 export const capsulesReducer = (state = initialState, action) => {
@@ -26,6 +27,12 @@ export const capsulesReducer = (state = initialState, action) => {
             return {
                 ...state,
                 activeCapsule: action.payload
+            }
+
+        case Types.caPaginateCapsule:
+            return {
+                ...state,
+                Paginate: action.payload
             }
 
         case Types.catClearSetCapsule:

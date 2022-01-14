@@ -2,7 +2,8 @@ import { Types } from "../types/Types";
 
 const initialState = {
     Mains: null,
-    activeMain: ''
+    activeMain: '',
+    Paginate: []
 }
 
 export const mainReducer = (state = initialState, action) => {
@@ -26,6 +27,12 @@ export const mainReducer = (state = initialState, action) => {
             return {
                 ...state,
                 activeMain: action.payload
+            }
+
+        case Types.maPaginateMain:
+            return {
+                ...state,
+                Paginate: action.payload
             }
 
         case Types.maClearSetMain:

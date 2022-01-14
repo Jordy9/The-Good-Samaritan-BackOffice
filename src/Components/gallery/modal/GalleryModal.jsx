@@ -23,10 +23,6 @@ export const GalleryModal = () => {
             dispatch(startUpdateGallery(title, image, height, width))
         },
         validationSchema: Yup.object({
-            title: Yup.string()
-                        .max(50, 'Debe de tener 50 caracteres o menos')
-                        .min(3, 'Debe de tener 3 caracteres o más')
-                        .required('Requerido'),
             height: Yup.number()
                         .min(1, 'La altura no puede ser menor a 1')
                         .required('Requerido'),
@@ -35,6 +31,10 @@ export const GalleryModal = () => {
                         .required('Requerido'),   
         })
     })
+
+    const handledImage = () => {
+        document.querySelector('#fileSelector').click()
+      }
 
     return (
         <>
@@ -54,14 +54,14 @@ export const GalleryModal = () => {
                                             <div className="col form-group">
                                                 <label>Título</label>
                                                 <input {...getFieldProps('title')} placeholder = 'El amor al Señor' type="text" className = 'form-control bg-transparent text-white' />
-                                                {touched.title && errors.title && <span style={{color: 'red'}}>{errors.title}</span>}
                                             </div>
 
-                                            <div className="col-5">
+                                            <div className="col">
                                                 <div className="form-group">
                                                     <label>Imagen</label>
-                                                    <input type="file" className='form-control bg-transparent text-white' name='image' onChange={(e) => {
-                                                        setFieldValue('image', e.currentTarget.files[0], setimag(URL.createObjectURL(e.currentTarget.files[0]) || ''))
+                                                    <button type='button' className='btn btn-outline-primary form-control' onClick={handledImage}>Seleccionar imagen</button>
+                                                    <input id='fileSelector' hidden = {true} type="file" className='form-control bg-transparent text-white' name='image' onChange={(e) => {
+                                                        setFieldValue('image', e.currentTarget.files[0], (e.currentTarget.files[0]) ? setimag(URL.createObjectURL(e.currentTarget.files[0]) || '') : setimag())
                                                     }} />
                                                     {touched.image && errors.image && <span style={{color: 'red'}}>{errors.image}</span>}
                                                 </div> 

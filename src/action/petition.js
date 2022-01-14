@@ -3,54 +3,114 @@ import { Types } from "../types/Types"
 import Swal from "sweetalert2"
 
 
-export const startGetPetitions = () => {
-    return async(dispatch) => {
-        const resp = await fetchSinToken('peticion')
-        const body = await resp.json()
+// export const startGetPetitions = () => {
+//     return async(dispatch) => {
+//         const resp = await fetchSinToken('peticion')
+//         const body = await resp.json()
 
-        console.log(body)
+//         console.log(body)
+
+//         if(body.ok) {
+//             dispatch(Petitions(body.peticiones))
+//         }
+//     }
+// }
+
+export const startGetPaginatePetitions = (page) => {
+    return async(dispatch) => {
+        const resp = await fetchSinToken(`peticion/pet?page=${page || 1}`)
+        const body = await resp.json()
 
         if(body.ok) {
             dispatch(Petitions(body.peticiones))
+            dispatch(PaginatePetitions({
+                page: body.page,
+                total: body.total
+            }))
         }
     }
 }
+
+const PaginatePetitions = (peticiones) => ({
+    type: Types.ptPaginatePetition,
+    payload: peticiones
+})
 
 const Petitions = (peticiones) => ({
     type: Types.ptgetPetitions,
     payload: peticiones
 })
 
-export const startGetPetitionesUser = () => {
-    return async(dispatch) => {
-        const resp = await fetchSinToken('peticionesUser')
-        const body = await resp.json()
+// export const startGetPetitionesUser = () => {
+//     return async(dispatch) => {
+//         const resp = await fetchSinToken('peticionesUser')
+//         const body = await resp.json()
 
-        console.log(body)
+//         console.log(body)
+
+//         if(body.ok) {
+//             dispatch(PetitionesUser(body.peticionesUser))
+//         }
+//     }
+// }
+
+export const startGetPaginatePetitionUser = (page) => {
+    return async(dispatch) => {
+        const resp = await fetchSinToken(`peticionesUser/pet?page=${page || 1}`)
+        const body = await resp.json()
 
         if(body.ok) {
             dispatch(PetitionesUser(body.peticionesUser))
+            dispatch(PaginatePetitionUser({
+                page: body.page,
+                total: body.total
+            }))
         }
     }
 }
+
+const PaginatePetitionUser = (peticiones) => ({
+    type: Types.ptPaginatePetitionUser,
+    payload: peticiones
+})
 
 const PetitionesUser = (peticiones) => ({
     type: Types.ptgetPetitionesUser,
     payload: peticiones
 })
 
-export const startGetPetitionSinCuenta = () => {
-    return async(dispatch) => {
-        const resp = await fetchSinToken('peticionSinCuenta')
-        const body = await resp.json()
+// export const startGetPetitionSinCuenta = () => {
+//     return async(dispatch) => {
+//         const resp = await fetchSinToken('peticionSinCuenta')
+//         const body = await resp.json()
 
-        console.log(body)
+//         console.log(body)
+
+//         if(body.ok) {
+//             dispatch(PetitionSinCuenta(body.peticiones))
+//         }
+//     }
+// }
+
+export const startGetPaginatePetitionSinCuenta = (page) => {
+    return async(dispatch) => {
+        const resp = await fetchSinToken(`peticionSinCuenta/pet?page=${page || 1}`)
+        const body = await resp.json()
 
         if(body.ok) {
             dispatch(PetitionSinCuenta(body.peticiones))
+            dispatch(PaginatePetitionSinCuenta({
+                page: body.page,
+                total: body.total
+            }))
         }
     }
 }
+
+const PaginatePetitionSinCuenta = (peticiones) => ({
+    type: Types.ptPaginatePetitionSinCuenta,
+    payload: peticiones
+})
 
 const PetitionSinCuenta = (peticiones) => ({
     type: Types.ptgetPetitionSinCuenta,
@@ -118,6 +178,8 @@ export const startUpdatePetition = (title, date, descripcion) => {
         const resp = await fetchConToken(`peticion/${activePetitions._id}`, {title, date, descripcion}, 'PUT');
         const body = await resp.json()
 
+        console.log(body)
+
         if (body.ok) {
 
             dispatch(updatePetition(body.peticion))
@@ -139,7 +201,7 @@ export const startUpdatePetition = (title, date, descripcion) => {
               })
         } else {
             console.log(body.errors)
-            Swal.fire('Error', body.errors, 'error')
+            Swal.fire('Error', body.msg, 'error')
         }
 
     }

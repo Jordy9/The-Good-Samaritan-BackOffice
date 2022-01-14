@@ -2,7 +2,8 @@ import { Types } from "../types/Types";
 
 const initialState = {
     Bosquejos: null,
-    activeBosquejo: ''
+    activeBosquejo: '',
+    Paginate: []
 }
 
 export const bosquejosReducer = (state = initialState, action) => {
@@ -26,6 +27,12 @@ export const bosquejosReducer = (state = initialState, action) => {
             return {
                 ...state,
                 activeBosquejo: action.payload
+            }
+
+        case Types.sktPaginateBosquejo:
+            return {
+                ...state,
+                Paginate: action.payload
             }
 
         case Types.sktClearSetBosquejo:

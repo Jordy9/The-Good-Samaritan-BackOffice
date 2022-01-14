@@ -19,7 +19,7 @@ export const Modal = () => {
     const {handleSubmit, resetForm, getFieldProps, touched, errors} = useFormik({
         initialValues: {
             name: SetUser?.name, 
-            lastName: SetUser?.last, 
+            lastName: SetUser?.lastName, 
             age: SetUser?.age,
             date: SetUser?.date,
             email: SetUser?.email,

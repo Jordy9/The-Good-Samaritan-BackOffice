@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { startLogin } from '../../action/auth'
 import { useForm } from '../../hooks/useForm'
 
 export const LoginScreen = () => {
+
     const [HandledInputChange, {correo, contrasena, recuerdame}] = useForm({
-        correo: 'xilero23@gmail.com',
-        contrasena: '123456', 
+        correo: '',
+        contrasena: '', 
         recuerdame: '', 
     })
 
@@ -53,10 +54,6 @@ export const LoginScreen = () => {
 
                                     <button className = 'btn btn-outline-primary form-control my-3' style = {{borderRadius: '50px'}}>Iniciar sesión</button>
                                 </form>
-
-                                <div className = 'text-center my-4'>
-                                    <NavLink to = '/Home' style = {{borderRadius: '50px', textDecoration: 'none'}}>¿Aun no tienes una cuenta? Registrate</NavLink>
-                                </div>
                                 
                                 <div className = 'text-center'>
                                     <NavLink to = '/Home' style = {{borderRadius: '50px', textDecoration: 'none'}}>¿Olvidaste tu contraseña?</NavLink>

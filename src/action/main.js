@@ -2,19 +2,40 @@ import { fetchConToken, fetchSinToken } from "../helper/fetch"
 import axios from 'axios'
 import { Types } from "../types/Types"
 import Swal from "sweetalert2"
+import moment from "moment"
 
 
 
-export const startGetMains = () => {
+// export const startGetMains = () => {
+//     return async(dispatch) => {
+//         const resp = await fetchSinToken('carrusel')
+//         const body = await resp.json()
+
+//         if(body.ok) {
+//             dispatch(Mains(body.carrusel))
+//         }
+//     }
+// }
+
+export const startGetPaginateMains = (page) => {
     return async(dispatch) => {
-        const resp = await fetchSinToken('carrusel')
+        const resp = await fetchSinToken(`carrusel/ca?page=${page || 1}`)
         const body = await resp.json()
 
         if(body.ok) {
             dispatch(Mains(body.carrusel))
+            dispatch(PaginateMain({
+                page: body.page,
+                total: body.total
+            }))
         }
     }
 }
+
+const PaginateMain = (carrusel) => ({
+    type: Types.maPaginateMain,
+    payload: carrusel
+})
 
 const Mains = (carrusel) => ({
     type: Types.magetMains,
@@ -23,6 +44,8 @@ const Mains = (carrusel) => ({
 
 export const startCreateMain = (title, descripcion, file) => {
     return async(dispatch) => {
+
+        const date = moment()
 
         const token = localStorage.getItem('token') || '';
 
@@ -38,7 +61,7 @@ export const startCreateMain = (title, descripcion, file) => {
             if(res.data.ok) {
                 const image = res.data.image.url
                 const idImage = res.data.image.id
-                const resp = await fetchConToken('carrusel', {title, image, idImage, descripcion}, 'POST');
+                const resp = await fetchConToken('carrusel', {title, date, image, idImage, descripcion}, 'POST');
                 const body = await resp.json()
 
                 dispatch(createMain(body))
@@ -85,6 +108,8 @@ export const startUpdateMain = (title, descripcion, fileupload) => {
 
         const {activeMain} = getState().ma
 
+        const date = activeMain?.date
+
         console.log(activeMain)
 
         const token = localStorage.getItem('token') || '';
@@ -111,7 +136,7 @@ export const startUpdateMain = (title, descripcion, fileupload) => {
                     if(res.data.ok) {
                         const image = res.data.image.url
                         const idImage = res.data.image.id
-                        const resp = await fetchConToken(`carrusel/${activeMain._id}`, {title, image, idImage, descripcion}, 'PUT');
+                        const resp = await fetchConToken(`carrusel/${activeMain._id}`, {title, date, image, idImage, descripcion}, 'PUT');
                         const body = await resp.json()
         
                         if (body.ok) {
@@ -145,7 +170,7 @@ export const startUpdateMain = (title, descripcion, fileupload) => {
             } else {
 
                 const {image, idImage} = activeMain
-                const resp = await fetchConToken(`carrusel/${activeMain._id}`, {title, image, idImage, descripcion}, 'PUT');
+                const resp = await fetchConToken(`carrusel/${activeMain._id}`, {title, date, image, idImage, descripcion}, 'PUT');
                 const body = await resp.json()
 
                 if (body.ok) {

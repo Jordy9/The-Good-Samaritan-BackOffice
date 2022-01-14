@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
-import { startGetPetitions } from '../../../action/petition';
+import { startGetPaginatePetitionUser } from '../../../action/petition';
 import {PetitionModal} from '../modal/PetitionModal'
 import { PetitionModalUser } from '../modal/PetitionModalUser';
+import { PaginatePetitionUser } from '../paginate/PaginatePetitionUser';
 import { ModalListContainerUser } from './ModalListContainer';
 
 export const PetitionListUser = () => {
@@ -10,13 +11,13 @@ export const PetitionListUser = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(startGetPetitions())
+    dispatch(startGetPaginatePetitionUser())
   }, [dispatch])
 
 
     return (
         <>
-          <h1 style = {{marginTop: '70px'}}>Listado de Peticiones</h1>
+          <h1 style = {{marginTop: '70px'}}>Listado de Peticiones de Usuarios</h1>
           <table className="table text-white bg-dark text-center">
             <thead>
               <tr>
@@ -33,6 +34,8 @@ export const PetitionListUser = () => {
             </tbody>
           </table>
              <PetitionModalUser />
+
+             <PaginatePetitionUser />
         </>
     )
 }

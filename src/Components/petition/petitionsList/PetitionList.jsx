@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
-import { startGetPetitions } from '../../../action/petition';
+import { startGetPaginatePetitions } from '../../../action/petition';
 import {PetitionModal} from '../modal/PetitionModal'
 import { PetitionModalUser } from '../modal/PetitionModalUser';
+import { PaginatePetition } from '../paginate/PaginatePetition';
 import { ModalListContainer } from './ModalListContainer';
 
 export const PetitionList = () => {
@@ -10,7 +11,7 @@ export const PetitionList = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(startGetPetitions())
+    dispatch(startGetPaginatePetitions())
   }, [dispatch])
 
 
@@ -32,6 +33,8 @@ export const PetitionList = () => {
           </table>
 
              <PetitionModal />
+
+             <PaginatePetition />
         </>
     )
 }

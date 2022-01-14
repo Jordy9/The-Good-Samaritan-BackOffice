@@ -27,6 +27,7 @@ import { PetitionListUser } from '../Components/petition/petitionsListUser/Petit
 import { PetitionListSinCuenta } from '../Components/petition/petitionsListSinCuenta/PetitionListSinCuenta';
 import { Youtube } from '../Components/youtube/Youtube';
 import { YoutubeList } from '../Components/youtube/youtubeList/YoutubeList';
+import { ChatPage } from '../Components/chat/ChatPage';
 
 export const AuthRouter = () => {
     return (
@@ -56,8 +57,9 @@ export const AuthRouter = () => {
                     <Route path = '/GalleryList' component = {GalleryList} />
                     <Route path = '/Profile' component = {Profile} />
                     <Route path = '/ContactList' component = {Contact} />
-                    {/* <Route path = '/LinkYoutube' component = {Youtube} />
-                    <Route path = '/YoutubeList' component = {YoutubeList} /> */}
+                    <Route path = '/LinkYoutube' component = {Youtube} />
+                    <Route path = '/YoutubeList' component = {YoutubeList} />
+                    <Route path = '/Chat' component = {ChatPage} />
                     
                     <Redirect to = '/Dashboard' />
                 </Switch>

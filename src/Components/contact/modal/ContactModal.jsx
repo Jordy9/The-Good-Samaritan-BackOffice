@@ -4,7 +4,7 @@ import { Editor } from '@tinymce/tinymce-react'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import moment from 'moment';
-import { startCreateContact, startGetContact } from '../../../action/contact';
+import { startCreateContact, startGetPaginateContact } from '../../../action/contact';
 import tinymce from 'tinymce/tinymce';
 
 export const ContactModal = () => {
@@ -12,7 +12,7 @@ export const ContactModal = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(startGetContact())
+        dispatch(startGetPaginateContact())
     }, [dispatch])
 
     const newDate = moment().format('yyyy-MM-DDTHH:mm')

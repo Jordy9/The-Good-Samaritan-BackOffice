@@ -30,10 +30,12 @@ export const EventModal = () => {
             dispatch(startUpdateEvento(title, date, descripcion, image))
         },
         validationSchema: Yup.object({
-            date: Yup.string()
-                    .required('Requerido')
         })
     })
+
+    const handledImage = () => {
+        document.querySelector('#fileSelector').click()
+      }
 
     return (
         <>
@@ -71,8 +73,9 @@ export const EventModal = () => {
                                             <div className="col-12">
                                                 <div className="form-group">
                                                     <label>Imagen</label>
-                                                    <input type="file" className='form-control bg-transparent text-white' name='image' onChange={(e) => {
-                                                        setFieldValue('image', e.currentTarget.files[0], setimag(URL.createObjectURL(e.currentTarget.files[0]) || ''))
+                                                    <button type='button' className='btn btn-outline-primary form-control' onClick={handledImage}>Seleccionar imagen</button>
+                                                    <input id='fileSelector' hidden = {true} type="file" className='form-control bg-transparent text-white' name='image' onChange={(e) => {
+                                                        setFieldValue('image', e.currentTarget.files[0], (e.currentTarget.files[0]) ? setimag(URL.createObjectURL(e.currentTarget.files[0]) || '') : setimag())
                                                     }} />
                                                     {touched.image && errors.image && <span style={{color: 'red'}}>{errors.image}</span>}
                                                 </div>

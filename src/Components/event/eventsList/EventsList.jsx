@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
-import { startGetEventos } from '../../../action/event';
+import { startGetPaginateEventos } from '../../../action/event';
 import { EventModal } from '../modal/EventModal';
+import { PaginateEvents } from '../paginate/PaginateEvents';
 import { ModalListContainer } from './ModalListContainer';
 
 export const EventsList = () => {
@@ -9,7 +10,7 @@ export const EventsList = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(startGetEventos())
+    dispatch(startGetPaginateEventos())
 
   }, [dispatch])
 
@@ -32,6 +33,8 @@ export const EventsList = () => {
           </table>
 
              <EventModal />
+
+             <PaginateEvents />
         </>
     )
 }

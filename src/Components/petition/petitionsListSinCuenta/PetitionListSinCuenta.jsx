@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
-import { startGetPetitions } from '../../../action/petition';
+import { startGetPaginatePetitionSinCuenta } from '../../../action/petition';
 import { PetitionModalSinCuenta } from '../modal/PetitionModalSinCuenta';
+import { PaginatePetitionSinCuenta } from '../paginate/PaginatePetitionSinCuenta';
 import { ModalListContainerSinCuenta } from './ModalListContainer';
 
 export const PetitionListSinCuenta = () => {
@@ -9,13 +10,13 @@ export const PetitionListSinCuenta = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(startGetPetitions())
+    dispatch(startGetPaginatePetitionSinCuenta())
   }, [dispatch])
 
 
     return (
         <>
-          <h1 style = {{marginTop: '70px'}}>Listado de Peticiones</h1>
+          <h1 style = {{marginTop: '70px'}}>Listado de Peticiones Sin Cuenta</h1>
           <table className="table text-white bg-dark text-center">
             <thead>
               <tr>
@@ -32,6 +33,8 @@ export const PetitionListSinCuenta = () => {
             </tbody>
           </table>
              <PetitionModalSinCuenta />
+
+             <PaginatePetitionSinCuenta />
         </>
     )
 }

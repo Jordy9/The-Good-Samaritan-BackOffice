@@ -3,18 +3,38 @@ import { Types } from "../types/Types"
 import Swal from "sweetalert2"
 
 
-export const startGetContact = () => {
-    return async(dispatch) => {
-        const resp = await fetchSinToken('contact')
-        const body = await resp.json()
+// export const startGetContact = () => {
+//     return async(dispatch) => {
+//         const resp = await fetchSinToken('contact')
+//         const body = await resp.json()
 
-        console.log(body)
+//         console.log(body)
+
+//         if(body.ok) {
+//             dispatch(Contacts(body.contactos))
+//         }
+//     }
+// }
+
+export const startGetPaginateContact = (page) => {
+    return async(dispatch) => {
+        const resp = await fetchSinToken(`contact/con?page=${page || 1}`)
+        const body = await resp.json()
 
         if(body.ok) {
             dispatch(Contacts(body.contactos))
+            dispatch(PaginateContact({
+                page: body.page,
+                total: body.total
+            }))
         }
     }
 }
+
+const PaginateContact = (contactos) => ({
+    type: Types.coPaginateContact,
+    payload: contactos
+})
 
 const Contacts = (contactos) => ({
     type: Types.cogetContacts,

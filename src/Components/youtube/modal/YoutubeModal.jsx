@@ -13,13 +13,15 @@ export const YoutubeModal = () => {
     const {handleSubmit, resetForm, getFieldProps, touched, errors} = useFormik({
         initialValues: {
             title: activeYoutube?.title, 
+            date: activeYoutube?.date,
             link: activeYoutube?.urlImage
         },
         enableReinitialize: true,
-        onSubmit: ({title, link}) => {
-            dispatch(startUpdateYoutube(title, link))
+        onSubmit: ({title, date, link}) => {
+            dispatch(startUpdateYoutube(title, date, link))
             resetForm({
                 title: '', 
+                date: '',
                 link: ''
             })
         },
@@ -28,6 +30,8 @@ export const YoutubeModal = () => {
                     .max(50, 'Debe de tener menos de 50 caracteres')
                     .min(3, 'Debe de tener minimo 3 caracteres')
                     .required('Requerido'),
+            // date: Yup.date()
+            //         .required('Requerido'),
             link: Yup.string()
                     .min(3, 'Debe de tener minimo 3 caracteres')
                     .required('Requerido')
@@ -57,6 +61,16 @@ export const YoutubeModal = () => {
                                                 </div>
                                             </div>
 
+                                            <div className="col-3">
+                                                <div className="form-group">
+                                                    <label>Fecha</label>
+                                                    <input type="datetime-local" className = 'form-control bg-transparent text-white' {...getFieldProps('date')} />
+                                                    {touched.date && errors.date && <span style={{color: 'red'}}>{errors.date}</span>}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="row">
                                             <div className="col-6">
                                                 <div className="form-group">
                                                     <label>Link</label>

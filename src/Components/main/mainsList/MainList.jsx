@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
-import { startGetMains } from '../../../action/main';
+import { startGetPaginateMains } from '../../../action/main';
 import { MainModal } from '../modal/MainModal';
+import { PaginateMain } from '../paginate/PaginateGallery';
 import { ModalListContainer } from './ModalListContainer';
 
 export const MainList = () => {
@@ -9,7 +10,7 @@ export const MainList = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(startGetMains())
+    dispatch(startGetPaginateMains())
 
   }, [dispatch])
 
@@ -31,6 +32,8 @@ export const MainList = () => {
           </table>
 
              <MainModal />
+
+             <PaginateMain />
         </>
     )
 }

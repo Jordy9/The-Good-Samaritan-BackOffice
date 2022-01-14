@@ -2,7 +2,8 @@ import { Types } from "../types/Types";
 
 const initialState = {
     Youtube: null,
-    activeYoutube: ''
+    activeYoutube: '',
+    Paginate: []
 }
 
 export const youtubeReducer = (state = initialState, action) => {
@@ -26,6 +27,12 @@ export const youtubeReducer = (state = initialState, action) => {
             return {
                 ...state,
                 activeYoutube: action.payload
+            }
+
+        case Types.ytPaginateYoutube:
+            return {
+                ...state,
+                Paginate: action.payload
             }
 
         case Types.ytUpdateYoutube:
