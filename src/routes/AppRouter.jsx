@@ -28,6 +28,7 @@ import { PublicRoute } from './PublicRoute';
 import moment from 'moment';
 import 'moment/locale/es';
 import { scrollToBottomAnimated } from '../helper/PrepareEvents';
+import { cargarNotificaciones } from '../action/notifications';
 
 moment.locale('es');
 
@@ -54,6 +55,7 @@ export const AppRouter = () => {
         dispatch(startGetPaginateContact())
         dispatch(setActiveUser())
         dispatch(startGetPaginateYoutube())
+        dispatch(cargarNotificaciones())
     }, [dispatch])
 
     useEffect(() => {

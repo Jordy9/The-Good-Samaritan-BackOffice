@@ -20,6 +20,12 @@ export const SendMessage = () => {
                 to: chatActivo,
                 message
             })
+
+            socket.emit('notificacion-personal', {
+                from: uid,
+                to: chatActivo,
+                notificacion: message
+            })
             resetForm({
                 message: ''
             })

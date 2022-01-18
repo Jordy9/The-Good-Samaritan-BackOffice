@@ -9,6 +9,7 @@ import { eventsReducer } from '../reducer/eventReducer';
 import { galleryReducer } from '../reducer/galleryReducer';
 import { mainReducer } from '../reducer/mainReducer';
 import { miniSeriesReducer } from '../reducer/miniSeriesReducer';
+import { notificacionReducer } from '../reducer/notificacionReducer';
 import { petitionsReducer } from '../reducer/petitionReducer';
 import { socketReducer } from '../reducer/socketReducer';
 import { userReducer } from '../reducer/userReducer';
@@ -32,7 +33,8 @@ const reducers = combineReducers({
     co: contactReducer,
     yt: youtubeReducer,
     sk: socketReducer,
-    cht: chatReducer
+    cht: chatReducer,
+    nt: notificacionReducer
 });
 
 export const store =  createStore(

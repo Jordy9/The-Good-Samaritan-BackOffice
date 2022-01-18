@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { activeChat, cargarChat } from '../../action/chat'
+import { BorrarNotificaciones } from '../../action/notifications'
 import user from '../../heroes/user-profile.png'
 
 export const SidebarChatItem = ({usuarios}) => {
@@ -10,11 +11,21 @@ export const SidebarChatItem = ({usuarios}) => {
 
     const {chatActivo} = useSelector(state => state.cht)
 
+    const {uid} = useSelector(state => state.auth)
+
+    const {notificaciones} = useSelector(state => state.nt)
+
     const onclick = () => {
         dispatch(activeChat(usuarios.id))
 
         dispatch(cargarChat(usuarios.id))
+
+        dispatch(BorrarNotificaciones(uid, chatActivo))
     }
+
+    const lol = notificaciones.filter(not => not.from === usuarios.id)
+
+    const notify = lol.filter(not => not.to === uid)
 
     return (
         <div className={`chat_list ${(usuarios.id === chatActivo) && 'active_chat'}`} onClick={onclick}>
@@ -28,6 +39,7 @@ export const SidebarChatItem = ({usuarios}) => {
                             :
                         <img src={user} alt="sunil" />
                     }
+                    <span hidden = {notify.length === 0} className="badge bg-secondary">{notify.length}</span>
                 </div>
                 <div className="chat_ib">
                     <h5 className='text-white'>{usuarios.name} {usuarios.lastName}</h5>

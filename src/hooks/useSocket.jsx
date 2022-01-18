@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import io from 'socket.io-client';
 import { UsuariosCargados } from '../action/chat';
+import { BorrarNotificaciones, NotificacionesCargadas } from '../action/notifications';
 
 
 export const useSocket = ( serverPath ) => {
@@ -9,6 +10,10 @@ export const useSocket = ( serverPath ) => {
     const token = localStorage.getItem('token')
 
     const dispatch = useDispatch()
+
+    const {chatActivo} = useSelector(state => state.cht)
+
+    const {uid} = useSelector(state => state.auth)
     
     const [ socket, setSocket ] = useState(null);
     const [ online, setOnline ] = useState(false);
@@ -49,8 +54,17 @@ export const useSocket = ( serverPath ) => {
             dispatch(UsuariosCargados(usuarios))
         })
     }, [ socket, dispatch ])
-    
 
+    useEffect(() => {
+        socket?.on('lista-notificaciones', (notificaciones) => {
+            dispatch(NotificacionesCargadas(notificaciones))
+
+            if (notificaciones[notificaciones.length-1].from === chatActivo) {
+                dispatch(BorrarNotificaciones(uid, chatActivo))
+            }
+        })
+    }, [ socket, dispatch, uid, chatActivo ])
+    
     return {
         socket,
         online,
