@@ -1,15 +1,13 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Editor } from '@tinymce/tinymce-react'
-import { startUpdateEvento } from '../../../action/event'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
-import moment from 'moment'
 import { startUpdateCapsule } from '../../../action/capsule';
 
 export const CapsuleModal = () => {
 
-    const newDate = moment().format('yyyy-MM-DDTHH:mm')
+    // const newDate = moment().format('yyyy-MM-DDTHH:mm')
 
     const {activeCapsule} = useSelector(state => state.ca)
 
@@ -27,7 +25,6 @@ export const CapsuleModal = () => {
         },
         enableReinitialize: true,
         onSubmit: ({title, date, descripcion, image}) => {
-            console.log(date)
             dispatch(startUpdateCapsule(title, date, descripcion, image))
         },
         validationSchema: Yup.object({

@@ -5,7 +5,6 @@ import { startCreateZoom } from '../../action/zoom'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import moment from 'moment';
-import tinymce from 'tinymce/tinymce';
 
 export const LivesZoom = () => {
 

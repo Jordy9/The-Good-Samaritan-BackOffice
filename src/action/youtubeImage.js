@@ -2,20 +2,6 @@ import { fetchConToken, fetchSinToken } from "../helper/fetch"
 import { Types } from "../types/Types"
 import Swal from "sweetalert2"
 
-
-// export const startGetYoutube = () => {
-//     return async(dispatch) => {
-//         const resp = await fetchSinToken('youtube')
-//         const body = await resp.json()
-
-//         console.log(body)
-
-//         if(body.ok) {
-//             dispatch(Youtube(body.youtube))
-//         }
-//     }
-// }
-
 export const startGetPaginateYoutube = (page) => {
     return async(dispatch) => {
         const resp = await fetchSinToken(`youtube/you?page=${page || 1}`)
@@ -44,8 +30,6 @@ const Youtube = (youtube) => ({
 export const startCreateYoutube = (title, date, urlImage) => {
     return async(dispatch) => {
 
-        console.log(title, urlImage)
-
         const resp = await fetchConToken('youtube', {title, date, urlImage}, 'POST');
         const body = await resp.json()
 
@@ -54,7 +38,7 @@ export const startCreateYoutube = (title, date, urlImage) => {
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 10000,
+            timer: 5000,
             timerProgressBar: true,
             didOpen: (toast) => {
               toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -88,8 +72,6 @@ export const startUpdateYoutube = (title, date, urlImage) => {
         const resp = await fetchConToken(`youtube/${activeYoutube._id}`, {title, date, urlImage}, 'PUT');
         const body = await resp.json()
 
-        console.log(body)
-
         if (body.ok) {
 
             dispatch(updateYoutube(body.youtube))
@@ -97,7 +79,7 @@ export const startUpdateYoutube = (title, date, urlImage) => {
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
-                timer: 10000,
+                timer: 5000,
                 timerProgressBar: true,
                 didOpen: (toast) => {
                   toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -110,7 +92,6 @@ export const startUpdateYoutube = (title, date, urlImage) => {
                 title: 'Video actualizado correctamente'
               })
         } else {
-            console.log(body.errors)
             Swal.fire('Error', body.errors, 'error')
         }
 
@@ -135,7 +116,7 @@ export const startDeleteYoutube = () => {
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
-                timer: 10000,
+                timer: 5000,
                 timerProgressBar: true,
                 didOpen: (toast) => {
                   toast.addEventListener('mouseenter', Swal.stopTimer)

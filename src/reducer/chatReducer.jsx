@@ -1,7 +1,6 @@
 import { Types } from "../types/Types";
 
 const initialState = {
-    uid: '',
     chatActivo: null,
     image: '',
     usuarios: [],

@@ -12,7 +12,7 @@ export const ModalListContainerSinCuenta = () => {
                     ?
                     PeticionSinCuenta.map(Peticion => {
                         return (
-                            <ModalContainerSinCuenta key = {Peticion.id} {...Peticion} />
+                            <ModalContainerSinCuenta key = {Peticion._id} {...Peticion} />
                         )
                     })
                     :

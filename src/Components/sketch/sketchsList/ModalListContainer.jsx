@@ -12,7 +12,7 @@ export const ModalListContainer = () => {
                     ?
                     Bosquejos.map(Bosquejo => {
                         return (
-                            <ModalContainer key = {Bosquejo.id} {...Bosquejo} />
+                            <ModalContainer key = {Bosquejo._id} {...Bosquejo} />
                         )
                     })
                     :

@@ -50,9 +50,6 @@ export const startCreateMiniSerie = (title, date, descripcion, file) => {
             formData.append('title', title)
 
             const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}})
-
-            console.log(res)
-
             
             if(res.data.ok) {
                 const image = res.data.image.url
@@ -62,13 +59,11 @@ export const startCreateMiniSerie = (title, date, descripcion, file) => {
 
                 dispatch(getMiniSerie(body))
                 
-                
-                console.log(body)
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
-                    timer: 10000,
+                    timer: 5000,
                     timerProgressBar: true,
                     didOpen: (toast) => {
                       toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -116,15 +111,7 @@ export const startUpdateSerie = (title, date, descripcion, fileupload) => {
                 formData.append('file', fileupload)
                 formData.append('title', activeSerie.title)
     
-                const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}, onUploadProgress(e) {console.log(e)}})
-    
-                console.log(res)
-    
-            // 
-            // 
-            
-                // const resp = await fetchConToken(`miniSerie/update/${serie.id}`, serie, 'PUT')
-                // const body = await resp.json()
+                const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}})
     
                 if(res.data.ok) {
                     const image = res.data.image.url
@@ -139,7 +126,7 @@ export const startUpdateSerie = (title, date, descripcion, fileupload) => {
                             toast: true,
                             position: 'top-end',
                             showConfirmButton: false,
-                            timer: 10000,
+                            timer: 5000,
                             timerProgressBar: true,
                             didOpen: (toast) => {
                               toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -154,7 +141,6 @@ export const startUpdateSerie = (title, date, descripcion, fileupload) => {
                     }
             
                 } else {
-                    console.log(res.errors)
                     Swal.fire('Error', res.errors, 'error')
                 }
             } else {
@@ -173,7 +159,7 @@ export const startUpdateSerie = (title, date, descripcion, fileupload) => {
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
-                    timer: 10000,
+                    timer: 5000,
                     timerProgressBar: true,
                     didOpen: (toast) => {
                       toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -186,7 +172,6 @@ export const startUpdateSerie = (title, date, descripcion, fileupload) => {
                     title: 'Mini Serie actualizada correctamente'
                   })
             } else {
-                console.log(body.errors)
                 Swal.fire('Error', body.errors, 'error')
             }
         }
@@ -216,7 +201,7 @@ export const startUpdateSerie = (title, date, descripcion, fileupload) => {
                         toast: true,
                         position: 'top-end',
                         showConfirmButton: false,
-                        timer: 10000,
+                        timer: 5000,
                         timerProgressBar: true,
                         didOpen: (toast) => {
                           toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -238,7 +223,7 @@ export const startUpdateSerie = (title, date, descripcion, fileupload) => {
                         toast: true,
                         position: 'top-end',
                         showConfirmButton: false,
-                        timer: 10000,
+                        timer: 5000,
                         timerProgressBar: true,
                         didOpen: (toast) => {
                           toast.addEventListener('mouseenter', Swal.stopTimer)

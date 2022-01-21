@@ -42,7 +42,7 @@ const Gallerys = (galeria) => ({
     payload: galeria
 })
 
-export const startCreateGallery = (title, file, height, width) => {
+export const startCreateGallery = (title, file) => {
     return async(dispatch) => {
 
         const date = moment()
@@ -54,24 +54,20 @@ export const startCreateGallery = (title, file, height, width) => {
             formData.append('title', title)
 
             const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}})
-
-            console.log(res)
-
             
             if(res.data.ok) {
                 const image = res.data.image.url
                 const idImage = res.data.image.id
-                const resp = await fetchConToken('galeria', {title, date, image, idImage, height, width}, 'POST');
+                const resp = await fetchConToken('galeria', {title, date, image, idImage}, 'POST');
                 const body = await resp.json()
 
                 dispatch(createGallery(body))
 
-                console.log(body)
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
-                    timer: 10000,
+                    timer: 5000,
                     timerProgressBar: true,
                     didOpen: (toast) => {
                       toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -103,14 +99,12 @@ export const clearSetActiveGallery = () => ({
 });
 
 
-export const startUpdateGallery = (title, fileupload, height, width) => {
+export const startUpdateGallery = (title, fileupload) => {
     return async(dispatch, getState) => {
 
         const {activeGallery} = getState().ga
 
         const date = activeGallery?.date
-
-        console.log(activeGallery)
 
         const token = localStorage.getItem('token') || '';
 
@@ -125,18 +119,10 @@ export const startUpdateGallery = (title, fileupload, height, width) => {
         
                     const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}})
         
-                    console.log(res)
-        
-                // 
-                // 
-                
-                    // const resp = await fetchConToken(`miniSerie/update/${serie.id}`, serie, 'PUT')
-                    // const body = await resp.json()
-        
                     if(res.data.ok) {
                         const image = res.data.image.url
                         const idImage = res.data.image.id
-                        const resp = await fetchConToken(`galeria/${activeGallery._id}`, {title, date, image, idImage, height, width}, 'PUT');
+                        const resp = await fetchConToken(`galeria/${activeGallery._id}`, {title, date, image, idImage}, 'PUT');
                         const body = await resp.json()
         
                         if (body.ok) {
@@ -146,7 +132,7 @@ export const startUpdateGallery = (title, fileupload, height, width) => {
                                 toast: true,
                                 position: 'top-end',
                                 showConfirmButton: false,
-                                timer: 10000,
+                                timer: 5000,
                                 timerProgressBar: true,
                                 didOpen: (toast) => {
                                   toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -161,7 +147,6 @@ export const startUpdateGallery = (title, fileupload, height, width) => {
                         }
                 
                     } else {
-                        console.log(res.errors)
                         Swal.fire('Error', res.errors, 'error')
                     }
                 } else {
@@ -170,7 +155,7 @@ export const startUpdateGallery = (title, fileupload, height, width) => {
             } else {
 
                 const {image, idImage} = activeGallery
-                const resp = await fetchConToken(`galeria/${activeGallery._id}`, {title, date, image, idImage, height, width}, 'PUT');
+                const resp = await fetchConToken(`galeria/${activeGallery._id}`, {title, date, image, idImage}, 'PUT');
                 const body = await resp.json()
 
                 if (body.ok) {
@@ -180,7 +165,7 @@ export const startUpdateGallery = (title, fileupload, height, width) => {
                         toast: true,
                         position: 'top-end',
                         showConfirmButton: false,
-                        timer: 10000,
+                        timer: 5000,
                         timerProgressBar: true,
                         didOpen: (toast) => {
                           toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -223,7 +208,7 @@ export const startDeleteGallery = () => {
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
-                    timer: 10000,
+                    timer: 5000,
                     timerProgressBar: true,
                     didOpen: (toast) => {
                       toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -245,7 +230,7 @@ export const startDeleteGallery = () => {
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
-                    timer: 10000,
+                    timer: 5000,
                     timerProgressBar: true,
                     didOpen: (toast) => {
                       toast.addEventListener('mouseenter', Swal.stopTimer)

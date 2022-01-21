@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { startGetPaginatePetitions } from '../../../action/petition';
 import {PetitionModal} from '../modal/PetitionModal'
-import { PetitionModalUser } from '../modal/PetitionModalUser';
 import { PaginatePetition } from '../paginate/PaginatePetition';
 import { ModalListContainer } from './ModalListContainer';
 

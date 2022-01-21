@@ -12,7 +12,7 @@ export const ModalListContainer = () => {
                     ?
                     Mains.map(main => {
                         return (
-                            <ModalContainer key = {main.id} {...main} />
+                            <ModalContainer key = {main._id} {...main} />
                         )
                     })
                     :

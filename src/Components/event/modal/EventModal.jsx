@@ -4,11 +4,10 @@ import { Editor } from '@tinymce/tinymce-react'
 import { startUpdateEvento } from '../../../action/event'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
-import moment from 'moment'
 
 export const EventModal = () => {
 
-    const newDate = moment().format('yyyy-MM-DDTHH:mm')
+    // const newDate = moment().format('yyyy-MM-DDTHH:mm')
 
     const {activeEvent} = useSelector(state => state.ev)
 
@@ -26,7 +25,6 @@ export const EventModal = () => {
         },
         enableReinitialize: true,
         onSubmit: ({title, date, descripcion, image}) => {
-            console.log(date)
             dispatch(startUpdateEvento(title, date, descripcion, image))
         },
         validationSchema: Yup.object({

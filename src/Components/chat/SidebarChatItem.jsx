@@ -20,7 +20,11 @@ export const SidebarChatItem = ({usuarios}) => {
 
         dispatch(cargarChat(usuarios.id))
 
-        dispatch(BorrarNotificaciones(uid, chatActivo))
+        if (notificaciones.length !== 0) {
+            dispatch(BorrarNotificaciones(uid, chatActivo))
+        } else {
+            return
+        }
     }
 
     const lol = notificaciones.filter(not => not.from === usuarios.id)
@@ -39,7 +43,7 @@ export const SidebarChatItem = ({usuarios}) => {
                             :
                         <img src={user} alt="sunil" />
                     }
-                    <span hidden = {notify.length === 0} className="badge bg-secondary">{notify.length}</span>
+                    <span hidden = {notify.length === 0} className="badge bg-danger">{notify.length}</span>
                 </div>
                 <div className="chat_ib">
                     <h5 className='text-white'>{usuarios.name} {usuarios.lastName}</h5>

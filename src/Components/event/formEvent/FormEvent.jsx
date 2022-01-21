@@ -12,8 +12,6 @@ export const FormEvent = () => {
 
     const newDate = moment().format('yyyy-MM-DDTHH:mm')
 
-    // console.log(newDate)
-
     const dispatch = useDispatch()
 
     const [imag, setimag] = useState()

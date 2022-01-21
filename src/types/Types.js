@@ -4,6 +4,7 @@ export const Types = {
     ntNotificacionesCargadas: '[NT] notificaciones cargadas',
     ntCargarNotificaciones: '[NT] cargar notificaciones',
     // 
+    chtScrollChat: '[CHT] scroll chat',
     chtImageMessage: '[CHT] image message',
     chtClearState: '[CHT] clear state',
     chtUsuariosCargados: '[CHT] usuarios cargados',

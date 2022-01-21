@@ -12,7 +12,7 @@ export const ModalListContainer = () => {
                     ?
                     Youtube.map(youtube => {
                         return (
-                            <ModalContainer key = {youtube.id} {...youtube} />
+                            <ModalContainer key = {youtube._id} {...youtube} />
                         )
                     })
                     :

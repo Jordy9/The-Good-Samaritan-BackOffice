@@ -18,7 +18,7 @@ import { startGetPaginateBosquejos } from '../action/sketch';
 import { startSocket } from '../action/socket';
 import { startGetPaginateYoutube } from '../action/youtubeImage';
 import { startGetZoom } from '../action/zoom';
-import { Footer } from '../Components/footer/Footer';
+// import { Footer } from '../Components/footer/Footer';
 import { LoginScreen } from '../Components/login/LoginScreen';
 import { Spinner } from '../Components/spinner/Spinner';
 import { useSocket } from '../hooks/useSocket';
@@ -37,7 +37,7 @@ export const AppRouter = () => {
     const dispatch = useDispatch();
     const {checking, uid} = useSelector(state => state.auth)
 
-    const {socket, online, conectarSocket, desconectarSocket} = useSocket('http://localhost:4000')
+    const {socket, online, conectarSocket, desconectarSocket} = useSocket('https://server-socket-good.herokuapp.com')
 
     useEffect(() => {
         dispatch(startAuthCheking());
@@ -73,14 +73,6 @@ export const AppRouter = () => {
     useEffect(() => {
         dispatch(startSocket(socket, online))
     }, [dispatch, socket, online])
-
-    useEffect(() => {
-        socket?.on('mensaje-personal', (mensaje) => {
-            dispatch(activeMessage(mensaje))
-
-            scrollToBottomAnimated('messages')
-        })
-    }, [socket, dispatch])
 
     if (checking) {
         return <Spinner />

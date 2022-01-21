@@ -1,24 +1,48 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { startLogin } from '../../action/auth'
-import { useForm } from '../../hooks/useForm'
+import * as Yup from 'yup'
+import { useFormik } from 'formik'
 
 export const LoginScreen = () => {
 
-    const [HandledInputChange, {correo, contrasena, recuerdame}] = useForm({
-        correo: '',
-        contrasena: '', 
-        recuerdame: '', 
+    const dispatch = useDispatch()
+
+    const email = localStorage.getItem('email2')
+
+    const [setRemember] = useState();
+
+    useEffect(() => {
+        if (email) {
+          setRemember(true)
+        }
+      }, [email, setRemember]);
+
+    const {handleSubmit, getFieldProps, touched, errors} = useFormik({
+        initialValues: {
+            email: localStorage.getItem('email2') || '', 
+            password: '', 
+            rememberme: (email) ? true : false
+        },
+        enableReinitialize: true,
+        onSubmit: ({email, password, rememberme}) => {
+            (rememberme)
+                ?
+            localStorage.setItem('email2', email)
+            :
+            localStorage.removeItem('email2')
+            dispatch(startLogin(email, password))
+        },
+        validationSchema: Yup.object({
+            email: Yup.string()
+                        .email('La dirección de email no es válida')
+                        .required('Requerido'),
+            password: Yup.string()
+                        .min(6, 'Debe de tener 6 caracteres o más')
+                        .required('Requerido')
+        })
     })
-
-    const dispatch = useDispatch();
-
-    const handledSubmit = (e) => {
-        e.preventDefault()
-
-        dispatch(startLogin(correo, contrasena));
-    }
 
     return (
         <>
@@ -26,14 +50,15 @@ export const LoginScreen = () => {
                 <div className="row my-5">
                     <div className="col-12 my-5 d-flex justify-content-center">
                         <div className = 'shadow p-2 mt-2 bg-dark rounded-lg flex-column text-white' style = {{width: '400px', height: '525px'}}>
-                            <h4 className = 'text-center my-4'>Login</h4>
+                            <h4 className = 'text-center my-4'>Iniciar sesión</h4>
                             <div className="container card-body">
-                                <form onSubmit = {handledSubmit} className = 'my-4'>
+                                <form onSubmit={handleSubmit} className = 'my-4'>
                                     <div className="row">
 
                                         <div className="col form-group">
                                             <label>Correo electrónico</label>
-                                            <input name = 'correo' type="text" onChange = {HandledInputChange} value = {correo} placeholder = 'Juan@hotmail.com' className = 'form-control bg-transparent text-white' />
+                                            <input autoComplete='off' type="text" {...getFieldProps('email')} placeholder = 'Ejemplo@hotmail.com' className = 'form-control bg-transparent text-white' />
+                                            {touched.email && errors.email && <span style={{color: 'red'}}>{errors.email}</span>}
                                         </div>
 
                                     </div>
@@ -42,21 +67,21 @@ export const LoginScreen = () => {
 
                                         <div className="col form-group">
                                             <label>Contraseña</label>
-                                            <input name = 'contrasena' type="password" onChange = {HandledInputChange} value = {contrasena} placeholder = '********' className = 'form-control bg-transparent text-white' />
+                                            <input type="password" {...getFieldProps('password')} placeholder = '********' className = 'form-control bg-transparent text-white' />
+                                            {touched.password && errors.password && <span style={{color: 'red'}}>{errors.password}</span>}
                                         </div>
 
                                     </div>
 
                                     <div className="form-check">
-                                        <input name = 'recuerdame' value = {recuerdame} type="checkbox" className="form-check-input" id="exampleCheck1" />
+                                        <input {...getFieldProps('rememberme')} defaultChecked = {(email) && true} type="checkbox" className="form-check-input" id="exampleCheck1" />
                                         <label className="form-check-label">Recuerdame</label>
                                     </div>
-
-                                    <button className = 'btn btn-outline-primary form-control my-3' style = {{borderRadius: '50px'}}>Iniciar sesión</button>
+                                    <button type='submit' className = 'btn btn-outline-primary form-control mt-4' style = {{borderRadius: '50px'}}>Iniciar sesión</button>
                                 </form>
                                 
                                 <div className = 'text-center'>
-                                    <NavLink to = '/Home' style = {{borderRadius: '50px', textDecoration: 'none'}}>¿Olvidaste tu contraseña?</NavLink>
+                                    <NavLink to = '/ForgotPassword' style = {{borderRadius: '50px', textDecoration: 'none'}}>¿Olvidaste tu contraseña?</NavLink>
                                 </div>
                             </div>
                         </div>

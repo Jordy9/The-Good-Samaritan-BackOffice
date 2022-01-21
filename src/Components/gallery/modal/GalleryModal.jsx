@@ -14,21 +14,13 @@ export const GalleryModal = () => {
     const {handleSubmit, getFieldProps, touched, errors, setFieldValue} = useFormik({
         initialValues: {
             title: activeGallery?.title,
-            image: '',
-            height: activeGallery?.height,
-            width: activeGallery?.width
+            image: ''
         },
         enableReinitialize: true,
-        onSubmit: ({title, image, height, width}) => {
-            dispatch(startUpdateGallery(title, image, height, width))
+        onSubmit: ({title, image}) => {
+            dispatch(startUpdateGallery(title, image))
         },
-        validationSchema: Yup.object({
-            height: Yup.number()
-                        .min(1, 'La altura no puede ser menor a 1')
-                        .required('Requerido'),
-            width: Yup.number()
-                        .min(1, 'El ancho no puede ser menor a 1')
-                        .required('Requerido'),   
+        validationSchema: Yup.object({  
         })
     })
 
@@ -38,7 +30,7 @@ export const GalleryModal = () => {
 
     return (
         <>
-            <div className="modal fade" id="exampleModal8" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="exampleModal8" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div className="modal-content shadow bg-dark">
                         <div className="modal-header" style = {{border: 'none'}}>
@@ -64,24 +56,6 @@ export const GalleryModal = () => {
                                                         setFieldValue('image', e.currentTarget.files[0], (e.currentTarget.files[0]) ? setimag(URL.createObjectURL(e.currentTarget.files[0]) || '') : setimag())
                                                     }} />
                                                     {touched.image && errors.image && <span style={{color: 'red'}}>{errors.image}</span>}
-                                                </div> 
-                                            </div>
-                                        </div>
-
-                                        <div className="row">
-                                            <div className="col-6">
-                                                <div className="form-group">
-                                                    <label>Altura</label>
-                                                    <input {...getFieldProps('height')} type="number" className = 'form-control bg-transparent text-white' />
-                                                    {touched.height && errors.height && <span style={{color: 'red'}}>{errors.height}</span>}
-                                                </div> 
-                                            </div>
-
-                                            <div className="col-6">
-                                                <div className="form-group">
-                                                    <label>Ancho</label>
-                                                    <input {...getFieldProps('width')} type="number" className = 'form-control bg-transparent text-white' />
-                                                    {touched.width && errors.width && <span style={{color: 'red'}}>{errors.width}</span>}
                                                 </div> 
                                             </div>
                                         </div>

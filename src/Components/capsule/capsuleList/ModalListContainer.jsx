@@ -12,7 +12,7 @@ export const ModalListContainer = () => {
                     ?
                     Capsules.map(Capsule => {
                         return (
-                            <ModalContainer key = {Capsule.id} {...Capsule} />
+                            <ModalContainer key = {Capsule._id} {...Capsule} />
                         )
                     })
                     :

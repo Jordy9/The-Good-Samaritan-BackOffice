@@ -2,20 +2,6 @@ import { fetchConToken, fetchSinToken } from "../helper/fetch"
 import { Types } from "../types/Types"
 import Swal from "sweetalert2"
 
-
-// export const startGetContact = () => {
-//     return async(dispatch) => {
-//         const resp = await fetchSinToken('contact')
-//         const body = await resp.json()
-
-//         console.log(body)
-
-//         if(body.ok) {
-//             dispatch(Contacts(body.contactos))
-//         }
-//     }
-// }
-
 export const startGetPaginateContact = (page) => {
     return async(dispatch) => {
         const resp = await fetchSinToken(`contact/con?page=${page || 1}`)
@@ -53,13 +39,13 @@ export const startCreateContact = (subject, title, descripcion) => {
         const email2 = activeContact.email
 
         const resp = await fetchConToken('sendEmail', {subject, title, email2, descripcion, email}, 'POST');
-        const body = await resp.json()
+        await resp.json()
         
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 10000,
+            timer: 5000,
             timerProgressBar: true,
             didOpen: (toast) => {
               toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -93,7 +79,7 @@ export const startDeleteContact = () => {
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
-                timer: 10000,
+                timer: 5000,
                 timerProgressBar: true,
                 didOpen: (toast) => {
                   toast.addEventListener('mouseenter', Swal.stopTimer)

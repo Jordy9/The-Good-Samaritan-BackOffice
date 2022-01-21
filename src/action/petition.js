@@ -2,20 +2,6 @@ import { fetchConToken, fetchSinToken } from "../helper/fetch"
 import { Types } from "../types/Types"
 import Swal from "sweetalert2"
 
-
-// export const startGetPetitions = () => {
-//     return async(dispatch) => {
-//         const resp = await fetchSinToken('peticion')
-//         const body = await resp.json()
-
-//         console.log(body)
-
-//         if(body.ok) {
-//             dispatch(Petitions(body.peticiones))
-//         }
-//     }
-// }
-
 export const startGetPaginatePetitions = (page) => {
     return async(dispatch) => {
         const resp = await fetchSinToken(`peticion/pet?page=${page || 1}`)
@@ -41,19 +27,6 @@ const Petitions = (peticiones) => ({
     payload: peticiones
 })
 
-// export const startGetPetitionesUser = () => {
-//     return async(dispatch) => {
-//         const resp = await fetchSinToken('peticionesUser')
-//         const body = await resp.json()
-
-//         console.log(body)
-
-//         if(body.ok) {
-//             dispatch(PetitionesUser(body.peticionesUser))
-//         }
-//     }
-// }
-
 export const startGetPaginatePetitionUser = (page) => {
     return async(dispatch) => {
         const resp = await fetchSinToken(`peticionesUser/pet?page=${page || 1}`)
@@ -78,19 +51,6 @@ const PetitionesUser = (peticiones) => ({
     type: Types.ptgetPetitionesUser,
     payload: peticiones
 })
-
-// export const startGetPetitionSinCuenta = () => {
-//     return async(dispatch) => {
-//         const resp = await fetchSinToken('peticionSinCuenta')
-//         const body = await resp.json()
-
-//         console.log(body)
-
-//         if(body.ok) {
-//             dispatch(PetitionSinCuenta(body.peticiones))
-//         }
-//     }
-// }
 
 export const startGetPaginatePetitionSinCuenta = (page) => {
     return async(dispatch) => {
@@ -128,7 +88,7 @@ export const startCreatePetition = (title, date, descripcion, name, number) => {
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 10000,
+            timer: 5000,
             timerProgressBar: true,
             didOpen: (toast) => {
               toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -178,8 +138,6 @@ export const startUpdatePetition = (title, date, descripcion) => {
         const resp = await fetchConToken(`peticion/${activePetitions._id}`, {title, date, descripcion}, 'PUT');
         const body = await resp.json()
 
-        console.log(body)
-
         if (body.ok) {
 
             dispatch(updatePetition(body.peticion))
@@ -187,7 +145,7 @@ export const startUpdatePetition = (title, date, descripcion) => {
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
-                timer: 10000,
+                timer: 5000,
                 timerProgressBar: true,
                 didOpen: (toast) => {
                   toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -200,7 +158,6 @@ export const startUpdatePetition = (title, date, descripcion) => {
                 title: 'Petición actualizada correctamente'
               })
         } else {
-            console.log(body.errors)
             Swal.fire('Error', body.msg, 'error')
         }
 
@@ -225,7 +182,7 @@ export const startDeletePetition = () => {
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
-                timer: 10000,
+                timer: 5000,
                 timerProgressBar: true,
                 didOpen: (toast) => {
                   toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -259,7 +216,7 @@ export const startDeletePetitionesUser = () => {
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
-                timer: 10000,
+                timer: 5000,
                 timerProgressBar: true,
                 didOpen: (toast) => {
                   toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -293,7 +250,7 @@ export const startDeletePetitionSinCuenta = () => {
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
-                timer: 10000,
+                timer: 5000,
                 timerProgressBar: true,
                 didOpen: (toast) => {
                   toast.addEventListener('mouseenter', Swal.stopTimer)

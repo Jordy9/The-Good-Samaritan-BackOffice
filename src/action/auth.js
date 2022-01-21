@@ -52,7 +52,7 @@ export const startRegister = (name, lastName, age, date, email, address, country
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
-                timer: 10000,
+                timer: 5000,
                 timerProgressBar: true,
                 didOpen: (toast) => {
                   toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -69,7 +69,7 @@ export const startRegister = (name, lastName, age, date, email, address, country
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
-                timer: 10000,
+                timer: 5000,
                 timerProgressBar: true,
                 didOpen: (toast) => {
                   toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -103,8 +103,6 @@ export const startGetUsers = (page) => {
                 total: body.total
             }))
         }
-
-        console.log(body)
     }
 }
 
@@ -133,7 +131,7 @@ export const startUpdateUser = (name, lastName, age, date, email, address, count
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
-                timer: 10000,
+                timer: 5000,
                 timerProgressBar: true,
                 didOpen: (toast) => {
                   toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -150,7 +148,7 @@ export const startUpdateUser = (name, lastName, age, date, email, address, count
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
-                timer: 10000,
+                timer: 5000,
                 timerProgressBar: true,
                 didOpen: (toast) => {
                   toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -187,8 +185,7 @@ export const startUpdateUserAdmin = (name, lastName, age, date, email, address, 
                 const ress = await axios.delete(`http://localhost:4000/api/image/upload/${user.idImage}`, {headers: {'x-token': token}})
 
                 if (ress.data.ok) {
-                    console.log(ress, 'eliminada esa imagen')
-    
+
                     const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}})
     
                     if (res.data.ok) {
@@ -197,9 +194,7 @@ export const startUpdateUserAdmin = (name, lastName, age, date, email, address, 
                     
                         const resp = await fetchConToken(`auth/update/${user.id}`, {name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password, urlImage, idImage}, 'PUT')
                         const body = await resp.json()
-    
-                        console.log(body.usuario)
-    
+        
                         if(body.ok) {
                             dispatch(updateUserAdmin(body.usuario))
                             dispatch(setActiveUser(body.usuario))
@@ -207,7 +202,7 @@ export const startUpdateUserAdmin = (name, lastName, age, date, email, address, 
                                 toast: true,
                                 position: 'top-end',
                                 showConfirmButton: false,
-                                timer: 10000,
+                                timer: 5000,
                                 timerProgressBar: true,
                                 didOpen: (toast) => {
                                 toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -224,7 +219,7 @@ export const startUpdateUserAdmin = (name, lastName, age, date, email, address, 
                                 toast: true,
                                 position: 'top-end',
                                 showConfirmButton: false,
-                                timer: 10000,
+                                timer: 5000,
                                 timerProgressBar: true,
                                 didOpen: (toast) => {
                                 toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -242,7 +237,7 @@ export const startUpdateUserAdmin = (name, lastName, age, date, email, address, 
                             toast: true,
                             position: 'top-end',
                             showConfirmButton: false,
-                            timer: 10000,
+                            timer: 5000,
                             timerProgressBar: true,
                             didOpen: (toast) => {
                             toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -260,7 +255,7 @@ export const startUpdateUserAdmin = (name, lastName, age, date, email, address, 
                         toast: true,
                         position: 'top-end',
                         showConfirmButton: false,
-                        timer: 10000,
+                        timer: 5000,
                         timerProgressBar: true,
                         didOpen: (toast) => {
                         toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -284,8 +279,6 @@ export const startUpdateUserAdmin = (name, lastName, age, date, email, address, 
                     const resp = await fetchConToken(`auth/update/${user.id}`, {name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password, urlImage, idImage}, 'PUT')
                     const body = await resp.json()
 
-                    console.log(body.usuario)
-
                     if(body.ok) {
                         dispatch(updateUserAdmin(body.usuario))
                         dispatch(setActiveUser(body.usuario))
@@ -293,7 +286,7 @@ export const startUpdateUserAdmin = (name, lastName, age, date, email, address, 
                             toast: true,
                             position: 'top-end',
                             showConfirmButton: false,
-                            timer: 10000,
+                            timer: 5000,
                             timerProgressBar: true,
                             didOpen: (toast) => {
                             toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -310,7 +303,7 @@ export const startUpdateUserAdmin = (name, lastName, age, date, email, address, 
                             toast: true,
                             position: 'top-end',
                             showConfirmButton: false,
-                            timer: 10000,
+                            timer: 5000,
                             timerProgressBar: true,
                             didOpen: (toast) => {
                             toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -328,7 +321,7 @@ export const startUpdateUserAdmin = (name, lastName, age, date, email, address, 
                         toast: true,
                         position: 'top-end',
                         showConfirmButton: false,
-                        timer: 10000,
+                        timer: 5000,
                         timerProgressBar: true,
                         didOpen: (toast) => {
                         toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -350,8 +343,6 @@ export const startUpdateUserAdmin = (name, lastName, age, date, email, address, 
             const resp = await fetchConToken(`auth/update/${user.id}`, {name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password, urlImage, idImage}, 'PUT')
             const body = await resp.json()
 
-            console.log(body)
-
             if(body.usuario) {
                 dispatch(updateUserAdmin(body.usuario))
                 dispatch(setActiveUser(body.usuario))
@@ -359,7 +350,7 @@ export const startUpdateUserAdmin = (name, lastName, age, date, email, address, 
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
-                    timer: 10000,
+                    timer: 5000,
                     timerProgressBar: true,
                     didOpen: (toast) => {
                     toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -376,7 +367,7 @@ export const startUpdateUserAdmin = (name, lastName, age, date, email, address, 
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
-                    timer: 10000,
+                    timer: 5000,
                     timerProgressBar: true,
                     didOpen: (toast) => {
                     toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -404,7 +395,6 @@ export const ActiverUser = (user) => ({
 })
 
 export const startDeleteUser = (user) => {
-     console.log(user)
     return async(dispatch) => {
         const resp = await fetchConToken(`auth/delete/${user.id}`, user, 'DELETE')
         const body = await resp.json()
@@ -415,7 +405,7 @@ export const startDeleteUser = (user) => {
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
-                timer: 10000,
+                timer: 5000,
                 timerProgressBar: true,
                 didOpen: (toast) => {
                   toast.addEventListener('mouseenter', Swal.stopTimer)

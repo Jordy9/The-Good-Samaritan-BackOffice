@@ -13,30 +13,20 @@ export const GalleryImages = () => {
     const {handleSubmit, resetForm, getFieldProps, touched, errors, setFieldValue} = useFormik({
         initialValues: {
             title: '',
-            image: '',
-            height: 1,
-            width: 1
+            image: ''
         },
         enableReinitialize: true,
-        onSubmit: ({title, image, height, width}) => {
-            dispatch(startCreateGallery(title, image, height, width))
+        onSubmit: ({title, image}) => {
+            dispatch(startCreateGallery(title, image))
             resetForm({
                 title: '', 
-                image: document.getElementById('image').value = '',
-                height: 0,
-                width: 0
+                image: document.getElementById('image').value = ''
             })
             setimag()
         },
         validationSchema: Yup.object({
             image: Yup.string()
-                        .required('Requerido'),
-            height: Yup.number()
-                        .min(1, 'La altura no puede ser menor a 1')
-                        .required('Requerido'),
-            width: Yup.number()
-                        .min(1, 'El ancho no puede ser menor a 1')
-                        .required('Requerido'),
+                        .required('Requerido')
         })
     })
 
@@ -47,23 +37,15 @@ export const GalleryImages = () => {
     return (
         <form onSubmit = {handleSubmit}>
             <h1 style={{marginTop: '70px'}}>Galería</h1>
-            <div className="row my-5">
-                <div className="col d-flex justify-content-center">
-                    <span>Si desea una imagen para toda una fila, por favor digite 4927 de ancho y 1000 de alto</span>
-                </div>
-
-                <div className="col d-flex justify-content-center">
-                    <span>Para una imagen que ocupe solo la columna de una fila puede usar los valores del 1 al 4</span>                </div>
-            </div>
-            <div className = 'row'>
-                <div className="col-3">
+            <div className = 'row my-5'>
+                <div className="col-6">
                     <div className="form-group">
                         <label>Título</label>
                         <input {...getFieldProps('title')} placeholder = 'El amor al Señor' type="text" className = 'form-control bg-transparent text-white' />
                     </div> 
                 </div>
 
-                <div className="col-3">
+                <div className="col-6">
                     <div className="form-group">
                         <label>Imagen</label>
                         <button type='button' className='btn btn-outline-primary form-control' onClick={handledImage}>Seleccionar imagen</button>
@@ -71,22 +53,6 @@ export const GalleryImages = () => {
                             setFieldValue('image', e.currentTarget.files[0], (e.currentTarget.files[0]) ? setimag(URL.createObjectURL(e.currentTarget.files[0]) || '') : setimag())
                         }} />
                         {touched.image && errors.image && <span style={{color: 'red'}}>{errors.image}</span>}
-                    </div> 
-                </div>
-
-                <div className="col-3">
-                    <div className="form-group">
-                        <label>Altura</label>
-                        <input {...getFieldProps('height')} type="number" className = 'form-control bg-transparent text-white' />
-                        {touched.height && errors.height && <span style={{color: 'red'}}>{errors.height}</span>}
-                    </div> 
-                </div>
-
-                <div className="col-3">
-                    <div className="form-group">
-                        <label>Ancho</label>
-                        <input {...getFieldProps('width')} type="number" className = 'form-control bg-transparent text-white' />
-                        {touched.width && errors.width && <span style={{color: 'red'}}>{errors.width}</span>}
                     </div> 
                 </div>
             </div>

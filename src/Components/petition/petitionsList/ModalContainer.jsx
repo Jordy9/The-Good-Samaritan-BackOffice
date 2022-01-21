@@ -1,13 +1,11 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
 import h2p from 'html2plaintext'
 import { SetActivePetition, startDeletePetition } from '../../../action/petition'
 import moment from 'moment'
 
 export const ModalContainer = (props) => {
-
-  const {activePetitions} = useSelector(state => state.pt)
 
   const {title, date, descripcion} = props
 

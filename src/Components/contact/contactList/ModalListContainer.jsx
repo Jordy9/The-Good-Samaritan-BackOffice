@@ -12,7 +12,7 @@ export const ModalListContainer = () => {
                     ?
                     Contactos.map(Contacto => {
                         return (
-                            <ModalContainer key = {Contacto.id} {...Contacto} />
+                            <ModalContainer key = {Contacto._id} {...Contacto} />
                         )
                     })
                     :

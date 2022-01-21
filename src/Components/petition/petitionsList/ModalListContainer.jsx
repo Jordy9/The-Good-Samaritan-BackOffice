@@ -12,7 +12,7 @@ export const ModalListContainer = () => {
                     ?
                     Peticiones.map(Peticion => {
                         return (
-                            <ModalContainer key = {Peticion.id} {...Peticion} />
+                            <ModalContainer key = {Peticion._id} {...Peticion} />
                         )
                     })
                     :

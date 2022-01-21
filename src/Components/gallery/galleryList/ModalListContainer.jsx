@@ -12,7 +12,7 @@ export const ModalListContainer = () => {
                     ?
                     Gallery.map(gallery => {
                         return (
-                            <ModalContainer key = {gallery.id} {...gallery} />
+                            <ModalContainer key = {gallery._id} {...gallery} />
                         )
                     })
                     :

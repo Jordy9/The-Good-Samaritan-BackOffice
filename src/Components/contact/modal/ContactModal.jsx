@@ -15,7 +15,7 @@ export const ContactModal = () => {
         dispatch(startGetPaginateContact())
     }, [dispatch])
 
-    const newDate = moment().format('yyyy-MM-DDTHH:mm')
+    // const newDate = moment().format('yyyy-MM-DDTHH:mm')
 
     const {activeContact} = useSelector(state => state.co)
 

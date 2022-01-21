@@ -12,7 +12,7 @@ export const ModalListContainerUser = () => {
                     ?
                     PeticionesUser.map(Peticion => {
                         return (
-                            <ModalContainerUser key = {Peticion.id} {...Peticion} />
+                            <ModalContainerUser key = {Peticion._id} {...Peticion} />
                         )
                     })
                     :

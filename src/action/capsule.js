@@ -49,9 +49,6 @@ export const startCreateCapsule = (title, date, descripcion, file) => {
             formData.append('title', title)
 
             const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}})
-
-            console.log(res)
-
             
             if(res.data.ok) {
                 const image = res.data.image.url
@@ -61,12 +58,11 @@ export const startCreateCapsule = (title, date, descripcion, file) => {
 
                 dispatch(createCapsule(body))
 
-                console.log(body)
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
-                    timer: 10000,
+                    timer: 5000,
                     timerProgressBar: true,
                     didOpen: (toast) => {
                       toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -102,8 +98,6 @@ export const startUpdateCapsule = (title, date, descripcion, fileupload) => {
 
         const {activeCapsule} = getState().ca
 
-        console.log(activeCapsule)
-
         const token = localStorage.getItem('token') || '';
 
             if(fileupload) {
@@ -116,14 +110,6 @@ export const startUpdateCapsule = (title, date, descripcion, fileupload) => {
                     formData.append('title', activeCapsule.title)
         
                     const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}})
-        
-                    console.log(res)
-        
-                // 
-                // 
-                
-                    // const resp = await fetchConToken(`miniSerie/update/${serie.id}`, serie, 'PUT')
-                    // const body = await resp.json()
         
                     if(res.data.ok) {
                         const image = res.data.image.url
@@ -138,7 +124,7 @@ export const startUpdateCapsule = (title, date, descripcion, fileupload) => {
                                 toast: true,
                                 position: 'top-end',
                                 showConfirmButton: false,
-                                timer: 10000,
+                                timer: 5000,
                                 timerProgressBar: true,
                                 didOpen: (toast) => {
                                   toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -153,7 +139,6 @@ export const startUpdateCapsule = (title, date, descripcion, fileupload) => {
                         }
                 
                     } else {
-                        console.log(res.errors)
                         Swal.fire('Error', res.errors, 'error')
                     }
                 } else {
@@ -171,7 +156,7 @@ export const startUpdateCapsule = (title, date, descripcion, fileupload) => {
                         toast: true,
                         position: 'top-end',
                         showConfirmButton: false,
-                        timer: 10000,
+                        timer: 5000,
                         timerProgressBar: true,
                         didOpen: (toast) => {
                           toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -214,7 +199,7 @@ export const startDeleteCapsule = () => {
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
-                    timer: 10000,
+                    timer: 5000,
                     timerProgressBar: true,
                     didOpen: (toast) => {
                       toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -236,7 +221,7 @@ export const startDeleteCapsule = () => {
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
-                    timer: 10000,
+                    timer: 5000,
                     timerProgressBar: true,
                     didOpen: (toast) => {
                       toast.addEventListener('mouseenter', Swal.stopTimer)

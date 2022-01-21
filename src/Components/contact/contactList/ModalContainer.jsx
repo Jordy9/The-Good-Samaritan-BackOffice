@@ -1,13 +1,11 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
 import h2p from 'html2plaintext'
 import moment from 'moment'
 import { SetActiveContact, startDeleteContact } from '../../../action/contact'
 
 export const ModalContainer = (props) => {
-
-  const {activeContact} = useSelector(state => state.co)
 
   const {name, email, date, descripcion} = props
 

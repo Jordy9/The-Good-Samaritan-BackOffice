@@ -51,9 +51,6 @@ export const startCreateBosquejo = (title, date, descripcion, file) => {
             formData.append('title', title)
 
             const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}})
-
-            console.log(res)
-
             
             if(res.data.ok) {
                 const image = res.data.image.url
@@ -63,12 +60,11 @@ export const startCreateBosquejo = (title, date, descripcion, file) => {
 
                 dispatch(createBosquejo(body))
 
-                console.log(body)
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
-                    timer: 10000,
+                    timer: 5000,
                     timerProgressBar: true,
                     didOpen: (toast) => {
                       toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -104,8 +100,6 @@ export const startUpdateBosquejo = (title, date, descripcion, fileupload) => {
 
         const {activeBosquejo} = getState().skt
 
-        console.log(activeBosquejo)
-
         const token = localStorage.getItem('token') || '';
 
             if(fileupload) {
@@ -118,14 +112,6 @@ export const startUpdateBosquejo = (title, date, descripcion, fileupload) => {
                     formData.append('title', activeBosquejo.title)
         
                     const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}})
-        
-                    console.log(res)
-        
-                // 
-                // 
-                
-                    // const resp = await fetchConToken(`miniSerie/update/${serie.id}`, serie, 'PUT')
-                    // const body = await resp.json()
         
                     if(res.data.ok) {
                         const image = res.data.image.url
@@ -140,7 +126,7 @@ export const startUpdateBosquejo = (title, date, descripcion, fileupload) => {
                                 toast: true,
                                 position: 'top-end',
                                 showConfirmButton: false,
-                                timer: 10000,
+                                timer: 5000,
                                 timerProgressBar: true,
                                 didOpen: (toast) => {
                                   toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -155,7 +141,6 @@ export const startUpdateBosquejo = (title, date, descripcion, fileupload) => {
                         }
                 
                     } else {
-                        console.log(res.errors)
                         Swal.fire('Error', res.errors, 'error')
                     }
                 } else {
@@ -173,7 +158,7 @@ export const startUpdateBosquejo = (title, date, descripcion, fileupload) => {
                         toast: true,
                         position: 'top-end',
                         showConfirmButton: false,
-                        timer: 10000,
+                        timer: 5000,
                         timerProgressBar: true,
                         didOpen: (toast) => {
                           toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -216,7 +201,7 @@ export const startDeleteBosquejo = () => {
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
-                    timer: 10000,
+                    timer: 5000,
                     timerProgressBar: true,
                     didOpen: (toast) => {
                       toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -238,7 +223,7 @@ export const startDeleteBosquejo = () => {
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
-                    timer: 10000,
+                    timer: 5000,
                     timerProgressBar: true,
                     didOpen: (toast) => {
                       toast.addEventListener('mouseenter', Swal.stopTimer)

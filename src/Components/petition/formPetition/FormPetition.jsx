@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Editor } from '@tinymce/tinymce-react';
 import { useDispatch } from 'react-redux';
 import { startCreatePetition } from '../../../action/petition';

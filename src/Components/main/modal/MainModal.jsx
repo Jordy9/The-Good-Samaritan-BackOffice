@@ -11,7 +11,7 @@ export const MainModal = () => {
 
     const [imag, setimag] = useState()
 
-    const {handleSubmit, getFieldProps, touched, errors, setFieldValue} = useFormik({
+    const {handleSubmit, getFieldProps, setFieldValue} = useFormik({
         initialValues: {
             title: activeMain?.title, 
             descripcion: activeMain?.descripcion,
@@ -31,7 +31,7 @@ export const MainModal = () => {
 
     return (
         <>
-            <div className="modal fade" id="exampleModal7" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="exampleModal7" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div className="modal-content shadow bg-dark">
                         <div className="modal-header" style = {{border: 'none'}}>

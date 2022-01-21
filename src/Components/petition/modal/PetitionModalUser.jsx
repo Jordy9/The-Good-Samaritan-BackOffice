@@ -1,6 +1,5 @@
 import moment from 'moment'
-import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import React from 'react'
 import { useSelector } from 'react-redux'
 
 export const PetitionModalUser = () => {

@@ -2,7 +2,6 @@ import moment from 'moment'
 import {animateScroll} from 'react-scroll'
 
 export const prepareEvents = (events) => {
-    console.log(events[0].date)
     return events.map(
         (e) => ({
             ...e,

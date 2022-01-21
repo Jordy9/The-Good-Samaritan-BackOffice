@@ -4,11 +4,10 @@ import { Editor } from '@tinymce/tinymce-react'
 import { startUpdatePetition } from '../../../action/petition'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
-import moment from 'moment';
 
 export const PetitionModal = () => {
 
-    const newDate = moment().format('yyyy-MM-DDTHH:mm')
+    // const newDate = moment().format('yyyy-MM-DDTHH:mm')
 
     const {activePetitions} = useSelector(state => state.pt)
 

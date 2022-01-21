@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
 import h2p from 'html2plaintext'
 import { SetActivePetitionesUser, startDeletePetitionesUser } from '../../../action/petition'

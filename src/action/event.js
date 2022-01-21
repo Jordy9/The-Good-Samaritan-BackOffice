@@ -3,19 +3,6 @@ import axios from 'axios'
 import { Types } from "../types/Types"
 import Swal from "sweetalert2"
 
-
-// export const startGetEventos = () => {
-//     return async(dispatch) => {
-//         const resp = await fetchSinToken('evento')
-//         const body = await resp.json()
-
-//         if(body.ok) {
-//             // console.log(prepareEvents(body.eventos))
-//             dispatch(Eventos(body.eventos))
-//         }
-//     }
-// }
-
 export const startGetPaginateEventos = (page) => {
     return async(dispatch) => {
         const resp = await fetchSinToken(`evento/eve?page=${page || 1}`)
@@ -51,9 +38,6 @@ export const startCreateEvento = (title, date, file, descripcion) => {
             formData.append('title', title)
 
             const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}})
-
-            console.log(res)
-
             
             if(res.data.ok) {
                 const image = res.data.image.url
@@ -63,12 +47,11 @@ export const startCreateEvento = (title, date, file, descripcion) => {
 
                 dispatch(createEvento(body))
 
-                console.log(body)
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
-                    timer: 10000,
+                    timer: 5000,
                     timerProgressBar: true,
                     didOpen: (toast) => {
                       toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -105,8 +88,6 @@ export const startUpdateEvento = (title, date, descripcion, fileupload) => {
 
         const {activeEvent} = getState().ev
 
-        console.log(activeEvent)
-
         const token = localStorage.getItem('token') || '';
 
             if(fileupload) {
@@ -119,14 +100,6 @@ export const startUpdateEvento = (title, date, descripcion, fileupload) => {
                     formData.append('title', activeEvent.title)
         
                     const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}})
-        
-                    console.log(res)
-        
-                // 
-                // 
-                
-                    // const resp = await fetchConToken(`miniSerie/update/${serie.id}`, serie, 'PUT')
-                    // const body = await resp.json()
         
                     if(res.data.ok) {
                         const image = res.data.image.url
@@ -141,7 +114,7 @@ export const startUpdateEvento = (title, date, descripcion, fileupload) => {
                                 toast: true,
                                 position: 'top-end',
                                 showConfirmButton: false,
-                                timer: 10000,
+                                timer: 5000,
                                 timerProgressBar: true,
                                 didOpen: (toast) => {
                                   toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -156,7 +129,6 @@ export const startUpdateEvento = (title, date, descripcion, fileupload) => {
                         }
                 
                     } else {
-                        console.log(res.errors)
                         Swal.fire('Error', res.errors, 'error')
                     }
                 } else {
@@ -175,7 +147,7 @@ export const startUpdateEvento = (title, date, descripcion, fileupload) => {
                         toast: true,
                         position: 'top-end',
                         showConfirmButton: false,
-                        timer: 10000,
+                        timer: 5000,
                         timerProgressBar: true,
                         didOpen: (toast) => {
                           toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -218,7 +190,7 @@ export const startDeleteEvento = () => {
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
-                    timer: 10000,
+                    timer: 5000,
                     timerProgressBar: true,
                     didOpen: (toast) => {
                       toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -240,7 +212,7 @@ export const startDeleteEvento = () => {
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
-                    timer: 10000,
+                    timer: 5000,
                     timerProgressBar: true,
                     didOpen: (toast) => {
                       toast.addEventListener('mouseenter', Swal.stopTimer)
