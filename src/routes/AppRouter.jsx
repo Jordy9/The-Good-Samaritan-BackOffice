@@ -37,7 +37,7 @@ export const AppRouter = () => {
     const dispatch = useDispatch();
     const {checking, uid} = useSelector(state => state.auth)
 
-    const {socket, online, conectarSocket, desconectarSocket} = useSocket('https://server-socket-good.herokuapp.com')
+    const {socket, online, conectarSocket, desconectarSocket} = useSocket('https://server-socket-good.herokuapp.com/')
 
     useEffect(() => {
         dispatch(startAuthCheking());
