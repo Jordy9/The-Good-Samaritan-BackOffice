@@ -37,7 +37,7 @@ export const startCreateEvento = (title, date, file, descripcion) => {
             formData.append('file', file)
             formData.append('title', title)
 
-            const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}})
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {headers: {'x-token': token}})
             
             if(res.data.ok) {
                 const image = res.data.image.url
@@ -91,7 +91,7 @@ export const startUpdateEvento = (title, date, descripcion, fileupload) => {
         const token = localStorage.getItem('token') || '';
 
             if(fileupload) {
-                const ress = await axios.delete(`http://localhost:4000/api/image/upload/${activeEvent.idImage}`, {headers: {'x-token': token}})
+                const ress = await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeEvent.idImage}`, {headers: {'x-token': token}})
 
                 if (ress.data.ok) {
 
@@ -99,7 +99,7 @@ export const startUpdateEvento = (title, date, descripcion, fileupload) => {
                     formData.append('file', fileupload)
                     formData.append('title', activeEvent.title)
         
-                    const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}})
+                    const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {headers: {'x-token': token}})
         
                     if(res.data.ok) {
                         const image = res.data.image.url
@@ -180,7 +180,7 @@ export const startDeleteEvento = () => {
         const token = localStorage.getItem('token') || '';
 
         if(activeEvent.idImage) {
-            await axios.delete(`http://localhost:4000/api/image/upload/${activeEvent.idImage}`, {headers: {'x-token': token}})
+            await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeEvent.idImage}`, {headers: {'x-token': token}})
 
             const resp = await fetchConToken(`evento/${activeEvent.id}`, activeEvent, 'DELETE')
     

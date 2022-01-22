@@ -11,7 +11,7 @@ export const LoginScreen = () => {
 
     const email = localStorage.getItem('email2')
 
-    const [setRemember] = useState();
+    const [remember, setRemember] = useState();
 
     useEffect(() => {
         if (email) {

@@ -21,7 +21,7 @@ const Zooms = (zoom) => ({
     payload: zoom
 })
 
-export const startCreateZoom = (title, date, file) => {
+export const startCreateZoom = (title, date, file, id, password) => {
     return async(dispatch, getState) => {
 
         const {Zoom} = getState().zm
@@ -36,15 +36,15 @@ export const startCreateZoom = (title, date, file) => {
 
         if(zoom) {
 
-            const ress = await axios.delete(`http://localhost:4000/api/image/upload/${zoom.idImage}`, {headers: {'x-token': token}})
+            const ress = await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${zoom.idImage}`, {headers: {'x-token': token}})
 
             if(ress.data.ok) {
-                const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}})
+                const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {headers: {'x-token': token}})
                 
                 if(res.data.ok) {
                     const image = res.data.image.url
                     const idImage = res.data.image.id
-                    const resp = await fetchConToken(`zoom/${zoom._id}`, {title, date, image, idImage}, 'PUT');
+                    const resp = await fetchConToken(`zoom/${zoom._id}`, {title, date, image, idImage, id, password}, 'PUT');
                     const body = await resp.json()
 
                     dispatch(createZoom(body))
@@ -69,12 +69,12 @@ export const startCreateZoom = (title, date, file) => {
                 }
             }
         } else {
-            const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}})
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {headers: {'x-token': token}})
             
             if(res.data.ok) {
                 const image = res.data.image.url
                 const idImage = res.data.image.id
-                const resp = await fetchConToken('zoom', {title, date, image, idImage}, 'POST');
+                const resp = await fetchConToken('zoom', {title, date, image, idImage, id, password}, 'POST');
                 const body = await resp.json()
 
                 dispatch(createZoom(body))

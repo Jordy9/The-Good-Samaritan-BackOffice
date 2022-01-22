@@ -48,7 +48,7 @@ export const startCreateCapsule = (title, date, descripcion, file) => {
             formData.append('file', file)
             formData.append('title', title)
 
-            const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}})
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {headers: {'x-token': token}})
             
             if(res.data.ok) {
                 const image = res.data.image.url
@@ -101,7 +101,7 @@ export const startUpdateCapsule = (title, date, descripcion, fileupload) => {
         const token = localStorage.getItem('token') || '';
 
             if(fileupload) {
-                const ress = await axios.delete(`http://localhost:4000/api/image/upload/${activeCapsule.idImage}`, {headers: {'x-token': token}})
+                const ress = await axios.delete(`${process}/image/upload/${activeCapsule.idImage}`, {headers: {'x-token': token}})
 
                 if (ress.data.ok) {
 
@@ -109,7 +109,7 @@ export const startUpdateCapsule = (title, date, descripcion, fileupload) => {
                     formData.append('file', fileupload)
                     formData.append('title', activeCapsule.title)
         
-                    const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}})
+                    const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {headers: {'x-token': token}})
         
                     if(res.data.ok) {
                         const image = res.data.image.url
@@ -189,7 +189,7 @@ export const startDeleteCapsule = () => {
         const token = localStorage.getItem('token') || '';
 
         if(activeCapsule.idImage) {
-            await axios.delete(`http://localhost:4000/api/image/upload/${activeCapsule.idImage}`, {headers: {'x-token': token}})
+            await axios.delete(`${process}/image/upload/${activeCapsule.idImage}`, {headers: {'x-token': token}})
 
             const resp = await fetchConToken(`capsule/${activeCapsule._id}`, activeCapsule, 'DELETE')
     

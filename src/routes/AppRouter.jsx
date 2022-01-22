@@ -37,7 +37,7 @@ export const AppRouter = () => {
     const dispatch = useDispatch();
     const {checking, uid} = useSelector(state => state.auth)
 
-    const {socket, online, conectarSocket, desconectarSocket} = useSocket('https://server-socket-good.herokuapp.com/')
+    const {socket, online, conectarSocket, desconectarSocket} = useSocket('http://localhost:4000')
 
     useEffect(() => {
         dispatch(startAuthCheking());
@@ -73,6 +73,14 @@ export const AppRouter = () => {
     useEffect(() => {
         dispatch(startSocket(socket, online))
     }, [dispatch, socket, online])
+
+    useEffect(() => {
+        socket?.on('mensaje-personal', (mensaje) => {
+            dispatch(activeMessage(mensaje))
+            
+            scrollToBottomAnimated('messages')
+        })
+    }, [socket, dispatch])
 
     if (checking) {
         return <Spinner />

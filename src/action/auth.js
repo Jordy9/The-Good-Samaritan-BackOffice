@@ -182,11 +182,11 @@ export const startUpdateUserAdmin = (name, lastName, age, date, email, address, 
             formData.append('title', name)
 
             if (user?.urlImage) {
-                const ress = await axios.delete(`http://localhost:4000/api/image/upload/${user.idImage}`, {headers: {'x-token': token}})
+                const ress = await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${user.idImage}`, {headers: {'x-token': token}})
 
                 if (ress.data.ok) {
 
-                    const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}})
+                    const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {headers: {'x-token': token}})
     
                     if (res.data.ok) {
                         const urlImage = res.data.image.url
@@ -270,7 +270,7 @@ export const startUpdateUserAdmin = (name, lastName, age, date, email, address, 
                 }
 
             } else{
-                const res = await axios.post('http://localhost:4000/api/image/upload', formData, {headers: {'x-token': token}})
+                const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {headers: {'x-token': token}})
     
                 if (res.data.ok) {
                     const urlImage = res.data.image.url

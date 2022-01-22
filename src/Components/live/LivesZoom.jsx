@@ -8,8 +8,6 @@ import moment from 'moment';
 
 export const LivesZoom = () => {
 
-    moment.locale('es')
-
     const newDate = moment().format('yyyy-MM-DDTHH:mm')
 
     const dispatch = useDispatch()
@@ -24,15 +22,19 @@ export const LivesZoom = () => {
         initialValues: {
             title: '', 
             date: '', 
-            image: ''
+            image: '',
+            id: '',
+            password: ''
         },
         enableReinitialize: true,
-        onSubmit: ({title, date, image}) => {
-            dispatch(startCreateZoom(title, moment(date).format('MMMM Do YYYY, h:mm a'), image))
+        onSubmit: ({title, date, image, id, password}) => {
+            dispatch(startCreateZoom(title, moment(date).format('MMMM Do YYYY, h:mm a'), image, id, password))
             resetForm({
                 title: '', 
                 date: '', 
-                image: document.getElementById('image').value = ''
+                image: document.getElementById('image').value = '',
+                id: '',
+                password: ''
             })
             setimag()
         },
@@ -46,12 +48,16 @@ export const LivesZoom = () => {
                         .required('Requerido'),
             image: Yup.string()
                         .required('Requerido'),
+            id: Yup.string()
+                        .max(11, 'Debe de tener 11 caracteres')
+                        .min(11, 'Debe de tener 11 caracteres')
+                        .required('Requerido'),
         })
     })
 
     const handledImage = () => {
         document.querySelector('#fileSelector').click()
-      }
+    }
 
     return (
         <div style = {{marginTop: '70px'}} className='row'>
@@ -95,6 +101,23 @@ export const LivesZoom = () => {
                         </div> 
                     </div>
                 </div>
+
+                <div className="row">
+                <div className="col-6">
+                    <div className="form-group">
+                        <label>Id de la reunión</label>
+                        <input type="Number" className = 'form-control bg-transparent text-white' {...getFieldProps('id')} />
+                        {touched.id && errors.id && <span style={{color: 'red'}}>{errors.id}</span>}
+                    </div>
+                </div>
+
+                <div className="col-6">
+                    <div className="form-group">
+                        <label>Contraseña</label>
+                        <input type="text" className = 'form-control bg-transparent text-white' {...getFieldProps('password')} />
+                    </div>
+                </div>
+            </div>
 
                 <button type='submit' className = 'btn btn-outline-primary form-control my-3'>Guardar</button>
                 </form>
