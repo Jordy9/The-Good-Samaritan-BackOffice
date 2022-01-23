@@ -29,7 +29,7 @@ export const FormEvent = () => {
             resetForm({
                 title: '', 
                 date: '', 
-                image: document.getElementById('image').value = '',
+                image: document.getElementsByName('image').value = '',
                 descripcion: tinymce.activeEditor.setContent('')
             })
             setimag()

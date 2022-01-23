@@ -32,7 +32,7 @@ export const LivesZoom = () => {
             resetForm({
                 title: '', 
                 date: '', 
-                image: document.getElementById('image').value = '',
+                image: document.getElementsByName('image').value = '',
                 id: '',
                 password: ''
             })
@@ -43,12 +43,12 @@ export const LivesZoom = () => {
                         .max(50, 'Debe de tener 50 caracteres o menos')
                         .min(3, 'Debe de tener 3 caracteres o más')
                         .required('Requerido'),
-            date: Yup.date()
+            date:  Yup.date()
                         .min(newDate, 'Fecha u hora incorrecta')
                         .required('Requerido'),
             image: Yup.string()
                         .required('Requerido'),
-            id: Yup.string()
+            id:    Yup.string()
                         .max(11, 'Debe de tener 11 caracteres')
                         .min(11, 'Debe de tener 11 caracteres')
                         .required('Requerido'),

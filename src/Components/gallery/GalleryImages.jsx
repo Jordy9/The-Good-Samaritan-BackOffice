@@ -20,7 +20,7 @@ export const GalleryImages = () => {
             dispatch(startCreateGallery(title, image))
             resetForm({
                 title: '', 
-                image: document.getElementById('image').value = ''
+                image: document.getElementsByName('image').value = ''
             })
             setimag()
         },

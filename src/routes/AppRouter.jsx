@@ -27,7 +27,6 @@ import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
 import moment from 'moment';
 import 'moment/locale/es';
-import { scrollToBottomAnimated } from '../helper/PrepareEvents';
 import { cargarNotificaciones } from '../action/notifications';
 
 moment.locale('es');
@@ -77,8 +76,6 @@ export const AppRouter = () => {
     useEffect(() => {
         socket?.on('mensaje-personal', (mensaje) => {
             dispatch(activeMessage(mensaje))
-            
-            scrollToBottomAnimated('messages')
         })
     }, [socket, dispatch])
 
@@ -86,7 +83,6 @@ export const AppRouter = () => {
         return <Spinner />
     }
     
-
     return (
         <Router>
 

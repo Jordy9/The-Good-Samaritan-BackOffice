@@ -22,7 +22,7 @@ export const Main = () => {
             dispatch(startCreateMain(title, descripcion, image))
             resetForm({
                 title: '', 
-                image: document.getElementById('image').value = '',
+                image: document.getElementsByName('image').value = '',
                 descripcion: ''
             })
             setimag()

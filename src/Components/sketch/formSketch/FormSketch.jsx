@@ -30,7 +30,7 @@ export const FormSketch = () => {
                 title: '', 
                 date: '', 
                 descripcion: tinymce.activeEditor.setContent(''),
-                image: document.getElementById('image').value = ''
+                image: document.getElementsByName('image').value = ''
             })
             setimag()
         },

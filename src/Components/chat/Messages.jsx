@@ -1,19 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useRef } from 'react';
 import { useSelector } from 'react-redux';
+import { scrollToBottomAnimated } from '../../helper/PrepareEvents';
 import { IncomingMessage } from './IncomingMessage';
 import { OutgoingMessage } from './OutgoingMessage';
 import { SendMessage } from './SendMessage';
 
 export const Messages = () => {
 
+    const scrollRef = useRef()
+
+
     const {mensajes} = useSelector(state => state.cht)
     const {uid} = useSelector(state => state.auth)
+    
+    useEffect(() => {
+            
+        scrollRef.current?.addEventListener('DOMNodeInserted', scrollToBottomAnimated('messages'))
+
+    }, [mensajes])
 
     return (
         <div className="mesgs">
 
             {/* <!-- Historia inicio --> */}
-            <div id='messages' className="msg_history">
+            <div ref={scrollRef} id='messages' className="msg_history">
 
                 {
                     mensajes.map( msg => (

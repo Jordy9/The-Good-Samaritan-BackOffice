@@ -183,7 +183,7 @@ export const ModalUser = () => {
                                             {touched.confirmPassword && errors.confirmPassword && <span style={{color: 'red'}}>{errors.confirmPassword}</span>}
                                         </div>
                                     </div>
-                                    <button type='submit' className = 'btn btn-outline-primary form-control' data-bs-dismiss='modal' aria-label = 'Close'>Crear</button>
+                                    <button type='submit' className = 'btn btn-outline-primary form-control'>Crear</button>
                                     </form>
                                 </div>
                             </div>

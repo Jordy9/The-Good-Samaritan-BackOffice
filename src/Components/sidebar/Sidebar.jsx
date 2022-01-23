@@ -8,10 +8,10 @@ export const Sidebar = () => {
 
     const {activeUser} = useSelector(state => state.auth)
 
-        const [show, setShow] = useState(false);
-      
-        const handleClose = () => setShow(false);
-        const handleShow = () => setShow(true);
+    const [show, setShow] = useState(false);
+    
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     return (
         <>
