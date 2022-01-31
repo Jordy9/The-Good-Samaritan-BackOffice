@@ -14,6 +14,7 @@ export const UserList = () => {
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Correo Electrónico</th>
+                <th>Rol</th>
                 <th>Acción</th>
               </tr>
             </thead>

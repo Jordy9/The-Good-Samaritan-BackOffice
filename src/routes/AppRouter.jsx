@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import { setActiveUser, startAuthCheking, startGetUsers } from '../action/auth';
 import { startGetPaginateCapsules } from '../action/capsule';
-import { activeMessage } from '../action/chat';
+import { activeMessage, isTyping } from '../action/chat';
 import { startGetPaginateContact } from '../action/contact';
 import { startGetPaginateEventos } from '../action/event';
 import { startGetPaginateGallery } from '../action/gallery';
@@ -76,6 +76,13 @@ export const AppRouter = () => {
     useEffect(() => {
         socket?.on('mensaje-personal', (mensaje) => {
             dispatch(activeMessage(mensaje))
+        })
+    }, [socket, dispatch])
+
+    useEffect(() => {
+        socket?.on('escribiendo-admin', (typing) => {
+            console.log(typing);
+            dispatch(isTyping(typing))
         })
     }, [socket, dispatch])
 

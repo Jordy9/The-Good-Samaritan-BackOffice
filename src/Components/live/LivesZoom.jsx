@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { startCreateZoom } from '../../action/zoom'
+import { startCreateZoom, startGetZoom } from '../../action/zoom'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import moment from 'moment';
+import { useEffect } from 'react';
 
 export const LivesZoom = () => {
 
@@ -17,6 +18,11 @@ export const LivesZoom = () => {
     const {Zoom} = useSelector(state => state.zm)
 
     const zoom = Zoom[0]
+
+    // useEffect(() => {
+    //     dispatch(startGetZoom())
+    // }, [Zoom, dispatch]);
+    
 
     const {handleSubmit, resetForm, getFieldProps, touched, errors, setFieldValue} = useFormik({
         initialValues: {

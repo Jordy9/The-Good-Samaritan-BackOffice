@@ -3,10 +3,20 @@ import {Types} from '../types/Types';
 import Swal from 'sweetalert2'
 import axios from "axios";
 import { clearChat } from "./chat";
+import moment from "moment";
 
 
 export const startLogin = (email, password) => {
     return async(dispatch) => {
+        const greeting = moment().hour()
+        let greet
+        if (greeting >= 0 && greeting <= 11) {
+            greet = '🌄 Buenos días'
+        } else if (greeting >= 12 && greeting <= 18) {
+            greet = '☀️ Buenas tardes'
+        } else if (greeting >= 19 && greeting <= 23) {
+            greet = '🌙 Buenas noches'
+        }
         const resp = await fetchSinToken('auth', {email, password}, 'POST');
         const body = await resp.json();
         
@@ -19,6 +29,22 @@ export const startLogin = (email, password) => {
                 name: body.name
             }))
             dispatch(setActiveUser())
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              return Toast.fire({
+                title: `${greet} ${body.name}`
+              })             
         } else {
             Swal.fire('Error', body.msg, 'error')
         }
@@ -26,9 +52,9 @@ export const startLogin = (email, password) => {
 }
 
 
-export const startRegister = (name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password) => {
+export const startRegister = (name, lastName, age, date, email, address, country, city, number, password) => {
     return async(dispatch) => {
-        const resp = await fetchConToken('auth/new', {name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password}, 'POST');
+        const resp = await fetchConToken('auth/new', {name, lastName, age, date, email, address, country, city, number, password}, 'POST');
         const body = await resp.json();
 
         if(body.ok) {
@@ -42,9 +68,6 @@ export const startRegister = (name, lastName, age, date, email, address, country
                 country: body?.country,
                 city: body?.city,
                 number: body?.number,
-                biliever: false,
-                discipleship: false,
-                tracking: false,
                 password: body?.password
             }))
             await dispatch(setActiveUser(body.users))
@@ -116,17 +139,64 @@ const getUsers = (users) => ({
     payload: users
 })
 
-export const startUpdateUser = (name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password) => {
+export const startUpdateUser = (name, lastName, age, date, email, address, country, city, number, password) => {
     return async(dispatch, getState) => {
         const {SetUser} = getState().us
         
             const user = SetUser
-            const resp = await fetchConToken(`auth/update/${user.id}`, {name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password}, 'PUT')
+            const resp = await fetchConToken(`auth/update/${user.id}`, {name, lastName, age, date, email, address, country, city, number, password}, 'PUT')
             const body = await resp.json()
 
         if(body.ok) {
             dispatch(updateUser(body.usuario))
             dispatch(setActiveUser(body.usuario))
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              return Toast.fire({
+                icon: 'success',
+                title: 'Usuario actualizado correctamente'
+              })
+        } else {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              return Toast.fire({
+                icon: 'error',
+                title: `${body.errors.email.msg}`
+              })
+        }
+    }
+}
+
+export const startUpdateUserUsuario = (name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password) => {
+    return async(dispatch, getState) => {
+        const {SetUser} = getState().us
+        
+            const user = SetUser
+            const resp = await fetchConToken(`users/update/${user.id}`, {name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password}, 'PUT')
+            const body = await resp.json()
+
+        if(body.ok) {
+            dispatch(setActiveUser(body.users))
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',

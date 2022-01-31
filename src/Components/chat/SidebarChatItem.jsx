@@ -5,11 +5,11 @@ import { activeChat, cargarChat } from '../../action/chat'
 import { BorrarNotificaciones } from '../../action/notifications'
 import user from '../../heroes/user-profile.png'
 
-export const SidebarChatItem = ({usuarios}) => {
+export const SidebarChatItem = ({usuarios, istyping}) => {
 
     const dispatch = useDispatch()
 
-    const {chatActivo} = useSelector(state => state.cht)
+    const {chatActivo, typing} = useSelector(state => state.cht)
 
     const {uid} = useSelector(state => state.auth)
 
@@ -47,6 +47,12 @@ export const SidebarChatItem = ({usuarios}) => {
                 </div>
                 <div className="chat_ib">
                     <h5 className='text-white'>{usuarios.name} {usuarios.lastName}</h5>
+                    {
+                        (istyping[0] === usuarios && typing?.typing === false)
+                            &&
+                        <span className="d-flex text-secondary">Escribiendo</span>
+
+                    }
                     {
                         (usuarios.online)
                             ?

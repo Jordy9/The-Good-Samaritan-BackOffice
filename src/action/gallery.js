@@ -53,7 +53,12 @@ export const startCreateGallery = (title, file) => {
             formData.append('file', file)
             formData.append('title', title)
 
-            const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {headers: {'x-token': token}})
+            console.log(file);
+
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {headers: {'x-token': token}, onUploadProgress(progressEvent) {
+                const {loaded, total} = progressEvent
+                    console.log(Math.round( (loaded * 100) / total ));
+            }})
             
             if(res.data.ok) {
                 const image = res.data.image.url

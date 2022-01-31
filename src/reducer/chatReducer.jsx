@@ -55,7 +55,12 @@ export const chatReducer = (state = initialState, action) => {
                 usuarios: [],
                 mensajes: []
             }
-            
+
+        case Types.chtTyping:
+            return {
+                ...state,
+                typing: action.payload
+            }
     
         default:
             return state;

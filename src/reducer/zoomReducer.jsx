@@ -16,10 +16,7 @@ export const zoomReducer = (state = initialState, action) => {
         case Types.zmcreateZoom:
             return {
                 ...state,
-                Zoom: [
-                    ...state.Zoom,
-                    action.payload
-                ]
+                Zoom: action.payload
             }
 
         case Types.zmSetZoom:

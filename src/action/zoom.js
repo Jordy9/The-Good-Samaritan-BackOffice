@@ -25,6 +25,7 @@ export const startCreateZoom = (title, date, file, id, password) => {
     return async(dispatch, getState) => {
 
         const {Zoom} = getState().zm
+        const {socket} = getState().sk
 
         const zoom = Zoom[0]
 
@@ -47,12 +48,14 @@ export const startCreateZoom = (title, date, file, id, password) => {
                     const resp = await fetchConToken(`zoom/${zoom._id}`, {title, date, image, idImage, id, password}, 'PUT');
                     const body = await resp.json()
 
-                    dispatch(createZoom(body))
+                    dispatch(createZoom(body.zoom))
+                    dispatch(startGetZoom())
+                    socket.emit('anunciar-reunion', body.zoom)
 
                     const Toast = Swal.mixin({
                         toast: true,
                         position: 'top-end',
-                        showConfirmButton: false,
+                        showConfirmButton: true,
                         timer: 5000,
                         timerProgressBar: true,
                         didOpen: (toast) => {
@@ -78,6 +81,7 @@ export const startCreateZoom = (title, date, file, id, password) => {
                 const body = await resp.json()
 
                 dispatch(createZoom(body))
+                socket.emit('anunciar-reunion')
 
                 const Toast = Swal.mixin({
                     toast: true,

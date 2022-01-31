@@ -6,7 +6,7 @@ import { SetActiveUser } from '../../../action/user'
 
 export const ModalContainer = (props) => {
 
-  const {name, lastName, email, id} = props
+  const {name, lastName, email, id, biliever} = props
 
     const dispatch = useDispatch()
 
@@ -36,6 +36,14 @@ export const ModalContainer = (props) => {
               <th>{name}</th>
               <td>{lastName}</td>
               <td>{email}</td>
+              {
+                (biliever !== undefined)
+                  ?
+                <td className='text-primary'><strong>Usuario</strong></td>
+                  :
+                <td className='text-success'><strong>Administrador</strong></td>
+
+              }
               <td>
                   <button data-bs-toggle="modal" data-bs-target="#exampleModal2" onClick = {handledSet} className = 'btn btn-outline-primary mr-1 ' style = {{borderRadius: '100%'}}><i className="bi bi-eye"></i></button>
                   <button onClick = {Handleddelete} className = 'btn btn-outline-danger ml-1 ' style = {{borderRadius: '100%'}}><i className="bi bi-trash" style = {{color: 'red'}}></i></button>

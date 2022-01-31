@@ -23,15 +23,12 @@ export const ModalUser = () => {
             country: '',
             city: '',
             number: '',
-            biliever: false,
-            discipleship: false,
-            tracking: false,
             password: '',
             confirmPassword: ''
         },
         enableReinitialize: true,
-        onSubmit: ({name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password}) => {
-            dispatch(startRegister(name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password))
+        onSubmit: ({name, lastName, age, date, email, address, country, city, number, password}) => {
+            dispatch(startRegister(name, lastName, age, date, email, address, country, city, number, password))
             resetForm({
                 name: '', 
                 lastName: '', 
@@ -42,9 +39,6 @@ export const ModalUser = () => {
                 country: '',
                 city: '',
                 number: '',
-                biliever: false,
-                discipleship: false,
-                tracking: false,
                 password: '',
                 confirmPassword: ''
             })
@@ -183,7 +177,7 @@ export const ModalUser = () => {
                                             {touched.confirmPassword && errors.confirmPassword && <span style={{color: 'red'}}>{errors.confirmPassword}</span>}
                                         </div>
                                     </div>
-                                    <button type='submit' className = 'btn btn-outline-primary form-control'>Crear</button>
+                                    <button type='submit' className = 'btn btn-outline-primary form-control' data-bs-dismiss="modal" aria-label="Close">Crear</button>
                                     </form>
                                 </div>
                             </div>

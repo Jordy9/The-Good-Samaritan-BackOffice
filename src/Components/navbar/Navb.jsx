@@ -2,6 +2,7 @@ import { Container, Nav, Navbar } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { setActiveUser, startLogout } from '../../action/auth'
+import logo from '../../heroes/logo.png'
 import { Sidebar } from '../sidebar/Sidebar'
 import './Navb.css'
 
@@ -20,9 +21,10 @@ export const Navb = () => {
             <Navbar className = 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12' expand="lg" bg = 'dark' variant="dark">
                 <Sidebar />
                 <Container>
-                    <Navbar.Brand style = {{cursor: 'pointer'}} >
-                        <span className = 'Navb-tittle d-flex justify-content-end'>
-                            <NavLink style = {{textDecoration: 'none', color: 'white'}} to = '/Dashboard'>El buen Samaritano</NavLink>
+                    <Navbar.Brand style = {{cursor: 'pointer', margin: 0, padding: 0}} >
+                        <span className = 'Navb-tittle d-flex justify-content-end align-items-center'>
+                            <img src={logo} className='img-fluid' style={{width: 'auto', height: '40px'}} alt="" />
+                            <NavLink style = {{textDecoration: 'none', color: 'white'}} to = '/Dashboard'>Centro Cristiano El Buen Samaritano</NavLink>
                         </span>
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />

@@ -2,7 +2,7 @@ import React from 'react'
 // import MaskedInput from 'react-text-mask'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { startUpdateUser } from '../../../action/auth'
+import { startUpdateUser, startUpdateUserUsuario } from '../../../action/auth'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import MaskedInput from 'react-text-mask'
@@ -27,15 +27,21 @@ export const Modal = () => {
             country: SetUser?.country,
             city: SetUser?.city,
             number: SetUser?.number,
-            biliever: false,
-            discipleship: false,
-            tracking: false,
+            biliever: SetUser?.biliever,
+            discipleship: SetUser?.discipleship,
+            tracking: SetUser?.tracking,
             password: SetUser?.password,
             confirmPassword: SetUser?.password,
         },
         enableReinitialize: true,
         onSubmit: ({name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password}) => {
-            dispatch(startUpdateUser(name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password))
+            
+                (SetUser?.biliever === undefined)
+                    ?
+                dispatch(startUpdateUser(name, lastName, age, date, email, address, country, city, number, password))
+                    :
+                dispatch(startUpdateUserUsuario(name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password))
+
             resetForm({
                 name: '', 
                 lastName: '', 
@@ -46,9 +52,6 @@ export const Modal = () => {
                 country: '',
                 city: '',
                 number: '',
-                biliever: false,
-                discipleship: false,
-                tracking: false,
                 password: '',
                 confirmPassword: ''
             })
@@ -187,7 +190,7 @@ export const Modal = () => {
                                             {touched.confirmPassword && errors.confirmPassword && <span style={{color: 'red'}}>{errors.confirmPassword}</span>}
                                         </div>
                                     </div>
-                                        <button type='submit' className = 'btn btn-outline-primary form-control'>Guardar</button>
+                                        <button type='submit' className = 'btn btn-outline-primary form-control' data-bs-dismiss="modal" aria-label="Close">Guardar</button>
                                     </form>
                                 </div>
                             </div>

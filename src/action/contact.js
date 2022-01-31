@@ -100,3 +100,22 @@ const deleteContact = (Contacts) => ({
     type: Types.coDeleteContact,
     payload: Contacts
 })
+
+// export const SendContactEmail = () => {
+//     return async(getState) => {
+
+//         const {users} = getState().auth
+
+//         const descripcion = 'Revisa el listado de contactos, ha llegado uno nuevo.'
+//         const subject = `Nueva solicitud de información de contácto`
+//         const title = 'solicitud de información de contácto'
+//         const email2 = 'xilero23@gmail.com'
+
+//         const us = users[Math.floor(Math.random() * users.length + 1)];
+
+//         const email = 'xilero45@gmail.com'
+
+//         const resp = await fetchConToken('sendEmail', {subject, title, email2, descripcion, email}, 'POST');
+//         await resp.json()
+//     }
+// }

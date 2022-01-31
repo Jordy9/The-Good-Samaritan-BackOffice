@@ -1,18 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import './Sidebar.css'
 
 export const Sidebar = () => {
 
-    const {activeUser} = useSelector(state => state.auth)
+    const {pathname} = useLocation()
+
+    const {activeUser, uid} = useSelector(state => state.auth)
+    const {notificaciones} = useSelector(state => state.nt)
 
     const [show, setShow] = useState(false);
+
+    const [changeColor, setChangeColor] = useState(false);
     
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    useEffect(() => {
+        if (notificaciones.filter(not => not.to === uid).length !== 0) {
+            notificaciones?.map(notificaciones => (notificaciones.to === uid && notificaciones.length !== 0) && setChangeColor(true))
+        } else {
+            setChangeColor(false)
+        }    
+    }, [notificaciones, pathname, uid]);
+    
     return (
         <>
             <i style = {{cursor: 'pointer', color: 'white', fontSize: '25px', marginLeft: '30px'}} onClick={handleShow} className="bi bi-list"></i>
@@ -79,7 +92,7 @@ export const Sidebar = () => {
                 </ul>
 
                 <Offcanvas.Header>
-                    <Offcanvas.Title>En vivo</Offcanvas.Title>
+                    <Offcanvas.Title>Zoom</Offcanvas.Title>
                 </Offcanvas.Header>
 
                 <ul className="list-group list-group-flush">        
@@ -126,8 +139,8 @@ export const Sidebar = () => {
                     <Offcanvas.Title>Chat</Offcanvas.Title>
                 </Offcanvas.Header>
 
-                <ul className="list-group list-group-flush">   
-                    <NavLink to = '/Chat' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-chat-text-fill"> </i>Chat</NavLink>
+                <ul className="list-group list-group-flush">  
+                    <NavLink to = '/Chat' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-chat-text-fill" style={{color: (changeColor) && 'red'}}> </i>Chat</NavLink>
                 </ul>
 
                 </Offcanvas.Body>

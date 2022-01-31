@@ -4,10 +4,11 @@ import { useSelector } from 'react-redux';
 
 export const Pagination = ({setCurrentPage}) => {
 
-
     const {users} = useSelector(state => state.auth)
 
-    const total = Math.ceil(users.length/5)
+    const {usuarios} = useSelector(state => state.cht)
+
+    const total = Math.ceil((users?.length + usuarios?.length)/5)
 
     const handlePageClick = (event) => {
         const newOffset = (event.selected * 5);
