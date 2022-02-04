@@ -67,11 +67,11 @@ export const LivesZoom = () => {
 
     return (
         <div style = {{marginTop: '70px'}} className='row'>
-            <div className="col-8">
+            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
             <h1>Anunciar reunión de zoom</h1>
                 <form onSubmit = {handleSubmit}>
                 <div className = 'row'>
-                    <div className="col-3">
+                    <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                         <div className="form-group">
                             <label>Título</label>
                             <input type="text" className = 'form-control bg-transparent text-white' {...getFieldProps('title')} />
@@ -79,7 +79,7 @@ export const LivesZoom = () => {
                         </div>
                     </div>
 
-                    <div className="col-5">
+                    <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                         <div className="form-group">
                             <label>Imagen</label>
                             <button type='button' className='btn btn-outline-primary form-control' onClick={handledImage}>Seleccionar imagen</button>
@@ -90,7 +90,7 @@ export const LivesZoom = () => {
                         </div>
                     </div>
 
-                    <div className="col-4">
+                    <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                         <div className="form-group">
                             <label>Fecha</label>
                             <input type="datetime-local" min = {`${newDate}`} className = 'form-control bg-transparent text-white' {...getFieldProps('date')} />
@@ -109,7 +109,7 @@ export const LivesZoom = () => {
                 </div>
 
                 <div className="row">
-                <div className="col-6">
+                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <div className="form-group">
                         <label>Id de la reunión</label>
                         <input type="Number" className = 'form-control bg-transparent text-white' {...getFieldProps('id')} />
@@ -117,7 +117,7 @@ export const LivesZoom = () => {
                     </div>
                 </div>
 
-                <div className="col-6">
+                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <div className="form-group">
                         <label>Contraseña</label>
                         <input type="text" className = 'form-control bg-transparent text-white' {...getFieldProps('password')} />
@@ -129,7 +129,7 @@ export const LivesZoom = () => {
                 </form>
             </div>
 
-            <div className="col-4">
+            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
                 <h1>Zoom actual</h1>
                 <div className = 'shadow d-flex justify-content-center align-items-center p-4 my-2 bg-dark rounded-lg flex-column'>
 

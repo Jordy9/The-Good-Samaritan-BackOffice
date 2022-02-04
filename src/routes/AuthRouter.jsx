@@ -28,8 +28,22 @@ import { PetitionListSinCuenta } from '../Components/petition/petitionsListSinCu
 import { Youtube } from '../Components/youtube/Youtube';
 import { YoutubeList } from '../Components/youtube/youtubeList/YoutubeList';
 import { ChatPage } from '../Components/chat/ChatPage';
+import moment from 'moment';
+import { useSelector } from 'react-redux';
 
 export const AuthRouter = () => {
+
+    const {Contactos} = useSelector(state => state.co)
+    const {Peticiones, PeticionSinCuenta, PeticionesUser} = useSelector(state => state.pt)
+    const {socket} = useSelector(state => state.sk)
+
+    if (moment().day() > 7 && Peticiones) {
+        const peticionesviejas = Peticiones?.filter(cont => moment(cont?.date, "YYYYMMDD").fromNow() > 'hace 7 días')
+        const peticionesviejasSinCuenta = PeticionSinCuenta?.filter(cont => moment(cont?.date, "YYYYMMDD").fromNow() > 'hace 7 días')
+        const peticionesviejasUser = PeticionesUser?.filter(cont => moment(cont?.date, "YYYYMMDD").fromNow() > 'hace 7 días')
+        const contactosViejos = Contactos?.filter(cont => moment(cont?.date, "YYYYMMDD").fromNow() > 'hace 7 días')
+        socket?.emit('Eliminar-Contactos', contactosViejos, peticionesviejas, peticionesviejasSinCuenta, peticionesviejasUser)
+    }
     return (
         <>
         <Navb />

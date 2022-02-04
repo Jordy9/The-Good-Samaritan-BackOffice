@@ -4,7 +4,7 @@ import { FormCapsule } from './formCapsule/FormCapsule'
 export const Capsule = () => {
     return (
         <>
-            <h1 style = {{marginTop: '70px'}}>Cápsulas</h1>
+            <h1 style = {{marginTop: '70px'}}>Cápsula</h1>
             <FormCapsule />
             
         </>

@@ -44,7 +44,7 @@ export const FormYoutube = () => {
     return (
         <form onSubmit = {handleSubmit}>
             <div className = 'row'>
-                <div className="col">
+                <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div className="form-group">
                         <label>Título</label>
                         <input type="text" className = 'form-control bg-transparent text-white' {...getFieldProps('title')} />
@@ -52,19 +52,19 @@ export const FormYoutube = () => {
                     </div>
                 </div>
 
-                <div className="col">
-                    <div className="form-group">
-                        <label>Fecha</label>
-                        <input type="datetime-local" min={`${newDate}`} className = 'form-control bg-transparent text-white' {...getFieldProps('date')} />
-                        {touched.date && errors.date && <span style={{color: 'red'}}>{errors.date}</span>}
-                    </div>
-                </div>
-
-                <div className="col">
+                <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div className="form-group">
                         <label>Link</label>
                         <input type="text" className = 'form-control bg-transparent text-white' {...getFieldProps('link')} />
                         {touched.link && errors.link && <span style={{color: 'red'}}>{errors.link}</span>}
+                    </div>
+                </div>
+
+                <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <div className="form-group">
+                        <label>Fecha</label>
+                        <input type="datetime-local" min={`${newDate}`} className = 'form-control bg-transparent text-white' {...getFieldProps('date')} />
+                        {touched.date && errors.date && <span style={{color: 'red'}}>{errors.date}</span>}
                     </div>
                 </div>
             </div>

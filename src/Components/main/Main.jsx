@@ -42,14 +42,14 @@ export const Main = () => {
         <h1 style={{marginTop: '70px'}}>Carrusel Principal</h1>
         <form onSubmit = {handleSubmit}>
             <div className = 'row'>
-                <div className="col-3">
+                <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div className="form-group">
                         <label>Título</label>
                         <input type="text" className = 'form-control bg-transparent text-white' {...getFieldProps('title')} />
                     </div>
                 </div>
 
-                <div className="col-5">
+                <div className="col-xs-12 col-sm-12 col-md-4 col-lg-5 col-xl-5">
                     <div className="form-group">
                         <label>Imagen</label>
                         <button type='button' className='btn btn-outline-primary form-control' onClick={handledImage}>Seleccionar imagen</button>
@@ -60,7 +60,7 @@ export const Main = () => {
                     </div>
                 </div>
 
-                <div className="col-2">
+                <div className="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-xl-3">
                     <div className="form-group">
                         <label>Descripción</label>
                         <input type="text" className = 'form-control bg-transparent text-white' {...getFieldProps('descripcion')} />

@@ -7,7 +7,7 @@ export const UserList = () => {
     const [currentPage, setCurrentPage] = useState(0)
 
     return (
-        <>
+        <div className='table-responsive'>
           <table className="table text-white bg-dark text-center">
             <thead>
               <tr>
@@ -24,6 +24,6 @@ export const UserList = () => {
           </table>
 
           <Pagination setCurrentPage = {setCurrentPage} />
-        </>
+        </div>
     )
 }

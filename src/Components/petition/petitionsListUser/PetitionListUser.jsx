@@ -17,21 +17,23 @@ export const PetitionListUser = () => {
     return (
         <>
           <h1 style = {{marginTop: '70px'}}>Listado de Peticiones de Usuarios</h1>
-          <table className="table text-white bg-dark text-center">
-            <thead>
-              <tr>
-                <th>Título</th>
-                <th>Nombre</th>
-                <th>Número de teléfono</th>
-                <th>Fecha</th>
-                <th>Descripción</th>
-                <th>Acción</th>
-              </tr>
-            </thead>
-            <tbody>
-              <ModalListContainerUser />
-            </tbody>
-          </table>
+          <div className="table-responsive">
+            <table className="table text-white bg-dark text-center">
+              <thead>
+                <tr>
+                  <th>Título</th>
+                  <th>Nombre</th>
+                  <th>Número de teléfono</th>
+                  <th>Fecha</th>
+                  <th>Descripción</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ModalListContainerUser />
+              </tbody>
+            </table>
+          </div>
              <PetitionModalUser />
 
              <PaginatePetitionUser />

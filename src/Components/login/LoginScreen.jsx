@@ -49,7 +49,7 @@ export const LoginScreen = () => {
             <div className="container">
                 <div className="row my-5">
                     <div className="col-12 my-5 d-flex justify-content-center">
-                        <div className = 'shadow p-2 mt-2 bg-dark rounded-lg flex-column text-white' style = {{width: '400px', height: '525px'}}>
+                        <div className = 'shadow p-2 mt-2 bg-dark rounded-lg flex-column text-white' style = {{width: '400px', height: '490px'}}>
                             <h4 className = 'text-center my-4'>Iniciar sesión</h4>
                             <div className="container card-body">
                                 <form onSubmit={handleSubmit} className = 'my-4'>
@@ -79,10 +79,6 @@ export const LoginScreen = () => {
                                     </div>
                                     <button type='submit' className = 'btn btn-outline-primary form-control mt-4' style = {{borderRadius: '50px'}}>Iniciar sesión</button>
                                 </form>
-                                
-                                <div className = 'text-center'>
-                                    <NavLink to = '/ForgotPassword' style = {{borderRadius: '50px', textDecoration: 'none'}}>¿Olvidaste tu contraseña?</NavLink>
-                                </div>
                             </div>
                         </div>
                     </div>

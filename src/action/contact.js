@@ -31,32 +31,31 @@ export const startCreateContact = (subject, title, descripcion) => {
     return async(dispatch, getState) => {
         
         const {activeContact} = getState().co 
-        const {users} = getState().auth
-        const {uid} = getState().auth
-        const user = users.find(user => user.id === uid)
-        const email = user.email
+        const email = 'ccbsrd@gmail.com'
 
         const email2 = activeContact.email
 
         const resp = await fetchConToken('sendEmail', {subject, title, email2, descripcion, email}, 'POST');
         await resp.json()
         
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 5000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-          
-          return Toast.fire({
-            icon: 'success',
-            title: 'Eviado correctamente'
-          })
+        if (resp.ok) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              return Toast.fire({
+                icon: 'success',
+                title: 'Eviado correctamente'
+              })
+        }
         
     }
 }
@@ -102,18 +101,18 @@ const deleteContact = (Contacts) => ({
 })
 
 // export const SendContactEmail = () => {
-//     return async(getState) => {
+//     return async(dispatch, getState) => {
 
 //         const {users} = getState().auth
 
 //         const descripcion = 'Revisa el listado de contactos, ha llegado uno nuevo.'
 //         const subject = `Nueva solicitud de información de contácto`
 //         const title = 'solicitud de información de contácto'
-//         const email2 = 'xilero23@gmail.com'
-
 //         const us = users[Math.floor(Math.random() * users.length + 1)];
+//         const email2 = us?.email
 
-//         const email = 'xilero45@gmail.com'
+
+//         const email = 'ccbsrd@gmail.com'
 
 //         const resp = await fetchConToken('sendEmail', {subject, title, email2, descripcion, email}, 'POST');
 //         await resp.json()

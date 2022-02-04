@@ -15,7 +15,7 @@ export const ContactList = () => {
 
 
     return (
-        <>
+        <div className='table-responsive'>
           <table className="table text-white bg-dark text-center">
             <thead>
               <tr>
@@ -33,6 +33,6 @@ export const ContactList = () => {
              <ContactModal />
 
              <PaginateContact />
-          </>
+          </div>
     )
 }
