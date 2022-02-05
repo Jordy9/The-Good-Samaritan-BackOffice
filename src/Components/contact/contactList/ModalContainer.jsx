@@ -36,7 +36,15 @@ export const ModalContainer = (props) => {
               <th>{name}</th>
               <td>{moment(date).format('MMMM Do YYYY, h:mm a')}</td>
               <td>{email}</td>
-              <td>{h2p(descripcion).slice(0, 40) + '...'}</td>
+              <td>
+                {
+                  (h2p(descripcion).length > 9)
+                    ?
+                  h2p(descripcion).slice(0, 40) + '...'
+                    :
+                  h2p(descripcion)
+                }
+              </td>
               <td>
                 {
                     <button onClick = {handledSet} className = 'btn btn-outline-primary mr-1 mt-2' data-bs-toggle="modal" data-bs-target="#exampleModal5" style = {{borderRadius: '100%'}}><i className="bi bi-eye" style = {{color: '#0D6EFD'}}></i></button>

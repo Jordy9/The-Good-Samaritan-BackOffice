@@ -189,7 +189,7 @@ export const startDeleteCapsule = () => {
         const token = localStorage.getItem('token') || '';
 
         if(activeCapsule.idImage) {
-            await axios.delete(`${process}/image/upload/${activeCapsule.idImage}`, {headers: {'x-token': token}})
+            await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeCapsule.idImage}`, {headers: {'x-token': token}})
 
             const resp = await fetchConToken(`capsule/${activeCapsule._id}`, activeCapsule, 'DELETE')
     

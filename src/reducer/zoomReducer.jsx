@@ -25,11 +25,11 @@ export const zoomReducer = (state = initialState, action) => {
                 activeZoom: action.payload
             }
 
-        // case Types.evClearSetEvent:
-        //     return {
-        //         ...state,
-        //         activeZoom: null
-        //     }
+        case Types.zmClearSetZoom:
+            return {
+                ...state,
+                activeZoom: null
+            }
 
         // case Types.evUpdateEvent:
         //     return {

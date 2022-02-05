@@ -38,7 +38,7 @@ export const startCreateZoom = (title, date, file, id, password) => {
         if(zoom) {
 
             const ress = await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${zoom.idImage}`, {headers: {'x-token': token}})
-
+            
             if(ress.data.ok) {
                 const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {headers: {'x-token': token}})
                 
@@ -81,8 +81,9 @@ export const startCreateZoom = (title, date, file, id, password) => {
                 const body = await resp.json()
 
                 dispatch(createZoom(body))
-                socket.emit('anunciar-reunion')
-
+                dispatch(startGetZoom())
+                socket.emit('anunciar-reunion', body.zoomguardado)
+                
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -111,6 +112,11 @@ const createZoom = (zoom) => ({
 })
 
 export const SetActiveZoom = (zoom) => ({
-    type: Types.evSetEvent,
+    type: Types.zmSetZoom,
+    payload: zoom
+});
+
+export const clearSetZoom = (zoom) => ({
+    type: Types.zmClearSetZoom,
     payload: zoom
 });

@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { startCreateZoom, startGetZoom } from '../../action/zoom'
+import { clearSetZoom, SetActiveZoom, startCreateZoom } from '../../action/zoom'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import moment from 'moment';
-import { useEffect } from 'react';
 
 export const LivesZoom = () => {
 
@@ -15,22 +14,18 @@ export const LivesZoom = () => {
 
     const [imag, setimag] = useState()
 
-    const {Zoom} = useSelector(state => state.zm)
+    const {Zoom, activeZoom} = useSelector(state => state.zm)
 
-    const zoom = Zoom[0]
-
-    // useEffect(() => {
-    //     dispatch(startGetZoom())
-    // }, [Zoom, dispatch]);
     
-
+    const zoom = Zoom[0]
+    
     const {handleSubmit, resetForm, getFieldProps, touched, errors, setFieldValue} = useFormik({
         initialValues: {
-            title: '', 
-            date: '', 
+            title: activeZoom?.title || '', 
+            date:  '', 
             image: '',
-            id: '',
-            password: ''
+            id: activeZoom?.id || '',
+            password: activeZoom?.password || ''
         },
         enableReinitialize: true,
         onSubmit: ({title, date, image, id, password}) => {
@@ -42,6 +37,7 @@ export const LivesZoom = () => {
                 id: '',
                 password: ''
             })
+            dispatch(clearSetZoom())
             setimag()
         },
         validationSchema: Yup.object({
@@ -145,6 +141,7 @@ export const LivesZoom = () => {
                     <img className='img-fluid rounded'style={{height: '350px'}} src={zoom?.image} alt="" />
                 </div>
 
+                <button onClick={() => dispatch(SetActiveZoom(zoom))} className='btn btn-outline-success form-control'>Editar</button>
                 </div>  
             </div>
         </div>
