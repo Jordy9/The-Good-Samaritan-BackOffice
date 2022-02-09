@@ -55,3 +55,7 @@ export const isTyping = (typing) => ({
     payload: typing
 })
 
+export const clearChatAtive = () => ({
+    type: Types.chtClearChatActive
+})
+

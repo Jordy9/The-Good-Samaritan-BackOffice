@@ -61,6 +61,12 @@ export const chatReducer = (state = initialState, action) => {
                 ...state,
                 typing: action.payload
             }
+
+        case Types.chtClearChatActive:
+            return {
+                ...state,
+                chatActivo: null
+            }
     
         default:
             return state;

@@ -12,6 +12,7 @@ export const Types = {
     chtCargarChat: '[CHT] cargar chat',
     chtActiveChat: '[CHT] active chat',
     chtActiveMessage: '[CHT] active message',
+    chtClearChatActive: '[CHT] clear chat active',
     // 
     skStatusSocket: '[SK] status socket',
     // 
