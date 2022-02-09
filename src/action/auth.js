@@ -46,7 +46,22 @@ export const startLogin = (email, password) => {
                 title: `${greet} ${body.name}`
               })             
         } else {
-            Swal.fire('Error', body.msg, 'error')
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              return Toast.fire({
+                icon: 'error',
+                title: `${body.msg}`
+              })
         }
     }
 }
@@ -181,7 +196,7 @@ export const startUpdateUser = (name, lastName, age, date, email, address, count
               
               return Toast.fire({
                 icon: 'error',
-                title: `${body.errors.email.msg}`
+                title: `${body.msg}`
               })
         }
     }
@@ -228,7 +243,7 @@ export const startUpdateUserUsuario = (name, lastName, age, date, email, address
               
               return Toast.fire({
                 icon: 'error',
-                title: `${body.errors.email.msg}`
+                title: `${body.msg}`
               })
         }
     }
