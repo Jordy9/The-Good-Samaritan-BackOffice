@@ -42,7 +42,7 @@ export const Navb = () => {
                         variant="outline-secondary"
                         id="input-group-dropdown-1"
                         >
-                        <Dropdown.Item><NavLink className='nav-link' style={{color: 'whitesmoke'}} onClick={() => dispatch(setActiveUser())} to = '/Profile'>{(activeUser?.urlImage) ? <img src={activeUser?.urlImage} className='img-fluid rounded-circle' style = {{cursor: 'pointer', margin: 0}} alt='' /> : <i className="bi bi-person-circle" style = {{cursor: 'pointer', color: 'white', margin: 0}}></i>} Perfil</NavLink></Dropdown.Item>
+                        <Dropdown.Item><NavLink className='nav-link' style={{color: 'whitesmoke'}} onClick={() => dispatch(setActiveUser())} to = '/Profile'>{(activeUser?.urlImage) ? <img src={activeUser?.urlImage} className='img-fluid rounded-circle' style = {{width: '20px', height: '20px', cursor: 'pointer', margin: 0}} alt='' /> : <i className="bi bi-person-circle" style = {{cursor: 'pointer', color: 'white', margin: 0}}></i>} Perfil</NavLink></Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item><NavLink style={{color: 'whitesmoke'}} to = '/Login' onClick = {handledLogout} className = 'nav-link'>Cerrar sesión</NavLink></Dropdown.Item>
                     </DropdownButton>
