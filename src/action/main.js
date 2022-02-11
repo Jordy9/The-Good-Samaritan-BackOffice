@@ -61,8 +61,47 @@ export const startCreateMain = (title, descripcion, file) => {
                 const resp = await fetchConToken('carrusel', {title, date, image, idImage, descripcion}, 'POST');
                 const body = await resp.json()
 
-                dispatch(createMain(body))
+                if (body.ok) {
 
+                    dispatch(createMain(body))
+    
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 5000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'success',
+                        title: 'Carrusel creado correctamente'
+                      })
+                } else {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 5000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'error',
+                        title: `${body.msg}`
+                      })
+                }
+
+                
+            } else {
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -76,10 +115,9 @@ export const startCreateMain = (title, descripcion, file) => {
                   })
                   
                   return Toast.fire({
-                    icon: 'success',
-                    title: 'Carrusel creado correctamente'
+                    icon: 'error',
+                    title: `${res.errors}`
                   })
-                
             }
     }
 }
@@ -144,13 +182,60 @@ export const startUpdateMain = (title, descripcion, fileupload) => {
                                 icon: 'success',
                                 title: 'Carrusel actualizado correctamente'
                               })
+                        } else {
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 5000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                              })
+                              
+                              return Toast.fire({
+                                icon: 'error',
+                                title: `${body.msg}`
+                              })
                         }
                 
                     } else {
-                        Swal.fire('Error', res.errors, 'error')
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 5000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                              toast.addEventListener('mouseenter', Swal.stopTimer)
+                              toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                          })
+                          
+                          return Toast.fire({
+                            icon: 'error',
+                            title: `${res.errors}`
+                          })
                     }
                 } else {
-                    Swal.fire('Error', ress.errors, 'error')
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 5000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'error',
+                        title: `${ress.errors}`
+                      })
                 }
             } else {
 

@@ -57,24 +57,46 @@ export const startCreateMiniSerie = (title, date, descripcion, file) => {
                 const resp = await fetchConToken('miniSerie', {title, date, image, idImage, descripcion}, 'POST');
                 const body = await resp.json()
 
-                dispatch(getMiniSerie(body))
-                
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 5000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                      toast.addEventListener('mouseenter', Swal.stopTimer)
-                      toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                  })
-                  
-                  return Toast.fire({
-                    icon: 'success',
-                    title: 'Mini Serie creada correctamente'
-                  })
+                if (body.ok) {
+
+                    dispatch(getMiniSerie(body))
+                    
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 5000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'success',
+                        title: 'Mini Serie creada correctamente'
+                      })
+                      
+                } else {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 5000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'error',
+                        title: `${body.msg}`
+                      })
+                }
+
                 
             }
     }
@@ -138,13 +160,60 @@ export const startUpdateSerie = (title, date, descripcion, fileupload) => {
                             icon: 'success',
                             title: 'Mini Serie actualizada correctamente'
                           })
+                    } else {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 5000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                              toast.addEventListener('mouseenter', Swal.stopTimer)
+                              toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                          })
+                          
+                          return Toast.fire({
+                            icon: 'error',
+                            title: `${body.msg}`
+                          })
                     }
             
                 } else {
-                    Swal.fire('Error', res.errors, 'error')
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 5000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'error',
+                        title: `${res.errors}`
+                      })
                 }
             } else {
-                Swal.fire('Error', ress.errors, 'error')
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  return Toast.fire({
+                    icon: 'error',
+                    title: `${ress.errors}`
+                  })
             }
 
         } else {
@@ -172,7 +241,22 @@ export const startUpdateSerie = (title, date, descripcion, fileupload) => {
                     title: 'Mini Serie actualizada correctamente'
                   })
             } else {
-                Swal.fire('Error', body.errors, 'error')
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  return Toast.fire({
+                    icon: 'error',
+                    title: body.msg
+                  })
             }
         }
     }

@@ -57,9 +57,48 @@ export const startCreateBosquejo = (title, date, descripcion, file) => {
                 const idImage = res.data.image.id
                 const resp = await fetchConToken('bosquejo', {title, date, image, idImage, descripcion}, 'POST');
                 const body = await resp.json()
+                
+                if (body.ok) {
 
-                dispatch(createBosquejo(body))
+                    dispatch(createBosquejo(body))
+    
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 5000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'success',
+                        title: 'Bosquejo creado correctamente'
+                      })                
 
+                } else {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 5000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'error',
+                        title: `${body.msg}`
+                      })
+                }
+
+            } else {
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -73,9 +112,9 @@ export const startCreateBosquejo = (title, date, descripcion, file) => {
                   })
                   
                   return Toast.fire({
-                    icon: 'success',
-                    title: 'Bosquejo creado correctamente'
-                  })                
+                    icon: 'error',
+                    title: `${res.errors}`
+                  })
             }
     }
 }
@@ -141,10 +180,40 @@ export const startUpdateBosquejo = (title, date, descripcion, fileupload) => {
                         }
                 
                     } else {
-                        Swal.fire('Error', res.errors, 'error')
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 5000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                              toast.addEventListener('mouseenter', Swal.stopTimer)
+                              toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                          })
+                          
+                          return Toast.fire({
+                            icon: 'error',
+                            title: `${res.errors}`
+                          })
                     }
                 } else {
-                    Swal.fire('Error', ress.errors, 'error')
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 5000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'error',
+                        title: `${ress.errors}`
+                      })
                 }
             } else {
 
@@ -169,6 +238,23 @@ export const startUpdateBosquejo = (title, date, descripcion, fileupload) => {
                       return Toast.fire({
                         icon: 'success',
                         title: 'Bosquejo actualizado correctamente'
+                      })
+                } else {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 5000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'error',
+                        title: `${body.msg}`
                       })
                 }
             }

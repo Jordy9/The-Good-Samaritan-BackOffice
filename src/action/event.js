@@ -129,10 +129,40 @@ export const startUpdateEvento = (title, date, descripcion, fileupload) => {
                         }
                 
                     } else {
-                        Swal.fire('Error', res.errors, 'error')
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 5000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                              toast.addEventListener('mouseenter', Swal.stopTimer)
+                              toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                          })
+                          
+                          return Toast.fire({
+                            icon: 'error',
+                            title: `${res.errors}`
+                          })
                     }
                 } else {
-                    Swal.fire('Error', ress.errors, 'error')
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 5000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'error',
+                        title: `${ress.errors}`
+                      })
                 }
             } else {
 
