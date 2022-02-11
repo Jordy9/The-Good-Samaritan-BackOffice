@@ -1,4 +1,4 @@
-import { Container, Nav, Navbar } from 'react-bootstrap'
+import { Container, Dropdown, DropdownButton, Nav, Navbar } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { setActiveUser, startLogout } from '../../action/auth'
@@ -27,20 +27,26 @@ export const Navb = () => {
                             <NavLink id='title-logo' style = {{textDecoration: 'none', color: 'white'}} to = '/Dashboard'>Centro Cristiano El Buen Samaritano</NavLink>
                         </span>
                     </Navbar.Brand>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
 
                     <Nav className="me-auto">
 
                     </Nav>
 
-                    <Nav>
-                        {/* <i className="bi bi-person-circle" style = {{fontSize: '32px', cursor: 'pointer', color: 'white'}}></i> */}
+                    <Nav id='nav-hidden-right'>
                         <NavLink onClick={() => dispatch(setActiveUser())} to = '/Profile'>{(activeUser?.urlImage) ? <img src={activeUser?.urlImage} className='img-fluid rounded-circle mt-2' style = {{width: '32px', height: '32px', cursor: 'pointer', margin: 0}} alt='' /> : <i className="bi bi-person-circle" style = {{fontSize: '32px', cursor: 'pointer', color: 'white', margin: 0}}></i>}</NavLink>
                         <NavLink to = '/Login' onClick = {handledLogout} className = 'nav-link mt-1'>Cerrar sesión</NavLink>
                     </Nav>
 
-                    </Navbar.Collapse>
+                    <DropdownButton
+                        align={'end'}
+                        variant="outline-secondary"
+                        id="input-group-dropdown-1"
+                        >
+                        <Dropdown.Item><NavLink className='nav-link' style={{color: 'whitesmoke'}} onClick={() => dispatch(setActiveUser())} to = '/Profile'>{(activeUser?.urlImage) ? <img src={activeUser?.urlImage} className='img-fluid rounded-circle' style = {{cursor: 'pointer', margin: 0}} alt='' /> : <i className="bi bi-person-circle" style = {{cursor: 'pointer', color: 'white', margin: 0}}></i>} Perfil</NavLink></Dropdown.Item>
+                        <Dropdown.Divider />
+                        <Dropdown.Item><NavLink style={{color: 'whitesmoke'}} to = '/Login' onClick = {handledLogout} className = 'nav-link'>Cerrar sesión</NavLink></Dropdown.Item>
+                    </DropdownButton>
+
                 </Container>
             </Navbar>
         </div>

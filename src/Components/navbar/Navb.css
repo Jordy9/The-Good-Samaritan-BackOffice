@@ -8,3 +8,47 @@ h4.Navb-tittle {
     top: 0;
     width:100%;
 }
+
+.dropdown-menu {
+    background-color: #212529 !important;
+}
+
+#input-group-dropdown-1 {
+    border: none !important;
+}
+
+#input-group-dropdown-1:hover {
+    border: none !important;
+}
+
+#input-group-dropdown-1:focus {
+    border: none !important;
+}
+
+.dropdown-item:hover {
+    background-color: gray !important;
+}
+
+.btn:hover {
+    border: none !important;
+    outline: none !important;
+}
+
+.btn:focus {
+    border: none !important;
+    outline: none !important;
+}
+
+#input-group-dropdown-1 {
+    display: none;
+}
+
+@media (max-width: 991px) {
+    #input-group-dropdown-1 {
+        display: block;
+    }
+
+    #nav-hidden-right {
+        display: none;
+    }
+}
