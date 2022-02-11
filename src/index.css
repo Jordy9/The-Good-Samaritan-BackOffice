@@ -90,4 +90,8 @@ code {
   #title-logo {
     display: none;
   }
+
+  #logo-logo {
+    margin-left: 20px !important;
+  }
 }

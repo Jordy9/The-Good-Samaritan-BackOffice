@@ -28,7 +28,7 @@ export const Sidebar = () => {
     
     return (
         <>
-            <i style = {{cursor: 'pointer', color: 'white', fontSize: '25px', marginLeft: '30px'}} onClick={handleShow} className="bi bi-list"></i>
+            <i id='logo-list' style = {{cursor: 'pointer', color: 'white', fontSize: '25px', marginLeft: '30px'}} onClick={handleShow} className="bi bi-list"></i>
 
             <Offcanvas show={show} onHide={handleClose}>
                 <Offcanvas.Header closeButton>
