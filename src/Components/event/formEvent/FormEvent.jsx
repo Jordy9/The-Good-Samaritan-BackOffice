@@ -26,7 +26,8 @@ export const FormEvent = () => {
         },
         enableReinitialize: true,
         onSubmit: ({title, date, image, descripcion}) => {
-            if (image.type.includes('image') === false) {
+            const imagVide = (image.type.includes('image')) ? 'image' : 'video' 
+            if (image.type.includes(`${imagVide}`) === false) {
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -64,6 +65,8 @@ export const FormEvent = () => {
         document.querySelector('#fileSelector').click()
       }
 
+    const {value} = getFieldProps('image')
+    
     return (
         <form onSubmit = {handleSubmit}>
             <div className = 'row'>
@@ -99,7 +102,17 @@ export const FormEvent = () => {
                 <div className="col-12">
                     <div className="form-group d-flex justify-content-center">
                         {/* <img src = {imag} style = {{ cursor: 'pointer', height: '200px', maxWidth: '400px' }} className = 'img-fluid rounded' alt=''/> */}
-                        <img src = {imag || ''} className="img-fluid rounded" alt="" style = {{ cursor: 'pointer', maxHeight: '225px'}} />
+                        {
+                            (value.type?.includes('image'))
+                                &&
+                            <img src = {imag || ''} className="img-fluid rounded" alt="" style = {{ cursor: 'pointer', maxHeight: '225px'}} />
+                        }
+
+                        {
+                            (value.type?.includes('video'))
+                                &&
+                                <video src = {imag || ''} className="img-fluid rounded" alt="" style = {{ cursor: 'pointer', maxHeight: '225px'}}></video>
+                        }
                     </div> 
                 </div>
             </div>
