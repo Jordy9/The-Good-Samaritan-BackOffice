@@ -28,6 +28,7 @@ import { PublicRoute } from './PublicRoute';
 import moment from 'moment';
 import 'moment/locale/es';
 import { cargarNotificaciones } from '../action/notifications';
+import { startGetVideoWordOfTheDay } from '../action/VideoWordOfTheDay';
 
 moment.locale('es');
 
@@ -55,6 +56,7 @@ export const AppRouter = () => {
         dispatch(setActiveUser())
         dispatch(startGetPaginateYoutube())
         dispatch(cargarNotificaciones())
+        dispatch(startGetVideoWordOfTheDay())
     }, [dispatch])
 
     useEffect(() => {

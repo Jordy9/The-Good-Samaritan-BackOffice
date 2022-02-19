@@ -45,6 +45,15 @@ export const Sidebar = () => {
                 </ul>
 
                 <Offcanvas.Header>
+                    <Offcanvas.Title>Palabra del día</Offcanvas.Title>
+                </Offcanvas.Header>
+
+                <ul className="list-group list-group-flush">
+                    <NavLink to = '/WordOfTheDay' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-file-play"> </i>Palabra del día</NavLink>
+                    <NavLink to = '/WordOfTheDayList' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-list-ul"> </i>Listado de Palabra del día</NavLink>
+                </ul>
+
+                <Offcanvas.Header>
                     <Offcanvas.Title>Series</Offcanvas.Title>
                 </Offcanvas.Header>
 

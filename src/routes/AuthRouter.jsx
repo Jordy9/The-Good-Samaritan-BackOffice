@@ -28,8 +28,10 @@ import { PetitionListSinCuenta } from '../Components/petition/petitionsListSinCu
 import { Youtube } from '../Components/youtube/Youtube';
 import { YoutubeList } from '../Components/youtube/youtubeList/YoutubeList';
 import { ChatPage } from '../Components/chat/ChatPage';
+import { VideoWordOfTheDay } from '../Components/videoWordOfTheDay/VideoWordOfTheDay'
 import moment from 'moment';
 import { useSelector } from 'react-redux';
+import { videoWordOfTheDayList } from '../Components/videoWordOfTheDay/videoWordOfTheDayList/VideoWordOfTheDayList';
 
 export const AuthRouter = () => {
 
@@ -51,6 +53,8 @@ export const AuthRouter = () => {
             <div className = 'my-4'>
                 <Switch>
                     <Route path = '/Dashboard' component = {Dashboard} />
+                    <Route path = '/WordOfTheDay' component = {VideoWordOfTheDay} />
+                    <Route path = '/WordOfTheDayList' component = {videoWordOfTheDayList} />
                     <Route path = '/MiniSerie' component = {MiniSeries} />
                     <Route path = '/MiniSeriesList' component = {MiniSeriesList} />
                     <Route path = '/Sketch' component = {Sketch} />

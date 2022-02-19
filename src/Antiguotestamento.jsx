@@ -44,7 +44,5 @@ export const Antiguotestamento = () => {
     Antiguotestamento.push(genesis, exodo, levitico, deuteronomio, josue, jueces, rut, samuel1, samuel2, reyes1, reyes2, cronicas1, cronicas2, esdras, nehemias,
         ester, job, salmos, proverbios, eclesiastes, cantares, isaias, jeremias, lamentaciones, ezequiel, daniel, oseas, joel, amos, abdias,
         jonas, miqueas, nahum, habacuc, sofonias, hageo, zacarias, malaquias)
-    return [
-        Antiguotestamento
-    ]
+    return Antiguotestamento
 }

@@ -1,5 +1,13 @@
 export const Types = {
 
+    vwdgetVideosWordOfTheDay: '[VWD] get VideosWordOfTheDay',
+    vwdcreateVideoWordOfTheDay: '[VWD] create VideoWordOfTheDay',
+    vwdSetVideoWordOfTheDay: '[VWD] set VideoWordOfTheDay',
+    vwdSetVideoWordOfTheDayForm: '[VWD] set VideoWordOfTheDay form',
+    vwdClearSetVideoWordOfTheDay: '[VWD] clear set VideoWordOfTheDay',
+    vwdUpdateVideoWordOfTheDay: '[VWD] update VideoWordOfTheDay',
+    vwdDeleteVideoWordOfTheDay: '[VWD] delete VideoWordOfTheDay',
+    // 
     ntDeleteNotification: '[NT] delete notification',
     ntNotificacionesCargadas: '[NT] notificaciones cargadas',
     ntCargarNotificaciones: '[NT] cargar notificaciones',

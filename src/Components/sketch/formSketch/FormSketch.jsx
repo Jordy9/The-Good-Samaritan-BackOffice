@@ -6,6 +6,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import moment from 'moment';
 import tinymce from 'tinymce/tinymce';
+import Swal from 'sweetalert2';
 
 
 export const FormSketch = () => {
@@ -25,7 +26,26 @@ export const FormSketch = () => {
         },
         enableReinitialize: true,
         onSubmit: ({title, date, descripcion, image}) => {
+            if (image.type.includes('image') === false) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  return Toast.fire({
+                    icon: 'error',
+                    title: 'Imagen con formato incorrecto'
+                  })
+            } else {
             dispatch(startCreateBosquejo(title, date, descripcion, image))
+            }
             resetForm({
                 title: '', 
                 date: '', 
@@ -69,7 +89,7 @@ export const FormSketch = () => {
                     <div className="form-group">
                         <label>Imagen</label>
                         <button type='button' className='btn btn-outline-primary form-control' onClick={handledImage}>Seleccionar imagen</button>
-                        <input id='fileSelector' hidden = {true} type="file" className='form-control bg-transparent text-white' name='image' onChange={(e) => {
+                        <input accept="image/*" id='fileSelector' hidden = {true} type="file" className='form-control bg-transparent text-white' name='image' onChange={(e) => {
                             setFieldValue('image', e.currentTarget.files[0], (e.currentTarget.files[0]) ? setimag(URL.createObjectURL(e.currentTarget.files[0]) || '') : setimag())
                         }} />
                         {touched.image && errors.image && <span style={{color: 'red'}}>{errors.image}</span>}

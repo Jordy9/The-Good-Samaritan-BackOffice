@@ -30,10 +30,8 @@ import apocalipsis from './procesados/apocalipsis'
 export const Nuevotestamento = () => {
 
     const Nuevotestamento = []
-
+    
     Nuevotestamento.push(mateo, marcos, lucas, juan, hechos, romanos, corintios1, corintios2, galatas, efesios, filipenses, colosenses, tesalonisenses1, tesalonisenses2,
         timoteo1, timoteo2, tito, filemon, hebreos, santiago, pedro1, pedro2, juan1, juan2, juan3, judas, apocalipsis)
-    return [
-        Nuevotestamento
-    ]
+    return Nuevotestamento
 }

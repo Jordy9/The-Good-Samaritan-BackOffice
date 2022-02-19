@@ -13,6 +13,7 @@ import { notificacionReducer } from '../reducer/notificacionReducer';
 import { petitionsReducer } from '../reducer/petitionReducer';
 import { socketReducer } from '../reducer/socketReducer';
 import { userReducer } from '../reducer/userReducer';
+import { VideoWordOfTheDayReducer } from '../reducer/VideoWordOfTheDayReducer';
 import { youtubeReducer } from '../reducer/youtubeReducer';
 import { zoomReducer } from '../reducer/zoomReducer';
 
@@ -34,7 +35,8 @@ const reducers = combineReducers({
     yt: youtubeReducer,
     sk: socketReducer,
     cht: chatReducer,
-    nt: notificacionReducer
+    nt: notificacionReducer,
+    vwd: VideoWordOfTheDayReducer
 });
 
 export const store =  createStore(

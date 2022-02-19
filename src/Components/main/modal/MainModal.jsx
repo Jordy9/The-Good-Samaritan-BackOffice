@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { startUpdateMain } from '../../../action/main'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
+import Swal from 'sweetalert2';
 
 export const MainModal = () => {
     const {activeMain} = useSelector(state => state.ma)
@@ -19,7 +20,26 @@ export const MainModal = () => {
         },
         enableReinitialize: true,
         onSubmit: ({title, descripcion, image}) => {
+            if (image.type.includes('image') === false) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  return Toast.fire({
+                    icon: 'error',
+                    title: 'Imagen con formato incorrecto'
+                  })
+            } else {
             dispatch(startUpdateMain(title, descripcion, image))
+            }
         },
         validationSchema: Yup.object({
         })
@@ -64,7 +84,7 @@ export const MainModal = () => {
                                                 <div className="form-group">
                                                     <label>Imagen</label>
                                                     <button type='button' className='btn btn-outline-primary form-control' onClick={handledImage}>Seleccionar imagen</button>
-                                                    <input id='fileSelector' hidden = {true} type="file" className='form-control bg-transparent text-white' name='image' onChange={(e) => {
+                                                    <input accept="image/*" id='fileSelector' hidden = {true} type="file" className='form-control bg-transparent text-white' name='image' onChange={(e) => {
                                                         setFieldValue('image', e.currentTarget.files[0], (e.currentTarget.files[0]) ? setimag(URL.createObjectURL(e.currentTarget.files[0]) || '') : setimag())
                                                     }} />
                                                 </div>
