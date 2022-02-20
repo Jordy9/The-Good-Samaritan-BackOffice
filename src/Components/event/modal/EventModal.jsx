@@ -53,7 +53,7 @@ export const EventModal = () => {
 
     const handledImage = () => {
         document.querySelector('#fileSelector').click()
-      }
+    }
 
     return (
         <>

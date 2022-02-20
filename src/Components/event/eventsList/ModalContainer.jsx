@@ -44,15 +44,7 @@ export const ModalContainer = (props) => {
                   h2p(descripcion)
                 }
               </td>
-              <td>
-                {
-                  (image.includes('.mp4'))
-                    ?
-                  <video autoPlay = {false} src={image} style = {{height: '60px', width: '60px'}}></video>
-                    :
-                  <img src = {image} alt="" style = {{height: '60px', width: '60px'}} />
-                }
-              </td>
+              <td><img src = {image} alt="" style = {{height: '60px', width: '60px'}} /></td>
               <td>
                   <button onClick = {handledSet} className = 'btn btn-outline-primary mr-1 mt-2' data-bs-toggle="modal" data-bs-target="#exampleModal4" style = {{borderRadius: '100%'}}><i className="bi bi-eye" style = {{color: '#0D6EFD'}}></i></button>
                   <button onClick = {Handleddelete} className = 'btn btn-outline-danger ml-1 mt-2' style = {{borderRadius: '100%'}}><i className="bi bi-trash" style = {{color: 'red'}}></i></button>
