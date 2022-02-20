@@ -5,7 +5,7 @@ import { SetActiveVideoWordOfTheDay, startDeleteVideoWordOfTheDay } from '../../
 
 export const ModalContainer = (props) => {
 
-  const {title} = props
+  const {title, image} = props
 
     const dispatch = useDispatch()
 
@@ -32,6 +32,7 @@ export const ModalContainer = (props) => {
         <>
           <tr>
               <th>{title}</th>
+              <td><video autoPlay = {false} src={image} style = {{height: '60px', width: '60px'}}></video></td>
               <td>
                   <button onClick = {handledSet} className = 'btn btn-outline-primary mr-1 mt-2' data-bs-toggle="modal" data-bs-target="#exampleModalVideoWordOfTheDayModal" style = {{borderRadius: '100%'}}><i className="bi bi-eye" style = {{color: '#0D6EFD'}}></i></button>
                   <button onClick = {Handleddelete} className = 'btn btn-outline-danger ml-1 mt-2' style = {{borderRadius: '100%'}}><i className="bi bi-trash" style = {{color: 'red'}}></i></button>

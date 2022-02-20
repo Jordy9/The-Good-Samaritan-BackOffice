@@ -92,7 +92,7 @@ export const EventModal = () => {
                                                 <div className="form-group">
                                                     <label>Imagen</label>
                                                     <button type='button' className='btn btn-outline-primary form-control' onClick={handledImage}>Seleccionar imagen</button>
-                                                    <input accept="image/*, video/*" id='fileSelector' hidden = {true} type="file" className='form-control bg-transparent text-white' name='image' onChange={(e) => {
+                                                    <input accept="image/*" id='fileSelector' hidden = {true} type="file" className='form-control bg-transparent text-white' name='image' onChange={(e) => {
                                                         setFieldValue('image', e.currentTarget.files[0], (e.currentTarget.files[0]) ? setimag(URL.createObjectURL(e.currentTarget.files[0]) || '') : setimag())
                                                     }} />
                                                     {touched.image && errors.image && <span style={{color: 'red'}}>{errors.image}</span>}
@@ -103,7 +103,6 @@ export const EventModal = () => {
                                         <div className="row">
                                             <div className="col-12">
                                                 <div className="form-group d-flex justify-content-center">
-                                                    {/* <img src = {imag} style = {{ cursor: 'pointer', height: '200px', maxWidth: '400px' }} className = 'img-fluid rounded' alt=''/> */}
                                                     <img src = {imag || activeEvent?.image} className="img-fluid rounded" alt="" style = {{ cursor: 'pointer', maxHeight: '225px'}} />
                                                 </div> 
                                             </div>
