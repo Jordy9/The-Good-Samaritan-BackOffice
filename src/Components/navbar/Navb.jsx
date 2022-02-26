@@ -37,6 +37,7 @@ export const Navb = () => {
                 </Nav>
 
                 <DropdownButton
+                    title = ''
                     align={'end'}
                     variant="outline-secondary"
                     id="input-group-dropdown-1"

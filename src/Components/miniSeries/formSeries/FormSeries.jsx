@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Editor } from '@tinymce/tinymce-react';
 import { useDispatch } from 'react-redux';
 import { startCreateMiniSerie } from '../../../action/miniSerie';
@@ -7,7 +7,6 @@ import * as Yup from 'yup'
 import moment from 'moment';
 import tinymce from 'tinymce/tinymce';
 import Swal from 'sweetalert2';
-
 
 export const FormSeries = () => {
     
@@ -45,6 +44,7 @@ export const FormSeries = () => {
                   })
             } else {
                 dispatch(startCreateMiniSerie(title, date, descripcion, image))
+                setfirst([getFieldProps('descripcion')])
             }
             resetForm({
                 title: '', 
@@ -62,8 +62,8 @@ export const FormSeries = () => {
             date: Yup.date()
                         .min(newDate, 'Fecha incorrecta')
                         .required('Requerido'),
-            descripcion: Yup.string()
-                        .min(3, 'Debe de tener 3 caracteres o más')
+            descripcion: Yup.array()
+                        // .min(3, 'Debe de tener 3 caracteres o más')
                         .required('Requerido'),
             image: Yup.string()
                         .required('Requerido'),
@@ -72,7 +72,19 @@ export const FormSeries = () => {
 
     const handledImage = () => {
         document.querySelector('#fileSelector').click()
-      }
+    }
+
+    const [first, setfirst] = useState([getFieldProps('descripcion')])
+
+    const agregar = () => {
+        setfirst([...first, getFieldProps('descripcion')])
+    }
+
+    const eliminar = () => {
+        let newFormValues = [...first];
+        newFormValues.splice([first-1], 1);
+        setfirst(newFormValues)
+    }
 
     return (
         <>
@@ -117,23 +129,39 @@ export const FormSeries = () => {
 
             <div className = 'row'>
                 <div className="col-12">
-                    <div>
-                        <Editor
-                            name = 'descripcion'
-                            onEditorChange = {(e) => setFieldValue('descripcion', e)}
-                            content="<p>This is the initial content of the editor</p>"
-                            init={{
-                            plugins: 'autolink link image lists print preview',
-                            toolbar: 'undo redo | formatselect | fontselect | fontsizeselect ' +
-                            'bold italic backcolor | alignleft aligncenter ' +
-                            'alignright alignjustify | bullist numlist outdent indent | ' +
-                            'removeformat',
-                            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-                            }}
-                            // onChange={this.handleEditorChange}
-                        />
-                        {touched.descripcion && errors.descripcion && <span style={{color: 'red'}}>{errors.descripcion}</span>}
-                    </div>
+                    {
+                        first.map((element, index) => {
+                            return (
+                                <div key={element + index}>
+                                    <Editor
+                                        name = 'descripcion'
+                                        onEditorChange = {(e) => setFieldValue('descripcion', [...element.value, e])}
+                                        content="<p>This is the initial content of the editor</p>"
+                                        init={{
+                                        plugins: 'autolink link image lists print preview',
+                                        toolbar: 'undo redo | formatselect | fontselect | fontsizeselect ' +
+                                        'bold italic backcolor | alignleft aligncenter ' +
+                                        'alignright alignjustify | bullist numlist outdent indent | ' +
+                                        'removeformat',
+                                        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                                        }}
+                                        // onChange={this.handleEditorChange}
+                                    />
+                                    {touched.descripcion && errors.descripcion && <span style={{color: 'red'}}>{errors.descripcion}</span>}
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+            </div>
+            <div className="row">
+                <div className="col">
+                    <i className="bi bi-plus-circle mx-2 text-success" onClick={agregar} style = {{fontSize: '32px', cursor: 'pointer'}}></i>
+                        {
+                            (first.length > 1)
+                                &&
+                            <i className="bi bi-x-circle mx-2 text-danger" onClick={eliminar} style = {{fontSize: '32px', cursor: 'pointer'}}></i>
+                        }
                 </div>
             </div>
             <button type='submit' className = 'btn btn-outline-primary form-control my-3'>Guardar</button>

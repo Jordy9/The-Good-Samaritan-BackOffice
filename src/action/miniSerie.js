@@ -59,7 +59,7 @@ export const startCreateMiniSerie = (title, date, descripcion, file) => {
 
                 if (body.ok) {
 
-                    dispatch(getMiniSerie(body))
+                    dispatch(getMiniSerie(body.miniSerie))
                     
                     const Toast = Swal.mixin({
                         toast: true,

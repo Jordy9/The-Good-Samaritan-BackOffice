@@ -24,7 +24,9 @@ export const MiniSerieModal = () => {
         },
         enableReinitialize: true,
         onSubmit: ({title, date, descripcion, image}) => {
-            if (image.type.includes('image') === false) {
+
+            console.log(descripcion)
+            if (image.type?.includes('image') === false) {
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -52,8 +54,8 @@ export const MiniSerieModal = () => {
                         .required('Requerido'),
             date: Yup.string()
                         .required('Requerido'),
-            descripcion: Yup.string()
-                        .min(3, 'Debe de tener 3 caracteres o más')
+            descripcion: Yup.array()
+                        // .min(3, 'Debe de tener 3 caracteres o más')
                         .required('Requerido')
         })
     })
@@ -118,24 +120,30 @@ export const MiniSerieModal = () => {
 
                                         <div className = 'row'>
                                             <div className="col-12">
-                                                <div>
-                                                    <Editor
-                                                        initialValue = {activeSerie?.descripcion}
-                                                        name = 'descripcion'
-                                                        onEditorChange = {(e) => setFieldValue('descripcion', e)}
-                                                        content="<p>This is the initial content of the editor</p>"
-                                                        init={{
-                                                        plugins: 'autolink link image lists print preview',
-                                                        toolbar: 'undo redo | formatselect | fontselect | fontsizeselect ' +
-                                                        'bold italic backcolor | alignleft aligncenter ' +
-                                                        'alignright alignjustify | bullist numlist outdent indent | ' +
-                                                        'removeformat',
-                                                        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-                                                        }}
-                                                        // onChange={this.handleEditorChange}
-                                                    />
-                                                    {touched.descripcion && errors.descripcion && <span style={{color: 'red'}}>{errors.descripcion}</span>}
-                                                </div>
+                                                {
+                                                    activeSerie?.descripcion?.map((element, index) => {
+                                                        return (
+                                                            <div key={element + index}>
+                                                                <Editor
+                                                                    initialValue = {element}
+                                                                    name = 'descripcion'
+                                                                    onEditorChange = {(e) => setFieldValue(`descripcion[${index}]`, e)[index]}
+                                                                    content="<p>This is the initial content of the editor</p>"
+                                                                    init={{
+                                                                    plugins: 'autolink link image lists print preview',
+                                                                    toolbar: 'undo redo | formatselect | fontselect | fontsizeselect ' +
+                                                                    'bold italic backcolor | alignleft aligncenter ' +
+                                                                    'alignright alignjustify | bullist numlist outdent indent | ' +
+                                                                    'removeformat',
+                                                                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                                                                    }}
+                                                                    // onChange={this.handleEditorChange}
+                                                                />
+                                                                {touched.descripcion && errors.descripcion && <span style={{color: 'red'}}>{errors.descripcion}</span>}
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
                                             </div>
                                         </div>
                                         <button type='submit' className = 'btn btn-outline-primary form-control my-3'>Guardar</button>
