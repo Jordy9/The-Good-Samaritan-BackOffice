@@ -132,7 +132,7 @@ export const FormSeries = () => {
                     {
                         first.map((element, index) => {
                             return (
-                                <div key={element + index}>
+                                <div className='mb-2' key={element + index}>
                                     <Editor
                                         name = 'descripcion'
                                         onEditorChange = {(e) => setFieldValue('descripcion', [...element.value, e])}

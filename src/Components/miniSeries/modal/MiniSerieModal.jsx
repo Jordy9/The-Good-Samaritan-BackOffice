@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { startUpdateSerie } from '../../../action/miniSerie'
 import { Editor } from '@tinymce/tinymce-react'
@@ -64,6 +64,26 @@ export const MiniSerieModal = () => {
         document.querySelector('#fileSelector').click()
       }
 
+      const [first, setfirst] = useState()
+
+      useEffect(() => {
+        setfirst(activeSerie?.descripcion)
+      }, [activeSerie?.descripcion])
+      
+
+
+      const agregar = () => {
+        setfirst([...first, ''])
+      }
+
+      console.log(first-1)
+  
+      const eliminar = () => {
+          let newFormValues = [...first];
+          newFormValues.pop();
+          setfirst(newFormValues)
+      }
+
     return (
         <>
             <div className="modal fade" id="exampleModal3" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -121,9 +141,9 @@ export const MiniSerieModal = () => {
                                         <div className = 'row'>
                                             <div className="col-12">
                                                 {
-                                                    activeSerie?.descripcion?.map((element, index) => {
+                                                    first?.map((element, index) => {
                                                         return (
-                                                            <div key={element + index}>
+                                                            <div className='mb-2' key={element + index}>
                                                                 <Editor
                                                                     initialValue = {element}
                                                                     name = 'descripcion'
@@ -143,6 +163,16 @@ export const MiniSerieModal = () => {
                                                             </div>
                                                         )
                                                     })
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col">
+                                            <i className="bi bi-plus-circle mx-2 text-success" onClick={agregar} style = {{fontSize: '32px', cursor: 'pointer'}}></i>
+                                                {
+                                                    (first?.length > 1)
+                                                        &&
+                                                    <i className="bi bi-x-circle mx-2 text-danger" onClick={eliminar} style = {{fontSize: '32px', cursor: 'pointer'}}></i>
                                                 }
                                             </div>
                                         </div>
