@@ -83,7 +83,6 @@ export const AppRouter = () => {
 
     useEffect(() => {
         socket?.on('escribiendo-admin', (typing) => {
-            console.log(typing);
             dispatch(isTyping(typing))
         })
     }, [socket, dispatch])

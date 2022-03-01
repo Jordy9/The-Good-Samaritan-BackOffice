@@ -75,8 +75,6 @@ export const MiniSerieModal = () => {
       const agregar = () => {
         setfirst([...first, ''])
       }
-
-      console.log(first-1)
   
       const eliminar = () => {
           let newFormValues = [...first];
