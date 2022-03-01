@@ -41,9 +41,7 @@ const miniSeries = (series) => ({
 })
 
 export const startCreateMiniSerie = (title, date, descripcion, file) => {
-    return async(dispatch, getState) => {
-
-      const {socket} = getState().sk
+    return async(dispatch) => {
 
         const token = localStorage.getItem('token') || '';
 
@@ -62,7 +60,6 @@ export const startCreateMiniSerie = (title, date, descripcion, file) => {
                 if (body.ok) {
 
                     dispatch(getMiniSerie(body.miniSerie))
-                    socket?.emit('notification-users', body.miniSerie)
                     
                     const Toast = Swal.mixin({
                         toast: true,
