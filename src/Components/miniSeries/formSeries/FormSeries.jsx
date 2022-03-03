@@ -44,7 +44,6 @@ export const FormSeries = () => {
                   })
             } else {
                 dispatch(startCreateMiniSerie(title, date, descripcion, image))
-                setfirst([getFieldProps('descripcion')])
             }
             resetForm({
                 title: '', 
@@ -52,6 +51,7 @@ export const FormSeries = () => {
                 descripcion: tinymce.activeEditor.setContent(''),
                 image: document.getElementsByName('image').value = ''
             })
+            setfirst([...first])
             setimag()
         },
         validationSchema: Yup.object({

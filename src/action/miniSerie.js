@@ -41,7 +41,9 @@ const miniSeries = (series) => ({
 })
 
 export const startCreateMiniSerie = (title, date, descripcion, file) => {
-    return async(dispatch) => {
+    return async(dispatch, getState) => {
+
+        const {socket} = getState().sk
 
         const token = localStorage.getItem('token') || '';
 
@@ -60,6 +62,12 @@ export const startCreateMiniSerie = (title, date, descripcion, file) => {
                 if (body.ok) {
 
                     dispatch(getMiniSerie(body.miniSerie))
+
+                    const subtitle = 'Nueva MiniSerie agregada'
+
+                    const payload = {title, subtitle, image}
+
+                    socket?.emit('notifications-admin-to-user', payload)
                     
                     const Toast = Swal.mixin({
                         toast: true,
