@@ -29,7 +29,9 @@ const Eventos = (eventos) => ({
 })
 
 export const startCreateEvento = (title, date, file, descripcion) => {
-    return async(dispatch) => {
+    return async(dispatch, getState) => {
+
+        const {socket} = getState().sk
 
         const token = localStorage.getItem('token') || '';
 
@@ -46,6 +48,12 @@ export const startCreateEvento = (title, date, file, descripcion) => {
                 const body = await resp.json()
 
                 dispatch(createEvento(body))
+
+                const subtitle = 'Nuevo Evento agregado'
+
+                const payload = {title, subtitle, image}
+
+                socket?.emit('notifications-admin-to-user', payload)
 
                 const Toast = Swal.mixin({
                     toast: true,

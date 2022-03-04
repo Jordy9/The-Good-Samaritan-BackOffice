@@ -78,12 +78,20 @@ const PetitionSinCuenta = (peticiones) => ({
 })
 
 export const startCreatePetition = (title, date, descripcion, name, number) => {
-    return async(dispatch) => {
+    return async(dispatch, getState) => {
+
+        const {socket} = getState().sk
 
         const resp = await fetchConToken('peticion', {title, date, descripcion, name, number}, 'POST');
         const body = await resp.json()
 
         dispatch(createPetition(body))
+        const subtitle = 'Nueva Peticion agregada'
+
+        const payload = {title, subtitle}
+
+        socket?.emit('notifications-admin-to-user', payload)
+
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -175,7 +183,6 @@ export const startUpdatePetition = (title, date, descripcion) => {
                 title: `${body.msg}`
               })
         }
-
     }
 }
 

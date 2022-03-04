@@ -39,7 +39,7 @@ export const ModalContainer = (props) => {
                 {
                   (h2p(descripcion).length > 9)
                     ?
-                  h2p(descripcion).slice(0, 40) + '...'
+                  h2p(descripcion).slice(0, 10) + '...'
                     :
                   h2p(descripcion)
                 }

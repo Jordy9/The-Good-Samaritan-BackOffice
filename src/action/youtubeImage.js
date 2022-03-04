@@ -28,7 +28,9 @@ const Youtube = (youtube) => ({
 })
 
 export const startCreateYoutube = (title, date, urlImage) => {
-    return async(dispatch) => {
+    return async(dispatch, getState) => {
+
+        const {socket} = getState().sk
 
         const resp = await fetchConToken('youtube', {title, date, urlImage}, 'POST');
         const body = await resp.json()
@@ -36,6 +38,11 @@ export const startCreateYoutube = (title, date, urlImage) => {
         if (body.ok) {
 
             dispatch(createYoutube(body))
+            const subtitle = 'Nuevo video de youtube agregado'
+
+            const payload = {title, subtitle}
+
+            socket?.emit('notifications-admin-to-user', payload)
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',

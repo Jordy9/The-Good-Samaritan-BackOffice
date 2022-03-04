@@ -52,6 +52,12 @@ export const startCreateZoom = (title, date, file, id, password) => {
                     dispatch(startGetZoom())
                     socket.emit('anunciar-reunion', body.zoom)
 
+                    const subtitle = 'Transmitiendo reunión de Zoom'
+
+                    const payload = {title, subtitle, image}
+
+                    socket?.emit('notifications-admin-to-user', payload)
+
                     const Toast = Swal.mixin({
                         toast: true,
                         position: 'top-end',

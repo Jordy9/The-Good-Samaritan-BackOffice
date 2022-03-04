@@ -41,7 +41,9 @@ const VideoWordOfTheDay = (video) => ({
 })
 
 export const startCreateVideoWordOfTheDay = (title, file) => {
-    return async(dispatch) => {
+    return async(dispatch, getState) => {
+
+        const {socket} = getState().sk
 
         const token = localStorage.getItem('token') || '';
 
@@ -60,6 +62,12 @@ export const startCreateVideoWordOfTheDay = (title, file) => {
                 if (body.ok) {
 
                     dispatch(createVideoWordOfTheDay(body.video))
+
+                    const subtitle = 'Nueva Palabra del Día agregada'
+
+                    const payload = {title, subtitle}
+
+                    socket?.emit('notifications-admin-to-user', payload)
                     
                     const Toast = Swal.mixin({
                         toast: true,

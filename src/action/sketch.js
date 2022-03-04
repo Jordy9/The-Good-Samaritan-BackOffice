@@ -42,7 +42,9 @@ const Bosquejos = (bosquejos) => ({
 })
 
 export const startCreateBosquejo = (title, date, descripcion, file) => {
-    return async(dispatch) => {
+    return async(dispatch, getState) => {
+
+        const {socket} = getState().sk
 
         const token = localStorage.getItem('token') || '';
 
@@ -61,6 +63,12 @@ export const startCreateBosquejo = (title, date, descripcion, file) => {
                 if (body.ok) {
 
                     dispatch(createBosquejo(body))
+
+                    const subtitle = 'Nuevo Bosquejo agregado'
+
+                    const payload = {title, subtitle, image}
+
+                    socket?.emit('notifications-admin-to-user', payload)
     
                     const Toast = Swal.mixin({
                         toast: true,
