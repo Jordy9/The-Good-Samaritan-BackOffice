@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Editor } from '@tinymce/tinymce-react';
 import { useDispatch } from 'react-redux';
 import { startCreateMiniSerie } from '../../../action/miniSerie';
@@ -44,19 +44,20 @@ export const FormSeries = () => {
                   })
             } else {
                 dispatch(startCreateMiniSerie(title, date, descripcion, image))
+                resetForm({
+                    title: '', 
+                    date: '', 
+                    descripcion: tinymce.activeEditor.setContent(''),
+                    image: document.getElementsByName('image').value = ''
+                })
+                setfirst([])
+                setfirst([getFieldProps('descripcion').value = ''])
+                setimag()
             }
-            resetForm({
-                title: '', 
-                date: '', 
-                descripcion: tinymce.activeEditor.setContent(''),
-                image: document.getElementsByName('image').value = ''
-            })
-            setfirst([...first])
-            setimag()
         },
         validationSchema: Yup.object({
             title: Yup.string()
-                        .max(50, 'Debe de tener 50 caracteres o menos')
+                        .max(70, 'Debe de tener 70 caracteres o menos')
                         .min(3, 'Debe de tener 3 caracteres o más')
                         .required('Requerido'),
             date: Yup.date()
@@ -74,10 +75,10 @@ export const FormSeries = () => {
         document.querySelector('#fileSelector').click()
     }
 
-    const [first, setfirst] = useState([getFieldProps('descripcion')])
+    const [first, setfirst] = useState([getFieldProps('descripcion').value])
 
     const agregar = () => {
-        setfirst([...first, getFieldProps('descripcion')])
+        setfirst([...first, getFieldProps('descripcion').value])
     }
 
     const eliminar = () => {
@@ -135,7 +136,7 @@ export const FormSeries = () => {
                                 <div className='mb-2' key={element + index}>
                                     <Editor
                                         name = 'descripcion'
-                                        onEditorChange = {(e) => setFieldValue('descripcion', [...element.value, e])}
+                                        onEditorChange = {(e) => setFieldValue('descripcion', [...element, e])}
                                         content="<p>This is the initial content of the editor</p>"
                                         init={{
                                         plugins: 'autolink link image lists print preview',
