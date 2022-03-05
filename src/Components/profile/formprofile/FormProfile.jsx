@@ -187,6 +187,21 @@ export const FormProfile = () => {
                                         </div>
                                     </div>
 
+                                    <div className="row">
+                                        <div className="col form-group">
+                                            <label>Contrasena</label>
+                                            <input type="text" {...getFieldProps('password')} placeholder = '********' className = 'form-control bg-transparent text-white' />
+                                            {touched.password && errors.password && <span style={{color: 'red'}}>{errors.password}</span>}
+                                        </div>
+
+
+                                        <div className="col form-group">
+                                            <label>Confirmar Contrasena</label>
+                                            <input type="text" {...getFieldProps('confirmPassword')} placeholder = '********' className = 'form-control bg-transparent text-white' />
+                                            {touched.confirmPassword && errors.confirmPassword && <span style={{color: 'red'}}>{errors.confirmPassword}</span>}
+                                        </div>
+                                    </div>
+
                                     <button type='submit' className = 'btn btn-outline-primary form-control'>Guardar</button>
                                 </form>
                             </div>
