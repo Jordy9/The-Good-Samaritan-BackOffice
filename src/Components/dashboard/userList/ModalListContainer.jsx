@@ -4,7 +4,7 @@ import { Spinner } from '../../spinner/Spinner'
 import { ModalContainer } from './ModalContainer'
 
 export const ModalListContainer = ({currentPage}) => {
-    const {users} = useSelector(state => state.auth)
+    const {users, uid} = useSelector(state => state.auth)
     const {usuarios} = useSelector(state => state.cht)
 
     const PaginateUsers = () => {
@@ -16,7 +16,7 @@ export const ModalListContainer = ({currentPage}) => {
             {
                 (users && usuarios)
                     ?
-                    PaginateUsers().map(user => {
+                    PaginateUsers().filter(user => user.id !== uid).map(user => {
                         return (
                             <ModalContainer key = {user.id} {...user} />
                         )
