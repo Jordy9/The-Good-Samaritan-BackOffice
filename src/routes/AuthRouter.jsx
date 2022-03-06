@@ -32,6 +32,7 @@ import { VideoWordOfTheDay } from '../Components/videoWordOfTheDay/VideoWordOfTh
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { videoWordOfTheDayList } from '../Components/videoWordOfTheDay/videoWordOfTheDayList/VideoWordOfTheDayList';
+import { NoBeleaverVideo } from '../Components/noBeleaver/NoBeleaverVideo';
 
 export const AuthRouter = () => {
 
@@ -77,6 +78,7 @@ export const AuthRouter = () => {
                     <Route path = '/ContactList' component = {Contact} />
                     <Route path = '/LinkYoutube' component = {Youtube} />
                     <Route path = '/YoutubeList' component = {YoutubeList} />
+                    <Route path = '/NoBeleaver' component = {NoBeleaverVideo} />
                     <Route path = '/Chat' component = {ChatPage} />
                     
                     <Redirect to = '/Dashboard' />

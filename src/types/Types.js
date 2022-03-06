@@ -1,5 +1,13 @@
 export const Types = {
 
+    nbgetVideo: '[NB] get Zooms',
+    nbcreateVideo: '[NB] create Video',
+    nbSetVideo: '[NB] set Video',
+    nbSetVideoForm: '[NB] set Video form',
+    nbClearSetVideo: '[NB] clear set Video',
+    nbUpdateVideo: '[NB] update Video',
+    nbDeleteVideo: '[NB] delete Video',
+    // 
     vwdgetVideosWordOfTheDay: '[VWD] get VideosWordOfTheDay',
     vwdcreateVideoWordOfTheDay: '[VWD] create VideoWordOfTheDay',
     vwdSetVideoWordOfTheDay: '[VWD] set VideoWordOfTheDay',

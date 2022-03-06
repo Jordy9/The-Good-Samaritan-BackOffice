@@ -29,6 +29,7 @@ import moment from 'moment';
 import 'moment/locale/es';
 import { cargarNotificaciones } from '../action/notifications';
 import { startGetVideoWordOfTheDay } from '../action/VideoWordOfTheDay';
+import { startGetNoBeleaverVideo } from '../action/videoNoBeleaver';
 
 moment.locale('es');
 
@@ -37,7 +38,7 @@ export const AppRouter = () => {
     const dispatch = useDispatch();
     const {checking, uid} = useSelector(state => state.auth)
 
-    const {socket, online, conectarSocket, desconectarSocket} = useSocket('https://good-samaritan-backend.herokuapp.com')
+    const {socket, online, conectarSocket, desconectarSocket} = useSocket('http://localhost:4000')
 
     useEffect(() => {
         dispatch(startAuthCheking());
@@ -57,6 +58,7 @@ export const AppRouter = () => {
         dispatch(startGetPaginateYoutube())
         dispatch(cargarNotificaciones())
         dispatch(startGetVideoWordOfTheDay())
+        dispatch(startGetNoBeleaverVideo())
     }, [dispatch])
 
     useEffect(() => {

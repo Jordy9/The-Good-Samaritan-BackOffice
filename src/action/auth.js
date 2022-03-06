@@ -481,7 +481,14 @@ export const ActiverUser = (user) => ({
 
 export const startDeleteUser = (user) => {
     return async(dispatch) => {
-        const resp = await fetchConToken(`auth/delete/${user.id}`, user, 'DELETE')
+        console.log(user)
+        let resp
+        if (user?.biliever === undefined) {
+            resp = await fetchConToken(`auth/delete/${user.id}`, user, 'DELETE')
+        } else {
+            resp = await fetchConToken(`users/delete/${user.id}`, user, 'DELETE')
+        }
+
         const body = await resp.json()
 
         if(body.ok) {

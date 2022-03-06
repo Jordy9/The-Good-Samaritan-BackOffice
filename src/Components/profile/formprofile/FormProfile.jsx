@@ -39,7 +39,7 @@ export const FormProfile = () => {
         },
         enableReinitialize: true,
         onSubmit: ({name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password, image}) => {
-            if (image.type.includes('image') === false) {
+            if (image?.type?.includes('image') === false) {
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',

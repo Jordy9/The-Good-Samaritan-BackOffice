@@ -5,29 +5,28 @@ import Swal from "sweetalert2"
 
 
 
-export const startGetZoom = () => {
+export const startGetNoBeleaverVideo = () => {
     return async(dispatch) => {
-        const resp = await fetchSinToken('zoom')
+        const resp = await fetchSinToken('VideoNoBeleaver')
         const body = await resp.json()
 
         if(body.ok) {
-            dispatch(Zooms(body.zoom))
+            dispatch(NoBeleaverVideo(body.videoNoBeleaver))
         }
     }
 }
 
-const Zooms = (zoom) => ({
-    type: Types.zmgetZooms,
-    payload: zoom
+const NoBeleaverVideo = (video) => ({
+    type: Types.nbgetVideo,
+    payload: video
 })
 
-export const startCreateZoom = (title, date, file, id, password) => {
+export const startCreateNoBeleaverVideo = (title, file) => {
     return async(dispatch, getState) => {
 
-        const {Zoom} = getState().zm
-        const {socket} = getState().sk
+        const {Video} = getState().nb
 
-        const zoom = Zoom[0]
+        const video = Video[0]
 
         const token = localStorage.getItem('token') || '';
 
@@ -35,9 +34,9 @@ export const startCreateZoom = (title, date, file, id, password) => {
         formData.append('file', file)
         formData.append('title', title)
 
-        if(zoom) {
+        if(video) {
 
-            const ress = await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${zoom.idImage}`, {headers: {'x-token': token}})
+            const ress = await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${video.idImage}`, {headers: {'x-token': token}})
             
             if(ress.data.ok) {
                 const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {headers: {'x-token': token}})
@@ -45,17 +44,11 @@ export const startCreateZoom = (title, date, file, id, password) => {
                 if(res.data.ok) {
                     const image = res.data.image.url
                     const idImage = res.data.image.id
-                    const resp = await fetchConToken(`zoom/${zoom._id}`, {title, date, image, idImage, id, password}, 'PUT');
+                    const resp = await fetchConToken(`VideoNoBeleaver/${video._id}`, {title, image, idImage}, 'PUT');
                     const body = await resp.json()
 
-                    dispatch(createZoom(body.zoom))
-                    dispatch(startGetZoom())
-
-                    const subtitle = 'Transmitiendo reunión de Zoom'
-
-                    const payload = {title, subtitle, image}
-
-                    socket?.emit('notifications-admin-to-user', payload)
+                    dispatch(createNoBeleaverVideo(body.videoNoBeleaverGuardado))
+                    dispatch(startGetNoBeleaverVideo())
 
                     const Toast = Swal.mixin({
                         toast: true,
@@ -71,7 +64,7 @@ export const startCreateZoom = (title, date, file, id, password) => {
                       
                       return Toast.fire({
                         icon: 'success',
-                        title: 'Zoom creado correctamente'
+                        title: 'Video creado correctamente'
                       })
                     
                 }
@@ -82,17 +75,11 @@ export const startCreateZoom = (title, date, file, id, password) => {
             if(res.data.ok) {
                 const image = res.data.image.url
                 const idImage = res.data.image.id
-                const resp = await fetchConToken('zoom', {title, date, image, idImage, id, password}, 'POST');
+                const resp = await fetchConToken('VideoNoBeleaver', {title, image, idImage}, 'POST');
                 const body = await resp.json()
 
-                dispatch(createZoom(body))
-                dispatch(startGetZoom())
-
-                const subtitle = 'Transmitiendo reunión de Zoom'
-
-                const payload = {title, subtitle, image}
-
-                socket?.emit('notifications-admin-to-user', payload)
+                dispatch(createNoBeleaverVideo(body.videoNoBeleaverGuardado))
+                dispatch(startGetNoBeleaverVideo())
                 
                 const Toast = Swal.mixin({
                     toast: true,
@@ -108,7 +95,7 @@ export const startCreateZoom = (title, date, file, id, password) => {
                   
                   return Toast.fire({
                     icon: 'success',
-                    title: 'Zoom actualizado correctamente'
+                    title: 'Video actualizado correctamente'
                   })
                 
             }
@@ -116,17 +103,17 @@ export const startCreateZoom = (title, date, file, id, password) => {
     }
 }
 
-const createZoom = (zoom) => ({
-    type: Types.zmcreateZoom,
+const createNoBeleaverVideo = (zoom) => ({
+    type: Types.nbcreateVideo,
     payload: zoom
 })
 
-export const SetActiveZoom = (zoom) => ({
-    type: Types.zmSetZoom,
+export const SetActiveNoBeleaverVideo = (zoom) => ({
+    type: Types.nbSetVideo,
     payload: zoom
 });
 
-export const clearSetZoom = (zoom) => ({
-    type: Types.zmClearSetZoom,
+export const clearSetNoBeleaverVideo = (zoom) => ({
+    type: Types.nbClearSetVideo,
     payload: zoom
 });

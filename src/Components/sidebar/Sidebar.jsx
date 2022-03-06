@@ -145,6 +145,14 @@ export const Sidebar = () => {
                 </ul>
 
                 <Offcanvas.Header>
+                    <Offcanvas.Title>Video para no creyentes</Offcanvas.Title>
+                </Offcanvas.Header>
+
+                <ul className="list-group list-group-flush">   
+                    <NavLink to = '/NoBeleaver' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-person-video3"> </i>Video para no creyentes</NavLink>
+                </ul>
+
+                <Offcanvas.Header>
                     <Offcanvas.Title>Chat</Offcanvas.Title>
                 </Offcanvas.Header>
 
