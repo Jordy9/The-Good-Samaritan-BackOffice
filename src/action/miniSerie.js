@@ -51,7 +51,23 @@ export const startCreateMiniSerie = (title, date, descripcion, file) => {
             formData.append('file', file)
             formData.append('title', title)
 
-            const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {headers: {'x-token': token}})
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
+              headers: {'x-token': token},
+              onUploadProgress: (e) =>
+                {const Porcentage = Math.round( (e.loaded * 100) / e.total )
+                
+                const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                // loaderHtml: `${Porcentage}`,
+              })
+
+              return Toast.fire({
+                title: 'Subiendo imagen',
+                html: `<div class="progress"><div class="progress-bar" role="progressbar" style="width: ${Porcentage}%;" aria-valuemin="0" aria-valuemax="100">${Porcentage}%</div> </div>`
+              })}
+            })
             
             if(res.data.ok) {
                 const image = res.data.image.url
@@ -141,7 +157,23 @@ export const startUpdateSerie = (title, date, descripcion, fileupload) => {
                 formData.append('file', fileupload)
                 formData.append('title', activeSerie.title)
     
-                const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {headers: {'x-token': token}})
+                const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
+                  headers: {'x-token': token},
+                  onUploadProgress: (e) =>
+                    {const Porcentage = Math.round( (e.loaded * 100) / e.total )
+                    
+                    const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    // loaderHtml: `${Porcentage}`,
+                  })
+
+                  return Toast.fire({
+                    title: 'Subiendo imagen',
+                    html: `<div class="progress"><div class="progress-bar" role="progressbar" style="width: ${Porcentage}%;" aria-valuemin="0" aria-valuemax="100">${Porcentage}%</div> </div>`
+                  })}
+                })
     
                 if(res.data.ok) {
                     const image = res.data.image.url
