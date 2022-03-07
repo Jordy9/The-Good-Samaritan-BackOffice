@@ -39,7 +39,8 @@ export const startCreateEvento = (title, date, file, descripcion) => {
             formData.append('file', file)
             formData.append('title', title)
 
-            const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {headers: {'x-token': token}})
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {onUploadProgress: (progressEvent) => {const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
+            console.log("onUploadProgress", (Math.round( (progressEvent.loaded * 100) / totalLength )))}, headers: {'x-token': token}})
             
             if(res.data.ok) {
                 const image = res.data.image.url
