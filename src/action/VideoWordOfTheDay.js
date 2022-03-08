@@ -64,7 +64,7 @@ export const startCreateVideoWordOfTheDay = (title, file) => {
               })
 
               return Toast.fire({
-                title: 'Subiendo imagen',
+                title: 'Subiendo video',
                 html: `<div class="progress"><div class="progress-bar" role="progressbar" style="width: ${Porcentage}%;" aria-valuemin="0" aria-valuemax="100">${Porcentage}%</div> </div>`
               })}
             })
@@ -170,7 +170,7 @@ export const startUpdateVideoWordOfTheDay = (title, fileupload) => {
                   })
 
                   return Toast.fire({
-                    title: 'Subiendo imagen',
+                    title: 'Subiendo video',
                     html: `<div class="progress"><div class="progress-bar" role="progressbar" style="width: ${Porcentage}%;" aria-valuemin="0" aria-valuemax="100">${Porcentage}%</div> </div>`
                   })}
                 })

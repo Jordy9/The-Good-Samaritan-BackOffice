@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { ModalClose, startRegister } from '../../../action/auth'
+import { ModalCloseCreate, startRegister } from '../../../action/auth'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import MaskedInput from 'react-text-mask'
@@ -10,7 +10,7 @@ import { Modal } from 'react-bootstrap'
 
 export const ModalUser = () => {
 
-    const {activeUser, modalOpen} = useSelector(state => state.auth)
+    const {activeUser, modalOpenCreate} = useSelector(state => state.auth)
 
     const newDate = moment().format('yyyy-MM-DDTHH:mm')
 
@@ -116,7 +116,7 @@ export const ModalUser = () => {
     })
 
     const dispHide = () => {
-        dispatch(ModalClose(false))
+        dispatch(ModalCloseCreate(false))
     }
 
     return (
@@ -125,7 +125,7 @@ export const ModalUser = () => {
                 contentClassName='bg-dark'
                 centered
                 size="lg"
-                show={modalOpen}
+                show={modalOpenCreate}
                 onHide={() => dispHide()}
                 aria-labelledby="example-modal-sizes-title-lg"
             >

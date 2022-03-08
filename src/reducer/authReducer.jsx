@@ -5,7 +5,8 @@ const initialState = {
     users: [],
     activeUser: '',
     paginate: [],
-    modalOpen: false
+    modalOpen: false,
+    modalOpenCreate: false
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -90,6 +91,18 @@ export const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 modalOpen: action.payload
+            }
+
+        case Types.authModalOpenCreate:
+            return {
+                ...state,
+                modalOpenCreate: action.payload
+            }
+
+        case Types.authModalCloseCreate:
+            return {
+                ...state,
+                modalOpenCreate: action.payload
             }
             
 

@@ -143,6 +143,8 @@ export const Types = {
     authSetUserAdmin: '[Auth set user admin',
     authDeleteUser: '[Auth] delete user',
     authPaginateUser: '[Auth] paginate user',
-    authModalOpen: '[VWD] modal open',
-    authModalClose: '[VWD] modal close'
+    authModalOpen: '[Auth] modal open',
+    authModalClose: '[Auth] modal close',
+    authModalOpenCreate: '[Auth] modal open create',
+    authModalCloseCreate: '[Auth] modal close create'
 }

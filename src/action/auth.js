@@ -297,7 +297,7 @@ export const startUpdateUserAdmin = (name, lastName, age, date, email, address, 
                         const urlImage = res.data.image.url
                         const idImage = res.data.image.id
                     
-                        const resp = await fetchConToken(`auth/update/${user.id}`, {name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password, urlImage, idImage}, 'PUT')
+                        const resp = await fetchConToken(`auth/updateProfile/${user.id}`, {name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password, urlImage, idImage}, 'PUT')
                         const body = await resp.json()
         
                         if(body.ok) {
@@ -397,7 +397,7 @@ export const startUpdateUserAdmin = (name, lastName, age, date, email, address, 
                     const urlImage = res.data.image.url
                     const idImage = res.data.image.id
                 
-                    const resp = await fetchConToken(`auth/update/${user.id}`, {name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password, urlImage, idImage}, 'PUT')
+                    const resp = await fetchConToken(`auth/updateProfile/${user.id}`, {name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password, urlImage, idImage}, 'PUT')
                     const body = await resp.json()
 
                     if(body.ok) {
@@ -461,7 +461,7 @@ export const startUpdateUserAdmin = (name, lastName, age, date, email, address, 
         } else {
             const urlImage = user.urlImage
             const idImage = user.idImage
-            const resp = await fetchConToken(`auth/update/${user.id}`, {name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password, urlImage, idImage}, 'PUT')
+            const resp = await fetchConToken(`auth/updateProfile/${user.id}`, {name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password, urlImage, idImage}, 'PUT')
             const body = await resp.json()
 
             if(body.usuario) {
@@ -573,6 +573,26 @@ export const startAuthCheking = () => {
             }))
         } else {
             dispatch(checkingFinish())
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            dispatch(startLogout)
+            
+            return Toast.fire({
+                icon: 'error',
+                title: body.msg
+            })
+
         }
     }
 }
@@ -626,5 +646,15 @@ export const ModalOpen = (state) => ({
 
 export const ModalClose = (state) => ({
     type: Types.authModalClose,
+    payload: state
+})
+
+export const ModalOpenCreate = (state) => ({
+    type: Types.authModalOpenCreate,
+    payload: state
+})
+
+export const ModalCloseCreate = (state) => ({
+    type: Types.authModalCloseCreate,
     payload: state
 })

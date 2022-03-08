@@ -112,12 +112,6 @@ export const ModalUpdate = () => {
             number: Yup.string()
                         .min(10, 'Debe de tener 10 dígitos')
                         .required('Requerido'),
-            password: Yup.string()
-                        .min(6, 'Debe de tener 6 caracteres o más')
-                        .required('Requerido'),
-            confirmPassword: Yup.string()
-                        .oneOf([Yup.ref('password')], 'Las contraseñas deben ser iguales')
-                        .required('Requerido')
         })
     })
 
@@ -178,14 +172,18 @@ export const ModalUpdate = () => {
                                     {touched.email && errors.email && <span style={{color: 'red'}}>{errors.email}</span>}
                                 </div>
 
-                                <div className="col">
-                                    <label>Rol</label>
-                                        <select {...getFieldProps('role')} id='select-rol' className="form-select form-control bg-transparent text-white">
-                                            <option id='option-rol' value="Administrador">Administrador</option>
-                                            <option value="Gestorcontenido">Gestor de contenido</option>
-                                            <option value="Colaborador">Colaborador</option>
-                                        </select>
-                                </div>
+                                {
+                                    (SetUser?.role !== undefined)
+                                        &&
+                                    <div className="col">
+                                        <label>Rol</label>
+                                            <select {...getFieldProps('role')} id='select-rol' className="form-select form-control bg-transparent text-white">
+                                                <option id='option-rol' value="Administrador">Administrador</option>
+                                                <option value="Gestorcontenido">Gestor de contenido</option>
+                                                <option value="Colaborador">Colaborador</option>
+                                            </select>
+                                    </div>
+                                }
                             </div>
 
                             <div className="row">

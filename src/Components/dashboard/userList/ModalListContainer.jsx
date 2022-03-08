@@ -16,9 +16,9 @@ export const ModalListContainer = ({currentPage}) => {
             {
                 (users && usuarios)
                     ?
-                    PaginateUsers().filter(user => user.id !== uid).map(user => {
+                    PaginateUsers().filter(user => user.id !== uid).map((user, index) => {
                         return (
-                            <ModalContainer key = {user.id} {...user} />
+                            <ModalContainer key = {user.id + index} {...user} />
                         )
                     })
                     :
