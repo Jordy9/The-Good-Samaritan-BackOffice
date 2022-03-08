@@ -146,9 +146,12 @@ export const startUpdateSerie = (title, date, descripcion, fileupload) => {
 
         const {activeSerie} = getState().mi
 
+        const {activeUser} = getState().auth
+
         const token = localStorage.getItem('token') || '';
 
-        if(fileupload) {
+        if (activeSerie?.user === activeUser?.id) {
+          if(fileupload) {
             const ress = await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeSerie.idImage}`, {headers: {'x-token': token}})
 
             if (ress.data.ok) {
@@ -256,7 +259,7 @@ export const startUpdateSerie = (title, date, descripcion, fileupload) => {
                   })
             }
 
-        } else {
+          } else {
             const {image, idImage} = activeSerie
             const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, {title, date, image, idImage, descripcion}, 'PUT');
             const body = await resp.json()
@@ -298,7 +301,25 @@ export const startUpdateSerie = (title, date, descripcion, fileupload) => {
                     title: body.msg
                   })
             }
-        }
+          }
+        } else {
+          const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 5000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+            
+            return Toast.fire({
+              icon: 'error',
+              title: 'No tiene el privilegio para editar esta mini serie'
+            })
+      }
     }
 }
     
@@ -310,57 +331,79 @@ export const startUpdateSerie = (title, date, descripcion, fileupload) => {
     
     export const startDeleteSerie = () => {
         return async(dispatch, getState) => {
+
             const {activeSerie} = getState().mi
+
+            const {activeUser} = getState().auth
     
             const token = localStorage.getItem('token') || '';
-    
-            if(activeSerie.idImage) {
-                await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeSerie.idImage}`, {headers: {'x-token': token}})
-    
-                const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, activeSerie, 'DELETE')
-        
-                if(resp.ok) {
-                    dispatch(deleteSerie(activeSerie))
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 5000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                          toast.addEventListener('mouseenter', Swal.stopTimer)
-                          toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                      })
-                      
-                      return Toast.fire({
-                        icon: 'success',
-                        title: 'Mini Serie eliminada correctamente'
-                      })
-                }
+
+            if (activeSerie?.user === activeUser?.id) {
+              if(activeSerie.idImage) {
+                  await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeSerie.idImage}`, {headers: {'x-token': token}})
+      
+                  const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, activeSerie, 'DELETE')
+          
+                  if(resp.ok) {
+                      dispatch(deleteSerie(activeSerie))
+                      const Toast = Swal.mixin({
+                          toast: true,
+                          position: 'top-end',
+                          showConfirmButton: false,
+                          timer: 5000,
+                          timerProgressBar: true,
+                          didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                          }
+                        })
+                        
+                        return Toast.fire({
+                          icon: 'success',
+                          title: 'Mini Serie eliminada correctamente'
+                        })
+                  }
+              } else {
+                  const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, activeSerie, 'DELETE')
+          
+                  if(resp.ok) {
+                      dispatch(deleteSerie(activeSerie))
+                      const Toast = Swal.mixin({
+                          toast: true,
+                          position: 'top-end',
+                          showConfirmButton: false,
+                          timer: 5000,
+                          timerProgressBar: true,
+                          didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                          }
+                        })
+                        
+                        return Toast.fire({
+                          icon: 'success',
+                          title: 'Mini Serie eliminada correctamente'
+                        })
+                  }
+              }
             } else {
-                const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, activeSerie, 'DELETE')
-        
-                if(resp.ok) {
-                    dispatch(deleteSerie(activeSerie))
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 5000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                          toast.addEventListener('mouseenter', Swal.stopTimer)
-                          toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                      })
-                      
-                      return Toast.fire({
-                        icon: 'success',
-                        title: 'Mini Serie eliminada correctamente'
-                      })
-                }
-            }
+              const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 5000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                  }
+                })
+                
+                return Toast.fire({
+                  icon: 'error',
+                  title: 'No tiene el privilegio para eliminar esta mini serie'
+                })
+          }
     
             }
 

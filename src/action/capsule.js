@@ -143,161 +143,180 @@ export const startUpdateCapsule = (title, date, descripcion, fileupload) => {
 
         const {activeCapsule} = getState().ca
 
+        const {activeUser} = getState().auth
+
         const token = localStorage.getItem('token') || '';
 
-            if(fileupload) {
-                const ress = await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeCapsule.idImage}`, {headers: {'x-token': token}})
+        if (activeCapsule?.user === activeUser?.id) {
 
-                if (ress.data.ok) {
-
-                    const formData = new FormData()
-                    formData.append('file', fileupload)
-                    formData.append('title', activeCapsule.title)
-        
-                    const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
-                      headers: {'x-token': token},
-                      onUploadProgress: (e) =>
-                        {const Porcentage = Math.round( (e.loaded * 100) / e.total )
-                        
-                        const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        // loaderHtml: `${Porcentage}`,
-                      })
-
-                      return Toast.fire({
-                        title: 'Subiendo imagen',
-                        html: `<div class="progress"><div class="progress-bar" role="progressbar" style="width: ${Porcentage}%;" aria-valuemin="0" aria-valuemax="100">${Porcentage}%</div> </div>`
-                      })}
+          if(fileupload) {
+              const ress = await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeCapsule.idImage}`, {headers: {'x-token': token}})
+  
+              if (ress.data.ok) {
+  
+                  const formData = new FormData()
+                  formData.append('file', fileupload)
+                  formData.append('title', activeCapsule.title)
+      
+                  const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
+                    headers: {'x-token': token},
+                    onUploadProgress: (e) =>
+                      {const Porcentage = Math.round( (e.loaded * 100) / e.total )
+                      
+                      const Toast = Swal.mixin({
+                      toast: true,
+                      position: 'top-end',
+                      showConfirmButton: false,
+                      // loaderHtml: `${Porcentage}`,
                     })
-        
-                    if(res.data.ok) {
-                        const image = res.data.image.url
-                        const idImage = res.data.image.id
-                        const resp = await fetchConToken(`capsule/${activeCapsule._id}`, {title, date, image, idImage, descripcion}, 'PUT');
-                        const body = await resp.json()
-        
-                        if (body.ok) {
-        
-                            dispatch(updateCapsule(body.capsule))
-                            const Toast = Swal.mixin({
-                                toast: true,
-                                position: 'top-end',
-                                showConfirmButton: false,
-                                timer: 5000,
-                                timerProgressBar: true,
-                                didOpen: (toast) => {
-                                  toast.addEventListener('mouseenter', Swal.stopTimer)
-                                  toast.addEventListener('mouseleave', Swal.resumeTimer)
-                                }
-                              })
-                              
-                              return Toast.fire({
-                                icon: 'success',
-                                title: 'Capsula actualizada correctamente'
-                              })
-                        } else {
-                            const Toast = Swal.mixin({
-                                toast: true,
-                                position: 'top-end',
-                                showConfirmButton: false,
-                                timer: 5000,
-                                timerProgressBar: true,
-                                didOpen: (toast) => {
-                                  toast.addEventListener('mouseenter', Swal.stopTimer)
-                                  toast.addEventListener('mouseleave', Swal.resumeTimer)
-                                }
-                              })
-                              
-                              return Toast.fire({
-                                icon: 'error',
-                                title: `${body.msg}`
-                              })
-                        }
-                
-                    } else {
-                        const Toast = Swal.mixin({
-                            toast: true,
-                            position: 'top-end',
-                            showConfirmButton: false,
-                            timer: 5000,
-                            timerProgressBar: true,
-                            didOpen: (toast) => {
-                              toast.addEventListener('mouseenter', Swal.stopTimer)
-                              toast.addEventListener('mouseleave', Swal.resumeTimer)
-                            }
-                          })
-                          
-                          return Toast.fire({
-                            icon: 'error',
-                            title: `${res.errors}`
-                          })
-                    }
-                } else {
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 5000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                          toast.addEventListener('mouseenter', Swal.stopTimer)
-                          toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                      })
-                      
-                      return Toast.fire({
-                        icon: 'error',
-                        title: `${ress.errors}`
-                      })
-                }
-            } else {
-
-                const {image, idImage} = activeCapsule
-                const resp = await fetchConToken(`capsule/${activeCapsule._id}`, {title, date, image, idImage, descripcion}, 'PUT');
-                const body = await resp.json()
-
-                if (body.ok) {
-                    dispatch(updateCapsule(body.capsule))
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 5000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                          toast.addEventListener('mouseenter', Swal.stopTimer)
-                          toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                      })
-                      
-                      return Toast.fire({
-                        icon: 'success',
-                        title: 'Capsula actualizada correctamente'
-                      })
-                } else {
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 5000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                          toast.addEventListener('mouseenter', Swal.stopTimer)
-                          toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                      })
-                      
-                      return Toast.fire({
-                        icon: 'error',
-                        title: `${body.msg}`
-                      })
-                }
+  
+                    return Toast.fire({
+                      title: 'Subiendo imagen',
+                      html: `<div class="progress"><div class="progress-bar" role="progressbar" style="width: ${Porcentage}%;" aria-valuemin="0" aria-valuemax="100">${Porcentage}%</div> </div>`
+                    })}
+                  })
+      
+                  if(res.data.ok) {
+                      const image = res.data.image.url
+                      const idImage = res.data.image.id
+                      const resp = await fetchConToken(`capsule/${activeCapsule._id}`, {title, date, image, idImage, descripcion}, 'PUT');
+                      const body = await resp.json()
+      
+                      if (body.ok) {
+      
+                          dispatch(updateCapsule(body.capsule))
+                          const Toast = Swal.mixin({
+                              toast: true,
+                              position: 'top-end',
+                              showConfirmButton: false,
+                              timer: 5000,
+                              timerProgressBar: true,
+                              didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                              }
+                            })
+                            
+                            return Toast.fire({
+                              icon: 'success',
+                              title: 'Capsula actualizada correctamente'
+                            })
+                      } else {
+                          const Toast = Swal.mixin({
+                              toast: true,
+                              position: 'top-end',
+                              showConfirmButton: false,
+                              timer: 5000,
+                              timerProgressBar: true,
+                              didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                              }
+                            })
+                            
+                            return Toast.fire({
+                              icon: 'error',
+                              title: `${body.msg}`
+                            })
+                      }
+              
+                  } else {
+                      const Toast = Swal.mixin({
+                          toast: true,
+                          position: 'top-end',
+                          showConfirmButton: false,
+                          timer: 5000,
+                          timerProgressBar: true,
+                          didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                          }
+                        })
+                        
+                        return Toast.fire({
+                          icon: 'error',
+                          title: `${res.errors}`
+                        })
+                  }
+              } else {
+                  const Toast = Swal.mixin({
+                      toast: true,
+                      position: 'top-end',
+                      showConfirmButton: false,
+                      timer: 5000,
+                      timerProgressBar: true,
+                      didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                      }
+                    })
+                    
+                    return Toast.fire({
+                      icon: 'error',
+                      title: `${ress.errors}`
+                    })
+              }
+          } else {
+  
+              const {image, idImage} = activeCapsule
+              const resp = await fetchConToken(`capsule/${activeCapsule._id}`, {title, date, image, idImage, descripcion}, 'PUT');
+              const body = await resp.json()
+  
+              if (body.ok) {
+                  dispatch(updateCapsule(body.capsule))
+                  const Toast = Swal.mixin({
+                      toast: true,
+                      position: 'top-end',
+                      showConfirmButton: false,
+                      timer: 5000,
+                      timerProgressBar: true,
+                      didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                      }
+                    })
+                    
+                    return Toast.fire({
+                      icon: 'success',
+                      title: 'Capsula actualizada correctamente'
+                    })
+              } else {
+                  const Toast = Swal.mixin({
+                      toast: true,
+                      position: 'top-end',
+                      showConfirmButton: false,
+                      timer: 5000,
+                      timerProgressBar: true,
+                      didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                      }
+                    })
+                    
+                    return Toast.fire({
+                      icon: 'error',
+                      title: `${body.msg}`
+                    })
+              }
+          }
+        } else {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
-
-            
-
+          })
+          
+          return Toast.fire({
+            icon: 'error',
+            title: 'No tiene el privilegio para editar esta cápsula'
+          })
+        }
     }
 }
 
@@ -311,54 +330,76 @@ export const startDeleteCapsule = () => {
     return async(dispatch, getState) => {
         const {activeCapsule} = getState().ca
 
+        const {activeUser} = getState().auth
+
         const token = localStorage.getItem('token') || '';
 
-        if(activeCapsule.idImage) {
-            await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeCapsule.idImage}`, {headers: {'x-token': token}})
+        if (activeCapsule?.user === activeUser?.id) {
 
-            const resp = await fetchConToken(`capsule/${activeCapsule._id}`, activeCapsule, 'DELETE')
-    
-            if(resp.ok) {
-                dispatch(deleteCapsule(activeCapsule))
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 5000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                      toast.addEventListener('mouseenter', Swal.stopTimer)
-                      toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                  })
-                  
-                  return Toast.fire({
-                    icon: 'success',
-                    title: 'Capsula eliminada correctamente'
-                  })
-            }
+          if(activeCapsule.idImage) {
+              await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeCapsule.idImage}`, {headers: {'x-token': token}})
+  
+              const resp = await fetchConToken(`capsule/${activeCapsule._id}`, activeCapsule, 'DELETE')
+      
+              if(resp.ok) {
+                  dispatch(deleteCapsule(activeCapsule))
+                  const Toast = Swal.mixin({
+                      toast: true,
+                      position: 'top-end',
+                      showConfirmButton: false,
+                      timer: 5000,
+                      timerProgressBar: true,
+                      didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                      }
+                    })
+                    
+                    return Toast.fire({
+                      icon: 'success',
+                      title: 'Capsula eliminada correctamente'
+                    })
+              }
+          } else {
+              const resp = await fetchConToken(`capsule/${activeCapsule._id}`, activeCapsule, 'DELETE')
+      
+              if(resp.ok) {
+                  dispatch(deleteCapsule(activeCapsule))
+                  const Toast = Swal.mixin({
+                      toast: true,
+                      position: 'top-end',
+                      showConfirmButton: false,
+                      timer: 5000,
+                      timerProgressBar: true,
+                      didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                      }
+                    })
+                    
+                    return Toast.fire({
+                      icon: 'success',
+                      title: 'Capsula eliminada correctamente'
+                    })
+              }
+          }
         } else {
-            const resp = await fetchConToken(`capsule/${activeCapsule._id}`, activeCapsule, 'DELETE')
-    
-            if(resp.ok) {
-                dispatch(deleteCapsule(activeCapsule))
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 5000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                      toast.addEventListener('mouseenter', Swal.stopTimer)
-                      toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                  })
-                  
-                  return Toast.fire({
-                    icon: 'success',
-                    title: 'Capsula eliminada correctamente'
-                  })
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
+          })
+          
+          return Toast.fire({
+            icon: 'error',
+            title: 'No tiene el privilegio para eliminar esta cápsula'
+          })
         }
 
     }

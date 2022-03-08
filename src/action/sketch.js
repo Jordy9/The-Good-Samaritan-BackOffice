@@ -163,8 +163,12 @@ export const startUpdateBosquejo = (title, date, descripcion, fileupload) => {
 
         const {activeBosquejo} = getState().skt
 
+        const {activeUser} = getState().auth
+
         const token = localStorage.getItem('token') || '';
 
+
+          if (activeBosquejo?.user === activeUser?.id) {
             if(fileupload) {
                 const ress = await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeBosquejo.idImage}`, {headers: {'x-token': token}})
 
@@ -298,9 +302,24 @@ export const startUpdateBosquejo = (title, date, descripcion, fileupload) => {
                       })
                 }
             }
-
-            
-
+          } else {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              return Toast.fire({
+                icon: 'error',
+                title: 'No tiene el privilegio para editar este bosquejo'
+              })
+        }  
     }
 }
 
@@ -314,55 +333,78 @@ export const startDeleteBosquejo = () => {
     return async(dispatch, getState) => {
         const {activeBosquejo} = getState().skt
 
+        const {activeUser} = getState().auth
+
         const token = localStorage.getItem('token') || '';
 
-        if(activeBosquejo.idImage) {
-            await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeBosquejo.idImage}`, {headers: {'x-token': token}})
-
-            const resp = await fetchConToken(`bosquejo/${activeBosquejo._id}`, activeBosquejo, 'DELETE')
-    
-            if(resp.ok) {
-                dispatch(deleteBosquejo(activeBosquejo))
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 5000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                      toast.addEventListener('mouseenter', Swal.stopTimer)
-                      toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                  })
-                  
-                  return Toast.fire({
-                    icon: 'success',
-                    title: 'Bosquejo eliminado correctamente'
-                  })
-            }
+        if (activeBosquejo?.user === activeUser?.id) {
+          
+          if(activeBosquejo.idImage) {
+              await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeBosquejo.idImage}`, {headers: {'x-token': token}})
+  
+              const resp = await fetchConToken(`bosquejo/${activeBosquejo._id}`, activeBosquejo, 'DELETE')
+      
+              if(resp.ok) {
+                  dispatch(deleteBosquejo(activeBosquejo))
+                  const Toast = Swal.mixin({
+                      toast: true,
+                      position: 'top-end',
+                      showConfirmButton: false,
+                      timer: 5000,
+                      timerProgressBar: true,
+                      didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                      }
+                    })
+                    
+                    return Toast.fire({
+                      icon: 'success',
+                      title: 'Bosquejo eliminado correctamente'
+                    })
+              }
+          } else {
+              const resp = await fetchConToken(`bosquejo/${activeBosquejo._id}`, activeBosquejo, 'DELETE')
+      
+              if(resp.ok) {
+                  dispatch(deleteBosquejo(activeBosquejo))
+                  const Toast = Swal.mixin({
+                      toast: true,
+                      position: 'top-end',
+                      showConfirmButton: false,
+                      timer: 5000,
+                      timerProgressBar: true,
+                      didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                      }
+                    })
+                    
+                    return Toast.fire({
+                      icon: 'success',
+                      title: 'Bosquejo eliminado correctamente'
+                    })
+              }
+          }
         } else {
-            const resp = await fetchConToken(`bosquejo/${activeBosquejo._id}`, activeBosquejo, 'DELETE')
-    
-            if(resp.ok) {
-                dispatch(deleteBosquejo(activeBosquejo))
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 5000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                      toast.addEventListener('mouseenter', Swal.stopTimer)
-                      toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                  })
-                  
-                  return Toast.fire({
-                    icon: 'success',
-                    title: 'Bosquejo eliminado correctamente'
-                  })
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
+          })
+          
+          return Toast.fire({
+            icon: 'error',
+            title: 'No tiene el privilegio para eliminar este bosquejo'
+          })
         }
+
 
     }
 }
