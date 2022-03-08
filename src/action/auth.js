@@ -67,9 +67,11 @@ export const startLogin = (email, password) => {
 }
 
 
-export const startRegister = (name, lastName, age, date, email, address, country, city, number, password) => {
-    return async(dispatch) => {
-        const resp = await fetchConToken('auth/new', {name, lastName, age, date, email, address, country, city, number, password}, 'POST');
+export const startRegister = (name, lastName, age, date, email, role, address, country, city, number, password) => {
+    return async(dispatch, getState) => {
+        const {activeUser} = getState().auth
+
+        const resp = await fetchConToken('auth/new', {name, lastName, age, date, email, role, address, country, city, number, password, activeUser}, 'POST');
         const body = await resp.json();
 
         if(body.ok) {
@@ -79,6 +81,7 @@ export const startRegister = (name, lastName, age, date, email, address, country
                 age: body?.age,
                 date: body?.date,
                 email: body?.email,
+                role: body?.role,
                 address: body?.address,
                 country: body?.country,
                 city: body?.city,
@@ -154,12 +157,13 @@ const getUsers = (users) => ({
     payload: users
 })
 
-export const startUpdateUser = (name, lastName, age, date, email, address, country, city, number, password) => {
+export const startUpdateUser = (name, lastName, age, date, email, role, address, country, city, number, password) => {
     return async(dispatch, getState) => {
         const {SetUser} = getState().us
+        const {activeUser} = getState().auth
         
             const user = SetUser
-            const resp = await fetchConToken(`auth/update/${user.id}`, {name, lastName, age, date, email, address, country, city, number, password}, 'PUT')
+            const resp = await fetchConToken(`auth/update/${user.id}`, {name, lastName, age, date, email, role, address, country, city, number, password, activeUser}, 'PUT')
             const body = await resp.json()
 
         if(body.ok) {
@@ -512,11 +516,13 @@ export const ActiverUser = (user) => ({
 })
 
 export const startDeleteUser = (user) => {
-    return async(dispatch) => {
-        console.log(user)
+    return async(dispatch, getState) => {
+
+        const {activeUser} = getState().auth 
+
         let resp
         if (user?.biliever === undefined) {
-            resp = await fetchConToken(`auth/delete/${user.id}`, user, 'DELETE')
+            resp = await fetchConToken(`auth/delete/${user.id}`, activeUser, 'DELETE')
         } else {
             resp = await fetchConToken(`users/delete/${user.id}`, user, 'DELETE')
         }
@@ -611,4 +617,14 @@ export const setActiveUser = () => {
 const activeUser = (user) => ({
     type: Types.authSetUser,
     payload: user
+})
+
+export const ModalOpen = (state) => ({
+    type: Types.authModalOpen,
+    payload: state
+})
+
+export const ModalClose = (state) => ({
+    type: Types.authModalClose,
+    payload: state
 })

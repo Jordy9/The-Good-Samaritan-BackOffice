@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { startCreateGallery } from '../../action/gallery'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import Swal from 'sweetalert2';
 
 export const GalleryImages = () => {
+
+    const {activeUser} = useSelector(state => state.auth)
 
     const dispatch = useDispatch()
 
@@ -18,7 +20,29 @@ export const GalleryImages = () => {
         },
         enableReinitialize: true,
         onSubmit: ({title, image}) => {
-            if (image.type.includes('image') === false) {
+            if (activeUser?.role === 'Gestorcontenido' || activeUser?.role === 'Administrador') {
+
+                if (image.type.includes('image') === false) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 5000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'error',
+                        title: 'Imagen con formato incorrecto'
+                      })
+                } else {
+                dispatch(startCreateGallery(title, image))
+                }
+            } else {
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -33,10 +57,8 @@ export const GalleryImages = () => {
                   
                   return Toast.fire({
                     icon: 'error',
-                    title: 'Imagen con formato incorrecto'
+                    title: 'No tiene el privilegio de subir esta imagen'
                   })
-            } else {
-            dispatch(startCreateGallery(title, image))
             }
             resetForm({
                 title: '', 

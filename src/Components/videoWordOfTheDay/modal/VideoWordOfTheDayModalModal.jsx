@@ -9,6 +9,8 @@ export const VideoWordOfTheDayModal = () => {
 
     const {activeVideo} = useSelector(state => state.vwd)
 
+    const {activeUser} = useSelector(state => state.auth)
+
     const dispatch = useDispatch()
 
     const [vide, setvide] = useState()
@@ -20,7 +22,29 @@ export const VideoWordOfTheDayModal = () => {
         },
         enableReinitialize: true,
         onSubmit: ({title, video}) => {
-            if (video.type.includes('video') === false) {
+            if (activeUser?.role === 'Gestorcontenido' || activeUser?.role === 'Administrador') {
+
+                if (video.type.includes('video') === false) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 5000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'error',
+                        title: 'Video con formato incorrecto'
+                      })
+                } else {
+                dispatch(startUpdateVideoWordOfTheDay(title, video))
+                }
+            } else {
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -35,11 +59,10 @@ export const VideoWordOfTheDayModal = () => {
                   
                   return Toast.fire({
                     icon: 'error',
-                    title: 'Video con formato incorrecto'
+                    title: 'No tiene el privilegio de editar esta palabra del día'
                   })
-            } else {
-            dispatch(startUpdateVideoWordOfTheDay(title, video))
             }
+
         },
         validationSchema: Yup.object({
             title: Yup.string()

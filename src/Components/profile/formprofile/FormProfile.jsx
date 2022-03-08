@@ -87,6 +87,16 @@ export const FormProfile = () => {
                         .required('Requerido'),
             number: Yup.string()
                         .min(10, 'Debe de tener 10 dígitos')
+                        .required('Requerido'),
+            password: Yup.string()
+                        .min(8, 'Debe de tener 8 caracteres o más')
+                        .matches(/(?=.*[A-Z])/, "Debe contener como mínimo una letra mayúscula")
+                        .matches(/(?=.*[a-z])/, "Debe contener como mínimo una letra minuscula")
+                        .matches(/(?=.*[0-9])/, "Debe contener como mínimo un número")
+                        .matches(/(?=.*[@$!%*#?&])/, "Debe contener como mínimo un caracter especial")
+                        .required('Requerido'),
+            confirmPassword: Yup.string()
+                        .oneOf([Yup.ref('password')], 'Las contraseñas deben ser iguales')
                         .required('Requerido')
         })
     })

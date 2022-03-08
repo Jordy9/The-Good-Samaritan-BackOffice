@@ -1,12 +1,15 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { startCreateYoutube } from '../../../action/youtubeImage';
 import moment from 'moment';
+import Swal from 'sweetalert2';
 
 
 export const FormYoutube = () => {
+
+    const {activeUser} = useSelector(state => state.auth)
 
     const newDate = moment().format('yyyy-MM-DDTHH:mm')
 
@@ -20,12 +23,32 @@ export const FormYoutube = () => {
         },
         enableReinitialize: true,
         onSubmit: ({title, date, link}) => {
-            dispatch(startCreateYoutube(title, date, link))
-            resetForm({
-                title: '',
-                date: '',
-                link: ''
-            })
+            if (activeUser?.role === 'Gestorcontenido' || activeUser?.role === 'Administrador') {
+
+                dispatch(startCreateYoutube(title, date, link))
+                resetForm({
+                    title: '',
+                    date: '',
+                    link: ''
+                })
+            } else {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  return Toast.fire({
+                    icon: 'error',
+                    title: 'No tiene el privilegio de publicar este video'
+                  })
+            }
         },
         validationSchema: Yup.object({
             title: Yup.string()

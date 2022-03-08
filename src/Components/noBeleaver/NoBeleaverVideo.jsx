@@ -14,6 +14,7 @@ export const NoBeleaverVideo = () => {
 
     const {Video} = useSelector(state => state.nb)
 
+    const {activeUser} = useSelector(state => state.auth)
     
     const video = Video[0]
     
@@ -23,8 +24,30 @@ export const NoBeleaverVideo = () => {
             image: ''
         },
         enableReinitialize: true,
-        onSubmit: ({title, date, image, id, password}) => {
-            if (image.type.includes('video') === false) {
+        onSubmit: ({title, image}) => {
+            if (activeUser?.role === 'Administrador' || activeUser?.role === 'Gestorcontenido') {
+
+                if (image.type.includes('video') === false) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 5000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'error',
+                        title: 'Imagen con formato incorrecto'
+                      })
+                } else {
+                dispatch(startCreateNoBeleaverVideo(title, image))
+                }
+            } else {
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -39,10 +62,8 @@ export const NoBeleaverVideo = () => {
                   
                   return Toast.fire({
                     icon: 'error',
-                    title: 'Imagen con formato incorrecto'
+                    title: 'No tiene el privilegio de subir este video'
                   })
-            } else {
-            dispatch(startCreateNoBeleaverVideo(title, image))
             }
             resetForm({
                 title: '',

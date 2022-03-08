@@ -10,6 +10,8 @@ export const SketchModal = () => {
 
     const {activeBosquejo} = useSelector(state => state.skt)
 
+    const {activeUser} = useSelector(state => state.auth)
+
     const dispatch = useDispatch()
 
     const [imag, setimag] = useState()
@@ -24,7 +26,29 @@ export const SketchModal = () => {
         },
         enableReinitialize: true,
         onSubmit: ({title, date, descripcion, image}) => {
-            if (image.type.includes('image') === false) {
+            if (activeUser?.role === 'Administrador') {
+
+                if (image.type.includes('image') === false) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 5000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'error',
+                        title: 'Imagen con formato incorrecto'
+                      })
+                } else {
+                dispatch(startUpdateBosquejo(title, date, descripcion, image))
+                }
+            } else {
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -39,11 +63,10 @@ export const SketchModal = () => {
                   
                   return Toast.fire({
                     icon: 'error',
-                    title: 'Imagen con formato incorrecto'
+                    title: 'No tiene el privilegio de editar este bosquejo'
                   })
-            } else {
-            dispatch(startUpdateBosquejo(title, date, descripcion, image))
             }
+
         },
         validationSchema: Yup.object({
             title: Yup.string()

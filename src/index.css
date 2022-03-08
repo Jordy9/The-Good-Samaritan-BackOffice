@@ -82,6 +82,22 @@ code {
   display: none !important;
 }
 
+#select-rol {
+  border: none;
+  border-bottom: 1px solid;
+  outline: none !important;
+}
+
+select .dropdown-toggle:focus { outline: none !important; }
+
+option {
+  color: black;
+}
+
+#modal-header-video {
+  border: none;
+}
+
 @media (max-width: 768px) {
   h1 {
       margin-top: 100px !important;

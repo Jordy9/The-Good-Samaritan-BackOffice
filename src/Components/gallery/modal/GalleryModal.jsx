@@ -8,6 +8,8 @@ import Swal from 'sweetalert2';
 export const GalleryModal = () => {
     const {activeGallery} = useSelector(state => state.ga)
 
+    const {activeUser} = useSelector(state => state.auth)
+
     const dispatch = useDispatch()
 
     const [imag, setimag] = useState()
@@ -19,7 +21,29 @@ export const GalleryModal = () => {
         },
         enableReinitialize: true,
         onSubmit: ({title, image}) => {
-            if (image.type.includes('image') === false) {
+            if (activeUser?.role === 'Gestorcontenido' || activeUser?.role === 'Administrador') {
+
+                if (image.type.includes('image') === false) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 5000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'error',
+                        title: 'Imagen con formato incorrecto'
+                      })
+                } else {
+                dispatch(startUpdateGallery(title, image))
+                }
+            } else {
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -34,10 +58,8 @@ export const GalleryModal = () => {
                   
                   return Toast.fire({
                     icon: 'error',
-                    title: 'Imagen con formato incorrecto'
+                    title: 'No tiene el privilegio de editar esta imagen'
                   })
-            } else {
-            dispatch(startUpdateGallery(title, image))
             }
         },
         validationSchema: Yup.object({  

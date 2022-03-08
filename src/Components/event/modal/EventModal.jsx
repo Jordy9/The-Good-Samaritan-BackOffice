@@ -10,6 +10,8 @@ export const EventModal = () => {
 
     // const newDate = moment().format('yyyy-MM-DDTHH:mm')
 
+    const {activeUser} = useSelector(state => state.auth)
+
     const {activeEvent} = useSelector(state => state.ev)
 
     const dispatch = useDispatch()
@@ -26,7 +28,29 @@ export const EventModal = () => {
         },
         enableReinitialize: true,
         onSubmit: ({title, date, descripcion, image}) => {
-            if (image.type.includes('image') === false) {
+            if (activeUser?.role === 'Gestorcontenido' || activeUser?.role === 'Administrador') {
+
+                if (image.type.includes('image') === false) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 5000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'error',
+                        title: 'Imagen con formato incorrecto'
+                      })
+                } else {
+                dispatch(startUpdateEvento(title, date, descripcion, image))
+                }
+            } else {
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -41,10 +65,8 @@ export const EventModal = () => {
                   
                   return Toast.fire({
                     icon: 'error',
-                    title: 'Imagen con formato incorrecto'
+                    title: 'No tiene el privilegio de editar este evento'
                   })
-            } else {
-            dispatch(startUpdateEvento(title, date, descripcion, image))
             }
         },
         validationSchema: Yup.object({

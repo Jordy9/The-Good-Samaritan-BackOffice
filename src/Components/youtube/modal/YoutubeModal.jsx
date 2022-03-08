@@ -3,8 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { startUpdateYoutube } from '../../../action/youtubeImage';
+import Swal from 'sweetalert2';
 
 export const YoutubeModal = () => {
+
+    const {activeUser} = useSelector(state => state.auth)
 
     const {activeYoutube} = useSelector(state => state.yt)
 
@@ -18,12 +21,32 @@ export const YoutubeModal = () => {
         },
         enableReinitialize: true,
         onSubmit: ({title, date, link}) => {
-            dispatch(startUpdateYoutube(title, date, link))
-            resetForm({
-                title: '', 
-                date: '',
-                link: ''
-            })
+            if (activeUser?.role === 'Gestorcontenido' || activeUser?.role === 'Administrador') {
+
+                dispatch(startUpdateYoutube(title, date, link))
+                resetForm({
+                    title: '', 
+                    date: '',
+                    link: ''
+                })
+            } else {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  return Toast.fire({
+                    icon: 'error',
+                    title: 'No tiene el privilegio de editar este video'
+                  })
+            }
         },
         validationSchema: Yup.object({
             title: Yup.string()

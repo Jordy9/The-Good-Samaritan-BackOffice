@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { startCreateVideoWordOfTheDay } from '../../../action/VideoWordOfTheDay';
 import Swal from 'sweetalert2';
 
 export const FormVideoWordOfTheDay = () => {
+
+    const {activeUser} = useSelector(state => state.auth)
     
     const dispatch = useDispatch()
 
@@ -18,7 +20,28 @@ export const FormVideoWordOfTheDay = () => {
         },
         enableReinitialize: true,
         onSubmit: ({title, video}) => {
-            if (video.type.includes('video') === false) {
+            if (activeUser?.role === 'Gestorcontenido' || activeUser?.role === 'Administrador') {
+                if (video.type.includes('video') === false) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 5000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'error',
+                        title: 'Video con formato incorrecto'
+                      })
+                } else {
+                dispatch(startCreateVideoWordOfTheDay(title, video))
+                }
+            } else {
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -33,11 +56,10 @@ export const FormVideoWordOfTheDay = () => {
                   
                   return Toast.fire({
                     icon: 'error',
-                    title: 'Video con formato incorrecto'
+                    title: 'No tiene el privilegio de crear esta palabra del día'
                   })
-            } else {
-            dispatch(startCreateVideoWordOfTheDay(title, video))
             }
+            
             resetForm({
                 title: '', 
                 video: document.getElementsByName('video').value = ''

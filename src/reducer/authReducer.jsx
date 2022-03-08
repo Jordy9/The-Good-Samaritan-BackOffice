@@ -4,7 +4,8 @@ const initialState = {
     checking: true,
     users: [],
     activeUser: '',
-    paginate: []
+    paginate: [],
+    modalOpen: false
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -77,6 +78,18 @@ export const authReducer = (state = initialState, action) => {
         case Types.authLogout:
             return {
                 checking: false,
+            }
+
+        case Types.authModalOpen:
+            return {
+                ...state,
+                modalOpen: action.payload
+            }
+
+        case Types.authModalClose:
+            return {
+                ...state,
+                modalOpen: action.payload
             }
             
 

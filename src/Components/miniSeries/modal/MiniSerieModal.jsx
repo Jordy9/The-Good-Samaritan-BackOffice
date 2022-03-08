@@ -10,6 +10,8 @@ export const MiniSerieModal = () => {
 
     const {activeSerie} = useSelector(state => state.mi)
 
+    const {activeUser} = useSelector(state => state.auth)
+
     const dispatch = useDispatch()
 
     const [imag, setimag] = useState()
@@ -24,9 +26,29 @@ export const MiniSerieModal = () => {
         },
         enableReinitialize: true,
         onSubmit: ({title, date, descripcion, image}) => {
+            if (activeUser?.role === 'Administrador') {
 
-            console.log(descripcion)
-            if (image.type?.includes('image') === false) {
+                if (image.type?.includes('image') === false) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 5000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      return Toast.fire({
+                        icon: 'error',
+                        title: 'Imagen con formato incorrecto'
+                      })
+                } else {
+                dispatch(startUpdateSerie(title, date, descripcion, image))
+                }
+            } else {
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -41,15 +63,14 @@ export const MiniSerieModal = () => {
                   
                   return Toast.fire({
                     icon: 'error',
-                    title: 'Imagen con formato incorrecto'
+                    title: 'No tiene el privilegio de editar esta miniserie'
                   })
-            } else {
-            dispatch(startUpdateSerie(title, date, descripcion, image))
             }
+
         },
         validationSchema: Yup.object({
             title: Yup.string()
-                        .max(50, 'Debe de tener 50 caracteres o menos')
+                        .max(70, 'Debe de tener 70 caracteres o menos')
                         .min(3, 'Debe de tener 3 caracteres o más')
                         .required('Requerido'),
             date: Yup.string()

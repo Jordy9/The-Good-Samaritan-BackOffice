@@ -1,22 +1,24 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Swal from 'sweetalert2'
-import { ActiverUser, startDeleteUser } from '../../../action/auth'
+import { ModalOpen, startDeleteUser } from '../../../action/auth'
 import { SetActiveUser } from '../../../action/user'
 
 export const ModalContainer = (props) => {
 
-  const {name, lastName, email, id, biliever} = props
+  const {activeUser} = useSelector(state => state.auth)
+
+  const {name, lastName, email, id, biliever, role} = props
 
     const dispatch = useDispatch()
 
     const handledSet = () => {
       dispatch(SetActiveUser(id, props))
+      dispatch(ModalOpen(true))
     }
 
     const Handleddelete = () => {
       dispatch(SetActiveUser(props))
-      dispatch(ActiverUser(props))
         Swal.fire({
           title: '¿Esta seguro que desea eliminar este usuario?',
           icon: 'warning',
@@ -25,8 +27,27 @@ export const ModalContainer = (props) => {
           cancelButtonColor: '#3085d6',
           confirmButtonText: 'Eliminar'
         }).then((result) => {
-          if (result.isConfirmed) {
-            dispatch(startDeleteUser(props))
+          if (activeUser?.role === 'Administrador') {
+            if (result.isConfirmed) {
+              dispatch(startDeleteUser(props))
+            }
+          } else {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 5000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+            
+            return Toast.fire({
+              icon: 'error',
+              title: 'No tiene el privilegio de eliminar este usuario'
+            })
           }
         })
       }
@@ -38,14 +59,29 @@ export const ModalContainer = (props) => {
               <td>{email}</td>
               {
                 (biliever !== undefined)
-                  ?
+                  &&
                 <td className='text-primary'><strong>Usuario</strong></td>
-                  :
-                <td className='text-success'><strong>Administrador</strong></td>
+              }
 
+              {
+                (role === 'Administrador')
+                  &&
+                <td className='text-success'><strong>Administrador</strong></td>
+              }
+
+              {
+                (role === 'Gestorcontenido')
+                  &&
+              <td className='text-warning'><strong>Gestor de contenido</strong></td>
+              }
+
+              {
+                (role === 'Colaborador')
+                  &&
+                <td className='text-info'><strong>Colaborador</strong></td>
               }
               <td>
-                  <button data-bs-toggle="modal" data-bs-target="#exampleModal2" onClick = {handledSet} className = 'btn btn-outline-primary mr-1 ' style = {{borderRadius: '100%'}}><i className="bi bi-eye"></i></button>
+                  <button onClick = {handledSet} className = 'btn btn-outline-primary mr-1 ' style = {{borderRadius: '100%'}}><i className="bi bi-eye"></i></button>
                   <button onClick = {Handleddelete} className = 'btn btn-outline-danger ml-1 ' style = {{borderRadius: '100%'}}><i className="bi bi-trash" style = {{color: 'red'}}></i></button>
               </td>
           </tr>
