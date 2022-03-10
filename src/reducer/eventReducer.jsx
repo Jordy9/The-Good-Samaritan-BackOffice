@@ -3,7 +3,8 @@ import { Types } from "../types/Types";
 const initialState = {
     Eventos: null,
     activeEvent: '',
-    Paginate: []
+    Paginate: [],
+    Porcentage: 0
 }
 
 export const eventsReducer = (state = initialState, action) => {
@@ -56,6 +57,18 @@ export const eventsReducer = (state = initialState, action) => {
                     e => (e.id !== state.activeEvent.id)
                 ),
                 activeSerie: null
+            }
+
+        case Types.evUpload:
+            return {
+                ...state,
+                Porcentage: action.payload
+            }
+
+        case Types.evUploadFinish:
+            return {
+                ...state,
+                Porcentage: 0
             }
     
         default:

@@ -8,6 +8,8 @@ import Swal from 'sweetalert2';
 export const FormVideoWordOfTheDay = () => {
 
     const {activeUser} = useSelector(state => state.auth)
+
+    const {Porcentage} = useSelector(state => state.vwd)
     
     const dispatch = useDispatch()
 
@@ -108,6 +110,16 @@ export const FormVideoWordOfTheDay = () => {
                 (vide)
                     &&
                 <div className="row">
+                    {
+                        (Porcentage > 0)
+                            &&
+                        <div className="col-12 mb-2">
+                            <label className='d-flex justify-content-center'>Subiendo imagen</label>
+                            <div class="progress">
+                                <div className="progress-bar" role="progressbar" style={{width: `${Porcentage}%`}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{Porcentage}%</div>
+                            </div>
+                        </div>
+                    }
                     <div className="col-12">
                         <div className="form-group d-flex justify-content-center">
                             {/* <img src = {vide} style = {{ cursor: 'pointer', height: '200px', maxWidth: '400px' }} className = 'img-fluid rounded' alt=''/> */}

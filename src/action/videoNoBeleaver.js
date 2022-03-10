@@ -42,19 +42,7 @@ export const startCreateNoBeleaverVideo = (title, file) => {
                 const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
                     headers: {'x-token': token},
                     onUploadProgress: (e) =>
-                        {const Porcentage = Math.round( (e.loaded * 100) / e.total )
-                        
-                        const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        // loaderHtml: `${Porcentage}`,
-                        })
-
-                        return Toast.fire({
-                        title: 'Subiendo video',
-                        html: `<div class="progress"><div class="progress-bar" role="progressbar" style="width: ${Porcentage}%;" aria-valuemin="0" aria-valuemax="100">${Porcentage}%</div> </div>`
-                        })}
+                        {dispatch(upload(Math.round( (e.loaded * 100) / e.total )))}
                 })
                 
                 if(res.data.ok) {
@@ -65,6 +53,8 @@ export const startCreateNoBeleaverVideo = (title, file) => {
 
                     dispatch(createNoBeleaverVideo(body.videoNoBeleaverGuardado))
                     dispatch(startGetNoBeleaverVideo())
+
+                    dispatch(UploadFish())
 
                     const Toast = Swal.mixin({
                         toast: true,
@@ -89,19 +79,7 @@ export const startCreateNoBeleaverVideo = (title, file) => {
             const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
                 headers: {'x-token': token},
                 onUploadProgress: (e) =>
-                    {const Porcentage = Math.round( (e.loaded * 100) / e.total )
-                    
-                    const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    // loaderHtml: `${Porcentage}`,
-                    })
-
-                    return Toast.fire({
-                    title: 'Subiendo video',
-                    html: `<div class="progress"><div class="progress-bar" role="progressbar" style="width: ${Porcentage}%;" aria-valuemin="0" aria-valuemax="100">${Porcentage}%</div> </div>`
-                    })}
+                    {dispatch(upload(Math.round( (e.loaded * 100) / e.total )))}
             })
             
             if(res.data.ok) {
@@ -112,6 +90,8 @@ export const startCreateNoBeleaverVideo = (title, file) => {
 
                 dispatch(createNoBeleaverVideo(body.videoNoBeleaverGuardado))
                 dispatch(startGetNoBeleaverVideo())
+
+                dispatch(UploadFish())
                 
                 const Toast = Swal.mixin({
                     toast: true,
@@ -134,6 +114,15 @@ export const startCreateNoBeleaverVideo = (title, file) => {
         }
     }
 }
+
+const UploadFish = () => ({
+    type: Types.nbUploadFinish
+  })
+  
+  const upload = (progress) => ({
+    type: Types.nbUpload,
+    payload: progress
+  })
 
 const createNoBeleaverVideo = (zoom) => ({
     type: Types.nbcreateVideo,

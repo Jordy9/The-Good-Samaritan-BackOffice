@@ -12,6 +12,7 @@ import { miniSeriesReducer } from '../reducer/miniSeriesReducer';
 import { noBeleaverReducer } from '../reducer/noBeleaverReducer';
 import { notificacionReducer } from '../reducer/notificacionReducer';
 import { petitionsReducer } from '../reducer/petitionReducer';
+import { progressBarReducer } from '../reducer/progressBarReducer';
 import { socketReducer } from '../reducer/socketReducer';
 import { userReducer } from '../reducer/userReducer';
 import { VideoWordOfTheDayReducer } from '../reducer/VideoWordOfTheDayReducer';
@@ -38,7 +39,8 @@ const reducers = combineReducers({
     cht: chatReducer,
     nt: notificacionReducer,
     vwd: VideoWordOfTheDayReducer,
-    nb: noBeleaverReducer
+    nb: noBeleaverReducer,
+    chb: progressBarReducer
 });
 
 export const store =  createStore(

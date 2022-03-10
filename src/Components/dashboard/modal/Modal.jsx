@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 // import MaskedInput from 'react-text-mask'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
@@ -9,6 +9,7 @@ import MaskedInput from 'react-text-mask'
 import moment from 'moment'
 import Swal from 'sweetalert2'
 import { Modal } from 'react-bootstrap'
+import countryList from 'react-select-country-list'
 
 export const ModalUpdate = () => {
 
@@ -19,6 +20,8 @@ export const ModalUpdate = () => {
     const dispatch = useDispatch()
 
     const {SetUser} = useSelector(state => state.us)
+
+    const options = useMemo(() => countryList().getData(), [])
 
     const {handleSubmit, resetForm, getFieldProps, touched, errors} = useFormik({
         initialValues: {
@@ -197,7 +200,16 @@ export const ModalUpdate = () => {
                             <div className="row">
                                 <div className="col form-group">
                                     <label>País</label>
-                                    <input type="text" {...getFieldProps('country')} placeholder = 'República Dominicana' className = 'form-control bg-transparent text-white' />
+                                    <select {...getFieldProps('country')} id='select-rol' className="form-select form-control bg-transparent text-white">
+                                        <option selected>Seleccione una opción</option>
+                                        {
+                                            options.map(option => {
+                                                return (
+                                                    <option key={option.value} value = {[option.value, option.label]}>{option.label}</option>
+                                                )
+                                            })
+                                        }
+                                    </select>
                                     {touched.country && errors.country && <span style={{color: 'red'}}>{errors.country}</span>}
                                 </div>
 

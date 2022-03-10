@@ -3,7 +3,8 @@ import { Types } from "../types/Types";
 const initialState = {
     Bosquejos: null,
     activeBosquejo: '',
-    Paginate: []
+    Paginate: [],
+    Porcentage: 0
 }
 
 export const bosquejosReducer = (state = initialState, action) => {
@@ -56,6 +57,18 @@ export const bosquejosReducer = (state = initialState, action) => {
                     e => (e._id !== state.activeBosquejo._id)
                 ),
                 activeSerie: null
+            }
+
+        case Types.sktUpload:
+            return {
+                ...state,
+                Porcentage: action.payload
+            }
+
+        case Types.sktUploadFinish:
+            return {
+                ...state,
+                Porcentage: 0
             }
     
         default:

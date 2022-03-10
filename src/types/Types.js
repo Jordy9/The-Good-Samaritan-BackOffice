@@ -1,5 +1,8 @@
 export const Types = {
 
+    chbUpload: '[chb] upload',
+    chbUploadFinish: '[chb] upload finish',
+    // 
     nbgetVideo: '[NB] get Zooms',
     nbcreateVideo: '[NB] create Video',
     nbSetVideo: '[NB] set Video',
@@ -7,6 +10,8 @@ export const Types = {
     nbClearSetVideo: '[NB] clear set Video',
     nbUpdateVideo: '[NB] update Video',
     nbDeleteVideo: '[NB] delete Video',
+    nbUpload: '[NB] upload nb',
+    nbUploadFinish: '[NB] upload finish nb',
     // 
     vwdgetVideosWordOfTheDay: '[VWD] get VideosWordOfTheDay',
     vwdcreateVideoWordOfTheDay: '[VWD] create VideoWordOfTheDay',
@@ -15,6 +20,8 @@ export const Types = {
     vwdClearSetVideoWordOfTheDay: '[VWD] clear set VideoWordOfTheDay',
     vwdUpdateVideoWordOfTheDay: '[VWD] update VideoWordOfTheDay',
     vwdDeleteVideoWordOfTheDay: '[VWD] delete VideoWordOfTheDay',
+    vwdUpload: '[VWD] upload vwd',
+    vwdUploadFinish: '[VWD] upload finish vwd',
     // 
     ntDeleteNotification: '[NT] delete notification',
     ntNotificacionesCargadas: '[NT] notificaciones cargadas',
@@ -57,6 +64,8 @@ export const Types = {
     catUpdateCapsule: '[CA] update Capsule',
     catDeleteCapsule: '[CA] delete Capsule',
     caPaginateCapsule: '[CA] paginate Capsule',
+    caUpload: '[CA] upload ca',
+    caUploadFinish: '[CA] upload finish ca',
     // 
     gagetGallerys: '[GA] get Gallerys',
     gacreateGallery: '[GA] create Gallery',
@@ -66,6 +75,8 @@ export const Types = {
     gaUpdateGallery: '[GA] update Gallery',
     gaDeleteGallery: '[GA] delete Gallery',
     gaPaginateGallery: '[GA] paginate Gallery',
+    gaUpload: '[chb] upload ga',
+    gaUploadFinish: '[chb] upload finish ga',
     // 
     magetMains: '[Ma] get Mains',
     macreateMain: '[Ma] create Main',
@@ -75,6 +86,8 @@ export const Types = {
     maUpdateMain: '[Ma] update Main',
     maDeleteMain: '[Ma] delete Main',
     maPaginateMain: '[MA] paginate Main',
+    maUpload: '[MA] upload ma',
+    maUploadFinish: '[MA] upload finish ma',
     // 
     zmgetZooms: '[ZM] get Zooms',
     zmcreateZoom: '[ZM] create Zoom',
@@ -83,6 +96,8 @@ export const Types = {
     zmClearSetZoom: '[ZM] clear set Zoom',
     zmUpdateZoom: '[ZM] update Zoom',
     zmDeleteZoom: '[ZM] delete Zoom',
+    zmUpload: '[ZM] upload zm',
+    zmUploadFinish: '[ZM] upload finish zm',
     // 
     evgetEvents: '[EV] get Events',
     evcreateEvent: '[EV] create Event',
@@ -92,6 +107,8 @@ export const Types = {
     evUpdateEvent: '[EV] update Event',
     evDeleteEvent: '[EV] delete Event',
     evPaginateEvent: '[EV] paginate Event',
+    evUpload: '[EV] upload ev',
+    evUploadFinish: '[EV] upload finish ev',
     // 
     ptgetPetitions: '[PT] get Petitions',
     ptgetPetitionesUser: '[PT] get PetitionesUser',
@@ -120,6 +137,8 @@ export const Types = {
     miUpdateSerie: '[Mi] update serie',
     miDeleteSerie: '[Mi] delete serie',
     miPaginateSerie: '[Mi] paginate serie',
+    miUpload: '[Mi] upload mi',
+    miUploadFinish: '[Mi] upload finish mi',
     // 
     sktgetBosquejos: '[SKT] get bosquejos',
     sktcreateBosquejo: '[SKT] create bosquejo',
@@ -128,6 +147,8 @@ export const Types = {
     sktUpdateBosquejo: '[SKT] update bosquejo',
     sktDeleteBosquejo: '[SKT] delete bosquejo',
     sktPaginateBosquejo: '[SKT] paginate bosquejo',
+    sktUpload: '[SKT] upload skt',
+    sktUploadFinish: '[SKT] upload finish skt',
     // 
     authChecking: '[Auth] checking login state',
     authCheckingFinish: '[Auth] finish checking login state',
@@ -146,5 +167,7 @@ export const Types = {
     authModalOpen: '[Auth] modal open',
     authModalClose: '[Auth] modal close',
     authModalOpenCreate: '[Auth] modal open create',
-    authModalCloseCreate: '[Auth] modal close create'
+    authModalCloseCreate: '[Auth] modal close create',
+    authUpload: '[Auth] upload auth',
+    authUploadFinish: '[Auth] upload finish auth'
 }

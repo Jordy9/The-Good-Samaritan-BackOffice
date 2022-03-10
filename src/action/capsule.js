@@ -53,19 +53,7 @@ export const startCreateCapsule = (title, date, descripcion, file) => {
             const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
               headers: {'x-token': token},
               onUploadProgress: (e) =>
-                {const Porcentage = Math.round( (e.loaded * 100) / e.total )
-                
-                const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                // loaderHtml: `${Porcentage}`,
-              })
-
-              return Toast.fire({
-                title: 'Subiendo imagen',
-                html: `<div class="progress"><div class="progress-bar" role="progressbar" style="width: ${Porcentage}%;" aria-valuemin="0" aria-valuemax="100">${Porcentage}%</div> </div>`
-              })}
+                {dispatch(upload(Math.round( (e.loaded * 100) / e.total )))}
             })
             
             if(res.data.ok) {
@@ -83,6 +71,8 @@ export const startCreateCapsule = (title, date, descripcion, file) => {
                     const payload = {title, subtitle, image}
 
                     socket?.emit('notifications-admin-to-user', payload)
+
+                    dispatch(UploadFish())
     
                     const Toast = Swal.mixin({
                         toast: true,
@@ -123,6 +113,15 @@ export const startCreateCapsule = (title, date, descripcion, file) => {
     }
 }
 
+const UploadFish = () => ({
+  type: Types.caUploadFinish
+})
+
+const upload = (progress) => ({
+  type: Types.caUpload,
+  payload: progress
+})
+
 const createCapsule = (capsule) => ({
     type: Types.catcreateCapsule,
     payload: capsule
@@ -161,19 +160,7 @@ export const startUpdateCapsule = (title, date, descripcion, fileupload) => {
                   const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
                     headers: {'x-token': token},
                     onUploadProgress: (e) =>
-                      {const Porcentage = Math.round( (e.loaded * 100) / e.total )
-                      
-                      const Toast = Swal.mixin({
-                      toast: true,
-                      position: 'top-end',
-                      showConfirmButton: false,
-                      // loaderHtml: `${Porcentage}`,
-                    })
-  
-                    return Toast.fire({
-                      title: 'Subiendo imagen',
-                      html: `<div class="progress"><div class="progress-bar" role="progressbar" style="width: ${Porcentage}%;" aria-valuemin="0" aria-valuemax="100">${Porcentage}%</div> </div>`
-                    })}
+                      {dispatch(upload( Math.round( (e.loaded * 100) / e.total )))}
                   })
       
                   if(res.data.ok) {
@@ -185,6 +172,7 @@ export const startUpdateCapsule = (title, date, descripcion, fileupload) => {
                       if (body.ok) {
       
                           dispatch(updateCapsule(body.capsule))
+                          dispatch(UploadFish())
                           const Toast = Swal.mixin({
                               toast: true,
                               position: 'top-end',

@@ -98,6 +98,10 @@ option {
   border: none;
 }
 
+.flag {
+  width: 45px;
+}
+
 @media (max-width: 768px) {
   h1 {
       margin-top: 100px !important;

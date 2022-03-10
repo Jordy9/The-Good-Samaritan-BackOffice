@@ -54,19 +54,7 @@ export const startCreateVideoWordOfTheDay = (title, file) => {
             const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
               headers: {'x-token': token},
               onUploadProgress: (e) =>
-                {const Porcentage = Math.round( (e.loaded * 100) / e.total )
-                
-                const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                // loaderHtml: `${Porcentage}`,
-              })
-
-              return Toast.fire({
-                title: 'Subiendo video',
-                html: `<div class="progress"><div class="progress-bar" role="progressbar" style="width: ${Porcentage}%;" aria-valuemin="0" aria-valuemax="100">${Porcentage}%</div> </div>`
-              })}
+                {dispatch(upload(Math.round( (e.loaded * 100) / e.total )))}
             })
             
             if(res.data.ok) {
@@ -84,6 +72,8 @@ export const startCreateVideoWordOfTheDay = (title, file) => {
                     const payload = {title, subtitle}
 
                     socket?.emit('notifications-admin-to-user', payload)
+
+                    dispatch(UploadFish())
                     
                     const Toast = Swal.mixin({
                         toast: true,
@@ -126,6 +116,15 @@ export const startCreateVideoWordOfTheDay = (title, file) => {
     }
 }
 
+const UploadFish = () => ({
+  type: Types.vwdUploadFinish
+})
+
+const upload = (progress) => ({
+  type: Types.vwdUpload,
+  payload: progress
+})
+
 const createVideoWordOfTheDay = (video) => ({
     type: Types.vwdcreateVideoWordOfTheDay,
     payload: video
@@ -160,19 +159,7 @@ export const startUpdateVideoWordOfTheDay = (title, fileupload) => {
                 const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
                   headers: {'x-token': token},
                   onUploadProgress: (e) =>
-                    {const Porcentage = Math.round( (e.loaded * 100) / e.total )
-                    
-                    const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    // loaderHtml: `${Porcentage}`,
-                  })
-
-                  return Toast.fire({
-                    title: 'Subiendo video',
-                    html: `<div class="progress"><div class="progress-bar" role="progressbar" style="width: ${Porcentage}%;" aria-valuemin="0" aria-valuemax="100">${Porcentage}%</div> </div>`
-                  })}
+                    {dispatch(upload(Math.round( (e.loaded * 100) / e.total )))}
                 })
     
                 if(res.data.ok) {
@@ -184,6 +171,7 @@ export const startUpdateVideoWordOfTheDay = (title, fileupload) => {
                     if (body.ok) {
     
                         dispatch(updateVideoWordOfTheDay(body.video))
+                        dispatch(UploadFish())
                         const Toast = Swal.mixin({
                             toast: true,
                             position: 'top-end',

@@ -3,12 +3,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import Swal from 'sweetalert2'
 import { ModalOpen, startDeleteUser } from '../../../action/auth'
 import { SetActiveUser } from '../../../action/user'
+import Flags from 'country-flag-icons/react/3x2'
 
 export const ModalContainer = (props) => {
 
   const {activeUser} = useSelector(state => state.auth)
 
-  const {name, lastName, email, id, biliever, role} = props
+  const {name, lastName, email, country, id, biliever, role} = props
+
+  const Flag = Flags[country.slice(0, 2)]
 
     const dispatch = useDispatch()
 
@@ -57,6 +60,7 @@ export const ModalContainer = (props) => {
               <th>{name}</th>
               <td>{lastName}</td>
               <td>{email}</td>
+              <td>{<Flag className = 'flag' />}</td>
               {
                 (biliever !== undefined)
                   &&

@@ -2,7 +2,8 @@ import { Types } from "../types/Types";
 
 const initialState = {
     Video: '',
-    activeVideo: ''
+    activeVideo: '',
+    Porcentage: 0
 }
 
 export const noBeleaverReducer = (state = initialState, action) => {
@@ -29,6 +30,18 @@ export const noBeleaverReducer = (state = initialState, action) => {
             return {
                 ...state,
                 activeVideo: null
+            }
+
+        case Types.nbUpload:
+            return {
+                ...state,
+                Porcentage: action.payload
+            }
+
+        case Types.nbUploadFinish:
+            return {
+                ...state,
+                Porcentage: 0
             }
     
         default:

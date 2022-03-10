@@ -3,7 +3,8 @@ import { Types } from "../types/Types";
 const initialState = {
     miniSeries: null,
     activeSerie: '',
-    Paginate: []
+    Paginate: [],
+    Porcentage: 0
 }
 
 export const miniSeriesReducer = (state = initialState, action) => {
@@ -56,6 +57,18 @@ export const miniSeriesReducer = (state = initialState, action) => {
                     e => (e._id !== state.activeSerie._id)
                 ),
                 activeSerie: null
+            }
+
+        case Types.miUpload:
+            return {
+                ...state,
+                Porcentage: action.payload
+            }
+
+        case Types.miUploadFish:
+            return {
+                ...state,
+                Porcentage: 0
             }
     
         default:

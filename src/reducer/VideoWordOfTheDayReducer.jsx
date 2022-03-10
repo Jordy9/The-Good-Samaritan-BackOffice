@@ -2,7 +2,8 @@ import { Types } from "../types/Types"
 
 const initialState = {
     videos: [],
-    activeVideo: null
+    activeVideo: null,
+    Porcentage: 0
 }
 
 export const VideoWordOfTheDayReducer = (state = initialState, action) => {
@@ -55,6 +56,18 @@ export const VideoWordOfTheDayReducer = (state = initialState, action) => {
                     e => (e._id !== state.activeVideo._id)
                 ),
                 activeVideo: null
+            }
+
+        case Types.vwdUpload:
+            return {
+                ...state,
+                Porcentage: action.payload
+            }
+
+        case Types.vwdUploadFinish:
+            return {
+                ...state,
+                Porcentage: 0
             }
     
         default:

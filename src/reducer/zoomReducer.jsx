@@ -2,7 +2,8 @@ import { Types } from "../types/Types";
 
 const initialState = {
     Zoom: '',
-    activeZoom: ''
+    activeZoom: '',
+    Porcentage: 0
 }
 
 export const zoomReducer = (state = initialState, action) => {
@@ -47,6 +48,18 @@ export const zoomReducer = (state = initialState, action) => {
         //         ),
         //         activeSerie: null
         //     }
+
+        case Types.zmUpload:
+            return {
+                ...state,
+                Porcentage: action.payload
+            }
+
+        case Types.zmUploadFinish:
+            return {
+                ...state,
+                Porcentage: 0
+            }
     
         default:
             return state;

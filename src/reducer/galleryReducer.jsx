@@ -3,7 +3,8 @@ import { Types } from "../types/Types";
 const initialState = {
     Gallery: null,
     activeGallery: '',
-    Paginate: []
+    Paginate: [],
+    Porcentage: 0
 }
 
 export const galleryReducer = (state = initialState, action) => {
@@ -56,6 +57,18 @@ export const galleryReducer = (state = initialState, action) => {
                     e => (e._id !== state.activeGallery._id)
                 ),
                 activeSerie: null
+            }
+
+        case Types.gaUpload:
+            return {
+                ...state,
+                Porcentage: action.payload
+            }
+
+        case Types.gaUploadFinish:
+            return {
+                ...state,
+                Porcentage: 0
             }
     
         default:

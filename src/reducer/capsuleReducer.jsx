@@ -3,7 +3,8 @@ import { Types } from "../types/Types";
 const initialState = {
     Capsules: null,
     activeCapsule: '',
-    Paginate: []
+    Paginate: [],
+    Porcentage: 0
 }
 
 export const capsulesReducer = (state = initialState, action) => {
@@ -56,6 +57,18 @@ export const capsulesReducer = (state = initialState, action) => {
                     e => (e._id !== state.activeCapsule._id)
                 ),
                 activeSerie: null
+            }
+
+        case Types.caUpload:
+            return {
+                ...state,
+                Porcentage: action.payload
+            }
+
+        case Types.caUploadFinish:
+            return {
+                ...state,
+                Porcentage: 0
             }
     
         default:

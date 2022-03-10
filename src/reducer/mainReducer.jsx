@@ -3,7 +3,8 @@ import { Types } from "../types/Types";
 const initialState = {
     Mains: null,
     activeMain: '',
-    Paginate: []
+    Paginate: [],
+    Porcentage: 0
 }
 
 export const mainReducer = (state = initialState, action) => {
@@ -56,6 +57,18 @@ export const mainReducer = (state = initialState, action) => {
                     e => (e._id !== state.activeMain._id)
                 ),
                 activeSerie: null
+            }
+
+        case Types.maUpload:
+            return {
+                ...state,
+                Porcentage: action.payload
+            }
+
+        case Types.maUploadFinish:
+            return {
+                ...state,
+                Porcentage: 0
             }
     
         default:
