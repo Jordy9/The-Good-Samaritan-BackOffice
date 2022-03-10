@@ -101,8 +101,8 @@ export const ModalUpdate = () => {
             email: Yup.string()
                         .email('La dirección de email no es válida')
                         .required('Requerido'),
-            role: Yup.string()
-                        .required('Requerido'),
+            // role: Yup.string()
+            //             .required('Requerido'),
             address: Yup.string()
                         .max(100, 'Debe de tener 100 caracteres o menos')
                         .required('Requerido'),
