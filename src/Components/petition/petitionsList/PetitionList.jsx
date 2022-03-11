@@ -16,7 +16,7 @@ export const PetitionList = () => {
 
     return (
         <>
-          <h1 style = {{marginTop: '70px'}}>Listado de Peticiones</h1>
+          <h1 style = {{marginTop: '70px'}}>Listado de Peticiones de oración de pastores</h1>
           <div className="table-responsive">
             <table className="table text-white bg-dark text-center">
               <thead>

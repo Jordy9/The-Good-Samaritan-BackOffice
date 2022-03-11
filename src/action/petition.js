@@ -293,3 +293,18 @@ const deletePetitionSinCuenta = (peticiones) => ({
     type: Types.ptDeletePetitionSinCuenta,
     payload: peticiones
 })
+
+export const cargarPeticiones = (petition) => ({
+    type: Types.ptCargarPeticionesUser,
+    payload: petition
+})
+
+export const cargarPeticionesSinCuenta = (petition) => ({
+    type: Types.ptCargarPeticionesSinCuenta,
+    payload: petition
+})
+
+export const cargarPeticionesPastores = (petition) => ({
+    type: Types.ptCargarPeticionesPastores,
+    payload: petition
+})

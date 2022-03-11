@@ -60,7 +60,7 @@ export const ModalContainer = (props) => {
               <th>{name}</th>
               <td>{lastName}</td>
               <td>{email}</td>
-              <td>{<Flag className = 'flag' />}</td>
+              <td>{country.slice(3)}{<Flag className = 'flag ml-2' />}</td>
               {
                 (biliever !== undefined)
                   &&

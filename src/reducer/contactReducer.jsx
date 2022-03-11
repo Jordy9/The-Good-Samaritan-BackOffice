@@ -34,6 +34,14 @@ export const contactReducer = (state = initialState, action) => {
                 ),
                 activeSerie: null
             }
+
+        case Types.coCargarContact:
+            return {
+                ...state,
+                Contactos: state.Contactos.map(
+                    e => (e._id ===  action.payload._id) ? action.payload : e
+                )
+            }
     
         default:
             return state;

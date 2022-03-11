@@ -81,14 +81,14 @@ export const Sidebar = () => {
                 </ul>
 
                 <Offcanvas.Header>
-                    <Offcanvas.Title>Peticiones</Offcanvas.Title>
+                    <Offcanvas.Title>Peticiones de oración</Offcanvas.Title>
                 </Offcanvas.Header>
 
                 <ul className="list-group list-group-flush">
-                    <NavLink to = '/Petition' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-pencil-square"> </i>Petición</NavLink>
-                    <NavLink to = '/PetitionsList' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-list-ul"> </i>Listado de Peticiónes</NavLink>
-                    <NavLink to = '/PetitionsListUser' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-list-ul"> </i>Listado de Peticiónes de usuarios</NavLink>
-                    <NavLink to = '/PetitionsListwhithoutAccount' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-list-ul"> </i>Listado de Peticiónes de usuarios sin cuenta</NavLink>
+                    <NavLink to = '/Petition' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-pencil-square"> </i>Petición de oración</NavLink>
+                    <NavLink to = '/PetitionsList' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-list-ul"> </i>Listado de Peticiones de oración de pastores</NavLink>
+                    <NavLink to = '/PetitionsListUser' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-list-ul"> </i>Listado de Peticiones de oración de usuarios</NavLink>
+                    <NavLink to = '/PetitionsListwhithoutAccount' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-list-ul"> </i>Listado de Peticiones de oración de usuarios sin cuenta</NavLink>
                 </ul>
 
                 <Offcanvas.Header>
@@ -128,11 +128,11 @@ export const Sidebar = () => {
                 </ul>
 
                 <Offcanvas.Header>
-                    <Offcanvas.Title>Listado de Contácto</Offcanvas.Title>
+                    <Offcanvas.Title>Listado de Contactos</Offcanvas.Title>
                 </Offcanvas.Header>
 
                 <ul className="list-group list-group-flush">        
-                    <NavLink to = '/ContactList' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-list-ul"> </i>Listado de Contácto</NavLink>
+                    <NavLink to = '/ContactList' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-list-ul"> </i>Listado de Contactos</NavLink>
                 </ul>
 
                 <Offcanvas.Header>

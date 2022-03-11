@@ -117,6 +117,30 @@ export const petitionsReducer = (state = initialState, action) => {
                 ),
                 activePetitionSinCuenta: ''
             }
+
+        case Types.ptCargarPeticionesUser:
+            return {
+                ...state,
+                PeticionesUser: state.PeticionesUser.map(
+                    e => (e._id ===  action.payload._id) ? action.payload : e
+                )
+            }
+
+        case Types.ptCargarPeticionesSinCuenta:
+            return {
+                ...state,
+                PeticionSinCuenta: state.PeticionSinCuenta.map(
+                    e => (e._id ===  action.payload._id) ? action.payload : e
+                )
+            }
+
+        case Types.ptCargarPeticionesPastores:
+            return {
+                ...state,
+                Peticiones: state.Peticiones.map(
+                    e => (e._id ===  action.payload._id) ? action.payload : e
+                )
+            }
     
         default:
             return state;

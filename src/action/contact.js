@@ -100,6 +100,11 @@ const deleteContact = (Contacts) => ({
     payload: Contacts
 })
 
+export const cargarContactos = (Contacts) => ({
+    type: Types.coCargarContact,
+    payload: Contacts
+})
+
 // export const SendContactEmail = () => {
 //     return async(dispatch, getState) => {
 

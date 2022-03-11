@@ -56,6 +56,7 @@ export const Types = {
     coUpdateContact: '[CO] update Contact',
     coDeleteContact: '[CO] delete Contact',
     coPaginateContact: '[CO] paginate Contact',
+    coCargarContact: '[CO] cargar Contact',
     // 
     cagetCapsules: '[CA] get Capsules',
     catcreateCapsule: '[CA] create Capsule',
@@ -126,6 +127,9 @@ export const Types = {
     ptPaginatePetition: '[PT] paginate petition',
     ptPaginatePetitionUser: '[PT] paginate petition user',
     ptPaginatePetitionSinCuenta: '[PT] paginate petition sin cuenta',
+    ptCargarPeticionesUser: '[PT] cargar peticiones user',
+    ptCargarPeticionesSinCuenta: '[PT] cargar peticiones sin cuenta',
+    ptCargarPeticionesPastores: '[PT] cargar peticiones pastores',
     // 
     usSetUser: '[US] set user',
     // 

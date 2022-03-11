@@ -2,7 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import io from 'socket.io-client';
 import { UsuariosCargados } from '../action/chat';
+import { cargarContactos } from '../action/contact';
 import { BorrarNotificaciones, NotificacionesCargadas } from '../action/notifications';
+import { cargarPeticiones, cargarPeticionesPastores, cargarPeticionesSinCuenta } from '../action/petition';
 
 
 export const useSocket = ( serverPath ) => {
@@ -56,6 +58,30 @@ export const useSocket = ( serverPath ) => {
             dispatch(NotificacionesCargadas(notificaciones))
 
             dispatch(BorrarNotificaciones())
+        })
+    }, [ socket, dispatch])
+
+    useEffect(() => {
+        socket?.on('checked-marked', (petition) => {
+            dispatch(cargarPeticiones(petition))
+        })
+    }, [ socket, dispatch])
+
+    useEffect(() => {
+        socket?.on('checked-marked-sin-cuenta', (petition) => {
+            dispatch(cargarPeticionesSinCuenta(petition))
+        })
+    }, [ socket, dispatch])
+
+    useEffect(() => {
+        socket?.on('checked-marked-pastores', (petition) => {
+            dispatch(cargarPeticionesPastores(petition))
+        })
+    }, [ socket, dispatch])
+
+    useEffect(() => {
+        socket?.on('checked-marked-contact', (contact) => {
+            dispatch(cargarContactos(contact))
         })
     }, [ socket, dispatch])
     
