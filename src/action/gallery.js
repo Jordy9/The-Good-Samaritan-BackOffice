@@ -298,19 +298,21 @@ const updateGallery = (galeria) => ({
 })
 
 
-export const startDeleteGallery = () => {
+export const startDeleteGallery = (setfirst) => {
     return async(dispatch, getState) => {
         const {activeGallery} = getState().ga
 
         const token = localStorage.getItem('token') || '';
 
         if(activeGallery.idImage) {
+          setfirst(true)
+          
+          const resp = await fetchConToken(`galeria/${activeGallery._id}`, activeGallery, 'DELETE')
+          
+          if(resp.ok) {
+            dispatch(deleteGallery(activeGallery))
             await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeGallery.idImage}`, {headers: {'x-token': token}})
-
-            const resp = await fetchConToken(`galeria/${activeGallery._id}`, activeGallery, 'DELETE')
-    
-            if(resp.ok) {
-                dispatch(deleteGallery(activeGallery))
+            setfirst(false)
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',

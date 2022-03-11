@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
 import { SetActiveGallery, startDeleteGallery } from '../../../action/gallery'
 
 export const ModalContainer = (props) => {
+
+  const [first, setfirst] = useState(false)
 
   const {title, image} = props
 
@@ -24,7 +26,7 @@ export const ModalContainer = (props) => {
           confirmButtonText: 'Eliminar'
         }).then((result) => {
           if (result.isConfirmed) {
-            dispatch(startDeleteGallery())
+            dispatch(startDeleteGallery(setfirst))
           }
         })
       }
@@ -35,7 +37,7 @@ export const ModalContainer = (props) => {
               <td><img src = {image} alt="" style = {{height: '60px', width: '60px'}} /></td>
               <td>
                   <button onClick = {handledSet} className = 'btn btn-outline-primary mr-1 mt-2' data-bs-toggle="modal" data-bs-target="#exampleModal8" style = {{borderRadius: '100%'}}><i className="bi bi-eye" style = {{color: '#0D6EFD'}}></i></button>
-                  <button onClick = {Handleddelete} className = 'btn btn-outline-danger ml-1 mt-2' style = {{borderRadius: '100%'}}><i className="bi bi-trash" style = {{color: 'red'}}></i></button>
+                  <button disabled = {first} onClick = {Handleddelete} className = 'btn btn-outline-danger ml-1 mt-2' style = {{borderRadius: '100%'}}><i className="bi bi-trash" style = {{color: 'red'}}></i></button>
               </td>
           </tr>
         </>
