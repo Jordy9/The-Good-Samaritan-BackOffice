@@ -114,30 +114,31 @@ export const NoBeleaverVideo = () => {
                     </div>
                 </div>
 
-                {
-                    (imag)
-                        &&
-                    <div className="row">
+                <div className="row">
 
-                        {
-                            (Porcentage > 0)
-                                &&
-                            <div className="col-12 mb-2">
-                                <label className='d-flex justify-content-center'>Subiendo video</label>
-                                <div class="progress">
-                                    <div className="progress-bar" role="progressbar" style={{width: `${Porcentage}%`}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{Porcentage}%</div>
-                                </div>
+                    {
+                        (Porcentage > 0)
+                            &&
+                        <div className="col-12 mb-2">
+                            <label className='d-flex justify-content-center'>Subiendo video</label>
+                            <div class="progress">
+                                <div className="progress-bar" role="progressbar" style={{width: `${Porcentage}%`}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{Porcentage}%</div>
                             </div>
-                        }
-                        
+                        </div>
+                    }
+
+                    {
+                        (imag)
+                            &&
                         <div className="col-12">
                             <div className="form-group d-flex justify-content-center">
                                 {/* <img src = {imag} style = {{ cursor: 'pointer', height: '200px', maxWidth: '400px' }} className = 'img-fluid rounded' alt=''/> */}
                                 <video src = {imag || ''} className="img-fluid rounded" alt="" style = {{ cursor: 'pointer', maxHeight: '225px'}} />
                             </div> 
                         </div>
-                    </div>
-                }
+                    }
+                    
+                </div>
 
                 <button type='submit' className = 'btn btn-outline-primary form-control my-3'>Guardar</button>
                 </form>
