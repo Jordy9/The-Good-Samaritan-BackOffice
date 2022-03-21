@@ -65,7 +65,7 @@ export const miniSeriesReducer = (state = initialState, action) => {
                 Porcentage: action.payload
             }
 
-        case Types.miUploadFish:
+        case Types.miUploadFinish:
             return {
                 ...state,
                 Porcentage: 0
