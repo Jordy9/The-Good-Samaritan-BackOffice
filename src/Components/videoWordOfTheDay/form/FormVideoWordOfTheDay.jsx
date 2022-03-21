@@ -106,28 +106,28 @@ export const FormVideoWordOfTheDay = () => {
                 </div>
             </div>
 
-            {
-                (vide)
-                    &&
-                <div className="row">
-                    {
-                        (Porcentage > 0)
-                            &&
-                        <div className="col-12 mb-2">
-                            <label className='d-flex justify-content-center'>Subiendo video</label>
-                            <div class="progress">
-                                <div className="progress-bar" role="progressbar" style={{width: `${Porcentage}%`}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{Porcentage}%</div>
-                            </div>
+            <div className="row">
+                {
+                    (Porcentage > 0)
+                        &&
+                    <div className="col-12 mb-2">
+                        <label className='d-flex justify-content-center'>Subiendo video</label>
+                        <div class="progress">
+                            <div className="progress-bar" role="progressbar" style={{width: `${Porcentage}%`}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{Porcentage}%</div>
                         </div>
-                    }
+                    </div>
+                }
+                {
+                    (vide)
+                        &&
                     <div className="col-12">
                         <div className="form-group d-flex justify-content-center">
                             {/* <img src = {vide} style = {{ cursor: 'pointer', height: '200px', maxWidth: '400px' }} className = 'img-fluid rounded' alt=''/> */}
                             <video src = {vide || ''} className="img-fluid rounded" alt="" style = {{ cursor: 'pointer', maxHeight: '225px'}}></video>
                         </div> 
                     </div>
-                </div>
-            }
+                }
+            </div>
             <button type='submit' className = 'btn btn-outline-primary form-control my-3'>Guardar</button>
         </form>
         </>
