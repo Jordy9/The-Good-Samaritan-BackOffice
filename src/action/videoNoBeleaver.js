@@ -51,27 +51,47 @@ export const startCreateNoBeleaverVideo = (title, file) => {
                     const resp = await fetchConToken(`VideoNoBeleaver/${video._id}`, {title, image, idImage}, 'PUT');
                     const body = await resp.json()
 
-                    dispatch(createNoBeleaverVideo(body.videoNoBeleaverGuardado))
-                    dispatch(startGetNoBeleaverVideo())
+                    if (body.ok) {
+                        dispatch(createNoBeleaverVideo(body.videoNoBeleaver))
 
-                    dispatch(UploadFish())
+                        dispatch(startGetNoBeleaverVideo())
 
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: true,
-                        timer: 5000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                          toast.addEventListener('mouseenter', Swal.stopTimer)
-                          toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                      })
-                      
-                      return Toast.fire({
-                        icon: 'success',
-                        title: 'Video creado correctamente'
-                      })
+                        dispatch(UploadFish())
+
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 5000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
+                        
+                        return Toast.fire({
+                            icon: 'success',
+                            title: 'Video creado correctamente'
+                        })
+                    } else {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 5000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
+                        
+                        return Toast.fire({
+                            icon: 'error',
+                            title: body.msg
+                        })
+                    }
                     
                 }
             }
@@ -88,27 +108,46 @@ export const startCreateNoBeleaverVideo = (title, file) => {
                 const resp = await fetchConToken('VideoNoBeleaver', {title, image, idImage}, 'POST');
                 const body = await resp.json()
 
-                dispatch(createNoBeleaverVideo(body.videoNoBeleaverGuardado))
-                dispatch(startGetNoBeleaverVideo())
+                if (body.ok) {
+                    dispatch(createNoBeleaverVideo(body.videoNoBeleaver))
+                    dispatch(startGetNoBeleaverVideo())
 
-                dispatch(UploadFish())
-                
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 5000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                      toast.addEventListener('mouseenter', Swal.stopTimer)
-                      toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                  })
-                  
-                  return Toast.fire({
-                    icon: 'success',
-                    title: 'Video actualizado correctamente'
-                  })
+                    dispatch(UploadFish())
+                    
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 5000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                    
+                    return Toast.fire({
+                        icon: 'success',
+                        title: 'Video actualizado correctamente'
+                    })
+                } else {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 5000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                    
+                    return Toast.fire({
+                        icon: 'error',
+                        title: body.msg
+                    })
+                }
                 
             }
         }
@@ -124,17 +163,17 @@ const UploadFish = () => ({
     payload: progress
   })
 
-const createNoBeleaverVideo = (zoom) => ({
+const createNoBeleaverVideo = (video) => ({
     type: Types.nbcreateVideo,
-    payload: zoom
+    payload: video
 })
 
-export const SetActiveNoBeleaverVideo = (zoom) => ({
+export const SetActiveNoBeleaverVideo = (video) => ({
     type: Types.nbSetVideo,
-    payload: zoom
+    payload: video
 });
 
-export const clearSetNoBeleaverVideo = (zoom) => ({
+export const clearSetNoBeleaverVideo = (video) => ({
     type: Types.nbClearSetVideo,
-    payload: zoom
+    payload: video
 });
