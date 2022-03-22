@@ -89,7 +89,7 @@ export const NoBeleaverVideo = () => {
     return (
         <div style = {{marginTop: '70px'}} className='row'>
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-            <h1>Anunciar reunión de zoom</h1>
+            <h1>Video para no creyentes</h1>
                 <form onSubmit = {handleSubmit}>
                 <div className = 'row'>
                     <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
