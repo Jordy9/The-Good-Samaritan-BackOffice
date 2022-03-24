@@ -3,19 +3,16 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
-import moment from 'moment';
 import tinymce from 'tinymce/tinymce';
-import { startCreateCapsule } from '../../../action/capsule';
 import Swal from 'sweetalert2';
+import { startCreateBeleaver } from '../../../action/beleaver';
 
 
-export const FormCapsule = () => {
+export const FormBeleaver = () => {
 
     const {activeUser} = useSelector(state => state.auth)
 
-    const {Porcentage} = useSelector(state => state.ca)
-
-    const newDate = moment().format('yyyy-MM-DDTHH:mm')
+    const {Porcentage} = useSelector(state => state.bl)
 
     const dispatch = useDispatch()
 
@@ -24,13 +21,12 @@ export const FormCapsule = () => {
     const {handleSubmit, resetForm, getFieldProps, touched, errors, setFieldValue} = useFormik({
         initialValues: {
             title: '', 
-            date: '', 
-            image: '',
-            descripcion: ''
+            descripcion: '',
+            image: ''
         },
         enableReinitialize: true,
-        onSubmit: ({title, date, image, descripcion}) => {
-            if (activeUser?.role === 'Administrador') {
+        onSubmit: ({title, descripcion, image}) => {
+            if (activeUser?.role !== 'Colaborador') {
                 if (image.type.includes('image') === false) {
                     const Toast = Swal.mixin({
                         toast: true,
@@ -49,7 +45,7 @@ export const FormCapsule = () => {
                         title: 'Imagen con formato incorrecto'
                       })
                 } else {
-                dispatch(startCreateCapsule(title, date, descripcion, image))
+                dispatch(startCreateBeleaver(title, descripcion, image))
                 }
             } else {
                 const Toast = Swal.mixin({
@@ -66,15 +62,13 @@ export const FormCapsule = () => {
                   
                   return Toast.fire({
                     icon: 'error',
-                    title: 'No tiene el privilegio de crear esta cápsula'
+                    title: 'No tiene el privilegio de crear esta información para nuevos creyentes'
                   })
             }
-            
             resetForm({
                 title: '', 
-                date: '', 
-                image: document.getElementsByName('image').value = '',
-                descripcion: tinymce.activeEditor.setContent('')
+                descripcion: tinymce.activeEditor.setContent(''),
+                image: document.getElementsByName('image').value = ''
             })
             setimag()
         },
@@ -83,11 +77,8 @@ export const FormCapsule = () => {
                         .max(70, 'Debe de tener 70 caracteres o menos')
                         .min(3, 'Debe de tener 3 caracteres o más')
                         .required('Requerido'),
-            date: Yup.date()
-                        .min(newDate, 'Fecha incorrecta')
-                        .required('Requerido'),
-            descripcion: Yup.array()
-                        // .min(3, 'Debe de tener 3 caracteres o más')
+            descripcion: Yup.string()
+                        .min(3, 'Debe de tener 3 caracteres o más')
                         .required('Requerido'),
             image: Yup.string()
                         .required('Requerido'),
@@ -109,7 +100,7 @@ export const FormCapsule = () => {
                     </div>
                 </div>
 
-                <div className="col-xs-12 col-sm-12 col-md-4 col-lg-5 col-xl-5">
+                <div className="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
                     <div className="form-group">
                         <label>Imagen</label>
                         <button type='button' className='btn btn-outline-primary form-control' onClick={handledImage}>Seleccionar imagen</button>
@@ -117,14 +108,6 @@ export const FormCapsule = () => {
                             setFieldValue('image', e.currentTarget.files[0], (e.currentTarget.files[0]) ? setimag(URL.createObjectURL(e.currentTarget.files[0]) || '') : setimag())
                         }} />
                         {touched.image && errors.image && <span style={{color: 'red'}}>{errors.image}</span>}
-                    </div>
-                </div>
-
-                <div className="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-xl-3">
-                    <div className="form-group">
-                        <label>Fecha</label>
-                        <input type="datetime-local" min={`${newDate}`} className = 'form-control bg-transparent text-white' {...getFieldProps('date')} />
-                        {touched.date && errors.date && <span style={{color: 'red'}}>{errors.date}</span>}
                     </div>
                 </div>
             </div>

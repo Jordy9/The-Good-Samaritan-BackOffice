@@ -31,7 +31,7 @@ export const ModalContainerUser = (props) => {
     const Handleddelete = () => {
       dispatch(SetActivePetitionesUser(props))
         Swal.fire({
-          title: '¿Esta seguro que desea eliminar este usuario?',
+          title: '¿Esta seguro que desea eliminar esta petición de oración?',
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#d33',

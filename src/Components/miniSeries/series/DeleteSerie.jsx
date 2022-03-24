@@ -12,7 +12,7 @@ export const DeleteSerie = () => {
 
     const Handleddelete = () => {
         Swal.fire({
-          title: '¿Esta seguro que desea eliminar este usuario?',
+          title: '¿Esta seguro que desea eliminar esta mini serie?',
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#d33',

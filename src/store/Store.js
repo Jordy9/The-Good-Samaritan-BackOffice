@@ -1,6 +1,7 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
 import { authReducer } from '../reducer/authReducer';
+import { beleaverReducer } from '../reducer/beleaverReducer';
 import { bosquejosReducer } from '../reducer/bosquejosReducer';
 import { capsulesReducer } from '../reducer/capsuleReducer';
 import { chatReducer } from '../reducer/chatReducer';
@@ -40,7 +41,8 @@ const reducers = combineReducers({
     nt: notificacionReducer,
     vwd: VideoWordOfTheDayReducer,
     nb: noBeleaverReducer,
-    chb: progressBarReducer
+    chb: progressBarReducer,
+    bl: beleaverReducer
 });
 
 export const store =  createStore(

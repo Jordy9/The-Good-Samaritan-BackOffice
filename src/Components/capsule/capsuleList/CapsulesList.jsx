@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { startGetPaginateCapsules } from '../../../action/capsule';
 import { CapsuleModal } from '../modal/CapsuleModal';
@@ -9,6 +9,8 @@ export const CapsulesList = () => {
 
   const dispatch = useDispatch()
 
+  const [title, setTitle] = useState('')
+
   useEffect(() => {
     dispatch(startGetPaginateCapsules())
 
@@ -17,6 +19,11 @@ export const CapsulesList = () => {
     return (
         <>
           <h1 style = {{marginTop: '70px'}}>Listado de Cápsulas</h1>
+          <div className="input-group justify-content-end mb-3">
+            <div className="form-outline">
+              <input placeholder='Buscador' type="search" value={title} onChange={({target}) => setTitle(target.value)} className="form-control bg-transparent text-white" />
+            </div>
+          </div>
           <div className="table-responsive">
             <table className="table text-white bg-dark text-center">
               <thead>
@@ -29,7 +36,7 @@ export const CapsulesList = () => {
                 </tr>
               </thead>
               <tbody>
-                <ModalListContainer />
+                <ModalListContainer title={title} />
               </tbody>
             </table>
           </div>

@@ -31,7 +31,7 @@ export const ModalContainer = (props) => {
     const Handleddelete = () => {
       dispatch(SetActiveContact(props))
         Swal.fire({
-          title: '¿Esta seguro que desea eliminar este usuario?',
+          title: '¿Esta seguro que desea eliminar este contacto?',
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#d33',

@@ -86,11 +86,11 @@ export const startCreatePetition = (title, date, descripcion, name, number) => {
         const body = await resp.json()
 
         dispatch(createPetition(body))
-        const subtitle = 'Nueva Peticion agregada'
+        // const subtitle = 'Nueva petición de oración de pastores agregada'
 
-        const payload = {title, subtitle}
+        // const payload = {title, subtitle}
 
-        socket?.emit('notifications-admin-to-user', payload)
+        // socket?.emit('notifications-admin-to-user', payload)
 
         const Toast = Swal.mixin({
             toast: true,

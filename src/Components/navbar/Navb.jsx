@@ -1,20 +1,61 @@
+import { useEffect, useState } from 'react'
 import { Container, Dropdown, DropdownButton, Nav, Navbar } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory, useLocation } from 'react-router-dom'
 import { setActiveUser, startLogout } from '../../action/auth'
 import logo from '../../heroes/logo.png'
 import { Sidebar } from '../sidebar/Sidebar'
+import moment from 'moment'
 import './Navb.css'
 
 
 export const Navb = () => {
     const dispatch = useDispatch()
 
-    const {activeUser} = useSelector(state => state.auth)
+    const {activeUser, uid} = useSelector(state => state.auth)
+    const {socket} = useSelector(state => state.sk)
 
     const handledLogout = () => {
         dispatch(startLogout())
     }
+
+    const [notificationCountChange, setNotificationCountChange] = useState(activeUser?.notificationsCount)
+    const [activeUserChange, setActiveUserChange] = useState(activeUser)
+
+    useEffect(() => {
+        socket?.on('notifications-admin', (users) => {
+
+            const user = users?.find(user => user.id === uid)
+
+            setNotificationCountChange(true)
+            setActiveUserChange(user)
+        })
+    }, [socket, dispatch, uid])
+
+    const onClick = () => {
+        socket?.emit('Delete-Notifications-count-admin', uid)
+        setNotificationCountChange(false)
+    }
+
+    const {pathname} = useLocation()
+
+    const history = useHistory()
+
+    const [width, setWidth] = useState(window.innerWidth);
+
+    const changeWidth = () => {
+        setWidth(window.innerWidth)
+    }
+
+    useEffect(() => {
+        window.addEventListener('resize', changeWidth)
+        if (pathname === '/NotificationResponsive' && width > 991) {
+            history.push('Dashboard')
+        }
+        return () => window.removeEventListener('resize', changeWidth)
+        
+    }, [pathname, width, history]);
+
 
     return (
         <Navbar fixed='top' className = 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12' expand="lg" bg = 'dark' variant="dark">
@@ -30,6 +71,73 @@ export const Navb = () => {
                 <Nav className="me-auto">
 
                 </Nav>
+
+                <Nav id="input-group-dropdown-responsive">
+                    <NavLink
+                        style={{textDecoration: 'none', color: 'white'}}
+                        to = '/NotificationResponsive'
+                        className='mr-2 d-flex align-items-center'
+                    >
+                        <i onClick={onClick} style={{fontSize: '20px', cursor: 'pointer', margin: 0}} className="bi bi-bell d-flex align-items-center">
+                            <span style={{margin: 0}} className={`${(notificationCountChange === true) && 'p-1 bg-danger border border-light rounded-circle'}`}></span>
+                        </i>
+                    </NavLink>
+                </Nav>
+
+                <DropdownButton
+                className='mr-2 d-flex align-items-center'
+                title = {
+                    <i onClick={onClick} style={{fontSize: '20px', cursor: 'pointer', margin: 0}} className="bi bi-bell d-flex align-items-center">
+                        <span style={{margin: 0}} className={`${(notificationCountChange === true) && 'p-1 bg-danger border border-light rounded-circle'}`}></span>
+                    </i>}
+                align={'end'}
+                variant="dark"
+                id="input-group-dropdown-2"
+                >
+                    <div style={{overflowY: 'scroll', height: '400px'}}>
+                        {
+                            activeUserChange?.notifications?.map((notifications, index) => {
+                                return (
+                                    <Dropdown.Item className='shadow my-2 bg-dark p-3 flex-column' key={notifications+ index} style={{width: 'auto', height: 'auto'}}>
+                                        <h6 className='text-white text-center'>{notifications.subtitle}</h6>
+                                        <div className="row">
+                                            {
+                                                (notifications.image)
+                                                    ?
+                                                <>
+                                                    <div className="col-8">
+                                                        <h5 className='text-white'>
+                                                            {
+                                                            (notifications.title.length > 15)
+                                                                ?
+                                                                notifications.title.slice(0, 15) + '...'
+                                                                :
+                                                            notifications.title
+                                                            }
+                                                        </h5>
+                                                    </div>
+                                                
+                                                    <div className="col-4 d-flex justify-content-end">
+                                                        <img className='img-fluid' style={{width: '50px', height: 'auto'}} src={notifications.image} alt="" />    
+                                                    </div>
+                                                </>
+                                                :
+                                                <div className="col-12">
+                                                    <h4 className='text-white'>
+                                                        {
+                                                            notifications.title
+                                                        }
+                                                    </h4>
+                                                </div>
+                                            }
+                                        </div>
+                                        <span style={{fontSize: '14px'}} className='text-white'>{moment(notifications.createdAt).fromNow()}</span>
+                                    </Dropdown.Item>
+                                )
+                            })
+                        }
+                    </div>
+                </DropdownButton>
 
                 <Nav id='nav-hidden-right'>
                     <NavLink onClick={() => dispatch(setActiveUser())} to = '/Profile'>{(activeUser?.urlImage) ? <img src={activeUser?.urlImage} className='img-fluid rounded-circle mt-2' style = {{width: '32px', height: '32px', cursor: 'pointer', margin: 0}} alt='' /> : <i className="bi bi-person-circle" style = {{fontSize: '32px', cursor: 'pointer', color: 'white', margin: 0}}></i>}</NavLink>

@@ -5,10 +5,11 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { startUpdateCapsule } from '../../../action/capsule';
 import Swal from 'sweetalert2';
+import moment from 'moment';
 
 export const CapsuleModal = () => {
 
-    // const newDate = moment().format('yyyy-MM-DDTHH:mm')
+    const newDate = moment().format('yyyy-MM-DDTHH:mm')
 
     const {activeUser} = useSelector(state => state.auth)
 
@@ -72,8 +73,16 @@ export const CapsuleModal = () => {
             }
         },
         validationSchema: Yup.object({
-            date: Yup.string()
-                    .required('Requerido')
+            title: Yup.string()
+                        .max(70, 'Debe de tener 70 caracteres o menos')
+                        .min(3, 'Debe de tener 3 caracteres o más')
+                        .required('Requerido'),
+            date: Yup.date()
+                        .min(newDate, 'Fecha incorrecta')
+                        .required('Requerido'),
+            descripcion: Yup.array()
+                        // .min(3, 'Debe de tener 3 caracteres o más')
+                        .required('Requerido')
         })
     })
 

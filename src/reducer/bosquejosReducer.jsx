@@ -56,7 +56,7 @@ export const bosquejosReducer = (state = initialState, action) => {
                 Bosquejos: state.Bosquejos.filter( 
                     e => (e._id !== state.activeBosquejo._id)
                 ),
-                activeSerie: null
+                activeBosquejo: null
             }
 
         case Types.sktUpload:

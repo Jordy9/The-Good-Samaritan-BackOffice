@@ -10,7 +10,7 @@ export const ModalListContainer = ({title}) => {
             {
                 (Bosquejos)
                     ?
-                    Bosquejos.filter(Bosquejos => (title === '') ? Bosquejos : (Bosquejos.title.toLowerCase().includes(title.toLowerCase())) && Bosquejos).map(Bosquejo => {
+                    Bosquejos.filter(Bosquejos => (title === '') ? Bosquejos : (Bosquejos.title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,"").includes(title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,""))) && Bosquejos).map(Bosquejo => {
                         return (
                             <ModalContainer key = {Bosquejo._id} {...Bosquejo} />
                         )

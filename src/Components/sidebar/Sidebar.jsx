@@ -153,6 +153,15 @@ export const Sidebar = () => {
                 </ul>
 
                 <Offcanvas.Header>
+                    <Offcanvas.Title>Información para nuevos creyentes</Offcanvas.Title>
+                </Offcanvas.Header>
+
+                <ul className="list-group list-group-flush">   
+                    <NavLink to = '/Beleaver' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-person-video2"> </i>Información para nuevos creyentes</NavLink>
+                    <NavLink to = '/BeleaverList' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-list-ul"> </i>Listado de Información para nuevos creyentes</NavLink>                
+                </ul>
+
+                <Offcanvas.Header>
                     <Offcanvas.Title>Chat</Offcanvas.Title>
                 </Offcanvas.Header>
 

@@ -3,14 +3,15 @@ import { useSelector } from 'react-redux'
 import { Spinner } from '../../spinner/Spinner'
 import { ModalContainer } from './ModalContainer'
 
-export const ModalListContainer = () => {
+export const ModalListContainer = ({title}) => {
     const {Youtube} = useSelector(state => state.yt)
     return (
         <>
             {
                 (Youtube)
                     ?
-                    Youtube.map(youtube => {
+                    Youtube.filter(Youtube => (title === '') ? Youtube : (Youtube.title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,"").includes(title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,""))) && Youtube
+                    ).map(youtube => {
                         return (
                             <ModalContainer key = {youtube._id} {...youtube} />
                         )

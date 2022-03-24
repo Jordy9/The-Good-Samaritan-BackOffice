@@ -10,7 +10,7 @@ export const ModalListContainer = ({title}) => {
             {
                 (miniSeries)
                     ?
-                    miniSeries.filter(miniSeries => (title === '') ? miniSeries : (miniSeries.title.toLowerCase().includes(title.toLowerCase())) && miniSeries
+                    miniSeries.filter(miniSeries => (title === '') ? miniSeries : (miniSeries.title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,"").includes(title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,""))) && miniSeries
                     ).map(series => {
                         return (
                             <ModalContainer key = {series._id} {...series} />

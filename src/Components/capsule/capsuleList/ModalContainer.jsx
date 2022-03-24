@@ -18,7 +18,7 @@ export const ModalContainer = (props) => {
     const Handleddelete = () => {
       dispatch(SetActiveCapsule(props))
         Swal.fire({
-          title: '¿Esta seguro que desea eliminar este usuario?',
+          title: '¿Esta seguro que desea eliminar esta cápsula?',
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#d33',

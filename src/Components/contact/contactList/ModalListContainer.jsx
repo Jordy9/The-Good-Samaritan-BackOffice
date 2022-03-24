@@ -3,14 +3,15 @@ import { useSelector } from 'react-redux'
 import { Spinner } from '../../spinner/Spinner'
 import { ModalContainer } from './ModalContainer'
 
-export const ModalListContainer = () => {
+export const ModalListContainer = ({title}) => {
     const {Contactos} = useSelector(state => state.co)
     return (
         <>
             {
                 (Contactos)
                     ?
-                    Contactos.map(Contacto => {
+                    Contactos.filter(Contactos => (title === '') ? Contactos : (Contactos.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,"").includes(title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,""))) && Contactos
+                    ).map(Contacto => {
                         return (
                             <ModalContainer key = {Contacto._id} {...Contacto} />
                         )

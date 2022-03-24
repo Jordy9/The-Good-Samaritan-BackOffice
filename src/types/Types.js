@@ -3,6 +3,15 @@ export const Types = {
     chbUpload: '[chb] upload',
     chbUploadFinish: '[chb] upload finish',
     // 
+    blgetBeleaver: '[BL] get beleaver',
+    blcreateBeleaver: '[BL] create beleaver',
+    blUploadFinish: '[BL] upload finish',
+    blUpload: '[BL] upload',
+    blSetBeleaver: '[BL] set beleaver',
+    blClearSetBeleaver: '[BL] clear set beleaver',
+    blUpdateBeleaver: '[BL] update beleaver',
+    blDeleteBeleaver: '[BL] delete beleaver',
+    // 
     nbgetVideo: '[NB] get Zooms',
     nbcreateVideo: '[NB] create Video',
     nbSetVideo: '[NB] set Video',

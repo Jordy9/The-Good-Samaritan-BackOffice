@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Editor } from '@tinymce/tinymce-react'
-import { startUpdateBosquejo } from '../../../action/sketch'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import Swal from 'sweetalert2';
+import { startUpdateBeleaver } from '../../../action/beleaver';
 
-export const SketchModal = () => {
+export const ModalBeleaver = () => {
 
-    const {activeBosquejo} = useSelector(state => state.skt)
+    const {activeBeleaver} = useSelector(state => state.bl)
 
     const {activeUser} = useSelector(state => state.auth)
 
-    const {Porcentage} = useSelector(state => state.skt)
+    const {Porcentage} = useSelector(state => state.bl)
 
     const dispatch = useDispatch()
 
@@ -21,14 +21,14 @@ export const SketchModal = () => {
 
     const {handleSubmit, getFieldProps, touched, errors, setFieldValue} = useFormik({
         initialValues: {
-            title: activeBosquejo?.title, 
-            date: activeBosquejo?.date, 
-            descripcion: activeBosquejo?.descripcion,
+            title: activeBeleaver?.title, 
+            date: activeBeleaver?.date, 
+            descripcion: activeBeleaver?.descripcion,
             image: ''
         },
         enableReinitialize: true,
-        onSubmit: ({title, date, descripcion, image}) => {
-            if (activeUser?.role === 'Administrador') {
+        onSubmit: ({title, descripcion, image}) => {
+            if (activeUser?.role !== 'Colaborador') {
 
                 if (image.type.includes('image') === false) {
                     const Toast = Swal.mixin({
@@ -48,7 +48,7 @@ export const SketchModal = () => {
                         title: 'Imagen con formato incorrecto'
                       })
                 } else {
-                dispatch(startUpdateBosquejo(title, date, descripcion, image))
+                dispatch(startUpdateBeleaver(title, descripcion, image))
                 }
             } else {
                 const Toast = Swal.mixin({
@@ -65,7 +65,7 @@ export const SketchModal = () => {
                   
                   return Toast.fire({
                     icon: 'error',
-                    title: 'No tiene el privilegio de editar este bosquejo'
+                    title: 'No tiene el privilegio de editar esta información de nuevos creyentes'
                   })
             }
 
@@ -74,8 +74,6 @@ export const SketchModal = () => {
             title: Yup.string()
                         .max(70, 'Debe de tener 70 caracteres o menos')
                         .min(3, 'Debe de tener 3 caracteres o más')
-                        .required('Requerido'),
-            date: Yup.string()
                         .required('Requerido'),
             descripcion: Yup.string()
                         .min(3, 'Debe de tener 3 caracteres o más')
@@ -89,7 +87,7 @@ export const SketchModal = () => {
 
     return (
         <>
-            <div className="modal fade" id="exampleModal4" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="exampleModalbl" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                     <div className="modal-content shadow bg-dark">
                         <div className="modal-header" style = {{border: 'none'}}>
@@ -98,7 +96,7 @@ export const SketchModal = () => {
                     <div className="modal-body">
                         <div className="col-12">
                             <div className="mb-3" style = {{border: 'none'}}>
-                                <h5 className="text-white text-center mt-2">Editar Bosquejo</h5>
+                                <h5 className="text-white text-center mt-2">Editar Informacion para nuevos creyentes</h5>
                                 <div className="card-body">
                                     <form onSubmit = {handleSubmit}>
                                         <div className = 'row'>
@@ -111,16 +109,6 @@ export const SketchModal = () => {
                                             </div>
 
                                             <div className="col-6">
-                                                <div className="form-group">
-                                                    <label>Fecha</label>
-                                                    <input type="datetime-local" className = 'form-control bg-transparent text-white' {...getFieldProps('date')} />
-                                                    {touched.date && errors.date && <span style={{color: 'red'}}>{errors.date}</span>}
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="row">
-                                            <div className="col-12">
                                                 <div className="form-group">
                                                     <label>Imagen</label>
                                                     <button type='button' className='btn btn-outline-primary form-control' onClick={handledImage}>Seleccionar imagen</button>
@@ -148,7 +136,7 @@ export const SketchModal = () => {
                                                 
                                                 <div className="form-group d-flex justify-content-center">
                                                     {/* <img src = {imag} style = {{ cursor: 'pointer', height: '200px', maxWidth: '400px' }} className = 'img-fluid rounded' alt=''/> */}
-                                                    <img src = {imag || activeBosquejo?.image} className="img-fluid rounded" alt="" style = {{ cursor: 'pointer', maxHeight: '225px'}} />
+                                                    <img src = {imag || activeBeleaver?.image} className="img-fluid rounded" alt="" style = {{ cursor: 'pointer', maxHeight: '225px'}} />
                                                 </div> 
                                             </div>
                                         </div>
@@ -157,7 +145,7 @@ export const SketchModal = () => {
                                             <div className="col-12">
                                                 <div>
                                                     <Editor
-                                                        initialValue = {activeBosquejo?.descripcion}
+                                                        initialValue = {activeBeleaver?.descripcion}
                                                         name = 'descripcion'
                                                         onEditorChange = {(e) => setFieldValue('descripcion', e)}
                                                         content="<p>This is the initial content of the editor</p>"

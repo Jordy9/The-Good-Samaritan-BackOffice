@@ -18,7 +18,7 @@ export const ModalContainer = (props) => {
     const Handleddelete = () => {
       dispatch(SetActiveBosquejo(props))
         Swal.fire({
-          title: '¿Esta seguro que desea eliminar este usuario?',
+          title: '¿Esta seguro que desea eliminar este bosquejo?',
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#d33',

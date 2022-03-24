@@ -90,6 +90,10 @@ code {
 
 select .dropdown-toggle:focus { outline: none !important; }
 
+#swal2-html-container {
+  overflow: hidden;
+}
+
 option {
   color: black;
 }

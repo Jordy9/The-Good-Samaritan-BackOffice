@@ -33,6 +33,9 @@ import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { videoWordOfTheDayList } from '../Components/videoWordOfTheDay/videoWordOfTheDayList/VideoWordOfTheDayList';
 import { NoBeleaverVideo } from '../Components/noBeleaver/NoBeleaverVideo';
+import { NotificationResponsive } from '../Components/notificationResponsive/NotificationResponsive';
+import { Beleaver } from '../Components/Beleaver/Beleaver';
+import { BeleaverList } from '../Components/Beleaver/BeleaverList/BeleaverList';
 
 export const AuthRouter = () => {
 
@@ -79,7 +82,10 @@ export const AuthRouter = () => {
                     <Route path = '/LinkYoutube' component = {Youtube} />
                     <Route path = '/YoutubeList' component = {YoutubeList} />
                     <Route path = '/NoBeleaver' component = {NoBeleaverVideo} />
+                    <Route path = '/Beleaver' component = {Beleaver} />
+                    <Route path = '/BeleaverList' component = {BeleaverList} />
                     <Route path = '/Chat' component = {ChatPage} />
+                    <Route path = '/NotificationResponsive' component = {NotificationResponsive} />
                     
                     <Redirect to = '/Dashboard' />
                 </Switch>

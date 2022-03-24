@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import io from 'socket.io-client';
+import { NotificationPublicAdmin } from '../action/auth';
 import { UsuariosCargados } from '../action/chat';
-import { cargarContactos } from '../action/contact';
+import { cargarContactos, startGetPaginateContact } from '../action/contact';
 import { BorrarNotificaciones, NotificacionesCargadas } from '../action/notifications';
-import { cargarPeticiones, cargarPeticionesPastores, cargarPeticionesSinCuenta } from '../action/petition';
+import { cargarPeticiones, cargarPeticionesPastores, cargarPeticionesSinCuenta, startGetPaginatePetitions, startGetPaginatePetitionUser } from '../action/petition';
 
 
 export const useSocket = ( serverPath ) => {
@@ -82,6 +83,19 @@ export const useSocket = ( serverPath ) => {
     useEffect(() => {
         socket?.on('checked-marked-contact', (contact) => {
             dispatch(cargarContactos(contact))
+        })
+    }, [ socket, dispatch])
+
+    useEffect(() => {
+        socket?.on('notifications-Show-admin', (notification) => {
+
+            if (notification?.subtitle === 'Nueva petición de oración de usuario agregada') {
+                dispatch(startGetPaginatePetitionUser())
+            } else if (notification?.subtitle === 'Nueva petición de oración de pastores agregada de: ') {
+                dispatch(startGetPaginatePetitions())
+            }
+
+            dispatch(NotificationPublicAdmin(notification))
         })
     }, [ socket, dispatch])
     

@@ -645,3 +645,26 @@ export const ModalCloseCreate = (state) => ({
     type: Types.authModalCloseCreate,
     payload: state
 })
+
+export const NotificationPublicAdmin = (notification) => {
+    return () => {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false,
+            timer: 5000,
+            showCloseButton: true,
+            background: '#292b2c',
+            width: 380
+        })
+    
+        return Toast.fire({
+            color: 'white',
+            html: `
+                <div class = 'row'>
+                    <div class = 'col-12' style="display:flex;align-items: center"><h6>${notification?.subtitle}</h6></div>
+                </div>
+            `
+        })
+    }
+}

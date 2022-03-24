@@ -17,7 +17,7 @@ export const ModalContainer = (props) => {
     const Handleddelete = () => {
       dispatch(SetActiveMain(props))
         Swal.fire({
-          title: '¿Esta seguro que desea eliminar este usuario?',
+          title: '¿Esta seguro que desea eliminar esta imagen del carrusel?',
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#d33',
