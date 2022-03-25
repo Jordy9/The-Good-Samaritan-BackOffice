@@ -668,3 +668,116 @@ export const NotificationPublicAdmin = (notification) => {
         })
     }
 }
+
+export const forgotPassword = (email) => {
+    return async(dispatch) => {
+        const resp = await fetchSinToken('resetPasswordAdmin', {email}, 'POST')
+        const body = await resp.json()
+
+        localStorage.setItem('tokenn', body.token)
+        localStorage.setItem('tokennINIT', (new Date().getTime()))
+
+        if(body.ok) {
+            dispatch(forgot(body.token))
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+            
+            return Toast.fire({
+                icon: 'success',
+                title: 'Revisa tu correo electrónico'
+            })
+        } else {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+            
+            return Toast.fire({
+                icon: 'error',
+                title: `${body.msg}`
+            })
+        }
+    }
+}
+
+export const newPassword = (password) => {
+    return async(dispatch, getState) => {
+
+        const {users} = getState().auth
+
+        const token = localStorage.getItem('tokenn')
+
+        const tokenTiempo = localStorage.getItem('tokennINIT')
+
+        if (moment(Number(tokenTiempo)).fromNow() === '10 minutes ago' || moment(Number(tokenTiempo)).fromNow() < '10 minutes ago') {
+            localStorage.removeItem('tokenn')
+            localStorage.removeItem('tokennINIT')
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+        
+            return Toast.fire({
+                icon: 'error',
+                title: 'El tiempo para el cambio de contraseña expiró'
+            })
+        } else if (token && tokenTiempo) {
+            const tokenVerify = users?.find(user => user.tokenUser === token)
+
+            const {email} = tokenVerify
+
+            const resp = await fetchSinToken('resetPassword/newAdmin', {password, email}, 'POST')
+            const body = await resp.json()
+
+            if (body.ok) {
+                localStorage.removeItem('tokenn')
+                localStorage.removeItem('tokennINIT')
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+            
+                return Toast.fire({
+                    icon: 'success',
+                    title: 'Contraseña guardada correctamente'
+                })
+            }
+        }
+
+    }
+}
+
+const forgot = (token) => ({
+    type: Types.authForgotPassword,
+    payload: token
+})

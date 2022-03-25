@@ -68,12 +68,12 @@ export const SetActiveContact = (Contacts) => ({
 
 export const startDeleteContact = () => {
     return async(dispatch, getState) => {
-        const {activePetitions} = getState().pt
+        const {activeContact} = getState().co
 
-        const resp = await fetchConToken(`contact/${activePetitions._id}`, activePetitions, 'DELETE')
+        const resp = await fetchConToken(`contact/${activeContact._id}`, activeContact, 'DELETE')
 
         if(resp.ok) {
-            dispatch(deleteContact(activePetitions))
+            dispatch(deleteContact(activeContact))
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',

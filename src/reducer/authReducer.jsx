@@ -106,6 +106,12 @@ export const authReducer = (state = initialState, action) => {
                 modalOpenCreate: action.payload
             }
 
+        case Types.authForgotPassword:
+            return {
+                ...state,
+                forgotPassword: action.payload
+            }
+
         case Types.authUpload:
             return {
                 ...state,

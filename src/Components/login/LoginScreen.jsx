@@ -73,6 +73,10 @@ export const LoginScreen = () => {
                                     </div>
                                     <button type='submit' className = 'btn btn-outline-primary form-control mt-4' style = {{borderRadius: '50px'}}>Iniciar sesión</button>
                                 </form>
+                                
+                                <div className = 'text-center'>
+                                    <NavLink to = '/ForgotPassword' style = {{borderRadius: '50px', textDecoration: 'none'}}>¿Olvidaste tu contraseña?</NavLink>
+                                </div>
                             </div>
                         </div>
                     </div>

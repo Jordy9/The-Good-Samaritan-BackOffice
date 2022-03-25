@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Swal from 'sweetalert2'
 import h2p from 'html2plaintext'
@@ -18,6 +18,10 @@ export const ModalContainerUser = (props) => {
     }
 
     const [checkcont, setCheckcont] = useState(check)
+
+    useEffect(() => {
+      setCheckcont(check)
+    }, [check])
 
     const handledChangeCheck = () => {
       if (checkcont === false) {

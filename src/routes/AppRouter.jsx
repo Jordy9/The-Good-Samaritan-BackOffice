@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     BrowserRouter as Router,
     Switch,
-    Redirect
+    Redirect,
+    Route
 } from 'react-router-dom';
 import { setActiveUser, startAuthCheking, startGetUsers } from '../action/auth';
 import { startGetPaginateCapsules } from '../action/capsule';
@@ -31,6 +32,8 @@ import { cargarNotificaciones } from '../action/notifications';
 import { startGetVideoWordOfTheDay } from '../action/VideoWordOfTheDay';
 import { startGetNoBeleaverVideo } from '../action/videoNoBeleaver';
 import { startGetBeleaver } from '../action/beleaver';
+import { ForgotPassword } from '../Components/forgotPassword/ForgotPassword';
+import { ResetPassword } from '../Components/forgotPassword/ResetPassword';
 
 moment.locale('es');
 
@@ -40,6 +43,8 @@ export const AppRouter = () => {
     const {checking, uid} = useSelector(state => state.auth)
 
     const {socket, online, conectarSocket, desconectarSocket} = useSocket('http://localhost:4000')
+
+    const token = localStorage.getItem('tokenn')
 
     useEffect(() => {
         dispatch(startAuthCheking());
@@ -102,6 +107,8 @@ export const AppRouter = () => {
                 <Switch>
 
                     <PublicRoute exact path = '/Login' component = {LoginScreen} isAuthenticated = {!!uid} />
+                    <Route exact path = '/ForgotPassword' component = {ForgotPassword} />
+                    <Route exact path = {`/resetPassword/${token}`} component = {ResetPassword} />
                     <PrivateRoute Route path = '/' component = {AuthRouter} isAuthenticated = {!!uid} />
 
                     <Redirect to = '/Login' />

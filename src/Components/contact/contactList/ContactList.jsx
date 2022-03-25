@@ -27,6 +27,7 @@ export const ContactList = () => {
             <thead>
               <tr>
                 <th>Nombre</th>
+                <th>Fecha</th>
                 <th>Correo electrónico</th>
                 <th>Descripción</th>
                 <th>Acción</th>

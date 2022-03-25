@@ -102,8 +102,8 @@ export const NoBeleaverVideo = () => {
 
                     <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                         <div className="form-group">
-                            <label>Imagen</label>
-                            <button type='button' className='btn btn-outline-primary form-control' onClick={handledImage}>Seleccionar imagen</button>
+                            <label>Video</label>
+                            <button type='button' className='btn btn-outline-primary form-control' onClick={handledImage}>Seleccionar video</button>
                             <input accept="video/*" id='fileSelector' hidden = {true} type="file" className='form-control bg-transparent text-white' name='image' onChange={(e) => {
                                 setFieldValue('image', e.currentTarget.files[0], (e.currentTarget.files[0]) ? setimag(URL.createObjectURL(e.currentTarget.files[0]) || '') : setimag())
                             }} />
