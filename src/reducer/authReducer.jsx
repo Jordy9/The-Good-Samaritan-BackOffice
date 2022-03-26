@@ -7,7 +7,8 @@ const initialState = {
     paginate: [],
     modalOpen: false,
     modalOpenCreate: false,
-    Porcentage: 0
+    Porcentage: 0,
+    forgotPassword: '',
 }
 
 export const authReducer = (state = initialState, action) => {

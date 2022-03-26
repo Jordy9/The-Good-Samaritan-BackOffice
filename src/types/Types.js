@@ -182,5 +182,6 @@ export const Types = {
     authModalOpenCreate: '[Auth] modal open create',
     authModalCloseCreate: '[Auth] modal close create',
     authUpload: '[Auth] upload auth',
-    authUploadFinish: '[Auth] upload finish auth'
+    authUploadFinish: '[Auth] upload finish auth',
+    authForgotPassword: '[Auth forgot password',
 }

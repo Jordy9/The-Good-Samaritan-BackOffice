@@ -678,6 +678,7 @@ export const forgotPassword = (email) => {
         localStorage.setItem('tokennINIT', (new Date().getTime()))
 
         if(body.ok) {
+
             dispatch(forgot(body.token))
             const Toast = Swal.mixin({
                 toast: true,
