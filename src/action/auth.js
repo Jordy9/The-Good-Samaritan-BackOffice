@@ -750,7 +750,7 @@ export const newPassword = (password) => {
 
             const {email} = tokenVerify
 
-            const resp = await fetchSinToken('resetPassword/newAdmin', {password, email}, 'POST')
+            const resp = await fetchSinToken('resetPasswordAdmin/newAdmin', {password, email}, 'POST')
             const body = await resp.json()
 
             if (body.ok) {
