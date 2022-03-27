@@ -70,7 +70,9 @@ export const startCreateBosquejo = (title, date, descripcion, file) => {
 
                     const subtitle = 'Nuevo Bosquejo agregado'
 
-                    const payload = {title, subtitle, image}
+                    const content = body.bosquejoguardado
+
+                    const payload = {title, subtitle, image, content}
 
                     socket?.emit('notifications-admin-to-user', payload)
 

@@ -86,7 +86,7 @@ export const FormCapsule = () => {
             date: Yup.date()
                         .min(newDate, 'Fecha incorrecta')
                         .required('Requerido'),
-            descripcion: Yup.array()
+            descripcion: Yup.string()
                         // .min(3, 'Debe de tener 3 caracteres o más')
                         .required('Requerido'),
             image: Yup.string()

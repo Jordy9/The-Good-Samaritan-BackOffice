@@ -46,7 +46,7 @@ export const eventsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 Eventos: state.Eventos.map(
-                    e => (e.id ===  action.payload.id) ? action.payload : e
+                    e => (e._id ===  action.payload._id) ? action.payload : e
                 )
             }  
             
@@ -54,7 +54,7 @@ export const eventsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 Eventos: state.Eventos.filter( 
-                    e => (e.id !== state.activeEvent.id)
+                    e => (e._id !== state.activeEvent._id)
                 ),
                 activeSerie: null
             }

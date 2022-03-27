@@ -40,7 +40,9 @@ export const startCreateYoutube = (title, date, urlImage) => {
             dispatch(createYoutube(body))
             const subtitle = 'Nuevo video de youtube agregado'
 
-            const payload = {title, subtitle}
+            const content = body.youtube
+
+            const payload = {title, subtitle, content}
 
             socket?.emit('notifications-admin-to-user', payload)
             const Toast = Swal.mixin({

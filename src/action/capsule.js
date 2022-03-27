@@ -68,7 +68,9 @@ export const startCreateCapsule = (title, date, descripcion, file) => {
 
                     const subtitle = 'Nueva Cápsula agregada'
 
-                    const payload = {title, subtitle, image}
+                    const content = body.capsuleguardado
+
+                    const payload = {title, subtitle, image, content}
 
                     socket?.emit('notifications-admin-to-user', payload)
 

@@ -12,7 +12,7 @@ export const ModalListContainer = () => {
                     ?
                     Eventos.map(Evento => {
                         return (
-                            <ModalContainer key = {Evento.id} {...Evento} />
+                            <ModalContainer key = {Evento._id} {...Evento} />
                         )
                     })
                     :

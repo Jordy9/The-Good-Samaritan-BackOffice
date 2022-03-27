@@ -69,7 +69,9 @@ export const startCreateMiniSerie = (title, date, descripcion, file) => {
 
                     const subtitle = 'Nueva MiniSerie agregada'
 
-                    const payload = {title, subtitle, image}
+                    const content = body.miniSerie
+
+                    const payload = {title, subtitle, image, content}
 
                     socket?.emit('notifications-admin-to-user', payload)
 

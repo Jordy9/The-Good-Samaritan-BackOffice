@@ -69,7 +69,9 @@ export const startCreateVideoWordOfTheDay = (title, file) => {
 
                     const subtitle = 'Nueva Palabra del Día agregada'
 
-                    const payload = {title, subtitle}
+                    const content = body.video
+
+                    const payload = {title, subtitle, content}
 
                     socket?.emit('notifications-admin-to-user', payload)
 

@@ -55,7 +55,9 @@ export const startCreateEvento = (title, date, file, descripcion) => {
 
                 const subtitle = 'Nuevo Evento agregado'
 
-                const payload = {title, subtitle, image}
+                const content = body.eventoguardado
+
+                const payload = {title, subtitle, image, content}
 
                 socket?.emit('notifications-admin-to-user', payload)
 
@@ -131,7 +133,7 @@ export const startUpdateEvento = (title, date, descripcion, fileupload) => {
                     if(res.data.ok) {
                         const image = res.data.image.url
                         const idImage = res.data.image.id
-                        const resp = await fetchConToken(`evento/${activeEvent.id}`, {title, date, image, idImage, descripcion}, 'PUT');
+                        const resp = await fetchConToken(`evento/${activeEvent._id}`, {title, date, image, idImage, descripcion}, 'PUT');
                         const body = await resp.json()
         
                         if (body.ok) {
@@ -195,7 +197,7 @@ export const startUpdateEvento = (title, date, descripcion, fileupload) => {
             } else {
 
                 const {image, idImage} = activeEvent
-                const resp = await fetchConToken(`evento/${activeEvent.id}`, {title, date, image, idImage, descripcion}, 'PUT');
+                const resp = await fetchConToken(`evento/${activeEvent._id}`, {title, date, image, idImage, descripcion}, 'PUT');
                 const body = await resp.json()
 
                 if (body.ok) {
@@ -240,7 +242,7 @@ export const startDeleteEvento = () => {
         if(activeEvent.idImage) {
             await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeEvent.idImage}`, {headers: {'x-token': token}})
 
-            const resp = await fetchConToken(`evento/${activeEvent.id}`, activeEvent, 'DELETE')
+            const resp = await fetchConToken(`evento/${activeEvent._id}`, activeEvent, 'DELETE')
     
             if(resp.ok) {
                 dispatch(deleteEvento(activeEvent))
