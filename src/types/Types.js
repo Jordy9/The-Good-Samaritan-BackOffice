@@ -184,4 +184,5 @@ export const Types = {
     authUpload: '[Auth] upload auth',
     authUploadFinish: '[Auth] upload finish auth',
     authForgotPassword: '[Auth forgot password',
+    authsetNotificationPost: '[Auth] set notifications post',
 }

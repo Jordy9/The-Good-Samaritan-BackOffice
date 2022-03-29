@@ -9,6 +9,7 @@ const initialState = {
     modalOpenCreate: false,
     Porcentage: 0,
     forgotPassword: '',
+    notificationPost: ''
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -125,7 +126,11 @@ export const authReducer = (state = initialState, action) => {
                 Porcentage: 0
             }
             
-
+        case Types.authsetNotificationPost:
+            return {
+                ...state,
+                notificationPost: action.payload
+            }
     
         default:
             return state;

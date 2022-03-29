@@ -60,7 +60,7 @@ export const ContactModal = () => {
                     <div className="modal-body">
                         <div className="col-12">
                             <div className="mb-3" style = {{border: 'none'}}>
-                                <h5 className="text-white text-center mt-2">Responder Contácto</h5>
+                                <h5 className="text-white text-center mt-2">Responder Contacto</h5>
                                 <div className="card-body">
                                     <form onSubmit = {handleSubmit}>
                                         <div className = 'row'>

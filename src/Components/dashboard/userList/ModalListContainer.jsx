@@ -8,9 +8,10 @@ export const ModalListContainer = ({title, currentPage}) => {
     const {usuarios} = useSelector(state => state.cht)
 
     const PaginateUsers = () => {
-        const allUsers = [...users, ...usuarios]
+        const allUsers = [...usuarios, ...users]
         return allUsers?.slice(currentPage, currentPage + 5)
     }
+
     return (
         <>
             {

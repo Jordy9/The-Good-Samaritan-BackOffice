@@ -782,3 +782,8 @@ const forgot = (token) => ({
     type: Types.authForgotPassword,
     payload: token
 })
+
+export const setNotificationsPost = (notification) => ({
+    type: Types.authsetNotificationPost,
+    payload: notification
+})

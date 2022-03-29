@@ -36,12 +36,22 @@ import { NoBeleaverVideo } from '../Components/noBeleaver/NoBeleaverVideo';
 import { NotificationResponsive } from '../Components/notificationResponsive/NotificationResponsive';
 import { Beleaver } from '../Components/Beleaver/Beleaver';
 import { BeleaverList } from '../Components/Beleaver/BeleaverList/BeleaverList';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { NotificationPost } from '../Components/notificationPost/NotificationPost';
 
 export const AuthRouter = () => {
 
     const {Contactos} = useSelector(state => state.co)
     const {Peticiones, PeticionSinCuenta, PeticionesUser} = useSelector(state => state.pt)
     const {socket} = useSelector(state => state.sk)
+
+    const {notificationPost} = useSelector(state => state.auth)
+
+    const history = useHistory()
+
+    const {pathname} = useLocation()
 
     if (moment().day() > 7 && Peticiones) {
         const peticionesviejas = Peticiones?.filter(cont => moment(cont?.date, "YYYYMMDD").fromNow() > 'hace 7 días')
@@ -50,6 +60,13 @@ export const AuthRouter = () => {
         const contactosViejos = Contactos?.filter(cont => moment(cont?.date, "YYYYMMDD").fromNow() > 'hace 7 días')
         socket?.emit('Eliminar-Contactos', contactosViejos, peticionesviejas, peticionesviejasSinCuenta, peticionesviejasUser)
     }
+
+    useEffect(() => {
+        if (pathname === '/NotificationPost' && NotificationPost === '') {
+          history.push('/Dashboard')
+        }
+    }, [notificationPost, history, pathname])
+
     return (
         <>
         <Navb />
@@ -86,6 +103,7 @@ export const AuthRouter = () => {
                     <Route path = '/BeleaverList' component = {BeleaverList} />
                     <Route path = '/Chat' component = {ChatPage} />
                     <Route path = '/NotificationResponsive' component = {NotificationResponsive} />
+                    <Route path = '/NotificationPost/:id' component = {NotificationPost} />
                     
                     <Redirect to = '/Dashboard' />
                 </Switch>

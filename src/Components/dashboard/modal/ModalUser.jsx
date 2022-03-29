@@ -143,13 +143,13 @@ export const ModalUser = () => {
                             <div className="row">
                                 <div className="col form-group">
                                     <label>Nombre</label>
-                                    <input type="text" {...getFieldProps('name')} placeholder = 'Juan' className = 'form-control bg-transparent text-white' />
+                                    <input autoComplete='off' type="text" {...getFieldProps('name')} placeholder = 'Juan' className = 'form-control bg-transparent text-white' />
                                     {touched.name && errors.name && <span style={{color: 'red'}}>{errors.name}</span>}
                                 </div>
 
                                 <div className="col form-group">
                                     <label>Apellido</label>
-                                    <input type="text" {...getFieldProps('lastName')} placeholder = 'Taveras' className = 'form-control bg-transparent text-white' />
+                                    <input autoComplete='off' type="text" {...getFieldProps('lastName')} placeholder = 'Taveras' className = 'form-control bg-transparent text-white' />
                                     {touched.lastName && errors.lastName && <span style={{color: 'red'}}>{errors.lastName}</span>}
                                 </div>
                             </div>
@@ -157,7 +157,7 @@ export const ModalUser = () => {
                             <div className="row">
                                 <div className="col form-group">
                                     <label>Edad</label>
-                                    <input type="number" {...getFieldProps('age')} placeholder = '25' className = 'form-control bg-transparent text-white' />
+                                    <input autoComplete='off' type="number" {...getFieldProps('age')} placeholder = '25' className = 'form-control bg-transparent text-white' />
                                     {touched.age && errors.age && <span style={{color: 'red'}}>{errors.age}</span>}
                                 </div>
 
@@ -171,7 +171,7 @@ export const ModalUser = () => {
                             <div className="row">
                                 <div className="col form-group">
                                     <label>Correo Electrónico</label>
-                                    <input type="text" {...getFieldProps('email')} placeholder = 'Juan123@hotmail.com' className = 'form-control bg-transparent text-white ' />
+                                    <input autoComplete='off' type="text" {...getFieldProps('email')} placeholder = 'Juan123@hotmail.com' className = 'form-control bg-transparent text-white ' />
                                     {touched.email && errors.email && <span style={{color: 'red'}}>{errors.email}</span>}
                                 </div>
 
@@ -189,7 +189,7 @@ export const ModalUser = () => {
                             <div className="row">
                                 <div className="col form-group">
                                     <label>Dirección</label>
-                                    <input type="text" {...getFieldProps('address')} placeholder = 'Los Santos' className = 'form-control bg-transparent text-white' />
+                                    <input autoComplete='off' type="text" {...getFieldProps('address')} placeholder = 'Los Santos' className = 'form-control bg-transparent text-white' />
                                     {touched.address && errors.address && <span style={{color: 'red'}}>{errors.address}</span>}
                                 </div>
                             </div>
@@ -212,7 +212,7 @@ export const ModalUser = () => {
 
                                 <div className="col form-group">
                                     <label>Ciudad</label>
-                                    <input type="text" {...getFieldProps('city')} placeholder = 'Bonao' className = 'form-control bg-transparent text-white' />
+                                    <input autoComplete='off' type="text" {...getFieldProps('city')} placeholder = 'Bonao' className = 'form-control bg-transparent text-white' />
                                     {touched.city && errors.city && <span style={{color: 'red'}}>{errors.city}</span>}
                                 </div>
 
@@ -231,14 +231,14 @@ export const ModalUser = () => {
                             <div className="row">
                                 <div className="col form-group">
                                     <label>Contrasena</label>
-                                    <input type="text" {...getFieldProps('password')} placeholder = '********' className = 'form-control bg-transparent text-white' />
+                                    <input autoComplete='off' type="text" {...getFieldProps('password')} placeholder = '********' className = 'form-control bg-transparent text-white' />
                                     {touched.password && errors.password && <span style={{color: 'red'}}>{errors.password}</span>}
                                 </div>
 
 
                                 <div className="col form-group">
                                     <label>Confirmar Contrasena</label>
-                                    <input type="text" {...getFieldProps('confirmPassword')} placeholder = '********' className = 'form-control bg-transparent text-white' />
+                                    <input autoComplete='off' type="text" {...getFieldProps('confirmPassword')} placeholder = '********' className = 'form-control bg-transparent text-white' />
                                     {touched.confirmPassword && errors.confirmPassword && <span style={{color: 'red'}}>{errors.confirmPassword}</span>}
                                 </div>
                             </div>

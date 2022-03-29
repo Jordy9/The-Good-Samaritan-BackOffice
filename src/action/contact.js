@@ -30,10 +30,10 @@ const Contacts = (contactos) => ({
 export const startCreateContact = (subject, title, descripcion) => {
     return async(dispatch, getState) => {
         
-        const {activeContact} = getState().co 
+        const {notificationPost} = getState().auth
         const email = 'ccbsrd@gmail.com'
 
-        const email2 = activeContact.email
+        const email2 = notificationPost?.content?.email
 
         const resp = await fetchConToken('sendEmail', {subject, title, email2, descripcion, email}, 'POST');
         await resp.json()
