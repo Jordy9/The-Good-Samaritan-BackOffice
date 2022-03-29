@@ -8,10 +8,6 @@ export const BeleaverList = () => {
 
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(startGetPaginateBosquejos())
-  }, [dispatch])
-
     return (
         <>
           <h1 style = {{marginTop: '70px'}}>Listado de información para nuevos creyentes</h1>
