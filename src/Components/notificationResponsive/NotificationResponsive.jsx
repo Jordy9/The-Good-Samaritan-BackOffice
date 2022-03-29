@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
+import { setNotificationsPost } from '../../action/auth'
+import { useHistory } from 'react-router-dom'
 
 export const NotificationResponsive = () => {
 
@@ -11,6 +13,8 @@ export const NotificationResponsive = () => {
 
     const [activeUserChange, setActiveUserChange] = useState(activeUser)
 
+    const history = useHistory()
+
     useEffect(() => {
         socket?.on('notifications-user', (users) => {
 
@@ -20,6 +24,11 @@ export const NotificationResponsive = () => {
         })
     }, [socket, dispatch, uid])
 
+    const setNotify = (noti) => {
+        dispatch(setNotificationsPost(noti))
+        history.push(`/NotificationPost/${noti._id}`)
+    }
+
   return (
     <div style={{marginTop: '70px'}} className='container'>
         <div className="row">
@@ -28,7 +37,7 @@ export const NotificationResponsive = () => {
                     {
                         activeUserChange?.notifications?.map((notifications, index) => {
                             return (
-                                <div className='shadow my-2 bg-dark p-3 flex-column' key={notifications+ index}>
+                                <div style={{cursor: 'pointer'}} onClick={() => setNotify(notifications)} className='shadow my-2 bg-dark p-3 flex-column' key={notifications+ index}>
                                     <h6 className='text-white text-center'>{notifications.subtitle}</h6>
                                     <div className="row">
                                         {
