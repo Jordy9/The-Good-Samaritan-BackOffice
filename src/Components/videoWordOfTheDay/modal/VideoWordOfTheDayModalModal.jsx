@@ -26,7 +26,7 @@ export const VideoWordOfTheDayModal = () => {
         onSubmit: ({title, video}) => {
             if (activeUser?.role === 'Gestorcontenido' || activeUser?.role === 'Administrador') {
 
-                if (video.type.includes('video') === false) {
+                if (video?.type?.includes('video') === false) {
                     const Toast = Swal.mixin({
                         toast: true,
                         position: 'top-end',
