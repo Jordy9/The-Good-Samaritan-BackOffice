@@ -122,7 +122,7 @@ export const MainModal = () => {
                                                     &&
                                                 <div className="col-12 mb-2">
                                                     <label className='d-flex justify-content-center'>Subiendo imagen</label>
-                                                    <div classname="progress">
+                                                    <div className="progress">
                                                         <div className="progress-bar" role="progressbar" style={{width: `${Porcentage}%`}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{Porcentage}%</div>
                                                     </div>
                                                 </div>
