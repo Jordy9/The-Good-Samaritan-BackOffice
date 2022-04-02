@@ -18,11 +18,12 @@ export const MiniSerieModal = () => {
 
     const [imag, setimag] = useState()
 
+    const [first, setfirst] = useState()
 
     const {handleSubmit, getFieldProps, touched, errors, setFieldValue} = useFormik({
         initialValues: {
             title: activeSerie?.title,
-            descripcion: activeSerie?.descripcion,
+            descripcion: first,
             image: ''
         },
         enableReinitialize: true,
@@ -80,11 +81,10 @@ export const MiniSerieModal = () => {
         })
     })
 
+    console.log(getFieldProps('descripcion'))
     const handledImage = () => {
         document.querySelector('#fileSelector').click()
       }
-
-      const [first, setfirst] = useState()
 
       useEffect(() => {
         setfirst(activeSerie?.descripcion)
@@ -143,7 +143,7 @@ export const MiniSerieModal = () => {
                                                     &&
                                                 <div className="col-12 mb-2">
                                                     <label className='d-flex justify-content-center'>Subiendo imagen</label>
-                                                    <div class="progress">
+                                                    <div classname="progress">
                                                         <div className="progress-bar" role="progressbar" style={{width: `${Porcentage}%`}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{Porcentage}%</div>
                                                     </div>
                                                 </div>
@@ -166,7 +166,7 @@ export const MiniSerieModal = () => {
                                                                 <Editor
                                                                     initialValue = {element}
                                                                     name = 'descripcion'
-                                                                    onEditorChange = {(e) => setFieldValue(`descripcion[${index}]`, e)[index]}
+                                                                    onEditorChange = {(e) => setFieldValue(`descripcion[${index}]`, e)}
                                                                     content="<p>This is the initial content of the editor</p>"
                                                                     init={{
                                                                     plugins: 'autolink link image lists print preview',

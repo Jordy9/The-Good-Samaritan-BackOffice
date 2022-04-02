@@ -98,9 +98,11 @@ export const FormSeries = () => {
 
     const eliminar = () => {
         let newFormValues = [...first];
-        newFormValues.splice([first-1], 1);
+        newFormValues.pop();
         setfirst(newFormValues)
     }
+
+    console.log({...getFieldProps('descripcion').value})
 
     return (
         <>
@@ -132,7 +134,7 @@ export const FormSeries = () => {
                         &&
                     <div className="col-12 mb-2">
                         <label className='d-flex justify-content-center'>Subiendo imagen</label>
-                        <div class="progress">
+                        <div className="progress">
                             <div class="progress-bar" role="progressbar" style={{width: `${Porcentage}%`}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{Porcentage}%</div>
                         </div>
                     </div>
@@ -154,7 +156,7 @@ export const FormSeries = () => {
                                 <div className='mb-2' key={element + index}>
                                     <Editor
                                         name = 'descripcion'
-                                        onEditorChange = {(e) => setFieldValue('descripcion', [...element, e])}
+                                        onEditorChange = {(e) => setFieldValue(`descripcion[${index}]`, e)}
                                         content="<p>This is the initial content of the editor</p>"
                                         init={{
                                         plugins: 'autolink link image lists print preview',
