@@ -30,13 +30,47 @@ const Contacts = (contactos) => ({
 export const startCreateContact = (subject, title, descripcion) => {
     return async(dispatch, getState) => {
         
+        const {activeContact} = getState().co
+
+        const email = 'ccbsrd@gmail.com'
+
+        const email2 = activeContact?.email
+
+        const resp = await fetchConToken('sendEmail', {subject, title, email2, descripcion, email}, 'POST');
+        const body = await resp.json()
+        
+        if (resp.ok) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              return Toast.fire({
+                icon: 'success',
+                title: 'Eviado correctamente'
+              })
+        }
+        
+    }
+}
+
+export const startCreatePostContact = (subject, title, descripcion) => {
+    return async(dispatch, getState) => {
+        
         const {notificationPost} = getState().auth
         const email = 'ccbsrd@gmail.com'
 
         const email2 = notificationPost?.content?.email
 
         const resp = await fetchConToken('sendEmail', {subject, title, email2, descripcion, email}, 'POST');
-        await resp.json()
+        const body = await resp.json()
         
         if (resp.ok) {
             const Toast = Swal.mixin({

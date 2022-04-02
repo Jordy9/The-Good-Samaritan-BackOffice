@@ -135,9 +135,9 @@ export const GalleryImages = () => {
                 {
                     (imagen)
                         &&
-                    imagen?.map(imagen => {
+                    imagen?.map((imagen, index) => {
                         return (
-                            <div className="col-3 d-flex justify-content-center">
+                            <div key={imagen + index} className="col-3 d-flex justify-content-center">
                                 <img key={imagen} src = {imagen || ''} className="img-fluid rounded my-2" alt="" style = {{ cursor: 'pointer', height: '225px', width: '100%'}} />
                             </div>
                         )

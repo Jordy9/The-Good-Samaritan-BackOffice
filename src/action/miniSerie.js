@@ -40,7 +40,7 @@ const miniSeries = (series) => ({
     payload: series
 })
 
-export const startCreateMiniSerie = (title, date, descripcion, file) => {
+export const startCreateMiniSerie = (title, descripcion, file) => {
     return async(dispatch, getState) => {
 
         const {socket} = getState().sk
@@ -60,7 +60,7 @@ export const startCreateMiniSerie = (title, date, descripcion, file) => {
             if(res.data.ok) {
                 const image = res.data.image.url
                 const idImage = res.data.image.id
-                const resp = await fetchConToken('miniSerie', {title, date, image, idImage, descripcion}, 'POST');
+                const resp = await fetchConToken('miniSerie', {title, image, idImage, descripcion}, 'POST');
                 const body = await resp.json()
 
                 if (body.ok) {
@@ -142,7 +142,7 @@ export const clearSetActiveSerie = () => ({
 });
 
 
-export const startUpdateSerie = (title, date, descripcion, fileupload) => {
+export const startUpdateSerie = (title, descripcion, fileupload) => {
     return async(dispatch, getState) => {
 
         const {activeSerie} = getState().mi
@@ -170,7 +170,7 @@ export const startUpdateSerie = (title, date, descripcion, fileupload) => {
                 if(res.data.ok) {
                     const image = res.data.image.url
                     const idImage = res.data.image.id
-                    const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, {title, date, image, idImage, descripcion}, 'PUT');
+                    const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, {title, image, idImage, descripcion}, 'PUT');
                     const body = await resp.json()
     
                     if (body.ok) {
@@ -251,7 +251,7 @@ export const startUpdateSerie = (title, date, descripcion, fileupload) => {
 
           } else {
             const {image, idImage} = activeSerie
-            const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, {title, date, image, idImage, descripcion}, 'PUT');
+            const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, {title, image, idImage, descripcion}, 'PUT');
             const body = await resp.json()
 
             if (body.ok) {

@@ -21,13 +21,12 @@ export const MiniSerieModal = () => {
 
     const {handleSubmit, getFieldProps, touched, errors, setFieldValue} = useFormik({
         initialValues: {
-            title: activeSerie?.title, 
-            date: activeSerie?.date, 
+            title: activeSerie?.title,
             descripcion: activeSerie?.descripcion,
             image: ''
         },
         enableReinitialize: true,
-        onSubmit: ({title, date, descripcion, image}) => {
+        onSubmit: ({title, descripcion, image}) => {
             if (activeUser?.role === 'Administrador') {
 
                 if (image.type?.includes('image') === false) {
@@ -48,7 +47,7 @@ export const MiniSerieModal = () => {
                         title: 'Imagen con formato incorrecto'
                       })
                 } else {
-                dispatch(startUpdateSerie(title, date, descripcion, image))
+                dispatch(startUpdateSerie(title, descripcion, image))
                 }
             } else {
                 const Toast = Swal.mixin({
@@ -74,8 +73,6 @@ export const MiniSerieModal = () => {
             title: Yup.string()
                         .max(70, 'Debe de tener 70 caracteres o menos')
                         .min(3, 'Debe de tener 3 caracteres o más')
-                        .required('Requerido'),
-            date: Yup.string()
                         .required('Requerido'),
             descripcion: Yup.array()
                         // .min(3, 'Debe de tener 3 caracteres o más')
@@ -129,16 +126,6 @@ export const MiniSerieModal = () => {
                                             </div>
 
                                             <div className="col-6">
-                                                <div className="form-group">
-                                                    <label>Fecha</label>
-                                                    <input type="datetime-local" className = 'form-control bg-transparent text-white' {...getFieldProps('date')} />
-                                                    {touched.date && errors.date && <span style={{color: 'red'}}>{errors.date}</span>}
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="row">
-                                            <div className="col-12">
                                                 <div className="form-group">
                                                     <label>Imagen</label>
                                                     <button type='button' className='btn btn-outline-primary form-control' onClick={handledImage}>Seleccionar imagen</button>

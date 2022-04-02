@@ -21,8 +21,7 @@ export const ModalBeleaver = () => {
 
     const {handleSubmit, getFieldProps, touched, errors, setFieldValue} = useFormik({
         initialValues: {
-            title: activeBeleaver?.title, 
-            date: activeBeleaver?.date, 
+            title: activeBeleaver?.title,
             descripcion: activeBeleaver?.descripcion,
             image: ''
         },
@@ -30,7 +29,7 @@ export const ModalBeleaver = () => {
         onSubmit: ({title, descripcion, image}) => {
             if (activeUser?.role !== 'Colaborador') {
 
-                if (image.type.includes('image') === false) {
+                if (image?.type?.includes('image') === false) {
                     const Toast = Swal.mixin({
                         toast: true,
                         position: 'top-end',

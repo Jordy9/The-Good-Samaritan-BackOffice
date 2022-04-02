@@ -27,12 +27,12 @@ const Youtube = (youtube) => ({
     payload: youtube
 })
 
-export const startCreateYoutube = (title, date, urlImage) => {
+export const startCreateYoutube = (title, urlImage) => {
     return async(dispatch, getState) => {
 
         const {socket} = getState().sk
 
-        const resp = await fetchConToken('youtube', {title, date, urlImage}, 'POST');
+        const resp = await fetchConToken('youtube', {title, urlImage}, 'POST');
         const body = await resp.json()
 
         if (body.ok) {
@@ -95,12 +95,12 @@ export const SetActiveYoutube = (youtube) => ({
     payload: youtube
 });
 
-export const startUpdateYoutube = (title, date, urlImage) => {
+export const startUpdateYoutube = (title, urlImage) => {
     return async(dispatch, getState) => {
 
         const {activeYoutube} = getState().yt
         
-        const resp = await fetchConToken(`youtube/${activeYoutube._id}`, {title, date, urlImage}, 'PUT');
+        const resp = await fetchConToken(`youtube/${activeYoutube._id}`, {title, urlImage}, 'PUT');
         const body = await resp.json()
 
         if (body.ok) {

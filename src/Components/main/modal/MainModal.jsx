@@ -26,7 +26,7 @@ export const MainModal = () => {
         onSubmit: ({title, descripcion, image}) => {
             if (activeUser?.role === 'Gestorcontenido' || activeUser?.role === 'Administrador') {
 
-                if (image.type.includes('image') === false) {
+                if (image?.type?.includes('image') === false) {
                     const Toast = Swal.mixin({
                         toast: true,
                         position: 'top-end',

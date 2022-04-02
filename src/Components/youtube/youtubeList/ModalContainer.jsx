@@ -3,10 +3,11 @@ import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
 import { SetActiveYoutube, startDeleteYoutube } from '../../../action/youtubeImage'
 import h2p from 'html2plaintext'
+import moment from 'moment'
 
 export const ModalContainer = (props) => {
 
-  const {title, urlImage} = props
+  const {title, createdAt, urlImage} = props
 
     const dispatch = useDispatch()
 
@@ -33,6 +34,7 @@ export const ModalContainer = (props) => {
         <>
           <tr>
               <th>{title}</th>
+              <th>{moment(createdAt).format('MMMM Do YYYY, h:mm a')}</th>
               <td>
                 {
                   (h2p(urlImage).length > 9)

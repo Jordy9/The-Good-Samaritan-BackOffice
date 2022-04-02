@@ -41,7 +41,7 @@ const Bosquejos = (bosquejos) => ({
     payload: bosquejos
 })
 
-export const startCreateBosquejo = (title, date, descripcion, file) => {
+export const startCreateBosquejo = (title, descripcion, file) => {
     return async(dispatch, getState) => {
 
         const {socket} = getState().sk
@@ -61,7 +61,7 @@ export const startCreateBosquejo = (title, date, descripcion, file) => {
             if(res.data.ok) {
                 const image = res.data.image.url
                 const idImage = res.data.image.id
-                const resp = await fetchConToken('bosquejo', {title, date, image, idImage, descripcion}, 'POST');
+                const resp = await fetchConToken('bosquejo', {title, image, idImage, descripcion}, 'POST');
                 const body = await resp.json()
                 
                 if (body.ok) {
@@ -159,7 +159,7 @@ export const clearSetActiveBosquejo = () => ({
 });
 
 
-export const startUpdateBosquejo = (title, date, descripcion, fileupload) => {
+export const startUpdateBosquejo = (title, descripcion, fileupload) => {
     return async(dispatch, getState) => {
 
         const {activeBosquejo} = getState().skt
@@ -188,7 +188,7 @@ export const startUpdateBosquejo = (title, date, descripcion, fileupload) => {
                     if(res.data.ok) {
                         const image = res.data.image.url
                         const idImage = res.data.image.id
-                        const resp = await fetchConToken(`bosquejo/${activeBosquejo._id}`, {title, date, image, idImage, descripcion}, 'PUT');
+                        const resp = await fetchConToken(`bosquejo/${activeBosquejo._id}`, {title, image, idImage, descripcion}, 'PUT');
                         const body = await resp.json()
         
                         if (body.ok) {
@@ -252,7 +252,7 @@ export const startUpdateBosquejo = (title, date, descripcion, fileupload) => {
             } else {
 
                 const {image, idImage} = activeBosquejo
-                const resp = await fetchConToken(`bosquejo/${activeBosquejo._id}`, {title, date, image, idImage, descripcion}, 'PUT');
+                const resp = await fetchConToken(`bosquejo/${activeBosquejo._id}`, {title, image, idImage, descripcion}, 'PUT');
                 const body = await resp.json()
 
                 if (body.ok) {

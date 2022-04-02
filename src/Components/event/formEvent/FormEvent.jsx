@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { startCreateEvento } from '../../../action/event'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
-import moment from 'moment';
 import tinymce from 'tinymce/tinymce';
 import Swal from 'sweetalert2';
 
@@ -15,21 +14,18 @@ export const FormEvent = () => {
 
     const {Porcentage} = useSelector(state => state.ev)
 
-    const newDate = moment().format('yyyy-MM-DDTHH:mm')
-
     const dispatch = useDispatch()
 
     const [imag, setimag] = useState()
 
     const {handleSubmit, resetForm, getFieldProps, touched, errors, setFieldValue} = useFormik({
         initialValues: {
-            title: '', 
-            date: '', 
+            title: '',
             image: '',
             descripcion: ''
         },
         enableReinitialize: true,
-        onSubmit: ({title, date, image, descripcion}) => {
+        onSubmit: ({title, image, descripcion}) => {
             if (activeUser?.role === 'Gestorcontenido' || activeUser?.role === 'Administrador') {
 
                 if (image.type.includes('image') === false) {
@@ -50,7 +46,7 @@ export const FormEvent = () => {
                         title: 'Imagen con formato incorrecto'
                       })
                 } else {
-                dispatch(startCreateEvento(title, date, image, descripcion))
+                dispatch(startCreateEvento(title, image, descripcion))
                 }
             }else {
                 const Toast = Swal.mixin({
@@ -71,8 +67,7 @@ export const FormEvent = () => {
                   })
             }
             resetForm({
-                title: '', 
-                date: '', 
+                title: '',
                 image: document.getElementsByName('image').value = '',
                 descripcion: tinymce.activeEditor.setContent('')
             })
@@ -91,7 +86,7 @@ export const FormEvent = () => {
     return (
         <form onSubmit = {handleSubmit}>
             <div className = 'row'>
-                <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <div className="form-group">
                         <label>Título</label>
                         <input type="text" className = 'form-control bg-transparent text-white' {...getFieldProps('title')} />
@@ -99,7 +94,7 @@ export const FormEvent = () => {
                     </div>
                 </div>
 
-                <div className="col-xs-12 col-sm-12 col-md-4 col-lg-5 col-xl-5">
+                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <div className="form-group">
                         <label>Imagen</label>
                         <button type='button' className='btn btn-outline-primary form-control' onClick={handledImage}>Seleccionar imagen</button>
@@ -107,14 +102,6 @@ export const FormEvent = () => {
                             setFieldValue('image', e.currentTarget.files[0], (e.currentTarget.files[0]) ? setimag(URL.createObjectURL(e.currentTarget.files[0]) || '') : setimag())
                         }} />
                         {touched.image && errors.image && <span style={{color: 'red'}}>{errors.image}</span>}
-                    </div>
-                </div>
-
-                <div className="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-xl-3">
-                    <div className="form-group">
-                        <label>Fecha</label>
-                        <input type="datetime-local" min={`${newDate}`} className = 'form-control bg-transparent text-white' {...getFieldProps('date')} />
-                        {touched.date && errors.date && <span style={{color: 'red'}}>{errors.date}</span>}
                     </div>
                 </div>
             </div>

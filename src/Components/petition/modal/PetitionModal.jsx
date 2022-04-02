@@ -7,28 +7,23 @@ import * as Yup from 'yup'
 
 export const PetitionModal = () => {
 
-    // const newDate = moment().format('yyyy-MM-DDTHH:mm')
-
     const {activePetitions} = useSelector(state => state.pt)
 
     const dispatch = useDispatch()
 
     const {handleSubmit, getFieldProps, touched, errors, setFieldValue} = useFormik({
         initialValues: {
-            title: activePetitions?.title, 
-            date: activePetitions?.date, 
+            title: activePetitions?.title,
             descripcion: activePetitions?.descripcion,
         },
         enableReinitialize: true,
-        onSubmit: ({title, date, descripcion}) => {
-            dispatch(startUpdatePetition(title, date, descripcion))
+        onSubmit: ({title, descripcion}) => {
+            dispatch(startUpdatePetition(title, descripcion))
         },
         validationSchema: Yup.object({
             title: Yup.string()
                         .max(50, 'Debe de tener 50 caracteres o menos')
                         .min(3, 'Debe de tener 3 caracteres o más')
-                        .required('Requerido'),
-            date: Yup.date()
                         .required('Requerido'),
             descripcion: Yup.string()
                         .min(3, 'Debe de tener 3 caracteres o más')
@@ -56,14 +51,6 @@ export const PetitionModal = () => {
                                                     <label>Título</label>
                                                     <input type="text" className = 'form-control bg-transparent text-white' {...getFieldProps('title')} />
                                                     {touched.title && errors.title && <span style={{color: 'red'}}>{errors.title}</span>}
-                                                </div>
-                                            </div>
-
-                                            <div className="col-6">
-                                                <div className="form-group">
-                                                    <label>Fecha</label>
-                                                    <input type="datetime-local" className = 'form-control bg-transparent text-white' {...getFieldProps('date')} />
-                                                    {touched.date && errors.date && <span style={{color: 'red'}}>{errors.date}</span>}
                                                 </div>
                                             </div>
                                         </div>

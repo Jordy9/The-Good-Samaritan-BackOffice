@@ -5,11 +5,8 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { startUpdateCapsule } from '../../../action/capsule';
 import Swal from 'sweetalert2';
-import moment from 'moment';
 
 export const CapsuleModal = () => {
-
-    const newDate = moment().format('yyyy-MM-DDTHH:mm')
 
     const {activeUser} = useSelector(state => state.auth)
 
@@ -24,16 +21,15 @@ export const CapsuleModal = () => {
 
     const {handleSubmit, getFieldProps, touched, errors, setFieldValue} = useFormik({
         initialValues: {
-            title: activeCapsule?.title, 
-            date: activeCapsule?.date, 
+            title: activeCapsule?.title,
             descripcion: activeCapsule?.descripcion,
             image: ''
         },
         enableReinitialize: true,
-        onSubmit: ({title, date, descripcion, image}) => {
+        onSubmit: ({title, descripcion, image}) => {
             if (activeUser?.role === 'Administrador') {
 
-                if (image.type.includes('image') === false) {
+                if (image?.type?.includes('image') === false) {
                     const Toast = Swal.mixin({
                         toast: true,
                         position: 'top-end',
@@ -51,7 +47,7 @@ export const CapsuleModal = () => {
                         title: 'Imagen con formato incorrecto'
                       })
                 } else {
-                dispatch(startUpdateCapsule(title, date, descripcion, image))
+                dispatch(startUpdateCapsule(title, descripcion, image))
                 }
             } else {
                 const Toast = Swal.mixin({
@@ -76,9 +72,6 @@ export const CapsuleModal = () => {
             title: Yup.string()
                         .max(70, 'Debe de tener 70 caracteres o menos')
                         .min(3, 'Debe de tener 3 caracteres o más')
-                        .required('Requerido'),
-            date: Yup.date()
-                        .min(newDate, 'Fecha incorrecta')
                         .required('Requerido'),
             descripcion: Yup.string()
                         // .min(3, 'Debe de tener 3 caracteres o más')
@@ -114,16 +107,6 @@ export const CapsuleModal = () => {
                                             </div>
 
                                             <div className="col-6">
-                                                <div className="form-group">
-                                                    <label>Fecha</label>
-                                                    <input type="datetime-local" className = 'form-control bg-transparent text-white' {...getFieldProps('date')} />
-                                                    {touched.date && errors.date && <span style={{color: 'red'}}>{errors.date}</span>}
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="row">
-                                            <div className="col-12">
                                                 <div className="form-group">
                                                     <label>Imagen</label>
                                                     <button type='button' className='btn btn-outline-primary form-control' onClick={handledImage}>Seleccionar imagen</button>

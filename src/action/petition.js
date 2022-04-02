@@ -77,12 +77,12 @@ const PetitionSinCuenta = (peticiones) => ({
     payload: peticiones
 })
 
-export const startCreatePetition = (title, date, descripcion, name, number) => {
+export const startCreatePetition = (title, descripcion, name, number) => {
     return async(dispatch, getState) => {
 
         const {socket} = getState().sk
 
-        const resp = await fetchConToken('peticion', {title, date, descripcion, name, number}, 'POST');
+        const resp = await fetchConToken('peticion', {title, descripcion, name, number}, 'POST');
         const body = await resp.json()
 
         dispatch(createPetition(body))
@@ -137,13 +137,13 @@ export const clearSetActivePetition = () => ({
 });
 
 
-export const startUpdatePetition = (title, date, descripcion) => {
+export const startUpdatePetition = (title, descripcion) => {
     return async(dispatch, getState) => {
 
         const {activePetitions} = getState().pt
 
         
-        const resp = await fetchConToken(`peticion/${activePetitions._id}`, {title, date, descripcion}, 'PUT');
+        const resp = await fetchConToken(`peticion/${activePetitions._id}`, {title, descripcion}, 'PUT');
         const body = await resp.json()
 
         if (body.ok) {

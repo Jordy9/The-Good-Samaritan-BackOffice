@@ -10,22 +10,18 @@ import tinymce from 'tinymce/tinymce';
 
 export const FormPetition = () => {
 
-    const newDate = moment().format('yyyy-MM-DDTHH:mm')
-
     const dispatch = useDispatch()
 
     const {handleSubmit, resetForm, getFieldProps, touched, errors, setFieldValue} = useFormik({
         initialValues: {
-            title: '', 
-            date: '', 
+            title: '',
             descripcion: ''
         },
         enableReinitialize: true,
-        onSubmit: ({title, date, descripcion}) => {
-            dispatch(startCreatePetition(title, date, descripcion))
+        onSubmit: ({title, descripcion}) => {
+            dispatch(startCreatePetition(title, descripcion))
             resetForm({
                 title: '', 
-                date: '', 
                 descripcion: tinymce.activeEditor.setContent(''),
             })
         },
@@ -33,9 +29,6 @@ export const FormPetition = () => {
             title: Yup.string()
                         .max(50, 'Debe de tener 50 caracteres o menos')
                         .min(3, 'Debe de tener 3 caracteres o más')
-                        .required('Requerido'),
-            date: Yup.date()
-                        .min(newDate, 'Fecha u hora incorrecta')
                         .required('Requerido'),
             descripcion: Yup.string()
                         .min(3, 'Debe de tener 3 caracteres o más')
@@ -47,19 +40,11 @@ export const FormPetition = () => {
         <>
             <form onSubmit = {handleSubmit}>
                 <div className = 'row'>
-                    <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <div className="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
                         <div className="form-group">
                             <label>Título</label>
                             <input type="text" className = 'form-control bg-transparent text-white' {...getFieldProps('title')} />
                             {touched.title && errors.title && <span style={{color: 'red'}}>{errors.title}</span>}
-                        </div>
-                    </div>
-
-                    <div className="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-xl-3">
-                        <div className="form-group">
-                            <label>Fecha</label>
-                            <input type="datetime-local" min={`${newDate}`} className = 'form-control bg-transparent text-white' {...getFieldProps('date')} />
-                            {touched.date && errors.date && <span style={{color: 'red'}}>{errors.date}</span>}
                         </div>
                     </div>
                 </div>

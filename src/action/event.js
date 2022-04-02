@@ -28,7 +28,7 @@ const Eventos = (eventos) => ({
     payload: eventos
 })
 
-export const startCreateEvento = (title, date, file, descripcion) => {
+export const startCreateEvento = (title, file, descripcion) => {
     return async(dispatch, getState) => {
 
         const {socket} = getState().sk
@@ -48,7 +48,7 @@ export const startCreateEvento = (title, date, file, descripcion) => {
             if(res.data.ok) {
                 const image = res.data.image.url
                 const idImage = res.data.image.id
-                const resp = await fetchConToken('evento', {title, date, image, idImage, descripcion}, 'POST');
+                const resp = await fetchConToken('evento', {title, image, idImage, descripcion}, 'POST');
                 const body = await resp.json()
 
                 dispatch(createEvento(body))
@@ -108,7 +108,7 @@ export const clearSetActiveEvent = () => ({
 });
 
 
-export const startUpdateEvento = (title, date, descripcion, fileupload) => {
+export const startUpdateEvento = (title, descripcion, fileupload) => {
     return async(dispatch, getState) => {
 
         const {activeEvent} = getState().ev
@@ -133,7 +133,7 @@ export const startUpdateEvento = (title, date, descripcion, fileupload) => {
                     if(res.data.ok) {
                         const image = res.data.image.url
                         const idImage = res.data.image.id
-                        const resp = await fetchConToken(`evento/${activeEvent._id}`, {title, date, image, idImage, descripcion}, 'PUT');
+                        const resp = await fetchConToken(`evento/${activeEvent._id}`, {title, image, idImage, descripcion}, 'PUT');
                         const body = await resp.json()
         
                         if (body.ok) {
@@ -197,7 +197,7 @@ export const startUpdateEvento = (title, date, descripcion, fileupload) => {
             } else {
 
                 const {image, idImage} = activeEvent
-                const resp = await fetchConToken(`evento/${activeEvent._id}`, {title, date, image, idImage, descripcion}, 'PUT');
+                const resp = await fetchConToken(`evento/${activeEvent._id}`, {title, image, idImage, descripcion}, 'PUT');
                 const body = await resp.json()
 
                 if (body.ok) {

@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import moment from 'moment';
 import tinymce from 'tinymce/tinymce';
 import { Editor } from '@tinymce/tinymce-react'
-import { startCreateContact } from '../../action/contact';
+import { startCreatePostContact } from '../../action/contact';
 
 export const PostContact = ({notificationPost}) => {
 
@@ -19,7 +19,7 @@ export const PostContact = ({notificationPost}) => {
         },
         enableReinitialize: true,
         onSubmit: ({subject, title, descripcion}) => {
-            dispatch(startCreateContact(subject, title, descripcion))
+            dispatch(startCreatePostContact(subject, title, descripcion))
             resetForm({
                 subject: '', 
                 title: '', 
@@ -59,7 +59,7 @@ export const PostContact = ({notificationPost}) => {
                             <div className="col-6">
                                 <div className="form-group">
                                     <label>Fecha</label>
-                                    <input value={moment(notificationPost?.date).format('MMMM Do YYYY, h:mm a')} readOnly className = 'form-control bg-transparent text-white' />
+                                    <input value={moment(notificationPost?.createdAt).format('MMMM Do YYYY, h:mm a')} readOnly className = 'form-control bg-transparent text-white' />
                                 </div>
                             </div>
                         </div>

@@ -21,7 +21,7 @@ const Zooms = (zoom) => ({
     payload: zoom
 })
 
-export const startCreateZoom = (title, date, file, id, password) => {
+export const startCreateZoom = (title, file, id, password) => {
     return async(dispatch, getState) => {
 
         const {Zoom} = getState().zm
@@ -49,7 +49,7 @@ export const startCreateZoom = (title, date, file, id, password) => {
                 if(res.data.ok) {
                     const image = res.data.image.url
                     const idImage = res.data.image.id
-                    const resp = await fetchConToken(`zoom/${zoom._id}`, {title, date, image, idImage, id, password}, 'PUT');
+                    const resp = await fetchConToken(`zoom/${zoom._id}`, {title, image, idImage, id, password}, 'PUT');
                     const body = await resp.json()
 
                     dispatch(createZoom(body.zoom))
@@ -66,7 +66,7 @@ export const startCreateZoom = (title, date, file, id, password) => {
                     const Toast = Swal.mixin({
                         toast: true,
                         position: 'top-end',
-                        showConfirmButton: true,
+                        showConfirmButton: false,
                         timer: 5000,
                         timerProgressBar: true,
                         didOpen: (toast) => {
@@ -92,7 +92,7 @@ export const startCreateZoom = (title, date, file, id, password) => {
             if(res.data.ok) {
                 const image = res.data.image.url
                 const idImage = res.data.image.id
-                const resp = await fetchConToken('zoom', {title, date, image, idImage, id, password}, 'POST');
+                const resp = await fetchConToken('zoom', {title, image, idImage, id, password}, 'POST');
                 const body = await resp.json()
 
                 dispatch(createZoom(body))

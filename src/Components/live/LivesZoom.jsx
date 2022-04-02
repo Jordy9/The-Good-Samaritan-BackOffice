@@ -4,14 +4,11 @@ import { useDispatch } from 'react-redux'
 import { clearSetZoom, SetActiveZoom, startCreateZoom } from '../../action/zoom'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
-import moment from 'moment';
 import Swal from 'sweetalert2';
 
 export const LivesZoom = () => {
 
     const {activeUser} = useSelector(state => state.auth)
-
-    const newDate = moment().format('yyyy-MM-DDTHH:mm')
 
     const dispatch = useDispatch()
 
@@ -26,14 +23,13 @@ export const LivesZoom = () => {
     
     const {handleSubmit, resetForm, getFieldProps, touched, errors, setFieldValue} = useFormik({
         initialValues: {
-            title: activeZoom?.title || '', 
-            date:  '', 
+            title: activeZoom?.title || '',
             image: '',
             id: activeZoom?.id || '',
             password: activeZoom?.password || ''
         },
         enableReinitialize: true,
-        onSubmit: ({title, date, image, id, password}) => {
+        onSubmit: ({title, image, id, password}) => {
             if (activeUser?.role === 'Gestorcontenido' || activeUser?.role === 'Administrador') {
 
                 if (image.type.includes('image') === false) {
@@ -54,7 +50,7 @@ export const LivesZoom = () => {
                         title: 'Imagen con formato incorrecto'
                       })
                 } else {
-                dispatch(startCreateZoom(title, moment(date).format('MMMM Do YYYY, h:mm a'), image, id, password))
+                dispatch(startCreateZoom(title, image, id, password))
                 }
             } else {
                 const Toast = Swal.mixin({
@@ -75,8 +71,7 @@ export const LivesZoom = () => {
                   })
             }
             resetForm({
-                title: '', 
-                date: '', 
+                title: '',
                 image: document.getElementsByName('image').value = '',
                 id: '',
                 password: ''
@@ -88,9 +83,6 @@ export const LivesZoom = () => {
             title: Yup.string()
                         .max(50, 'Debe de tener 50 caracteres o menos')
                         .min(3, 'Debe de tener 3 caracteres o más')
-                        .required('Requerido'),
-            date:  Yup.date()
-                        .min(newDate, 'Fecha u hora incorrecta')
                         .required('Requerido'),
             image: Yup.string()
                         .required('Requerido'),
@@ -111,7 +103,7 @@ export const LivesZoom = () => {
             <h1>Anunciar reunión de zoom</h1>
                 <form onSubmit = {handleSubmit}>
                 <div className = 'row'>
-                    <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                         <div className="form-group">
                             <label>Título</label>
                             <input type="text" className = 'form-control bg-transparent text-white' {...getFieldProps('title')} />
@@ -119,7 +111,7 @@ export const LivesZoom = () => {
                         </div>
                     </div>
 
-                    <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                         <div className="form-group">
                             <label>Imagen</label>
                             <button type='button' className='btn btn-outline-primary form-control' onClick={handledImage}>Seleccionar imagen</button>
@@ -127,14 +119,6 @@ export const LivesZoom = () => {
                                 setFieldValue('image', e.currentTarget.files[0], (e.currentTarget.files[0]) ? setimag(URL.createObjectURL(e.currentTarget.files[0]) || '') : setimag())
                             }} />
                             {touched.image && errors.image && <span style={{color: 'red'}}>{errors.image}</span>}
-                        </div>
-                    </div>
-
-                    <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                        <div className="form-group">
-                            <label>Fecha</label>
-                            <input type="datetime-local" min = {`${newDate}`} className = 'form-control bg-transparent text-white' {...getFieldProps('date')} />
-                            {touched.date && errors.date && <span style={{color: 'red'}}>{errors.date}</span>}
                         </div>
                     </div>
                 </div>
@@ -190,7 +174,7 @@ export const LivesZoom = () => {
                 </div>
 
                 <div className="my-3">
-                    <h6 className = 'text-white'>{zoom?.date}</h6>
+                    <h6 className = 'text-white'>{zoom?.createdAt}</h6>
                 </div>
 
                 <div className="info my-3">

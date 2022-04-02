@@ -134,8 +134,6 @@ export const startUpdateBeleaver = (title, descripcion, fileupload) => {
 
         const {activeBeleaver} = getState().bl
 
-        const {activeUser} = getState().auth
-
         const token = localStorage.getItem('token') || '';
 
         if(fileupload) {

@@ -7,7 +7,7 @@ import moment from 'moment'
 
 export const ModalContainer = (props) => {
 
-  const {title, date, descripcion, image} = props
+  const {title, createdAt, descripcion, image} = props
 
     const dispatch = useDispatch()
 
@@ -34,7 +34,7 @@ export const ModalContainer = (props) => {
         <>
           <tr>
               <th>{title}</th>
-              <td>{moment(date).format('MMMM Do YYYY, h:mm a')}</td>
+              <td>{moment(createdAt).format('MMMM Do YYYY, h:mm a')}</td>
               <td>
                 {
                   (h2p(descripcion).length > 9)

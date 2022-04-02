@@ -2,10 +2,11 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
 import { SetActiveVideoWordOfTheDay, startDeleteVideoWordOfTheDay } from '../../../action/VideoWordOfTheDay'
+import moment from 'moment'
 
 export const ModalContainer = (props) => {
 
-  const {title, image} = props
+  const {title, createdAt, image} = props
 
     const dispatch = useDispatch()
 
@@ -32,6 +33,7 @@ export const ModalContainer = (props) => {
         <>
           <tr>
               <th>{title}</th>
+              <th>{moment(createdAt).format('MMMM Do YYYY, h:mm a')}</th>
               <td><video autoPlay = {false} src={image} style = {{height: '60px', width: '60px'}}></video></td>
               <td>
                   <button onClick = {handledSet} className = 'btn btn-outline-primary mr-1 mt-2' data-bs-toggle="modal" data-bs-target="#exampleModalVideoWordOfTheDayModal" style = {{borderRadius: '100%'}}><i className="bi bi-eye" style = {{color: '#0D6EFD'}}></i></button>

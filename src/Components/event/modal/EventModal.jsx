@@ -8,8 +8,6 @@ import Swal from 'sweetalert2';
 
 export const EventModal = () => {
 
-    // const newDate = moment().format('yyyy-MM-DDTHH:mm')
-
     const {activeUser} = useSelector(state => state.auth)
 
     const {activeEvent} = useSelector(state => state.ev)
@@ -23,16 +21,15 @@ export const EventModal = () => {
 
     const {handleSubmit, getFieldProps, touched, errors, setFieldValue} = useFormik({
         initialValues: {
-            title: activeEvent?.title, 
-            date: activeEvent?.date, 
+            title: activeEvent?.title,
             descripcion: activeEvent?.descripcion,
             image: ''
         },
         enableReinitialize: true,
-        onSubmit: ({title, date, descripcion, image}) => {
+        onSubmit: ({title, descripcion, image}) => {
             if (activeUser?.role === 'Gestorcontenido' || activeUser?.role === 'Administrador') {
 
-                if (image.type.includes('image') === false) {
+                if (image?.type?.includes('image') === false) {
                     const Toast = Swal.mixin({
                         toast: true,
                         position: 'top-end',
@@ -50,7 +47,7 @@ export const EventModal = () => {
                         title: 'Imagen con formato incorrecto'
                       })
                 } else {
-                dispatch(startUpdateEvento(title, date, descripcion, image))
+                dispatch(startUpdateEvento(title, descripcion, image))
                 }
             } else {
                 const Toast = Swal.mixin({
@@ -103,16 +100,6 @@ export const EventModal = () => {
                                             </div>
 
                                             <div className="col-6">
-                                                <div className="form-group">
-                                                    <label>Fecha</label>
-                                                    <input type="datetime-local" className = 'form-control bg-transparent text-white' {...getFieldProps('date')} />
-                                                    {touched.date && errors.date && <span style={{color: 'red'}}>{errors.date}</span>}
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="row">
-                                            <div className="col-12">
                                                 <div className="form-group">
                                                     <label>Imagen</label>
                                                     <button type='button' className='btn btn-outline-primary form-control' onClick={handledImage}>Seleccionar imagen</button>

@@ -29,6 +29,7 @@ export const YoutubeList = () => {
               <thead>
                 <tr>
                   <th>Título</th>
+                  <th>Fecha</th>
                   <th>Link</th>
                   <th>Acción</th>
                 </tr>

@@ -39,7 +39,7 @@ const Capsules = (capsules) => ({
     payload: capsules
 })
 
-export const startCreateCapsule = (title, date, descripcion, file) => {
+export const startCreateCapsule = (title, descripcion, file) => {
     return async(dispatch, getState) => {
 
         const {socket} = getState().sk
@@ -59,7 +59,7 @@ export const startCreateCapsule = (title, date, descripcion, file) => {
             if(res.data.ok) {
                 const image = res.data.image.url
                 const idImage = res.data.image.id
-                const resp = await fetchConToken('capsule', {title, date, image, idImage, descripcion}, 'POST');
+                const resp = await fetchConToken('capsule', {title, image, idImage, descripcion}, 'POST');
                 const body = await resp.json()
 
                 if (body.ok) {
@@ -139,7 +139,7 @@ export const clearSetActiveCapsule = () => ({
 });
 
 
-export const startUpdateCapsule = (title, date, descripcion, fileupload) => {
+export const startUpdateCapsule = (title, descripcion, fileupload) => {
     return async(dispatch, getState) => {
 
         const {activeCapsule} = getState().ca
@@ -168,7 +168,7 @@ export const startUpdateCapsule = (title, date, descripcion, fileupload) => {
                   if(res.data.ok) {
                       const image = res.data.image.url
                       const idImage = res.data.image.id
-                      const resp = await fetchConToken(`capsule/${activeCapsule._id}`, {title, date, image, idImage, descripcion}, 'PUT');
+                      const resp = await fetchConToken(`capsule/${activeCapsule._id}`, {title, image, idImage, descripcion}, 'PUT');
                       const body = await resp.json()
       
                       if (body.ok) {
@@ -249,7 +249,7 @@ export const startUpdateCapsule = (title, date, descripcion, fileupload) => {
           } else {
   
               const {image, idImage} = activeCapsule
-              const resp = await fetchConToken(`capsule/${activeCapsule._id}`, {title, date, image, idImage, descripcion}, 'PUT');
+              const resp = await fetchConToken(`capsule/${activeCapsule._id}`, {title, image, idImage, descripcion}, 'PUT');
               const body = await resp.json()
   
               if (body.ok) {

@@ -12,6 +12,7 @@ export const videoWordOfTheDayList = () => {
               <thead>
                 <tr>
                   <th>Título</th>
+                  <th>Fecha</th>
                   <th>Video</th>
                   <th>Acción</th>
                 </tr>

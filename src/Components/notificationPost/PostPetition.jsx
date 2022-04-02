@@ -19,7 +19,7 @@ export const PostPetition = ({notificationPost}) => {
                             <div className="col-6">
                                 <div className="form-group">
                                     <label>Fecha</label>
-                                    <input readOnly className = 'form-control bg-transparent text-white' value={moment(notificationPost?.date).format('MMMM Do YYYY, h:mm a')} />
+                                    <input readOnly className = 'form-control bg-transparent text-white' value={moment(notificationPost?.createdAt).format('MMMM Do YYYY, h:mm a')} />
                                 </div>
                             </div>
                         </div>

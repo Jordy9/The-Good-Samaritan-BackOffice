@@ -45,8 +45,6 @@ const Gallerys = (galeria) => ({
 export const startCreateGallery = (title, file) => {
     return async(dispatch) => {
 
-        const date = moment()
-
         const token = localStorage.getItem('token') || '';
 
             const formData = new FormData()
@@ -64,7 +62,7 @@ export const startCreateGallery = (title, file) => {
             if(res.data.ok) {
                 const image = res.data.image.url
                 const idImage = res.data.image.id
-                const resp = await fetchConToken('galeria', {title, date, image, idImage}, 'POST');
+                const resp = await fetchConToken('galeria', {title, image, idImage}, 'POST');
                 const body = await resp.json()
 
                 if (body.ok) {
@@ -142,8 +140,6 @@ export const startUpdateGallery = (title, fileupload) => {
 
         const {activeGallery} = getState().ga
 
-        const date = activeGallery?.date
-
         const token = localStorage.getItem('token') || '';
 
             if(fileupload) {
@@ -164,7 +160,7 @@ export const startUpdateGallery = (title, fileupload) => {
                     if(res.data.ok) {
                         const image = res.data.image.url
                         const idImage = res.data.image.id
-                        const resp = await fetchConToken(`galeria/${activeGallery._id}`, {title, date, image, idImage}, 'PUT');
+                        const resp = await fetchConToken(`galeria/${activeGallery._id}`, {title, image, idImage}, 'PUT');
                         const body = await resp.json()
         
                         if (body.ok) {
@@ -245,7 +241,7 @@ export const startUpdateGallery = (title, fileupload) => {
             } else {
 
                 const {image, idImage} = activeGallery
-                const resp = await fetchConToken(`galeria/${activeGallery._id}`, {title, date, image, idImage}, 'PUT');
+                const resp = await fetchConToken(`galeria/${activeGallery._id}`, {title, image, idImage}, 'PUT');
                 const body = await resp.json()
 
                 if (body.ok) {
@@ -298,21 +294,19 @@ const updateGallery = (galeria) => ({
 })
 
 
-export const startDeleteGallery = (setfirst) => {
+export const startDeleteGallery = () => {
     return async(dispatch, getState) => {
         const {activeGallery} = getState().ga
 
         const token = localStorage.getItem('token') || '';
 
         if(activeGallery.idImage) {
-          setfirst(true)
           
           const resp = await fetchConToken(`galeria/${activeGallery._id}`, activeGallery, 'DELETE')
           
           if(resp.ok) {
             dispatch(deleteGallery(activeGallery))
             await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeGallery.idImage}`, {headers: {'x-token': token}})
-            setfirst(false)
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',

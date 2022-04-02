@@ -45,8 +45,6 @@ const Mains = (carrusel) => ({
 export const startCreateMain = (title, descripcion, file) => {
     return async(dispatch) => {
 
-        const date = moment()
-
         const token = localStorage.getItem('token') || '';
 
             const formData = new FormData()
@@ -62,7 +60,7 @@ export const startCreateMain = (title, descripcion, file) => {
             if(res.data.ok) {
                 const image = res.data.image.url
                 const idImage = res.data.image.id
-                const resp = await fetchConToken('carrusel', {title, date, image, idImage, descripcion}, 'POST');
+                const resp = await fetchConToken('carrusel', {title, image, idImage, descripcion}, 'POST');
                 const body = await resp.json()
 
                 if (body.ok) {
@@ -156,8 +154,6 @@ export const startUpdateMain = (title, descripcion, fileupload) => {
 
         const {activeMain} = getState().ma
 
-        const date = activeMain?.date
-
         const token = localStorage.getItem('token') || '';
 
             if(fileupload) {
@@ -178,7 +174,7 @@ export const startUpdateMain = (title, descripcion, fileupload) => {
                     if(res.data.ok) {
                         const image = res.data.image.url
                         const idImage = res.data.image.id
-                        const resp = await fetchConToken(`carrusel/${activeMain._id}`, {title, date, image, idImage, descripcion}, 'PUT');
+                        const resp = await fetchConToken(`carrusel/${activeMain._id}`, {title, image, idImage, descripcion}, 'PUT');
                         const body = await resp.json()
         
                         if (body.ok) {
@@ -259,7 +255,7 @@ export const startUpdateMain = (title, descripcion, fileupload) => {
             } else {
 
                 const {image, idImage} = activeMain
-                const resp = await fetchConToken(`carrusel/${activeMain._id}`, {title, date, image, idImage, descripcion}, 'PUT');
+                const resp = await fetchConToken(`carrusel/${activeMain._id}`, {title, image, idImage, descripcion}, 'PUT');
                 const body = await resp.json()
 
                 if (body.ok) {

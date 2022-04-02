@@ -25,7 +25,7 @@ export const GalleryModal = () => {
         onSubmit: ({title, image}) => {
             if (activeUser?.role === 'Gestorcontenido' || activeUser?.role === 'Administrador') {
 
-                if (image.type.includes('image') === false) {
+                if (image?.type?.includes('image') === false) {
                     const Toast = Swal.mixin({
                         toast: true,
                         position: 'top-end',
@@ -111,7 +111,7 @@ export const GalleryModal = () => {
                                                     &&
                                                 <div className="col-12 mb-2">
                                                     <label className='d-flex justify-content-center'>Subiendo imagen</label>
-                                                    <div class="progress">
+                                                    <div className="progress">
                                                         <div className="progress-bar" role="progressbar" style={{width: `${Porcentage}%`}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{Porcentage}%</div>
                                                     </div>
                                                 </div>

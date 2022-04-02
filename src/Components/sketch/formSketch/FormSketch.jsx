@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { startCreateBosquejo } from '../../../action/sketch'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
-import moment from 'moment';
 import tinymce from 'tinymce/tinymce';
 import Swal from 'sweetalert2';
 
@@ -14,8 +13,6 @@ export const FormSketch = () => {
     const {activeUser} = useSelector(state => state.auth)
 
     const {Porcentage} = useSelector(state => state.skt)
-    
-    const newDate = moment().format('yyyy-MM-DD')
 
     const dispatch = useDispatch()
 
@@ -24,12 +21,11 @@ export const FormSketch = () => {
     const {handleSubmit, resetForm, getFieldProps, touched, errors, setFieldValue} = useFormik({
         initialValues: {
             title: '', 
-            date: '', 
             descripcion: '',
             image: ''
         },
         enableReinitialize: true,
-        onSubmit: ({title, date, descripcion, image}) => {
+        onSubmit: ({title, descripcion, image}) => {
             if (activeUser?.role === 'Administrador') {
                 if (image.type.includes('image') === false) {
                     const Toast = Swal.mixin({
@@ -49,7 +45,7 @@ export const FormSketch = () => {
                         title: 'Imagen con formato incorrecto'
                       })
                 } else {
-                dispatch(startCreateBosquejo(title, date, descripcion, image))
+                dispatch(startCreateBosquejo(title, descripcion, image))
                 }
             } else {
                 const Toast = Swal.mixin({
@@ -71,7 +67,6 @@ export const FormSketch = () => {
             }
             resetForm({
                 title: '', 
-                date: '', 
                 descripcion: tinymce.activeEditor.setContent(''),
                 image: document.getElementsByName('image').value = ''
             })
@@ -81,9 +76,6 @@ export const FormSketch = () => {
             title: Yup.string()
                         .max(70, 'Debe de tener 70 caracteres o menos')
                         .min(3, 'Debe de tener 3 caracteres o más')
-                        .required('Requerido'),
-            date: Yup.date()
-                        .min(newDate, 'Fecha incorrecta')
                         .required('Requerido'),
             descripcion: Yup.string()
                         .min(3, 'Debe de tener 3 caracteres o más')
@@ -100,7 +92,7 @@ export const FormSketch = () => {
     return (
         <form onSubmit = {handleSubmit}>
             <div className = 'row'>
-                <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <div className="form-group">
                         <label>Título</label>
                         <input type="text" className = 'form-control bg-transparent text-white' {...getFieldProps('title')} />
@@ -108,7 +100,7 @@ export const FormSketch = () => {
                     </div>
                 </div>
 
-                <div className="col-xs-12 col-sm-12 col-md-4 col-lg-5 col-xl-5">
+                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <div className="form-group">
                         <label>Imagen</label>
                         <button type='button' className='btn btn-outline-primary form-control' onClick={handledImage}>Seleccionar imagen</button>
@@ -116,14 +108,6 @@ export const FormSketch = () => {
                             setFieldValue('image', e.currentTarget.files[0], (e.currentTarget.files[0]) ? setimag(URL.createObjectURL(e.currentTarget.files[0]) || '') : setimag())
                         }} />
                         {touched.image && errors.image && <span style={{color: 'red'}}>{errors.image}</span>}
-                    </div>
-                </div>
-
-                <div className="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-xl-3">
-                    <div className="form-group">
-                        <label>Fecha</label>
-                        <input type="datetime-local" min={`${newDate}`} className = 'form-control bg-transparent text-white' {...getFieldProps('date')} />
-                        {touched.date && errors.date && <span style={{color: 'red'}}>{errors.date}</span>}
                     </div>
                 </div>
             </div>
