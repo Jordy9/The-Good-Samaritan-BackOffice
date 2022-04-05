@@ -57,7 +57,9 @@ export const startCreateZoom = (title, file, id, password) => {
 
                     const subtitle = 'Transmitiendo reunión de Zoom'
 
-                    const payload = {title, subtitle, image}
+                    const content = body.zoom
+
+                    const payload = {title, subtitle, image, content}
 
                     socket?.emit('notifications-admin-to-user', payload)
 
@@ -100,7 +102,9 @@ export const startCreateZoom = (title, file, id, password) => {
 
                 const subtitle = 'Transmitiendo reunión de Zoom'
 
-                const payload = {title, subtitle, image}
+                const content = body.zoom
+
+                const payload = {title, subtitle, image, content}
 
                 socket?.emit('notifications-admin-to-user', payload)
 
