@@ -115,10 +115,6 @@ export const AppRouter = () => {
                 </Switch>
             </div>
 
-            {/* <div className = 'mt-5'>
-                <Footer />
-            </div> */}
-
         </Router>
     )
 }

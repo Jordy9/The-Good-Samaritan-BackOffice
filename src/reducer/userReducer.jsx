@@ -1,7 +1,8 @@
 import { Types } from "../types/Types";
 
 const initialState = {
-    SetUser: ''
+    SetUser: '',
+    activePage: 0
 }
 
 export const userReducer = (state = initialState, action) => {
@@ -10,6 +11,16 @@ export const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 SetUser: action.payload
+            }
+
+        case Types.authActivePaginate:
+            return {
+                activePage: action.payload
+            }
+
+        case Types.authClearActivePaginate:
+            return {
+                activePage: 0
             }
     
         default:

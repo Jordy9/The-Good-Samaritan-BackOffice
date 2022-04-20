@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
 import { Pagination } from '../../pagination/Pagination';
 import { ModalListContainer } from './ModalListContainer';
 
 export const UserList = () => {
 
-    const [currentPage, setCurrentPage] = useState(0)
+    const {activePage} = useSelector(state => state.us)
+
+    const [currentPage, setCurrentPage] = useState(activePage)
 
     const [title, setTitle] = useState('')
 

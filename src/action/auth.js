@@ -787,3 +787,12 @@ export const setNotificationsPost = (notification) => ({
     type: Types.authsetNotificationPost,
     payload: notification
 })
+
+export const ActivePaginate = (number) => ({
+    type: Types.authActivePaginate,
+    payload: number
+})
+
+export const clearActivePaginate = () => ({
+    type: Types.authClearActivePaginate
+})
