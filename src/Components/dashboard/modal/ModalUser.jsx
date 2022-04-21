@@ -38,8 +38,6 @@ export const ModalUser = () => {
         onSubmit: ({name, lastName, age, date, email, role, address, country, city, number, password}) => {
             if (activeUser?.role === 'Administrador') {
 
-                console.log(role)
-
                 dispatch(startRegister(name, lastName, age, date, email, role, address, country, city, number, password))
                 resetForm({
                     name: '', 

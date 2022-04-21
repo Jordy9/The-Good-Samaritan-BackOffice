@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import io from 'socket.io-client';
 import { NotificationPublicAdmin } from '../action/auth';
 import { UsuariosCargados } from '../action/chat';
-import { cargarContactos, startGetPaginateContact } from '../action/contact';
+import { cargarContactos } from '../action/contact';
 import { BorrarNotificaciones, NotificacionesCargadas } from '../action/notifications';
 import { cargarPeticiones, cargarPeticionesPastores, cargarPeticionesSinCuenta, startGetPaginatePetitions, startGetPaginatePetitionUser } from '../action/petition';
 

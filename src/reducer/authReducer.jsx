@@ -3,6 +3,7 @@ import { Types } from '../types/Types';
 const initialState = {
     checking: true,
     users: [],
+    usuarios: [],
     activeUser: '',
     paginate: [],
     modalOpen: false,
@@ -46,6 +47,12 @@ export const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 users: action.payload
+            }
+
+        case Types.authUserUsuariosget:
+            return {
+                ...state,
+                usuarios: action.payload
             }
 
         case Types.authStartUpdateUser:

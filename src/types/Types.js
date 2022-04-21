@@ -1,5 +1,8 @@
 export const Types = {
 
+    pgrActivePaginate: '[Auth] active paginate',
+    pgrClearActivePaginate: '[Auth] clear active paginate',
+    // 
     chbUpload: '[chb] upload',
     chbUploadFinish: '[chb] upload finish',
     // 
@@ -185,6 +188,5 @@ export const Types = {
     authUploadFinish: '[Auth] upload finish auth',
     authForgotPassword: '[Auth forgot password',
     authsetNotificationPost: '[Auth] set notifications post',
-    authActivePaginate: '[Auth] active paginate',
-    authClearActivePaginate: '[Auth] clear active paginate'
+    authUserUsuariosget: '[Auth] User usuarios get'
 }

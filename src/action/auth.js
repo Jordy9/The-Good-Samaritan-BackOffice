@@ -75,20 +75,7 @@ export const startRegister = (name, lastName, age, date, email, role, address, c
         const body = await resp.json();
 
         if(body.ok) {
-            dispatch(register({
-                name: body?.name, 
-                lastName: body?.last, 
-                age: body?.age,
-                date: body?.date,
-                email: body?.email,
-                role: body?.role,
-                address: body?.address,
-                country: body?.country,
-                city: body?.city,
-                number: body?.number,
-                password: body?.password
-            }))
-            await dispatch(setActiveUser(body.users))
+            dispatch(register(body.user))
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -131,7 +118,7 @@ const register = (user) => ({
     payload: user
 })
 
-export const startGetUsers = (page) => {
+export const startGetUsers = () => {
     return async(dispatch) => {
         const resp = await fetchConToken('auth');
         const body = await resp.json()
@@ -518,6 +505,8 @@ export const startDeleteUser = (user) => {
 
         if(body.ok) {
             dispatch(deleteUser(user))
+            dispatch(startGetUsersUsuarios())
+            dispatch(startGetUsers())
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -537,6 +526,22 @@ export const startDeleteUser = (user) => {
         }
     }
 }
+
+export const startGetUsersUsuarios = () => {
+    return async(dispatch) => {
+        const resp = await fetchConToken('users');
+        const body = await resp.json()
+
+        if(body.ok) {
+            dispatch(getUsersUsuarios(body.users))
+        }
+    }
+}
+
+const getUsersUsuarios = (user) => ({
+    type: Types.authUserUsuariosget,
+    payload: user
+})
 
 const deleteUser = (user) => ({
     type: Types.authStartDeleteUser,
@@ -786,13 +791,4 @@ const forgot = (token) => ({
 export const setNotificationsPost = (notification) => ({
     type: Types.authsetNotificationPost,
     payload: notification
-})
-
-export const ActivePaginate = (number) => ({
-    type: Types.authActivePaginate,
-    payload: number
-})
-
-export const clearActivePaginate = () => ({
-    type: Types.authClearActivePaginate
 })

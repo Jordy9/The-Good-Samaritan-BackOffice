@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactPaginate from 'react-paginate';
 import { useDispatch, useSelector } from 'react-redux';
-import { ActivePaginate } from '../../action/auth';
+import { ActivePaginate } from '../../action/pagination';
 
 export const Pagination = ({setCurrentPage}) => {
 
@@ -9,7 +9,7 @@ export const Pagination = ({setCurrentPage}) => {
 
     const {users} = useSelector(state => state.auth)
 
-    const {activePage} = useSelector(state => state.us)
+    const {activePage} = useSelector(state => state.pgr)
 
     const {usuarios} = useSelector(state => state.cht)
 
@@ -22,9 +22,6 @@ export const Pagination = ({setCurrentPage}) => {
 
         dispatch(ActivePaginate(event.selected))
     };
-
-    console.log(activePage)
-
 
     return (
         <>

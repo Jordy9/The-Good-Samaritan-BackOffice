@@ -6,7 +6,7 @@ import {
     Redirect,
     Route
 } from 'react-router-dom';
-import { setActiveUser, startAuthCheking, startGetUsers } from '../action/auth';
+import { setActiveUser, startAuthCheking, startGetUsers, startGetUsersUsuarios } from '../action/auth';
 import { startGetPaginateCapsules } from '../action/capsule';
 import { activeMessage, isTyping } from '../action/chat';
 import { startGetPaginateContact } from '../action/contact';
@@ -66,6 +66,7 @@ export const AppRouter = () => {
         dispatch(startGetVideoWordOfTheDay())
         dispatch(startGetNoBeleaverVideo())
         dispatch(startGetBeleaver())
+        dispatch(startGetUsersUsuarios())
     }, [dispatch])
 
     useEffect(() => {
