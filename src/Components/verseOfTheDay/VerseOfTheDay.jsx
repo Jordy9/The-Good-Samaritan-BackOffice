@@ -10,8 +10,6 @@ export const VerseOfTheDay = () => {
 
     const versiculos = librosFiltrados[Math.floor(Math.random() * librosFiltrados.length)]
 
-    console.log(versiculos[Math.floor(Math.random() * versiculos.length)])
-
   return (
     <>
     

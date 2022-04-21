@@ -102,8 +102,6 @@ export const FormSeries = () => {
         setfirst(newFormValues)
     }
 
-    console.log({...getFieldProps('descripcion').value})
-
     return (
         <>
         <form onSubmit = {handleSubmit}>

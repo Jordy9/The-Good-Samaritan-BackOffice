@@ -21,7 +21,6 @@ export const ResetPassword = () => {
         enableReinitialize: true,
         onSubmit: ({password}) => {
             dispatch(newPassword(password))
-            console.log(password)
             resetForm({
                 password: '',
                 confirmPassword: ''

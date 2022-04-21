@@ -81,7 +81,6 @@ export const MiniSerieModal = () => {
         })
     })
 
-    console.log(getFieldProps('descripcion'))
     const handledImage = () => {
         document.querySelector('#fileSelector').click()
       }
