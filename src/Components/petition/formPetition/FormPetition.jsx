@@ -57,12 +57,13 @@ export const FormPetition = () => {
                                 onEditorChange = {(e) => setFieldValue('descripcion', e)}
                                 content="<p>This is the initial content of the editor</p>"
                                 init={{
-                                plugins: 'autolink link image lists print preview',
+                                plugins: 'autolink link image lists print preview media',
                                 toolbar: 'undo redo | formatselect | fontselect | fontsizeselect ' +
                                 'bold italic backcolor | alignleft aligncenter ' +
                                 'alignright alignjustify | bullist numlist outdent indent | ' +
                                 'removeformat',
-                                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:18px }', 
+                                language: 'es'
                                 }}
                                 // onChange={this.handleEditorChange}
                             />

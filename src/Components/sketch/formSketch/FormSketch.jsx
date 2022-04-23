@@ -120,7 +120,7 @@ export const FormSketch = () => {
                             &&
                         <div className="col-12 mb-2">
                             <label className='d-flex justify-content-center'>Subiendo imagen</label>
-                            <div classname="progress">
+                            <div className="progress">
                                 <div className="progress-bar" role="progressbar" style={{width: `${Porcentage}%`}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{Porcentage}%</div>
                             </div>
                         </div>
@@ -141,12 +141,13 @@ export const FormSketch = () => {
                             onEditorChange = {(e) => setFieldValue('descripcion', e)}
                             content="<p>This is the initial content of the editor</p>"
                             init={{
-                            plugins: 'autolink link image lists print preview',
+                            plugins: 'autolink link image lists print preview media',
                             toolbar: 'undo redo | formatselect | fontselect | fontsizeselect ' +
                             'bold italic backcolor | alignleft aligncenter ' +
                             'alignright alignjustify | bullist numlist outdent indent | ' +
                             'removeformat',
-                            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:18px }', 
+                            language: 'es'
                             }}
                             // onChange={this.handleEditorChange}
                         />
