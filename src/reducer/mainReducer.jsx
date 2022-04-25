@@ -47,7 +47,8 @@ export const mainReducer = (state = initialState, action) => {
                 ...state,
                 Mains: state.Mains.map(
                     e => (e._id ===  action.payload._id) ? action.payload : e
-                )
+                ),
+                activeMain: action.payload
             }  
             
         case Types.maDeleteMain:

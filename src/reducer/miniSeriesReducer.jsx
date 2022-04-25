@@ -47,7 +47,8 @@ export const miniSeriesReducer = (state = initialState, action) => {
                 ...state,
                 miniSeries: state.miniSeries.map(
                     e => (e._id ===  action.payload._id) ? action.payload : e
-                )
+                ),
+                activeSerie: action.payload
             }  
             
         case Types.miDeleteSerie:

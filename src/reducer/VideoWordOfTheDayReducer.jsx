@@ -46,7 +46,8 @@ export const VideoWordOfTheDayReducer = (state = initialState, action) => {
                 ...state,
                 videos: state.videos.map(
                     e => (e._id ===  action.payload._id) ? action.payload : e
-                )
+                ),
+                activeVideo: action.payload
             }  
             
         case Types.vwdDeleteVideoWordOfTheDay:

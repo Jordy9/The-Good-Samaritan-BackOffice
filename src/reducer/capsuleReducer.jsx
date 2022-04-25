@@ -47,7 +47,8 @@ export const capsulesReducer = (state = initialState, action) => {
                 ...state,
                 Capsules: state.Capsules.map(
                     e => (e._id ===  action.payload._id) ? action.payload : e
-                )
+                ),
+                activeCapsule: action.payload
             }  
             
         case Types.catDeleteCapsule:

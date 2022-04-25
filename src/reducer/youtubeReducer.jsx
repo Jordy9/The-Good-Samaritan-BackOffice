@@ -40,7 +40,8 @@ export const youtubeReducer = (state = initialState, action) => {
                 ...state,
                 Youtube: state.Youtube.map(
                     e => (e._id ===  action.payload._id) ? action.payload : e
-                )
+                ),
+                activeYoutube: action.payload
             }  
             
         case Types.ytDeleteYoutube:

@@ -47,7 +47,8 @@ export const bosquejosReducer = (state = initialState, action) => {
                 ...state,
                 Bosquejos: state.Bosquejos.map(
                     e => (e._id ===  action.payload._id) ? action.payload : e
-                )
+                ),
+                activeBosquejo: action.payload
             }  
             
         case Types.sktDeleteBosquejo:

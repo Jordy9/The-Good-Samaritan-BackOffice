@@ -48,7 +48,7 @@ export const MiniSerieModal = () => {
                         title: 'Imagen con formato incorrecto'
                       })
                 } else {
-                dispatch(startUpdateSerie(title, descripcion, image))
+                    dispatch(startUpdateSerie(title, descripcion, image))
                 }
             } else {
                 const Toast = Swal.mixin({
@@ -116,7 +116,7 @@ export const MiniSerieModal = () => {
                                 <div className="card-body">
                                     <form onSubmit = {handleSubmit}>
                                         <div className = 'row'>
-                                            <div className="col-6">
+                                            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                                 <div className="form-group">
                                                     <label>Título</label>
                                                     <input type="text" className = 'form-control bg-transparent text-white' {...getFieldProps('title')} />
@@ -124,7 +124,7 @@ export const MiniSerieModal = () => {
                                                 </div>
                                             </div>
 
-                                            <div className="col-6">
+                                            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                                 <div className="form-group">
                                                     <label>Imagen</label>
                                                     <button type='button' className='btn btn-outline-primary form-control' onClick={handledImage}>Seleccionar imagen</button>

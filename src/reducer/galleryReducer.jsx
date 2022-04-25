@@ -47,7 +47,8 @@ export const galleryReducer = (state = initialState, action) => {
                 ...state,
                 Gallery: state.Gallery.map(
                     e => (e._id ===  action.payload._id) ? action.payload : e
-                )
+                ),
+                activeGallery: action.payload
             }  
             
         case Types.gaDeleteGallery:

@@ -40,7 +40,8 @@ export const beleaverReducer = (state = initialState, action) => {
                 ...state,
                 Beleaver: state.Beleaver.map(
                     e => (e._id ===  action.payload._id) ? action.payload : e
-                )
+                ),
+                activeBeleaver: action.payload
             }  
             
         case Types.blDeleteBeleaver:
