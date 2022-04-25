@@ -149,6 +149,8 @@ export const startUpdateSerie = (title, descripcion, fileupload) => {
 
         const {activeUser} = getState().auth
 
+        const {socket} = getState().sk
+
         const token = localStorage.getItem('token') || '';
 
         if (activeSerie?.user === activeUser?.id) {
@@ -177,6 +179,8 @@ export const startUpdateSerie = (title, descripcion, fileupload) => {
     
                         dispatch(updateSerie(body.miniSerie))
                         dispatch(UploadFish())
+
+                        socket?.emit('notifications-admin-to-user-update', body.miniSerie)
                         const Toast = Swal.mixin({
                             toast: true,
                             position: 'top-end',
@@ -257,6 +261,7 @@ export const startUpdateSerie = (title, descripcion, fileupload) => {
             if (body.ok) {
 
                 dispatch(updateSerie(body.miniSerie))
+                socket?.emit('notifications-admin-to-user-update', body.miniSerie)
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -325,6 +330,8 @@ export const startUpdateSerie = (title, descripcion, fileupload) => {
             const {activeSerie} = getState().mi
 
             const {activeUser} = getState().auth
+
+            const {socket} = getState().sk
     
             const token = localStorage.getItem('token') || '';
 
@@ -336,6 +343,7 @@ export const startUpdateSerie = (title, descripcion, fileupload) => {
           
                   if(resp.ok) {
                       dispatch(deleteSerie(activeSerie))
+                      socket?.emit('notifications-admin-to-user-delete', activeSerie._id)
                       const Toast = Swal.mixin({
                           toast: true,
                           position: 'top-end',
@@ -358,6 +366,7 @@ export const startUpdateSerie = (title, descripcion, fileupload) => {
           
                   if(resp.ok) {
                       dispatch(deleteSerie(activeSerie))
+                      socket?.emit('notifications-admin-to-user-delete', activeSerie._id)
                       const Toast = Swal.mixin({
                           toast: true,
                           position: 'top-end',

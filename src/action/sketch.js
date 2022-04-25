@@ -164,6 +164,8 @@ export const startUpdateBosquejo = (title, descripcion, fileupload) => {
 
         const {activeBosquejo} = getState().skt
 
+        const {socket} = getState().sk
+
         const {activeUser} = getState().auth
 
         const token = localStorage.getItem('token') || '';
@@ -195,6 +197,7 @@ export const startUpdateBosquejo = (title, descripcion, fileupload) => {
         
                             dispatch(updateBosquejo(body.bosquejo))
                             dispatch(UploadFish())
+                            socket?.emit('notifications-admin-to-user-update', body.bosquejo)
                             const Toast = Swal.mixin({
                                 toast: true,
                                 position: 'top-end',
@@ -257,6 +260,7 @@ export const startUpdateBosquejo = (title, descripcion, fileupload) => {
 
                 if (body.ok) {
                     dispatch(updateBosquejo(body.bosquejo))
+                    socket?.emit('notifications-admin-to-user-update', body.bosquejo)
                     const Toast = Swal.mixin({
                         toast: true,
                         position: 'top-end',
@@ -323,6 +327,8 @@ export const startDeleteBosquejo = () => {
     return async(dispatch, getState) => {
         const {activeBosquejo} = getState().skt
 
+        const {socket} = getState().sk
+
         const {activeUser} = getState().auth
 
         const token = localStorage.getItem('token') || '';
@@ -336,6 +342,7 @@ export const startDeleteBosquejo = () => {
       
               if(resp.ok) {
                   dispatch(deleteBosquejo(activeBosquejo))
+                  socket?.emit('notifications-admin-to-user-delete', activeBosquejo._id)
                   const Toast = Swal.mixin({
                       toast: true,
                       position: 'top-end',
@@ -358,6 +365,7 @@ export const startDeleteBosquejo = () => {
       
               if(resp.ok) {
                   dispatch(deleteBosquejo(activeBosquejo))
+                  socket?.emit('notifications-admin-to-user-delete', activeBosquejo._id)
                   const Toast = Swal.mixin({
                       toast: true,
                       position: 'top-end',

@@ -144,6 +144,8 @@ export const startUpdateCapsule = (title, descripcion, fileupload) => {
 
         const {activeCapsule} = getState().ca
 
+        const {socket} = getState().sk
+
         const {activeUser} = getState().auth
 
         const token = localStorage.getItem('token') || '';
@@ -175,6 +177,7 @@ export const startUpdateCapsule = (title, descripcion, fileupload) => {
       
                           dispatch(updateCapsule(body.capsule))
                           dispatch(UploadFish())
+                          socket?.emit('notifications-admin-to-user-update', body.capsule)
                           const Toast = Swal.mixin({
                               toast: true,
                               position: 'top-end',
@@ -254,6 +257,7 @@ export const startUpdateCapsule = (title, descripcion, fileupload) => {
   
               if (body.ok) {
                   dispatch(updateCapsule(body.capsule))
+                  socket?.emit('notifications-admin-to-user-update', body.capsule)
                   const Toast = Swal.mixin({
                       toast: true,
                       position: 'top-end',
@@ -322,6 +326,8 @@ export const startDeleteCapsule = () => {
 
         const {activeUser} = getState().auth
 
+        const {socket} = getState().sk
+
         const token = localStorage.getItem('token') || '';
 
         if (activeCapsule?.user === activeUser?.id) {
@@ -333,6 +339,7 @@ export const startDeleteCapsule = () => {
       
               if(resp.ok) {
                   dispatch(deleteCapsule(activeCapsule))
+                  socket?.emit('notifications-admin-to-user-delete', activeCapsule._id)
                   const Toast = Swal.mixin({
                       toast: true,
                       position: 'top-end',
@@ -355,6 +362,7 @@ export const startDeleteCapsule = () => {
       
               if(resp.ok) {
                   dispatch(deleteCapsule(activeCapsule))
+                  socket?.emit('notifications-admin-to-user-delete', activeCapsule._id)
                   const Toast = Swal.mixin({
                       toast: true,
                       position: 'top-end',

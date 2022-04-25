@@ -147,6 +147,8 @@ export const startUpdateVideoWordOfTheDay = (title, fileupload) => {
 
         const {activeVideo} = getState().vwd
 
+        const {socket} = getState().sk
+
         const token = localStorage.getItem('token') || '';
 
         if(fileupload) {
@@ -174,6 +176,7 @@ export const startUpdateVideoWordOfTheDay = (title, fileupload) => {
     
                         dispatch(updateVideoWordOfTheDay(body.video))
                         dispatch(UploadFish())
+                        socket?.emit('notifications-admin-to-user-update', body.video)
                         const Toast = Swal.mixin({
                             toast: true,
                             position: 'top-end',
@@ -254,6 +257,7 @@ export const startUpdateVideoWordOfTheDay = (title, fileupload) => {
             if (body.ok) {
 
                 dispatch(updateVideoWordOfTheDay(body.video))
+                socket?.emit('notifications-admin-to-user-update', body.video)
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -301,6 +305,8 @@ export const startUpdateVideoWordOfTheDay = (title, fileupload) => {
     export const startDeleteVideoWordOfTheDay = () => {
         return async(dispatch, getState) => {
             const {activeVideo} = getState().vwd
+
+            const {socket} = getState().sk
     
             const token = localStorage.getItem('token') || '';
     
@@ -311,6 +317,7 @@ export const startUpdateVideoWordOfTheDay = (title, fileupload) => {
         
                 if(resp.ok) {
                     dispatch(deleteVideoWordOfTheDay(activeVideo))
+                    socket?.emit('notifications-admin-to-user-delete', activeVideo._id)
                     const Toast = Swal.mixin({
                         toast: true,
                         position: 'top-end',
@@ -325,7 +332,7 @@ export const startUpdateVideoWordOfTheDay = (title, fileupload) => {
                       
                       return Toast.fire({
                         icon: 'success',
-                        title: 'Video eliminada correctamente'
+                        title: 'Video eliminado correctamente'
                       })
                 }
             } else {
@@ -333,6 +340,7 @@ export const startUpdateVideoWordOfTheDay = (title, fileupload) => {
         
                 if(resp.ok) {
                     dispatch(VideoWordOfTheDay(activeVideo))
+                    socket?.emit('notifications-admin-to-user-delete', activeVideo._id)
                     const Toast = Swal.mixin({
                         toast: true,
                         position: 'top-end',
@@ -347,7 +355,7 @@ export const startUpdateVideoWordOfTheDay = (title, fileupload) => {
                       
                       return Toast.fire({
                         icon: 'success',
-                        title: 'Video eliminada correctamente'
+                        title: 'Video eliminado correctamente'
                       })
                 }
             }

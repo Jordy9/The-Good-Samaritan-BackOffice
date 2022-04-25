@@ -113,6 +113,8 @@ export const startUpdateEvento = (title, descripcion, fileupload) => {
 
         const {activeEvent} = getState().ev
 
+        const {socket} = getState().sk
+
         const token = localStorage.getItem('token') || '';
 
             if(fileupload) {
@@ -140,6 +142,7 @@ export const startUpdateEvento = (title, descripcion, fileupload) => {
         
                             dispatch(updateEvento(body.evento))
                             dispatch(UploadFish())
+                            socket?.emit('notifications-admin-to-user-update', body.evento)
                             const Toast = Swal.mixin({
                                 toast: true,
                                 position: 'top-end',
@@ -203,6 +206,7 @@ export const startUpdateEvento = (title, descripcion, fileupload) => {
                 if (body.ok) {
 
                     dispatch(updateEvento(body.evento))
+                    socket?.emit('notifications-admin-to-user-update', body.evento)
                     const Toast = Swal.mixin({
                         toast: true,
                         position: 'top-end',
@@ -237,6 +241,8 @@ export const startDeleteEvento = () => {
     return async(dispatch, getState) => {
         const {activeEvent} = getState().ev
 
+        const {socket} = getState().sk
+
         const token = localStorage.getItem('token') || '';
 
         if(activeEvent.idImage) {
@@ -246,6 +252,7 @@ export const startDeleteEvento = () => {
     
             if(resp.ok) {
                 dispatch(deleteEvento(activeEvent))
+                socket?.emit('notifications-admin-to-user-delete', activeEvent._id)
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -268,6 +275,7 @@ export const startDeleteEvento = () => {
     
             if(resp.ok) {
                 dispatch(deleteEvento(activeEvent))
+                socket?.emit('notifications-admin-to-user-delete', activeEvent._id)
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',

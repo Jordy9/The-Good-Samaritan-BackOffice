@@ -99,6 +99,8 @@ export const startUpdateYoutube = (title, urlImage) => {
     return async(dispatch, getState) => {
 
         const {activeYoutube} = getState().yt
+
+        const {socket} = getState().sk
         
         const resp = await fetchConToken(`youtube/${activeYoutube._id}`, {title, urlImage}, 'PUT');
         const body = await resp.json()
@@ -106,6 +108,7 @@ export const startUpdateYoutube = (title, urlImage) => {
         if (body.ok) {
 
             dispatch(updateYoutube(body.youtube))
+            socket?.emit('notifications-admin-to-user-update', body.youtube)
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -154,10 +157,13 @@ export const startDeleteYoutube = () => {
     return async(dispatch, getState) => {
         const {activeYoutube} = getState().yt
 
+        const {socket} = getState().sk
+
         const resp = await fetchConToken(`youtube/${activeYoutube._id}`, activeYoutube, 'DELETE')
 
         if(resp.ok) {
             dispatch(deleteYoutube(activeYoutube))
+            socket?.emit('notifications-admin-to-user-delete', activeYoutube._id)
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
