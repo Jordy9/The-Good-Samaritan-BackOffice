@@ -155,33 +155,32 @@ export const startUpdateSerie = (title, descripcion, fileupload) => {
 
         if (activeSerie?.user === activeUser?.id) {
           if(fileupload) {
-            const ress = await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeSerie.idImage}`, {headers: {'x-token': token}})
-
-            if (ress.data.ok) {
-
-                const formData = new FormData()
-                formData.append('file', fileupload)
-                formData.append('title', activeSerie.title)
-    
-                const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
-                  headers: {'x-token': token},
-                  onUploadProgress: (e) =>
-                  {dispatch(upload(Math.round( (e.loaded * 100) / e.total )))}
-                })
-    
-                if(res.data.ok) {
-                    const image = res.data.image.url
-                    const idImage = res.data.image.id
-                    const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, {title, image, idImage, descripcion}, 'PUT');
-                    const body = await resp.json()
-    
-                    if (body.ok) {
-    
-                        dispatch(updateSerie(body.miniSerie))
-                        dispatch(UploadFish())
-
-                        socket?.emit('notifications-admin-to-user-update', body.miniSerie)
-                        const Toast = Swal.mixin({
+            
+            const formData = new FormData()
+            formData.append('file', fileupload)
+            formData.append('title', activeSerie.title)
+            
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
+              headers: {'x-token': token},
+              onUploadProgress: (e) =>
+              {dispatch(upload(Math.round( (e.loaded * 100) / e.total )))}
+            })
+            
+            if(res.data.ok) {
+              const image = res.data.image.url
+              const idImage = res.data.image.id
+              const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, {title, image, idImage, descripcion}, 'PUT');
+              const body = await resp.json()
+              
+              if (body.ok) {
+                
+                dispatch(updateSerie(body.miniSerie))
+                dispatch(UploadFish())
+                
+                socket?.emit('notifications-admin-to-user-update', body.miniSerie)
+                const ress = await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeSerie.idImage}`, {headers: {'x-token': token}})
+                console.log(ress)
+                const Toast = Swal.mixin({
                             toast: true,
                             position: 'top-end',
                             showConfirmButton: false,
@@ -234,24 +233,6 @@ export const startUpdateSerie = (title, descripcion, fileupload) => {
                         title: `${res.errors}`
                       })
                 }
-            } else {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 5000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                      toast.addEventListener('mouseenter', Swal.stopTimer)
-                      toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                  })
-                  
-                  return Toast.fire({
-                    icon: 'error',
-                    title: `${ress.errors}`
-                  })
-            }
 
           } else {
             const {image, idImage} = activeSerie

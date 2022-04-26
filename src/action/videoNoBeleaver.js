@@ -36,28 +36,27 @@ export const startCreateNoBeleaverVideo = (title, file) => {
 
         if(video) {
 
-            const ress = await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${video.idImage}`, {headers: {'x-token': token}})
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
+                headers: {'x-token': token},
+                onUploadProgress: (e) =>
+                {dispatch(upload(Math.round( (e.loaded * 100) / e.total )))}
+            })
             
-            if(ress.data.ok) {
-                const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
-                    headers: {'x-token': token},
-                    onUploadProgress: (e) =>
-                        {dispatch(upload(Math.round( (e.loaded * 100) / e.total )))}
-                })
+            if(res.data.ok) {
+                const image = res.data.image.url
+                const idImage = res.data.image.id
+                const resp = await fetchConToken(`VideoNoBeleaver/${video._id}`, {title, image, idImage}, 'PUT');
+                const body = await resp.json()
                 
-                if(res.data.ok) {
-                    const image = res.data.image.url
-                    const idImage = res.data.image.id
-                    const resp = await fetchConToken(`VideoNoBeleaver/${video._id}`, {title, image, idImage}, 'PUT');
-                    const body = await resp.json()
-
-                    if (body.ok) {
-                        dispatch(createNoBeleaverVideo(body.videoNoBeleaver))
-
-                        dispatch(startGetNoBeleaverVideo())
-
-                        dispatch(UploadFish())
-
+                if (body.ok) {
+                    dispatch(createNoBeleaverVideo(body.videoNoBeleaver))
+                    
+                    dispatch(startGetNoBeleaverVideo())
+                    
+                    dispatch(UploadFish())
+                    
+                    const ress = await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${video.idImage}`, {headers: {'x-token': token}})
+                    console.log(ress)
                         const Toast = Swal.mixin({
                             toast: true,
                             position: 'top-end',
@@ -94,7 +93,6 @@ export const startCreateNoBeleaverVideo = (title, file) => {
                     }
                     
                 }
-            }
         } else {
             const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
                 headers: {'x-token': token},

@@ -258,28 +258,27 @@ export const startUpdateUserAdmin = (name, lastName, age, date, email, address, 
             formData.append('title', name)
 
             if (user?.urlImage) {
-                const ress = await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${user.idImage}`, {headers: {'x-token': token}})
-
-                if (ress.data.ok) {
-
-                    const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
-                        headers: {'x-token': token},
-                        onUploadProgress: (e) =>
-                            {dispatch(upload(Math.round( (e.loaded * 100) / e.total )))}
-                    })
-    
-                    if (res.data.ok) {
-                        const urlImage = res.data.image.url
-                        const idImage = res.data.image.id
+                
+                const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
+                    headers: {'x-token': token},
+                    onUploadProgress: (e) =>
+                    {dispatch(upload(Math.round( (e.loaded * 100) / e.total )))}
+                })
+                
+                if (res.data.ok) {
+                    const urlImage = res.data.image.url
+                    const idImage = res.data.image.id
                     
-                        const resp = await fetchConToken(`auth/updateProfile/${user.id}`, {name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password, urlImage, idImage}, 'PUT')
-                        const body = await resp.json()
-        
-                        if(body.ok) {
-                            dispatch(updateUserAdmin(body.usuario))
-                            dispatch(setActiveUser(body.usuario))
-                            dispatch(UploadFish())
-                            const Toast = Swal.mixin({
+                    const resp = await fetchConToken(`auth/updateProfile/${user.id}`, {name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password, urlImage, idImage}, 'PUT')
+                    const body = await resp.json()
+                    
+                    if(body.ok) {
+                        dispatch(updateUserAdmin(body.usuario))
+                        dispatch(setActiveUser(body.usuario))
+                        dispatch(UploadFish())
+                        const ress = await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${user.idImage}`, {headers: {'x-token': token}})
+                        console.log(ress)
+                        const Toast = Swal.mixin({
                                 toast: true,
                                 position: 'top-end',
                                 showConfirmButton: false,
@@ -331,24 +330,6 @@ export const startUpdateUserAdmin = (name, lastName, age, date, email, address, 
                             title: `${res.data.msg}`
                         })
                     }
-                } else {
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 5000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                    })
-                    
-                    return Toast.fire({
-                        icon: 'error',
-                        title: `${ress.data.msg}`
-                    })
-                }
 
             } else{
                 const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {

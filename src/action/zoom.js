@@ -37,20 +37,17 @@ export const startCreateZoom = (title, file, id, password) => {
 
         if(zoom) {
 
-            const ress = await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${zoom.idImage}`, {headers: {'x-token': token}})
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
+                headers: {'x-token': token},
+                onUploadProgress: (e) =>
+                {dispatch(upload(Math.round( (e.loaded * 100) / e.total )))}
+            })
             
-            if(ress.data.ok) {
-                const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
-                    headers: {'x-token': token},
-                    onUploadProgress: (e) =>
-                        {dispatch(upload(Math.round( (e.loaded * 100) / e.total )))}
-                })
-                
-                if(res.data.ok) {
-                    const image = res.data.image.url
-                    const idImage = res.data.image.id
-                    const resp = await fetchConToken(`zoom/${zoom._id}`, {title, image, idImage, id, password}, 'PUT');
-                    const body = await resp.json()
+            if(res.data.ok) {
+                const image = res.data.image.url
+                const idImage = res.data.image.id
+                const resp = await fetchConToken(`zoom/${zoom._id}`, {title, image, idImage, id, password}, 'PUT');
+                const body = await resp.json()
 
                     dispatch(createZoom(body.zoom))
                     dispatch(startGetZoom())
@@ -65,6 +62,8 @@ export const startCreateZoom = (title, file, id, password) => {
 
                     dispatch(UploadFish())
 
+                    const respe = await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${zoom.idImage}`, {headers: {'x-token': token}})
+                    console.log(respe)
                     const Toast = Swal.mixin({
                         toast: true,
                         position: 'top-end',
@@ -83,7 +82,6 @@ export const startCreateZoom = (title, file, id, password) => {
                       })
                     
                 }
-            }
         } else {
             const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
                 headers: {'x-token': token},

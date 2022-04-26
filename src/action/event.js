@@ -118,31 +118,30 @@ export const startUpdateEvento = (title, descripcion, fileupload) => {
         const token = localStorage.getItem('token') || '';
 
             if(fileupload) {
-                const ress = await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeEvent.idImage}`, {headers: {'x-token': token}})
-
-                if (ress.data.ok) {
-
-                    const formData = new FormData()
-                    formData.append('file', fileupload)
-                    formData.append('title', activeEvent.title)
-        
-                    const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
-                      headers: {'x-token': token}, 
-                      onUploadProgress: (e) =>
-                        {dispatch(upload(Math.round( (e.loaded * 100) / e.total )))}
-                    })
-        
-                    if(res.data.ok) {
-                        const image = res.data.image.url
-                        const idImage = res.data.image.id
-                        const resp = await fetchConToken(`evento/${activeEvent._id}`, {title, image, idImage, descripcion}, 'PUT');
-                        const body = await resp.json()
-        
-                        if (body.ok) {
-        
-                            dispatch(updateEvento(body.evento))
-                            dispatch(UploadFish())
-                            socket?.emit('notifications-admin-to-user-update', body.evento)
+              
+              const formData = new FormData()
+              formData.append('file', fileupload)
+              formData.append('title', activeEvent.title)
+              
+              const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
+                headers: {'x-token': token}, 
+                onUploadProgress: (e) =>
+                {dispatch(upload(Math.round( (e.loaded * 100) / e.total )))}
+              })
+              
+              if(res.data.ok) {
+                const image = res.data.image.url
+                const idImage = res.data.image.id
+                const resp = await fetchConToken(`evento/${activeEvent._id}`, {title, image, idImage, descripcion}, 'PUT');
+                const body = await resp.json()
+                
+                if (body.ok) {
+                  
+                  dispatch(updateEvento(body.evento))
+                  dispatch(UploadFish())
+                  socket?.emit('notifications-admin-to-user-update', body.evento)
+                  const ress = await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeEvent.idImage}`, {headers: {'x-token': token}})
+                  console.log(ress)
                             const Toast = Swal.mixin({
                                 toast: true,
                                 position: 'top-end',
@@ -179,24 +178,6 @@ export const startUpdateEvento = (title, descripcion, fileupload) => {
                             title: `${res.errors}`
                           })
                     }
-                } else {
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 5000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                          toast.addEventListener('mouseenter', Swal.stopTimer)
-                          toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                      })
-                      
-                      return Toast.fire({
-                        icon: 'error',
-                        title: `${ress.errors}`
-                      })
-                }
             } else {
 
                 const {image, idImage} = activeEvent
