@@ -56,7 +56,7 @@ export const FormProfile = () => {
                     title: 'Imagen con formato incorrecto'
                   })
             } else {
-            dispatch(startUpdateUserAdmin(name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password, image))
+            dispatch(startUpdateUserAdmin(name, lastName, age, date, email.toLowerCase() , address, country, city, number, biliever, discipleship, tracking, password, image))
             }
         },
         validationSchema: Yup.object({
@@ -92,7 +92,7 @@ export const FormProfile = () => {
                         .matches(/(?=.*[A-Z])/, "Debe contener como mínimo una letra mayúscula")
                         .matches(/(?=.*[a-z])/, "Debe contener como mínimo una letra minuscula")
                         .matches(/(?=.*[0-9])/, "Debe contener como mínimo un número")
-                        .matches(/(?=.*[@$!%*#?&])/, "Debe contener como mínimo un caracter especial")
+                        .matches(/(?=.*[@$!%*#?&])/, "Debe contener como mínimo un caracter especial @$!%*#?&")
                         .required('Requerido'),
             confirmPassword: Yup.string()
                         .oneOf([Yup.ref('password')], 'Las contraseñas deben ser iguales')
