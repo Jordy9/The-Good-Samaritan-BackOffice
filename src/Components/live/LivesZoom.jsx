@@ -32,7 +32,7 @@ export const LivesZoom = () => {
         onSubmit: ({title, image, id, password}) => {
             if (activeUser?.role === 'Gestorcontenido' || activeUser?.role === 'Administrador') {
 
-                if (image.type.includes('image') === false) {
+                if (image?.type?.includes('image') === false) {
                     const Toast = Swal.mixin({
                         toast: true,
                         position: 'top-end',
@@ -50,7 +50,26 @@ export const LivesZoom = () => {
                         title: 'Imagen con formato incorrecto'
                       })
                 } else {
-                dispatch(startCreateZoom(title, image, id, password))
+                    if (zoom?.image) {
+                        dispatch(startCreateZoom(title, image, id, password))
+                    } else {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 5000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                              toast.addEventListener('mouseenter', Swal.stopTimer)
+                              toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                          })
+                          
+                          return Toast.fire({
+                            icon: 'error',
+                            title: 'Debe de seleccionar alguna imagen'
+                          }) 
+                    }
                 }
             } else {
                 const Toast = Swal.mixin({
@@ -84,8 +103,6 @@ export const LivesZoom = () => {
                         .max(50, 'Debe de tener 50 caracteres o menos')
                         .min(3, 'Debe de tener 3 caracteres o más')
                         .required('Requerido'),
-            image: Yup.string()
-                        .required('Requerido'),
             id:    Yup.string()
                         .max(11, 'Debe de tener 11 caracteres')
                         .min(11, 'Debe de tener 11 caracteres')
@@ -95,6 +112,11 @@ export const LivesZoom = () => {
 
     const handledImage = () => {
         document.querySelector('#fileSelector').click()
+    }
+
+    const handledSetZoom = () => {
+        dispatch(SetActiveZoom(zoom))
+        setimag(zoom?.image)
     }
 
     return (
@@ -181,7 +203,7 @@ export const LivesZoom = () => {
                     <img className='img-fluid rounded'style={{height: '350px'}} src={zoom?.image} alt="" />
                 </div>
 
-                <button onClick={() => dispatch(SetActiveZoom(zoom))} className='btn btn-outline-success form-control'>Editar</button>
+                <button onClick={handledSetZoom} className='btn btn-outline-success form-control'>Editar</button>
                 </div>  
             </div>
         </div>
