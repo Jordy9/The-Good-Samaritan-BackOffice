@@ -8,7 +8,8 @@ import * as Yup from 'yup'
 import moment from 'moment'
 import { startUpdateUserAdmin } from '../../../action/auth'
 import Swal from 'sweetalert2'
-import countryList from 'react-select-country-list'
+import ProvinciaBD from '../../../ProvinciaBD'
+import PaisBD from '../../../PaisBD'
 
 export const FormProfile = () => {
 
@@ -19,7 +20,9 @@ export const FormProfile = () => {
     const {activeUser} = useSelector(state => state.auth)
     const [imag, setimag] = useState()
 
-    const options = useMemo(() => countryList().getData(), [])
+    const options = useMemo(() => PaisBD, [])
+
+    const options2 = useMemo(() => ProvinciaBD, [])
 
     const {handleSubmit, getFieldProps, touched, errors, setFieldValue} = useFormik({
         initialValues: {
@@ -107,6 +110,8 @@ export const FormProfile = () => {
         document.querySelector('#fileSelector').click()
       }
 
+      const countryFilter = getFieldProps('country')?.value?.split(',')
+
     return (
         <>
             <div className="row">
@@ -172,7 +177,7 @@ export const FormProfile = () => {
                                                 {
                                                     options.map(option => {
                                                         return (
-                                                            <option key={option.value} value = {[option.value, option.label]}>{option.label}</option>
+                                                            <option key={option[1]} value = {[option[2], option[1], option[0]]}>{option[1]}</option>
                                                         )
                                                     })
                                                 }
@@ -181,8 +186,19 @@ export const FormProfile = () => {
                                         </div>
 
                                         <div className="col form-group">
-                                            <label>Ciudad</label>
-                                            <input type="text" {...getFieldProps('city')} placeholder = 'Bonao' className = 'form-control bg-transparent text-white' />
+                                            <label>Provincia</label>
+                                            <select {...getFieldProps('city')} id='select-rol' className="form-select form-control bg-transparent text-white">
+                                                <option selected>Seleccione una opción</option>
+                                                {
+                                                    (countryFilter && options2)
+                                                        &&
+                                                    options2?.filter(op => op[1] === countryFilter[2])?.map(option => {
+                                                        return (
+                                                            <option key={option} value = {[option[2]]}>{option[2]}</option>
+                                                        )
+                                                    })
+                                                }
+                                            </select>
                                             {touched.city && errors.city && <span style={{color: 'red'}}>{errors.city}</span>}
                                         </div>
 

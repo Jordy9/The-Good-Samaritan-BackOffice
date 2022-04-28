@@ -9,7 +9,8 @@ import MaskedInput from 'react-text-mask'
 import moment from 'moment'
 import Swal from 'sweetalert2'
 import { Modal } from 'react-bootstrap'
-import countryList from 'react-select-country-list'
+import PaisBD from '../../../PaisBD'
+import ProvinciaBD from '../../../ProvinciaBD'
 
 export const ModalUpdate = () => {
 
@@ -21,7 +22,9 @@ export const ModalUpdate = () => {
 
     const {SetUser} = useSelector(state => state.us)
 
-    const options = useMemo(() => countryList().getData(), [])
+    const options = useMemo(() => PaisBD, [])
+
+    const options2 = useMemo(() => ProvinciaBD, [])
 
     const {handleSubmit, resetForm, getFieldProps, touched, errors} = useFormik({
         initialValues: {
@@ -122,6 +125,8 @@ export const ModalUpdate = () => {
         dispatch(ModalClose(false))
     }
 
+    const countryFilter = getFieldProps('country')?.value?.split(',')
+
     return (
         <>
             <Modal
@@ -205,7 +210,7 @@ export const ModalUpdate = () => {
                                         {
                                             options.map(option => {
                                                 return (
-                                                    <option key={option.value} value = {[option.value, option.label]}>{option.label}</option>
+                                                    <option key={option[1]} value = {[option[2], option[1], option[0]]}>{option[1]}</option>
                                                 )
                                             })
                                         }
@@ -214,8 +219,19 @@ export const ModalUpdate = () => {
                                 </div>
 
                                 <div className="col form-group">
-                                    <label>Ciudad</label>
-                                    <input type="text" {...getFieldProps('city')} placeholder = 'Bonao' className = 'form-control bg-transparent text-white' />
+                                    <label>Provincia</label>
+                                    <select {...getFieldProps('city')} id='select-rol' className="form-select form-control bg-transparent text-white">
+                                        <option selected>Seleccione una opción</option>
+                                        {
+                                            (countryFilter && options2)
+                                                &&
+                                            options2?.filter(op => op[1] === countryFilter[2])?.map(option => {
+                                                return (
+                                                    <option key={option} value = {[option[2]]}>{option[2]}</option>
+                                                )
+                                            })
+                                        }
+                                    </select>
                                     {touched.city && errors.city && <span style={{color: 'red'}}>{errors.city}</span>}
                                 </div>
 

@@ -11,6 +11,8 @@ export const ModalContainer = (props) => {
 
   const {name, lastName, email, country, id, biliever, role} = props
 
+  const CountryOnly = country?.split(',')
+
   const Flag = Flags[country?.slice(0, 2)]
 
     const dispatch = useDispatch()
@@ -60,7 +62,7 @@ export const ModalContainer = (props) => {
               <th>{name}</th>
               <td>{lastName}</td>
               <td>{email}</td>
-              <td>{country?.slice(3)}{<Flag className = 'flag ml-2' />}</td>
+              <td>{CountryOnly[1]}{<Flag className = 'flag ml-2' />}</td>
               {
                 (biliever !== undefined)
                   &&
