@@ -193,12 +193,12 @@ export const startUpdateUser = (name, lastName, age, date, email, role, address,
     }
 }
 
-export const startUpdateUserUsuario = (name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password) => {
+export const startUpdateUserUsuario = (name, lastName, date, email, address, country, city, number, biliever, discipleship, tracking, password) => {
     return async(dispatch, getState) => {
         const {SetUser} = getState().us
         
             const user = SetUser
-            const resp = await fetchConToken(`users/update/${user.id}`, {name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password}, 'PUT')
+            const resp = await fetchConToken(`users/update/${user.id}`, {name, lastName, date, email, address, country, city, number, biliever, discipleship, tracking, password}, 'PUT')
             const body = await resp.json()
 
         if(body.ok) {

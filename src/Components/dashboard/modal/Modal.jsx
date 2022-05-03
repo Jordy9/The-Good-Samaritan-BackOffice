@@ -52,7 +52,7 @@ export const ModalUpdate = () => {
                     ?
                 dispatch(startUpdateUser(name, lastName, age, date, email, role, address, country, city, number, password))
                     :
-                dispatch(startUpdateUserUsuario(name, lastName, age, date, email, address, country, city, number, biliever, discipleship, tracking, password))
+                dispatch(startUpdateUserUsuario(name, lastName, date, email, address, country, city, number, biliever, discipleship, tracking, password))
     
                 resetForm({
                     name: '', 
@@ -127,6 +127,11 @@ export const ModalUpdate = () => {
 
     const countryFilter = getFieldProps('country')?.value?.split(',')
 
+    const fechainicio1 = moment(SetUser?.date, 'YYYY-MM-DD')
+    const fechafin2 = moment()
+
+    const age = fechafin2.diff(fechainicio1, 'years')
+
     return (
         <>
             <Modal
@@ -158,13 +163,24 @@ export const ModalUpdate = () => {
                                     {touched.lastName && errors.lastName && <span style={{color: 'red'}}>{errors.lastName}</span>}
                                 </div>
                             </div>
+
                             
                             <div className="row">
+                            {
+                                (SetUser?.role !== undefined)
+                                    ?
                                 <div className="col form-group">
                                     <label>Edad</label>
                                     <input type="number" {...getFieldProps('age')} placeholder = '25' className = 'form-control bg-transparent text-white' />
                                     {touched.age && errors.age && <span style={{color: 'red'}}>{errors.age}</span>}
                                 </div>
+                                    :
+                                <div className="col form-group">
+                                    <label>Edad</label>
+                                    <input type="number" readOnly value={age} className = 'form-control bg-transparent text-white' />
+                                    {touched.age && errors.age && <span style={{color: 'red'}}>{errors.age}</span>}
+                                </div>
+                            }
 
                                 <div className="col form-group">
                                     <label>Fecha de nacimiento</label>
