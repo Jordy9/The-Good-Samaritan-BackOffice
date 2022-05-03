@@ -22,11 +22,17 @@ export const YoutubeModal = () => {
         onSubmit: ({title, link}) => {
             if (activeUser?.role === 'Gestorcontenido' || activeUser?.role === 'Administrador') {
 
-                dispatch(startUpdateYoutube(title, link))
-                resetForm({
-                    title: '',
-                    link: ''
-                })
+                if (link?.includes('?v=')) {
+                    const normalUrl = link?.split('?v=')
+                    const urlAlter = normalUrl[1]?.slice(0, 11)
+                    const urlModif = `https://www.youtube.com/embed/${urlAlter}`
+                    dispatch(startUpdateYoutube(title, urlModif))
+                    resetForm({
+                        title: '',
+                        link: ''
+                    })
+                }
+
             } else {
                 const Toast = Swal.mixin({
                     toast: true,
