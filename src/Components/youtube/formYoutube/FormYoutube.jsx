@@ -20,7 +20,6 @@ export const FormYoutube = () => {
         enableReinitialize: true,
         onSubmit: ({title, link}) => {
             if (activeUser?.role === 'Gestorcontenido' || activeUser?.role === 'Administrador') {
-
                 if (link?.includes('?v=')) {
                     const normalUrl = link?.split('?v=')
                     const urlAlter = normalUrl[1]?.slice(0, 11)
@@ -30,7 +29,13 @@ export const FormYoutube = () => {
                         title: '',
                         link: ''
                     })
+                } else {
+                    dispatch(startCreateYoutube(title, link))
+                    resetForm({
+                        url: ''
+                    })
                 }
+
             } else {
                 const Toast = Swal.mixin({
                     toast: true,

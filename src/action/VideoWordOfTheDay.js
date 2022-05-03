@@ -295,8 +295,9 @@ export const startUpdateVideoWordOfTheDay = (title, fileupload) => {
                 await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeVideo.idImage}`, {headers: {'x-token': token}})
     
                 const resp = await fetchConToken(`VideoWordOfTheDay/${activeVideo._id}`, activeVideo, 'DELETE')
+                const body = await resp.json()
         
-                if(resp.ok) {
+                if(body.ok) {
                     dispatch(deleteVideoWordOfTheDay(activeVideo))
                     socket?.emit('notifications-admin-to-user-delete', activeVideo._id)
                     const Toast = Swal.mixin({
@@ -315,7 +316,25 @@ export const startUpdateVideoWordOfTheDay = (title, fileupload) => {
                         icon: 'success',
                         title: 'Video eliminado correctamente'
                       })
+                } else {
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  return Toast.fire({
+                    icon: 'error',
+                    title: body.msg
+                  })
                 }
+
             } else {
                 const resp = await fetchConToken(`VideoWordOfTheDay/${activeVideo._id}`, activeVideo, 'DELETE')
         

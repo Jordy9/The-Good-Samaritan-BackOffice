@@ -320,8 +320,9 @@ export const startDeleteBosquejo = () => {
               await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeBosquejo.idImage}`, {headers: {'x-token': token}})
   
               const resp = await fetchConToken(`bosquejo/${activeBosquejo._id}`, activeBosquejo, 'DELETE')
+              const body = await resp.json()
       
-              if(resp.ok) {
+              if(body.ok) {
                   dispatch(deleteBosquejo(activeBosquejo))
                   socket?.emit('notifications-admin-to-user-delete', activeBosquejo._id)
                   const Toast = Swal.mixin({
@@ -340,7 +341,25 @@ export const startDeleteBosquejo = () => {
                       icon: 'success',
                       title: 'Bosquejo eliminado correctamente'
                     })
+              } else {
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 5000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                  }
+                })
+                
+                return Toast.fire({
+                  icon: 'error',
+                  title: body.msg
+                })
               }
+
           } else {
               const resp = await fetchConToken(`bosquejo/${activeBosquejo._id}`, activeBosquejo, 'DELETE')
       

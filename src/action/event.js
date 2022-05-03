@@ -230,8 +230,9 @@ export const startDeleteEvento = () => {
             await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeEvent.idImage}`, {headers: {'x-token': token}})
 
             const resp = await fetchConToken(`evento/${activeEvent._id}`, activeEvent, 'DELETE')
+            const body = await resp.json()
     
-            if(resp.ok) {
+            if(body.ok) {
                 dispatch(deleteEvento(activeEvent))
                 socket?.emit('notifications-admin-to-user-delete', activeEvent._id)
                 const Toast = Swal.mixin({
@@ -250,11 +251,30 @@ export const startDeleteEvento = () => {
                     icon: 'success',
                     title: 'Evento eliminado correctamente'
                   })
+            } else {
+              const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              return Toast.fire({
+                icon: 'error',
+                title: body.msg
+              })
             }
+
         } else {
             const resp = await fetchConToken(`evento/${activeEvent._id}`, activeEvent, 'DELETE')
+            const body = await resp.json()
     
-            if(resp.ok) {
+            if(body.ok) {
                 dispatch(deleteEvento(activeEvent))
                 socket?.emit('notifications-admin-to-user-delete', activeEvent._id)
                 const Toast = Swal.mixin({
@@ -273,6 +293,23 @@ export const startDeleteEvento = () => {
                     icon: 'success',
                     title: 'Evento eliminado correctamente'
                   })
+            } else {
+              const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              return Toast.fire({
+                icon: 'error',
+                title: body.msg
+              })
             }
         }
 

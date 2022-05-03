@@ -321,8 +321,9 @@ export const startUpdateSerie = (title, descripcion, fileupload) => {
                   await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeSerie.idImage}`, {headers: {'x-token': token}})
       
                   const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, activeSerie, 'DELETE')
+                  const body = await resp.json()
           
-                  if(resp.ok) {
+                  if(body.ok) {
                       dispatch(deleteSerie(activeSerie))
                       socket?.emit('notifications-admin-to-user-delete', activeSerie._id)
                       const Toast = Swal.mixin({
@@ -341,11 +342,30 @@ export const startUpdateSerie = (title, descripcion, fileupload) => {
                           icon: 'success',
                           title: 'Mini Serie eliminada correctamente'
                         })
+                  } else {
+                    const Toast = Swal.mixin({
+                      toast: true,
+                      position: 'top-end',
+                      showConfirmButton: false,
+                      timer: 5000,
+                      timerProgressBar: true,
+                      didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                      }
+                    })
+                    
+                    return Toast.fire({
+                      icon: 'error',
+                      title: body.msg
+                    })
                   }
+
               } else {
                   const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, activeSerie, 'DELETE')
+                  const body = await resp.json()
           
-                  if(resp.ok) {
+                  if(body.ok) {
                       dispatch(deleteSerie(activeSerie))
                       socket?.emit('notifications-admin-to-user-delete', activeSerie._id)
                       const Toast = Swal.mixin({
@@ -364,6 +384,23 @@ export const startUpdateSerie = (title, descripcion, fileupload) => {
                           icon: 'success',
                           title: 'Mini Serie eliminada correctamente'
                         })
+                  } else {
+                    const Toast = Swal.mixin({
+                      toast: true,
+                      position: 'top-end',
+                      showConfirmButton: false,
+                      timer: 5000,
+                      timerProgressBar: true,
+                      didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                      }
+                    })
+                    
+                    return Toast.fire({
+                      icon: 'error',
+                      title: body.msg
+                    })
                   }
               }
             } else {

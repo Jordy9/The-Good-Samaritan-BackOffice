@@ -105,8 +105,9 @@ export const startDeleteContact = () => {
         const {activeContact} = getState().co
 
         const resp = await fetchConToken(`contact/${activeContact._id}`, activeContact, 'DELETE')
+        const body = await resp.json()
 
-        if(resp.ok) {
+        if(body.ok) {
             dispatch(deleteContact(activeContact))
             const Toast = Swal.mixin({
                 toast: true,
@@ -123,6 +124,23 @@ export const startDeleteContact = () => {
               return Toast.fire({
                 icon: 'success',
                 title: 'Contacto eliminado correctamente'
+              })
+        } else {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              return Toast.fire({
+                icon: 'error',
+                title: body.msg
               })
         }
     }

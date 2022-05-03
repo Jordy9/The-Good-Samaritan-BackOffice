@@ -160,8 +160,9 @@ export const startDeleteYoutube = () => {
         const {socket} = getState().sk
 
         const resp = await fetchConToken(`youtube/${activeYoutube._id}`, activeYoutube, 'DELETE')
+        const body = await resp.json()
 
-        if(resp.ok) {
+        if(body.ok) {
             dispatch(deleteYoutube(activeYoutube))
             socket?.emit('notifications-admin-to-user-delete', activeYoutube._id)
             const Toast = Swal.mixin({
@@ -195,7 +196,7 @@ export const startDeleteYoutube = () => {
               
               return Toast.fire({
                 icon: 'error',
-                title: `${resp.msg}`
+                title: `${body.msg}`
               })
         }
     }

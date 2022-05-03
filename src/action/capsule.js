@@ -317,8 +317,9 @@ export const startDeleteCapsule = () => {
               await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeCapsule.idImage}`, {headers: {'x-token': token}})
   
               const resp = await fetchConToken(`capsule/${activeCapsule._id}`, activeCapsule, 'DELETE')
+              const body = await resp.json()
       
-              if(resp.ok) {
+              if(body.ok) {
                   dispatch(deleteCapsule(activeCapsule))
                   socket?.emit('notifications-admin-to-user-delete', activeCapsule._id)
                   const Toast = Swal.mixin({
@@ -337,11 +338,30 @@ export const startDeleteCapsule = () => {
                       icon: 'success',
                       title: 'Capsula eliminada correctamente'
                     })
+              } else {
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 5000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                  }
+                })
+                
+                return Toast.fire({
+                  icon: 'error',
+                  title: body.msg
+                })
               }
+
           } else {
               const resp = await fetchConToken(`capsule/${activeCapsule._id}`, activeCapsule, 'DELETE')
+              const body = await resp.json()
       
-              if(resp.ok) {
+              if(body.ok) {
                   dispatch(deleteCapsule(activeCapsule))
                   socket?.emit('notifications-admin-to-user-delete', activeCapsule._id)
                   const Toast = Swal.mixin({
@@ -360,6 +380,23 @@ export const startDeleteCapsule = () => {
                       icon: 'success',
                       title: 'Capsula eliminada correctamente'
                     })
+              } else {
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 5000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                  }
+                })
+                
+                return Toast.fire({
+                  icon: 'error',
+                  title: body.msg
+                })
               }
           }
         } else {
