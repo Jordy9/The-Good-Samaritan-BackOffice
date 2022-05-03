@@ -8,6 +8,7 @@ import { chatReducer } from '../reducer/chatReducer';
 import { contactReducer } from '../reducer/contactReducer';
 import { eventsReducer } from '../reducer/eventReducer';
 import { galleryReducer } from '../reducer/galleryReducer';
+import { imageVideoReducer } from '../reducer/imageVideoReducer';
 import { mainReducer } from '../reducer/mainReducer';
 import { miniSeriesReducer } from '../reducer/miniSeriesReducer';
 import { noBeleaverReducer } from '../reducer/noBeleaverReducer';
@@ -44,7 +45,8 @@ const reducers = combineReducers({
     nb: noBeleaverReducer,
     chb: progressBarReducer,
     bl: beleaverReducer,
-    pgr: paginationReducer
+    pgr: paginationReducer,
+    iv: imageVideoReducer
 });
 
 export const store =  createStore(

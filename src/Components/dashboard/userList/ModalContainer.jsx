@@ -86,6 +86,12 @@ export const ModalContainer = (props) => {
                   &&
                 <td className='text-info'><strong>Colaborador</strong></td>
               }
+
+              {
+                (role === 'Pastor')
+                  &&
+                <td className='text-light'><strong>Pastor</strong></td>
+              }
               <td>
                   <button onClick = {handledSet} className = 'btn btn-outline-primary mr-1 ' style = {{borderRadius: '100%'}}><i className="bi bi-eye"></i></button>
                   <button onClick = {Handleddelete} className = 'btn btn-outline-danger ml-1 ' style = {{borderRadius: '100%'}}><i className="bi bi-trash" style = {{color: 'red'}}></i></button>

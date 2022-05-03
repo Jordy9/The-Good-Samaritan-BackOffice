@@ -34,6 +34,7 @@ import { startGetNoBeleaverVideo } from '../action/videoNoBeleaver';
 import { startGetBeleaver } from '../action/beleaver';
 import { ForgotPassword } from '../Components/forgotPassword/ForgotPassword';
 import { ResetPassword } from '../Components/forgotPassword/ResetPassword';
+import { startGetImageVideo } from '../action/imageVideo';
 
 moment.locale('es');
 
@@ -67,6 +68,7 @@ export const AppRouter = () => {
         dispatch(startGetNoBeleaverVideo())
         dispatch(startGetBeleaver())
         dispatch(startGetUsersUsuarios())
+        dispatch(startGetImageVideo())
     }, [dispatch])
 
     useEffect(() => {

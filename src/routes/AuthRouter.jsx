@@ -40,6 +40,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { NotificationPost } from '../Components/notificationPost/NotificationPost';
+import { ImageVideo } from '../Components/imageVideo/ImageVideo';
 
 export const AuthRouter = () => {
 
@@ -47,7 +48,7 @@ export const AuthRouter = () => {
     const {Peticiones, PeticionSinCuenta, PeticionesUser} = useSelector(state => state.pt)
     const {socket} = useSelector(state => state.sk)
 
-    const {notificationPost} = useSelector(state => state.auth)
+    const {notificationPost, activeUser} = useSelector(state => state.auth)
 
     const history = useHistory()
 
@@ -91,7 +92,6 @@ export const AuthRouter = () => {
                     <Route path = '/LivesZoom' component = {LivesZoom} />
                     <Route path = '/Main' component = {Main} />
                     <Route path = '/MainList' component = {MainList} />
-                    {/* <Route path = '/Images-home' component = {ImagesHome} /> */}
                     <Route path = '/Gallery-Images' component = {GalleryImages} />
                     <Route path = '/GalleryList' component = {GalleryList} />
                     <Route path = '/Profile' component = {Profile} />
@@ -104,8 +104,23 @@ export const AuthRouter = () => {
                     <Route path = '/Chat' component = {ChatPage} />
                     <Route path = '/NotificationResponsive' component = {NotificationResponsive} />
                     <Route path = '/NotificationPost/:id' component = {NotificationPost} />
+                    <Route path = '/ImageVideo' component = {ImageVideo} />
                     
-                    <Redirect to = '/Dashboard' />
+                    {
+                        (activeUser)
+                            &&
+                        (activeUser?.role === 'Colaborador')
+                            &&
+                        <Redirect to = '/PetitionsList' />
+                    }
+
+                    {
+                        (activeUser)
+                            &&
+                        (activeUser?.role !== 'Colaborador')
+                            &&
+                        <Redirect to = '/Dashboard' />
+                    }
                 </Switch>
             </div>
         </Container>

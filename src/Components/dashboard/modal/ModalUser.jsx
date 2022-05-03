@@ -185,6 +185,7 @@ export const ModalUser = () => {
                                         <option id='option-rol' value="Administrador">Administrador</option>
                                         <option value="Gestorcontenido">Gestor de contenido</option>
                                         <option value="Colaborador">Colaborador</option>
+                                        <option value="Pastor">Pastor</option>
                                     </select>
                                 </div>
                             </div>

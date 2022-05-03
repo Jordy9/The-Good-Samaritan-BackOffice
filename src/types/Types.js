@@ -1,5 +1,14 @@
 export const Types = {
 
+    ivgetImageVideo: '[IV] get ImageVideo',
+    ivcreateImageVideo: '[IV] create ImageVideo',
+    ivUploadFinish: '[IV] upload finish',
+    ivUpload: '[IV] upload',
+    ivSetImageVideo: '[IV] set ImageVideo',
+    ivClearSetImageVideo: '[IV] clear set ImageVideo',
+    ivUpdateImageVideo: '[IV] update ImageVideo',
+    ivDeleteImageVideo: '[IV] delete ImageVideo',
+    // 
     pgrActivePaginate: '[Auth] active paginate',
     pgrClearActivePaginate: '[Auth] clear active paginate',
     // 

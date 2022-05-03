@@ -50,7 +50,7 @@ export const Navb = () => {
     useEffect(() => {
         window.addEventListener('resize', changeWidth)
         if (pathname === '/NotificationResponsive' && width > 991) {
-            history.push('Dashboard')
+            history.push('/Dashboard')
         }
         return () => window.removeEventListener('resize', changeWidth)
         
@@ -60,6 +60,160 @@ export const Navb = () => {
         dispatch(setNotificationsPost(noti))
         history.push(`/NotificationPost/${noti._id}`)
     }
+
+    useEffect(() => {
+        if (activeUser?.role === 'Administrador') {
+
+            if (pathname === '/MiniSerie' || pathname === '/MiniSeriesList') {
+              history.push('/Dashboard')
+            }
+      
+            if (pathname === '/Sketch' || pathname === '/SketchsList') {
+              history.push('/Dashboard')
+            }
+      
+            if (pathname === '/Capsule' || pathname === '/CapsulesList') {
+              history.push('/Dashboard')
+            }
+      
+            if (pathname === '/Petition') {
+              history.push('/Dashboard')
+            }
+        }
+      }, [pathname, history, activeUser])
+
+    useEffect(() => {
+        if (activeUser?.role === 'Gestorcontenido') {
+
+            if (pathname === '/MiniSerie' || pathname === '/MiniSeriesList') {
+              history.push('/Dashboard')
+            }
+      
+            if (pathname === '/Sketch' || pathname === '/SketchsList') {
+              history.push('/Dashboard')
+            }
+      
+            if (pathname === '/Capsule' || pathname === '/CapsulesList') {
+              history.push('/Dashboard')
+            }
+    
+            if (pathname === '/ContactList') {
+                history.push('/Dashboard')
+            }
+    
+            if (pathname === '/Petition' || pathname === '/PetitionsList') {
+                history.push('/Dashboard')
+            }
+            
+            if (pathname === '/PetitionsListUser' || pathname === '/PetitionsListwhithoutAccount') {
+                history.push('/Dashboard')
+            }
+        }
+      }, [pathname, history, activeUser])
+
+      useEffect(() => {
+
+        if (activeUser?.role === 'Colaborador') {
+
+            if (pathname === '/Dashboard') {
+              history.push('/PetitionsList')
+            }
+      
+            if (pathname === '/Petition') {
+              history.push('/PetitionsList')
+            }
+      
+            if (pathname === '/WordOfTheDay' || pathname === '/WordOfTheDayList') {
+              history.push('/PetitionsList')
+            }
+      
+            if (pathname === '/Event' || pathname === '/EventsList') {
+              history.push('/PetitionsList')
+            }
+      
+            if (pathname === '/LivesZoom') {
+              history.push('/PetitionsList')
+            }
+      
+            if (pathname === '/Main' || pathname === '/MainList' || pathname === '/imageVideo') {
+              history.push('/PetitionsList')
+            }
+      
+            if (pathname === '/Gallery-images' || pathname === '/GalleryList') {
+              history.push('/PetitionsList')
+            }
+      
+            if (pathname === '/LinkYoutube' || pathname === '/YoutubeList') {
+              history.push('/PetitionsList')
+            }
+      
+            if (pathname === '/NoBeleaver') {
+              history.push('/PetitionsList')
+            }
+      
+            if (pathname === '/Beleaver' || pathname === '/BeleaverList') {
+              history.push('/PetitionsList')
+            }
+      
+            if (pathname === '/MiniSerie' || pathname === '/MiniSeriesList') {
+              history.push('/PetitionsList')
+            }
+      
+            if (pathname === '/Sketch' || pathname === '/SketchsList') {
+              history.push('/PetitionsList')
+            }
+      
+            if (pathname === '/Capsule' || pathname === '/CapsulesList') {
+              history.push('/PetitionsList')
+            }
+        }
+      }, [pathname, history, activeUser])
+
+      useEffect(() => {
+
+        if (activeUser?.role === 'Pastor') {
+
+            if (pathname === '/ContactList') {
+                history.push('/Dashboard')
+              }
+        
+              if (pathname === '/Petition' || pathname === 'PetitionsListUser' || pathname === 'PetitionsListwhithoutAccount') {
+                history.push('/Dashboard')
+              }
+        
+              if (pathname === '/WordOfTheDay' || pathname === '/WordOfTheDayList') {
+                history.push('/Dashboard')
+              }
+        
+              if (pathname === '/Event' || pathname === '/EventsList') {
+                history.push('/Dashboard')
+              }
+        
+              if (pathname === '/LivesZoom') {
+                history.push('/Dashboard')
+              }
+        
+              if (pathname === '/Main' || pathname === '/MainList' || pathname === '/imageVideo') {
+                history.push('/Dashboard')
+              }
+        
+              if (pathname === '/Gallery-images' || pathname === '/GalleryList') {
+                history.push('/Dashboard')
+              }
+        
+              if (pathname === '/LinkYoutube' || pathname === '/YoutubeList') {
+                history.push('/Dashboard')
+              }
+        
+              if (pathname === '/NoBeleaver') {
+                history.push('/Dashboard')
+              }
+        
+              if (pathname === '/Beleaver' || pathname === '/BeleaverList') {
+                history.push('/Dashboard')
+              }
+        }
+        }, [pathname, history, activeUser])
 
     return (
         <Navbar fixed='top' className = 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12' expand="lg" bg = 'dark' variant="dark">
@@ -76,72 +230,82 @@ export const Navb = () => {
 
                 </Nav>
 
-                <Nav id="input-group-dropdown-responsive">
-                    <NavLink
-                        style={{textDecoration: 'none', color: 'white'}}
-                        to = '/NotificationResponsive'
-                        className='mr-2 d-flex align-items-center'
-                    >
+                {
+                    (activeUser?.role === 'Administrador' || activeUser?.role === 'Colaborador')
+                        &&    
+                    <Nav id="input-group-dropdown-responsive">
+                        <NavLink
+                            style={{textDecoration: 'none', color: 'white'}}
+                            to = '/NotificationResponsive'
+                            className='mr-2 d-flex align-items-center'
+                        >
+                            <i onClick={onClick} style={{fontSize: '20px', cursor: 'pointer', margin: 0}} className="bi bi-bell d-flex align-items-center">
+                                <span style={{margin: 0}} className={`${(notificationCountChange === true) && 'p-1 bg-danger border border-light rounded-circle'}`}></span>
+                            </i>
+                        </NavLink>
+                    </Nav>
+                }
+
+
+                {
+                    (activeUser?.role === 'Administrador' || activeUser?.role === 'Colaborador')
+                        &&
+                    <DropdownButton
+                    className='mr-2 d-flex align-items-center'
+                    title = {
                         <i onClick={onClick} style={{fontSize: '20px', cursor: 'pointer', margin: 0}} className="bi bi-bell d-flex align-items-center">
                             <span style={{margin: 0}} className={`${(notificationCountChange === true) && 'p-1 bg-danger border border-light rounded-circle'}`}></span>
-                        </i>
-                    </NavLink>
-                </Nav>
-
-                <DropdownButton
-                className='mr-2 d-flex align-items-center'
-                title = {
-                    <i onClick={onClick} style={{fontSize: '20px', cursor: 'pointer', margin: 0}} className="bi bi-bell d-flex align-items-center">
-                        <span style={{margin: 0}} className={`${(notificationCountChange === true) && 'p-1 bg-danger border border-light rounded-circle'}`}></span>
-                    </i>}
-                align={'end'}
-                variant="dark"
-                id="input-group-dropdown-2"
-                >
-                    <div style={{overflowY: 'scroll', height: '400px'}}>
-                        {
-                            activeUserChange?.notifications?.map((notifications, index) => {
-                                return (
-                                    <Dropdown.Item onClick={() => setNotify(notifications)} className='shadow my-2 bg-dark p-3 flex-column' key={notifications+ index} style={{width: 'auto', height: 'auto'}}>
-                                        <h6 className='text-white text-center'>{notifications.subtitle}</h6>
-                                        <div className="row">
-                                            {
-                                                (notifications.image)
-                                                    ?
-                                                <>
-                                                    <div className="col-8">
-                                                        <h5 className='text-white'>
+                        </i>}
+                    align={'end'}
+                    variant="dark"
+                    id="input-group-dropdown-2"
+                    >
+                        <div style={{overflowY: 'scroll', height: '400px'}}>
+                            {
+                                activeUserChange?.notifications?.map((notifications, index) => {
+                                    return (
+                                        <Dropdown.Item onClick={() => setNotify(notifications)} className='shadow my-2 bg-dark p-3 flex-column' key={notifications+ index} style={{width: 'auto', height: 'auto'}}>
+                                            <h6 className='text-white text-center'>{notifications.subtitle}</h6>
+                                            <div className="row">
+                                                {
+                                                    (notifications.image)
+                                                        ?
+                                                    <>
+                                                        <div className="col-8">
+                                                            <h5 className='text-white'>
+                                                                {
+                                                                (notifications.title.length > 15)
+                                                                    ?
+                                                                    notifications.title.slice(0, 15) + '...'
+                                                                    :
+                                                                notifications.title
+                                                                }
+                                                            </h5>
+                                                        </div>
+                                                    
+                                                        <div className="col-4 d-flex justify-content-end">
+                                                            <img className='img-fluid' style={{width: '50px', height: 'auto'}} src={notifications.image} alt="" />    
+                                                        </div>
+                                                    </>
+                                                    :
+                                                    <div className="col-12">
+                                                        <h4 className='text-white'>
                                                             {
-                                                            (notifications.title.length > 15)
-                                                                ?
-                                                                notifications.title.slice(0, 15) + '...'
-                                                                :
-                                                            notifications.title
+                                                                notifications.title
                                                             }
-                                                        </h5>
+                                                        </h4>
                                                     </div>
-                                                
-                                                    <div className="col-4 d-flex justify-content-end">
-                                                        <img className='img-fluid' style={{width: '50px', height: 'auto'}} src={notifications.image} alt="" />    
-                                                    </div>
-                                                </>
-                                                :
-                                                <div className="col-12">
-                                                    <h4 className='text-white'>
-                                                        {
-                                                            notifications.title
-                                                        }
-                                                    </h4>
-                                                </div>
-                                            }
-                                        </div>
-                                        <span style={{fontSize: '14px'}} className='text-white'>{moment(notifications.createdAt).fromNow()}</span>
-                                    </Dropdown.Item>
-                                )
-                            })
-                        }
-                    </div>
-                </DropdownButton>
+                                                }
+                                            </div>
+                                            <span style={{fontSize: '14px'}} className='text-white'>{moment(notifications.createdAt).fromNow()}</span>
+                                        </Dropdown.Item>
+                                    )
+                                })
+                            }
+                        </div>
+                    </DropdownButton>
+                }
+
 
                 <Nav id='nav-hidden-right'>
                     <NavLink onClick={() => dispatch(setActiveUser())} to = '/Profile'>{(activeUser?.urlImage) ? <img src={activeUser?.urlImage} className='img-fluid rounded-circle mt-2' style = {{width: '32px', height: '32px', cursor: 'pointer', margin: 0}} alt='' /> : <i className="bi bi-person-circle" style = {{fontSize: '32px', cursor: 'pointer', color: 'white', margin: 0}}></i>}</NavLink>
