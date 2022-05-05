@@ -177,7 +177,7 @@ export const Navb = () => {
                 history.push('/Dashboard')
               }
         
-              if (pathname === '/Petition' || pathname === 'PetitionsListUser' || pathname === 'PetitionsListwhithoutAccount') {
+              if (pathname === 'PetitionsListUser' || pathname === 'PetitionsListwhithoutAccount') {
                 history.push('/Dashboard')
               }
         

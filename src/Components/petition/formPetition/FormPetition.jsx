@@ -1,14 +1,15 @@
 import React from 'react'
 import { Editor } from '@tinymce/tinymce-react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { startCreatePetition } from '../../../action/petition';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
-import moment from 'moment';
 import tinymce from 'tinymce/tinymce';
 
 
 export const FormPetition = () => {
+
+    const {activeUser} = useSelector(state => state.auth)
 
     const dispatch = useDispatch()
 
@@ -19,11 +20,13 @@ export const FormPetition = () => {
         },
         enableReinitialize: true,
         onSubmit: ({title, descripcion}) => {
-            dispatch(startCreatePetition(title, descripcion))
-            resetForm({
-                title: '', 
-                descripcion: tinymce.activeEditor.setContent(''),
-            })
+            if (activeUser?.role === 'Pastor') {
+                dispatch(startCreatePetition(title, descripcion))
+                resetForm({
+                    title: '', 
+                    descripcion: tinymce.activeEditor.setContent(''),
+                })
+            }
         },
         validationSchema: Yup.object({
             title: Yup.string()

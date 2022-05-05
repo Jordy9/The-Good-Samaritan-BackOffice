@@ -27,7 +27,7 @@ export const SketchModal = () => {
         },
         enableReinitialize: true,
         onSubmit: ({title, descripcion, image}) => {
-            if (activeUser?.role === 'Administrador') {
+            if (activeUser?.role === 'Pastor') {
 
                 if (image?.type?.includes('image') === false) {
                     const Toast = Swal.mixin({

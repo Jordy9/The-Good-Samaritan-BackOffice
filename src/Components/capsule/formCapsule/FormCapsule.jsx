@@ -26,7 +26,7 @@ export const FormCapsule = () => {
         },
         enableReinitialize: true,
         onSubmit: ({title, image, descripcion}) => {
-            if (activeUser?.role === 'Administrador') {
+            if (activeUser?.role === 'Pastor') {
                 if (image.type.includes('image') === false) {
                     const Toast = Swal.mixin({
                         toast: true,
