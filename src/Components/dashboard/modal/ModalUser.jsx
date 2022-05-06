@@ -187,6 +187,7 @@ export const ModalUser = () => {
                                         <option value="Colaborador">Colaborador</option>
                                         <option value="Pastor">Pastor</option>
                                     </select>
+                                    {touched.role && errors.role && <span style={{color: 'red'}}>{errors.role}</span>}
                                 </div>
                             </div>
 
