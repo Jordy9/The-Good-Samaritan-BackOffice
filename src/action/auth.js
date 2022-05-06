@@ -479,7 +479,7 @@ export const startDeleteUser = (user) => {
         if (user?.biliever === undefined) {
             resp = await fetchConToken(`auth/delete/${user.id}`, activeUser, 'DELETE')
         } else {
-            resp = await fetchConToken(`users/delete/${user.id}`, user, 'DELETE')
+            resp = await fetchConToken(`users/delete/${user.id}`, activeUser, 'DELETE')
         }
 
         const body = await resp.json()
@@ -588,6 +588,7 @@ export const startLogout = () => {
         dispatch(logout())
         dispatch(clearChat())
         dispatch(startGetUsers())
+        dispatch(startGetUsersUsuarios())
     }
 }
 
