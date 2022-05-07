@@ -142,7 +142,10 @@ export const FormSketch = () => {
                             content="<p>This is the initial content of the editor</p>"
                             init={{
                             mobile: {
-                                menubar: true
+                                menubar: true,
+                                toolbar: true,
+                                language: 'es'
+
                             },
                             plugins: 'autolink link image lists print preview',
                             toolbar: 'undo redo | formatselect | fontselect | fontsizeselect ' +
