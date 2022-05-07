@@ -20,8 +20,8 @@ import { PetitionList } from '../Components/petition/petitionsList/PetitionList'
 import { EventsList } from '../Components/event/eventsList/EventsList';
 import { MainList } from '../Components/main/mainsList/MainList';
 import { GalleryList } from '../Components/gallery/galleryList/GalleryList';
-import { CapsulesList } from '../Components/capsule/capsuleList/CapsulesList';
-import { Capsule } from '../Components/capsule/Capsule';
+// import { CapsulesList } from '../Components/capsule/capsuleList/CapsulesList';
+// import { Capsule } from '../Components/capsule/Capsule';
 import { Contact } from '../Components/contact/Contact';
 import { PetitionListUser } from '../Components/petition/petitionsListUser/PetitionListUser';
 import { PetitionListSinCuenta } from '../Components/petition/petitionsListSinCuenta/PetitionListSinCuenta';
@@ -81,8 +81,8 @@ export const AuthRouter = () => {
                     <Route path = '/MiniSeriesList' component = {MiniSeriesList} />
                     <Route path = '/Sketch' component = {Sketch} />
                     <Route path = '/SketchsList' component = {SketchsList} />
-                    <Route path = '/Capsule' component = {Capsule} />
-                    <Route path = '/CapsulesList' component = {CapsulesList} />
+                    {/* <Route path = '/Capsule' component = {Capsule} />
+                    <Route path = '/CapsulesList' component = {CapsulesList} /> */}
                     <Route path = '/Petition' component = {Petitions} />
                     <Route path = '/PetitionsList' component = {PetitionList} />
                     <Route path = '/PetitionsListUser' component = {PetitionListUser} />

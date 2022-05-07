@@ -32,14 +32,14 @@ export const Pastor = () => {
             <NavLink to = '/SketchsList' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-list-ul"> </i>Listado de Bosquejos</NavLink>
         </ul>
 
-        <Offcanvas.Header>
+        {/* <Offcanvas.Header>
             <Offcanvas.Title>Cápsulas</Offcanvas.Title>
         </Offcanvas.Header>
 
         <ul className="list-group list-group-flush">
             <NavLink to = '/Capsule' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-activity"> </i>Cápsula</NavLink>
             <NavLink to = '/CapsulesList' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-list-ul"> </i>Listado de Cápsulas</NavLink>
-        </ul>
+        </ul> */}
 
         <Offcanvas.Header>
             <Offcanvas.Title>Peticiones de oración</Offcanvas.Title>
