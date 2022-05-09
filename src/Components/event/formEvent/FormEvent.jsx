@@ -86,6 +86,7 @@ export const FormEvent = () => {
     return (
         <form onSubmit = {handleSubmit}>
             <div className = 'row'>
+                <h5 className='text-center'>Tamaño requerido para la imagen: 1280 x 1280</h5>
                 <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <div className="form-group">
                         <label>Título</label>

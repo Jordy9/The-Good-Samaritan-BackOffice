@@ -112,7 +112,7 @@ export const FormImageVideo = () => {
                 <div className="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
                     <form onSubmit = {handleSubmit}>
                         <div className = 'row'>
-
+                            <h5 className='text-center'>Tamaño requerido para la imagen o video: 1920 x 632</h5>
                             {
                                 (getFieldProps('image')?.value?.length === 0)
                                     &&

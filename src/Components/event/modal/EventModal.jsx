@@ -87,10 +87,11 @@ export const EventModal = () => {
                     <div className="modal-body">
                         <div className="col-12">
                             <div className="mb-3" style = {{border: 'none'}}>
-                                <h5 className="text-white text-center mt-2">Editar Bosquejo</h5>
+                                <h5 className="text-white text-center mt-2">Editar Evento</h5>
                                 <div className="card-body">
                                 <form onSubmit = {handleSubmit}>
                                         <div className = 'row'>
+                                        <h5 className='text-center'>Tamaño requerido para la imagen: 1280 x 1280</h5>
                                             <div className="col-6">
                                                 <div className="form-group">
                                                     <label>Título</label>

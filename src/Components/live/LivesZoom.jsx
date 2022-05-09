@@ -125,6 +125,7 @@ export const LivesZoom = () => {
             <h1>Anunciar reunión de zoom</h1>
                 <form onSubmit = {handleSubmit}>
                 <div className = 'row'>
+                    <h4 className='text-center'>Tamaño requerido para la imagen: 1280 x 1280</h4>
                     <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                         <div className="form-group">
                             <label>Título</label>

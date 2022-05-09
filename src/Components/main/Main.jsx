@@ -85,6 +85,7 @@ export const Main = () => {
         <h1 style={{marginTop: '70px'}}>Carrusel Principal</h1>
         <form onSubmit = {handleSubmit}>
             <div className = 'row'>
+                <h4 className='text-center'>Tamaño requerido para la imagen: 1280 x 1280</h4>
                 <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div className="form-group">
                         <label>Título</label>

@@ -99,6 +99,7 @@ export const ModalBeleaver = () => {
                                 <div className="card-body">
                                     <form onSubmit = {handleSubmit}>
                                         <div className = 'row'>
+                                            <h4 className='text-center'>Tamaño requerido para la imagen: 1280 x 1280</h4>
                                             <div className="col-6">
                                                 <div className="form-group">
                                                     <label>Título</label>
