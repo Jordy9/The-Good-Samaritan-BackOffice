@@ -36,6 +36,16 @@ export const FormImageVideo = () => {
                         resetForm({
                             url: ''
                         })
+                    }
+
+                    if (url?.includes('youtu.be')) {
+                        const normalUrl = url?.split('/')
+                        const urlAlter = normalUrl[3]
+                        const urlModif = `https://www.youtube.com/embed/${urlAlter}`
+                        dispatch(startCreateImageVideo(image, urlModif))
+                        resetForm({
+                            url: ''
+                        })
                     } else {
                         dispatch(startCreateImageVideo(image, url))
                         resetForm({

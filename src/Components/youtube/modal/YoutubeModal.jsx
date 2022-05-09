@@ -33,6 +33,23 @@ export const YoutubeModal = () => {
                     })
                 }
 
+                if (link?.includes('youtu.be')) {
+                    const normalUrl = link?.split('/')
+                    const urlAlter = normalUrl[3]
+                    const urlModif = `https://www.youtube.com/embed/${urlAlter}`
+                    dispatch(startUpdateYoutube(title, urlModif))
+                    resetForm({
+                        title: '',
+                        link: ''
+                    })
+                } else {
+                    dispatch(startUpdateYoutube(title, link))
+                    resetForm({
+                        title: '',
+                        link: ''
+                    })
+                }
+
             } else {
                 const Toast = Swal.mixin({
                     toast: true,
