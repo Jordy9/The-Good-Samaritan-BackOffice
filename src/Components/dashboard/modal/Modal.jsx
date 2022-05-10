@@ -50,9 +50,9 @@ export const ModalUpdate = () => {
 
                 (SetUser?.biliever === undefined)
                     ?
-                dispatch(startUpdateUser(name, lastName, age, date, email, role, address, country, city, number, password))
+                dispatch(startUpdateUser(name, lastName, age, date, email.toLowerCase(), role, address, country, city, number, password))
                     :
-                dispatch(startUpdateUserUsuario(name, lastName, date, email, address, country, city, number, biliever, discipleship, tracking, password))
+                dispatch(startUpdateUserUsuario(name, lastName, date, email.toLowerCase(), address, country, city, number, biliever, discipleship, tracking, password))
     
                 resetForm({
                     name: '', 
