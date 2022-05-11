@@ -168,12 +168,6 @@ export const MiniSerieModal = () => {
                                                                     onEditorChange = {(e) => setFieldValue(`descripcion[${index}]`, e)}
                                                                     content="<p>This is the initial content of the editor</p>"
                                                                     init={{
-                                                                    mobile: {
-                                                                        menubar: true,
-                                                                        toolbar: true,
-                                                                        language: 'es'
-                            
-                                                                    },
                                                                     plugins: 'autolink link image lists print preview',
                                                                     toolbar: 'undo redo | formatselect | fontselect | fontsizeselect ' +
                                                                     'bold italic backcolor | alignleft aligncenter ' +

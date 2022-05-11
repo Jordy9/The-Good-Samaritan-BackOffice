@@ -133,7 +133,7 @@ export const FormSeries = () => {
                     <div className="col-12 mb-2">
                         <label className='d-flex justify-content-center'>Subiendo imagen</label>
                         <div className="progress">
-                            <div class="progress-bar" role="progressbar" style={{width: `${Porcentage}%`}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{Porcentage}%</div>
+                            <div className="progress-bar" role="progressbar" style={{width: `${Porcentage}%`}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{Porcentage}%</div>
                         </div>
                     </div>
                 }
@@ -157,12 +157,6 @@ export const FormSeries = () => {
                                         onEditorChange = {(e) => setFieldValue(`descripcion[${index}]`, e)}
                                         content="<p>This is the initial content of the editor</p>"
                                         init={{
-                                        mobile: {
-                                            menubar: true,
-                                            toolbar: true,
-                                            language: 'es'
-
-                                        },
                                         plugins: 'autolink link image lists print preview',
                                         toolbar: 'undo redo | formatselect | fontselect | fontsizeselect ' +
                                         'bold italic backcolor | alignleft aligncenter ' +
