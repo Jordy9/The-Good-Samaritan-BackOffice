@@ -31,6 +31,7 @@ export const YoutubeModal = () => {
                         title: '',
                         link: ''
                     })
+                    return
                 }
 
                 if (link?.includes('youtu.be')) {
@@ -42,12 +43,7 @@ export const YoutubeModal = () => {
                         title: '',
                         link: ''
                     })
-                } else {
-                    dispatch(startUpdateYoutube(title, link))
-                    resetForm({
-                        title: '',
-                        link: ''
-                    })
+                    return
                 }
 
             } else {

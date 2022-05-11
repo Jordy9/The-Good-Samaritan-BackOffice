@@ -36,6 +36,7 @@ export const FormImageVideo = () => {
                         resetForm({
                             url: ''
                         })
+                        return
                     }
 
                     if (url?.includes('youtu.be')) {
@@ -46,11 +47,7 @@ export const FormImageVideo = () => {
                         resetForm({
                             url: ''
                         })
-                    } else {
-                        dispatch(startCreateImageVideo(image, url))
-                        resetForm({
-                            url: ''
-                        })
+                        return
                     }
                 }
 
