@@ -60,8 +60,6 @@ export const AuthRouter = () => {
 
     const {newNotfification} = useSelector(state => state.nt)
 
-    const {id} = useSelector(state => state.cht)
-
     if (moment().day() > 7 && Peticiones) {
         const peticionesviejas = Peticiones?.filter(cont => moment(cont?.date, "YYYYMMDD").fromNow() > 'hace 7 días')
         const peticionesviejasSinCuenta = PeticionSinCuenta?.filter(cont => moment(cont?.date, "YYYYMMDD").fromNow() > 'hace 7 días')
@@ -78,15 +76,11 @@ export const AuthRouter = () => {
 
     useEffect(() => {
 
-        if (newNotfification?.from === id) {
-            return dispatch(RemoveNewNotificacion())
-        }
-
         if (newNotfification) {
             SoundMessage()
             dispatch(RemoveNewNotificacion())
         }
-    }, [newNotfification, dispatch, id])
+    }, [newNotfification, dispatch])
 
     return (
         <>
