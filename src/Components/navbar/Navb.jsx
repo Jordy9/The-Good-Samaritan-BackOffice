@@ -222,6 +222,18 @@ export const Navb = () => {
         }
         }, [pathname, history, activeUser])
 
+        const {notificaciones} = useSelector(state => state.nt)
+        
+        const [changeColor, setChangeColor] = useState(false);
+
+        useEffect(() => {
+          if (notificaciones.filter(not => not.to === uid).length !== 0) {
+              notificaciones?.map(notificaciones => (notificaciones.to === uid && notificaciones.length !== 0) && setChangeColor(true))
+          } else {
+              setChangeColor(false)
+          }    
+      }, [notificaciones, pathname, uid]);
+
     return (
         <Navbar fixed='top' className = 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12' expand="lg" bg = 'dark' variant="dark">
             <Container fluid>
@@ -233,8 +245,12 @@ export const Navb = () => {
                     </span>
                 </Navbar.Brand>
 
-                <Nav className="me-auto">
+                <Nav className="mx-auto">
 
+                </Nav>
+
+                <Nav className="mr-3">
+                  <NavLink to = '/Chat' className = 'nav-link' activeStyle={{color: 'white'}} activeClassName = 'true'><i className="bi bi-chat-text-fill" style={{color: (changeColor) && 'red'}}> </i>Chat</NavLink>
                 </Nav>
 
                 {
@@ -252,7 +268,6 @@ export const Navb = () => {
                         </NavLink>
                     </Nav>
                 }
-
 
                 {
                     (activeUser?.role === 'Administrador' || activeUser?.role === 'Colaborador')

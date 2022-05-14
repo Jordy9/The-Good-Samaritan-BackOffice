@@ -29,16 +29,6 @@ h4.Navb-tittle {
     background-color: gray !important;
 }
 
-.btn:hover {
-    border: none !important;
-    outline: none !important;
-}
-
-.btn:focus {
-    border: none !important;
-    outline: none !important;
-}
-
 #input-group-dropdown-1 {
     display: none;
 }

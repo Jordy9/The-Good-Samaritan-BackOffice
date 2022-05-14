@@ -2,7 +2,7 @@ import React from 'react'
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import { NavLink } from 'react-router-dom'
 
-export const Administrador = ({changeColor}) => {
+export const Administrador = () => {
     
   return (
     <>
@@ -101,14 +101,6 @@ export const Administrador = ({changeColor}) => {
         <ul className="list-group list-group-flush">   
             <NavLink to = '/Beleaver' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-person-video2"> </i>Información para nuevos creyentes</NavLink>
             <NavLink to = '/BeleaverList' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-list-ul"> </i>Listado de Información para nuevos creyentes</NavLink>                
-        </ul>
-
-        <Offcanvas.Header>
-            <Offcanvas.Title>Chat</Offcanvas.Title>
-        </Offcanvas.Header>
-
-        <ul className="list-group list-group-flush">  
-            <NavLink to = '/Chat' className = 'list-group-item decoration-line list-focus' activeClassName = 'true'><i className="bi bi-chat-text-fill" style={{color: (changeColor) && 'red'}}> </i>Chat</NavLink>
         </ul>
     </>
   )

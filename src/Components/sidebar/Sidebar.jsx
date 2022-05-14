@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 import { Administrador } from '../userRoleComponents/Administrador';
 import { Colaborador } from '../userRoleComponents/Colaborador';
 import { GestorDeContenido } from '../userRoleComponents/GestorDeContenido';
@@ -10,25 +9,12 @@ import './Sidebar.css'
 
 export const Sidebar = () => {
 
-    const {pathname} = useLocation()
-
-    const {activeUser, uid} = useSelector(state => state.auth)
-    const {notificaciones} = useSelector(state => state.nt)
+    const {activeUser} = useSelector(state => state.auth)
 
     const [show, setShow] = useState(false);
-
-    const [changeColor, setChangeColor] = useState(false);
     
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
-    useEffect(() => {
-        if (notificaciones.filter(not => not.to === uid).length !== 0) {
-            notificaciones?.map(notificaciones => (notificaciones.to === uid && notificaciones.length !== 0) && setChangeColor(true))
-        } else {
-            setChangeColor(false)
-        }    
-    }, [notificaciones, pathname, uid]);
 
     return (
         <>
@@ -45,7 +31,7 @@ export const Sidebar = () => {
                         &&
                     (activeUser?.role === 'Administrador')
                         &&
-                    <Administrador changeColor={changeColor} />
+                    <Administrador />
                 }
 
                 {
@@ -53,7 +39,7 @@ export const Sidebar = () => {
                         &&
                     (activeUser?.role === 'Gestorcontenido')
                         &&
-                    <GestorDeContenido changeColor={changeColor} />
+                    <GestorDeContenido />
                 }
 
                 {
@@ -61,7 +47,7 @@ export const Sidebar = () => {
                         &&
                     (activeUser?.role === 'Colaborador')
                         &&
-                    <Colaborador changeColor={changeColor} />
+                    <Colaborador />
                 }
 
                 {
