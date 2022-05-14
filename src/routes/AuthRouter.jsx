@@ -30,7 +30,7 @@ import { YoutubeList } from '../Components/youtube/youtubeList/YoutubeList';
 import { ChatPage } from '../Components/chat/ChatPage';
 import { VideoWordOfTheDay } from '../Components/videoWordOfTheDay/VideoWordOfTheDay'
 import moment from 'moment';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { videoWordOfTheDayList } from '../Components/videoWordOfTheDay/videoWordOfTheDayList/VideoWordOfTheDayList';
 import { NoBeleaverVideo } from '../Components/noBeleaver/NoBeleaverVideo';
 import { NotificationResponsive } from '../Components/notificationResponsive/NotificationResponsive';
@@ -41,8 +41,12 @@ import { useLocation } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { NotificationPost } from '../Components/notificationPost/NotificationPost';
 import { ImageVideo } from '../Components/imageVideo/ImageVideo';
+import { SoundMessage } from '../Components/soundMessage/SoundMessage';
+import { RemoveNewNotificacion } from '../action/notifications';
 
 export const AuthRouter = () => {
+
+    const dispatch = useDispatch()
 
     const {Contactos} = useSelector(state => state.co)
     const {Peticiones, PeticionSinCuenta, PeticionesUser} = useSelector(state => state.pt)
@@ -53,6 +57,10 @@ export const AuthRouter = () => {
     const history = useHistory()
 
     const {pathname} = useLocation()
+
+    const {newNotfification} = useSelector(state => state.nt)
+
+    const {id} = useSelector(state => state.cht)
 
     if (moment().day() > 7 && Peticiones) {
         const peticionesviejas = Peticiones?.filter(cont => moment(cont?.date, "YYYYMMDD").fromNow() > 'hace 7 días')
@@ -67,6 +75,18 @@ export const AuthRouter = () => {
           history.push('/Dashboard')
         }
     }, [notificationPost, history, pathname])
+
+    useEffect(() => {
+
+        if (newNotfification?.from === id) {
+            return dispatch(RemoveNewNotificacion())
+        }
+
+        if (newNotfification) {
+            SoundMessage()
+            dispatch(RemoveNewNotificacion())
+        }
+    }, [newNotfification, dispatch, id])
 
     return (
         <>

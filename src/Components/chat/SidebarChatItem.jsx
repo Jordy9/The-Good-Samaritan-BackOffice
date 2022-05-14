@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { activeChat, cargarChat } from '../../action/chat'
 import { BorrarNotificaciones } from '../../action/notifications'
-import user from '../../heroes/user-profile.png'
+import perfil1 from '../../heroes/User.png'
 
 export const SidebarChatItem = ({usuarios, istyping}) => {
 
@@ -34,18 +34,20 @@ export const SidebarChatItem = ({usuarios, istyping}) => {
     return (
         <div className={`chat_list ${(usuarios.id === chatActivo) && 'active_chat'}`} onClick={onclick}>
             {/* active_chat */}
-            <div className="chat_people">
-                <div className="chat_img"> 
-                    {
-                        (usuarios.urlImage)
-                            ?
-                        <img src={usuarios.urlImage} alt="sunil" className='rounded-circle' />
-                            :
-                        <img src={user} alt="sunil" />
-                    }
+            <div className="chat_people row">
+                <div className="chat_img col-2 col-sm-2 col-md-4 col-lg-3 col-xl-2"> 
+                    <div style={{width: '50px', height: '50px', borderRadius: '50%', overflow: 'hidden'}}>    
+                        {
+                            (usuarios.urlImage)
+                                ?
+                            <img src={usuarios.urlImage} alt="sunil" style={{objectFit: 'cover'}} />
+                                :
+                            <img src={perfil1} alt="sunil" />
+                        }
+                    </div>
                     <span hidden = {notify.length === 0} className="badge bg-danger">{notify.length}</span>
                 </div>
-                <div className="chat_ib">
+                <div className="chat_ib col-10 col-sm-10 col-md-8 col-lg-9 col-xl-10">
                     <h5 className='text-white'>{usuarios.name} {usuarios.lastName}</h5>
                     {
                         (istyping[0] === usuarios && typing?.typing === false)

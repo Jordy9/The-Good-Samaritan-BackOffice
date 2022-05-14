@@ -4,7 +4,8 @@ const initialState = {
     chatActivo: null,
     image: '',
     usuarios: [],
-    mensajes: []
+    mensajes: [],
+    id: null
 }
 
 export const chatReducer = (state = initialState, action) => {
@@ -20,7 +21,8 @@ export const chatReducer = (state = initialState, action) => {
             return {
                 ...state,
                 chatActivo: action.payload,
-                mensajes: []
+                mensajes: [],
+                id: action.payload,
             }
             
         case Types.chtActiveMessage:
