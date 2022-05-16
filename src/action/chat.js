@@ -17,6 +17,32 @@ export const activeMessage = (message) => ({
     payload: message
 })
 
+export const sendEmailUserChat = (id) => {
+    return async(dispatch, getState) => {
+        const {usuarios} = getState().cht
+
+        const {activeUser} = getState().auth
+
+        const user = usuarios?.filter(usuarios => usuarios.id === id)
+
+        if (user[0]?.online === false) {
+
+            const subject = 'Tienes un nuevo mensaje'
+    
+            const title = 'Una persona del Centro Cristiano El Buen Samaritano quiere darte alguna palabra de Dios'
+    
+            const descripcion = `Dios te bendiga ${user[0]?.name}, ${activeUser?.name} necesita hablar contigo`
+    
+            const email = 'ccbsrd@gmail.com'
+    
+            const email2 = user[0]?.email
+    
+            await fetchConToken('sendEmail', {subject, title, email2, descripcion, email}, 'POST');
+        }
+
+    }
+}
+
 export const cargarChat = (id) => {
     return async(dispatch, getState) => {
 

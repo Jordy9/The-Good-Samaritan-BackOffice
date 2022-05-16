@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { sendEmailUserChat } from '../../action/chat';
 
 export const SendMessage = () => {
+
+    const dispatch = useDispatch()
 
     const {socket} = useSelector(state => state.sk)
     const {uid} = useSelector(state => state.auth)
@@ -22,6 +25,8 @@ export const SendMessage = () => {
                 to: chatActivo,
                 message
             })
+
+            dispatch(sendEmailUserChat(chatActivo))
 
             socket.emit('notificacion-personal', {
                 from: uid,
