@@ -31,7 +31,7 @@ export const sendEmailUserChat = (id) => {
     
             const title = 'Una persona del Centro Cristiano El Buen Samaritano quiere darte alguna palabra de Dios'
     
-            const descripcion = `Dios te bendiga ${user[0]?.name}, ${activeUser?.name} necesita hablar contigo`
+            const descripcion = `Dios te bendiga ${user[0]?.name}, ${activeUser?.name} necesita hablar contigo: https://www.ccbsbonao.com.do/Chat`
     
             const email = 'ccbsrd@gmail.com'
     
