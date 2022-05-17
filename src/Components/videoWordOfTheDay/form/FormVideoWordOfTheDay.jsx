@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { startCreateVideoWordOfTheDay } from '../../../action/VideoWordOfTheDay';
 import Swal from 'sweetalert2';
+import { sendEmail } from '../../../action/sendEmail';
 
 export const FormVideoWordOfTheDay = () => {
 
@@ -42,6 +43,7 @@ export const FormVideoWordOfTheDay = () => {
                       })
                 } else {
                 dispatch(startCreateVideoWordOfTheDay(title, video))
+                dispatch(sendEmail(title))
                 }
             } else {
                 const Toast = Swal.mixin({

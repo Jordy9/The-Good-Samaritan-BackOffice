@@ -88,10 +88,6 @@ export const GalleryModal = () => {
                                     <form onSubmit = {handleSubmit} className = 'needs-validation'>
                                         <div className="row">
                                             <h4 className='text-center'>Tamaño requerido para la imagen: 1440 x 960</h4>
-                                            <div className="col form-group">
-                                                <label>Título</label>
-                                                <input {...getFieldProps('title')} placeholder = 'El amor al Señor' type="text" className = 'form-control bg-transparent text-white' />
-                                            </div>
 
                                             <div className="col">
                                                 <div className="form-group">

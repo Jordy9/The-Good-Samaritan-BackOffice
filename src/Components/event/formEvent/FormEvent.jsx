@@ -18,7 +18,7 @@ export const FormEvent = () => {
 
     const [imag, setimag] = useState()
 
-    const {handleSubmit, resetForm, getFieldProps, touched, errors, setFieldValue} = useFormik({
+    const {handleSubmit, resetForm, touched, errors, setFieldValue} = useFormik({
         initialValues: {
             title: '',
             image: '',
@@ -87,15 +87,8 @@ export const FormEvent = () => {
         <form onSubmit = {handleSubmit}>
             <div className = 'row'>
                 <h5 className='text-center'>Tamaño requerido para la imagen: 1280 x 1280</h5>
-                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                    <div className="form-group">
-                        <label>Título</label>
-                        <input type="text" className = 'form-control bg-transparent text-white' {...getFieldProps('title')} />
-                        {touched.title && errors.title && <span style={{color: 'red'}}>{errors.title}</span>}
-                    </div>
-                </div>
 
-                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div className="form-group">
                         <label>Imagen</label>
                         <button type='button' className='btn btn-outline-primary form-control' onClick={handledImage}>Seleccionar imagen</button>
@@ -124,29 +117,6 @@ export const FormEvent = () => {
                     <div className="form-group d-flex justify-content-center">
                         <img src = {imag || ''} className="img-fluid rounded" alt="" style = {{ cursor: 'pointer', maxHeight: '225px'}} />
                     </div> 
-                </div>
-            </div>
-
-            <div className = 'row'>
-                <div className="col-12">
-                    <div>
-                        <Editor
-                            name = 'descripcion'
-                            onEditorChange = {(e) => setFieldValue('descripcion', e)}
-                            content="<p>This is the initial content of the editor</p>"
-                            init={{
-                            plugins: 'autolink link image lists print preview',
-                            toolbar: 'undo redo | formatselect | fontselect | fontsizeselect ' +
-                            'bold italic backcolor | alignleft aligncenter ' +
-                            'alignright alignjustify | bullist numlist outdent indent | ' +
-                            'removeformat',
-                            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:18px }', 
-                            language: 'es'
-                            }}
-                            // onChange={this.handleEditorChange}
-                        />
-                        {touched.descripcion && errors.descripcion && <span style={{color: 'red'}}>{errors.descripcion}</span>}
-                    </div>
                 </div>
             </div>
             <button type='submit' className = 'btn btn-outline-primary form-control my-3'>Guardar</button>

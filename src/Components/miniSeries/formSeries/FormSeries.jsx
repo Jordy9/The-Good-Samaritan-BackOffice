@@ -6,6 +6,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import tinymce from 'tinymce/tinymce';
 import Swal from 'sweetalert2';
+import { sendEmail } from '../../../action/sendEmail';
 
 export const FormSeries = () => {
 
@@ -53,6 +54,7 @@ export const FormSeries = () => {
                     setfirst([])
                     setfirst([getFieldProps('descripcion').value = ''])
                     setimag()
+                    dispatch(sendEmail(title))
                 }
             } else {
                 const Toast = Swal.mixin({

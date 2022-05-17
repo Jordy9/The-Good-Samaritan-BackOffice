@@ -16,7 +16,7 @@ export const PetitionModalUser = () => {
                     <div className="modal-body">
                         <div className="col-12">
                             <div className="mb-3" style = {{border: 'none'}}>
-                                <h5 className="text-white text-center mt-2">Petición</h5>
+                                <h5 className="text-white text-center mt-2">Petición de oración</h5>
                                 <div className="card-body">
                                         <div className = 'row'>
                                             <div className="col-6">

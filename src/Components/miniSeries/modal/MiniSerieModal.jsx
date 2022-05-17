@@ -5,6 +5,7 @@ import { Editor } from '@tinymce/tinymce-react'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import Swal from 'sweetalert2';
+import { sendEmail } from '../../../action/sendEmail';
 
 export const MiniSerieModal = () => {
 
@@ -49,6 +50,7 @@ export const MiniSerieModal = () => {
                       })
                 } else {
                     dispatch(startUpdateSerie(title, descripcion, image))
+                    dispatch(sendEmail(title))
                 }
             } else {
                 const Toast = Swal.mixin({

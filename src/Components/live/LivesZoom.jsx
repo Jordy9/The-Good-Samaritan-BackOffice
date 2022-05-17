@@ -5,6 +5,7 @@ import { clearSetZoom, SetActiveZoom, startCreateZoom } from '../../action/zoom'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import Swal from 'sweetalert2';
+import { sendEmail } from '../../action/sendEmail';
 
 export const LivesZoom = () => {
 
@@ -52,6 +53,7 @@ export const LivesZoom = () => {
                 } else {
                     if (zoom?.image) {
                         dispatch(startCreateZoom(title, image, id, password))
+                        dispatch(sendEmail(title))
                     } else {
                         const Toast = Swal.mixin({
                             toast: true,

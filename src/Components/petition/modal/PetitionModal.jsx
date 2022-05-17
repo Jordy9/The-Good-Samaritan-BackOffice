@@ -4,10 +4,13 @@ import { Editor } from '@tinymce/tinymce-react'
 import { startUpdatePetition } from '../../../action/petition'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
+import h2p from 'html2plaintext'
 
 export const PetitionModal = () => {
 
     const {activePetitions} = useSelector(state => state.pt)
+
+    const {activeUser} = useSelector(state => state.auth)
 
     const dispatch = useDispatch()
 
@@ -42,7 +45,13 @@ export const PetitionModal = () => {
                     <div className="modal-body">
                         <div className="col-12">
                             <div className="mb-3" style = {{border: 'none'}}>
-                                <h5 className="text-white text-center mt-2">Editar Bosquejo</h5>
+                                {
+                                    (activeUser?.role === 'Pastor')
+                                        ?
+                                    <h5 className="text-white text-center mt-2">Editar petición</h5>
+                                        :
+                                    <h5 className="text-white text-center mt-2">Petición de oración</h5>
+                                }
                                 <div className="card-body">
                                     <form onSubmit = {handleSubmit}>
                                         <div className = 'row'>
@@ -57,28 +66,37 @@ export const PetitionModal = () => {
 
                                         <div className = 'row'>
                                             <div className="col-12">
-                                                <div>
-                                                    <Editor
-                                                        initialValue = {activePetitions?.descripcion}
-                                                        name = 'descripcion'
-                                                        onEditorChange = {(e) => setFieldValue('descripcion', e)}
-                                                        content="<p>This is the initial content of the editor</p>"
-                                                        init={{
-                                                        plugins: 'autolink link image lists print preview',
-                                                        toolbar: 'undo redo | formatselect | fontselect | fontsizeselect ' +
-                                                        'bold italic backcolor | alignleft aligncenter ' +
-                                                        'alignright alignjustify | bullist numlist outdent indent | ' +
-                                                        'removeformat',
-                                                        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:18px }', 
-                                                        language: 'es'
-                                                        }}
-                                                        // onChange={this.handleEditorChange}
-                                                    />
-                                                    {touched.descripcion && errors.descripcion && <span style={{color: 'red'}}>{errors.descripcion}</span>}
-                                                </div>
+
+                                                {
+                                                    (activeUser?.role !== 'Pastor')
+                                                        ?
+                                                    <div>
+                                                        <textarea style = {{resize: 'none'}} readOnly rows = '5' className = 'form-control bg-transparent text-white' value={h2p(activePetitions?.descripcion)} />
+                                                    </div>
+                                                        :
+                                                    <div>
+                                                        <Editor
+                                                            initialValue = {activePetitions?.descripcion}
+                                                            name = 'descripcion'
+                                                            onEditorChange = {(e) => setFieldValue('descripcion', e)}
+                                                            content="<p>This is the initial content of the editor</p>"
+                                                            init={{
+                                                            plugins: 'autolink link image lists print preview',
+                                                            toolbar: 'undo redo | formatselect | fontselect | fontsizeselect ' +
+                                                            'bold italic backcolor | alignleft aligncenter ' +
+                                                            'alignright alignjustify | bullist numlist outdent indent | ' +
+                                                            'removeformat',
+                                                            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:18px }', 
+                                                            language: 'es'
+                                                            }}
+                                                            // onChange={this.handleEditorChange}
+                                                        />
+                                                        {touched.descripcion && errors.descripcion && <span style={{color: 'red'}}>{errors.descripcion}</span>}
+                                                    </div>
+                                                }
                                             </div>
                                         </div>
-                                        <button type='submit' className = 'btn btn-outline-primary form-control my-3'>Guardar</button>
+                                        <button hidden = {(activeUser?.role !== 'Pastor')} type='submit' className = 'btn btn-outline-primary form-control my-3'>Guardar</button>
                                     </form>
                                 </div>
                             </div>
