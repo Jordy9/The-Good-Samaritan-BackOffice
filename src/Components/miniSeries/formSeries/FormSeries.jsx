@@ -54,7 +54,7 @@ export const FormSeries = () => {
                     setfirst([])
                     setfirst([getFieldProps('descripcion').value = ''])
                     setimag()
-                    dispatch(sendEmail(title))
+                    dispatch(sendEmail(title, null, 'Nueva miniserie agregada, titulada:'))
                 }
             } else {
                 const Toast = Swal.mixin({

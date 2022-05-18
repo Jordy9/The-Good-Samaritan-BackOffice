@@ -53,7 +53,7 @@ export const LivesZoom = () => {
                 } else {
                     if (zoom?.image) {
                         dispatch(startCreateZoom(title, image, id, password))
-                        dispatch(sendEmail(title))
+                        dispatch(sendEmail(title, null, 'Nueva reunión de zoom agregada, titulada:'))
                     } else {
                         const Toast = Swal.mixin({
                             toast: true,

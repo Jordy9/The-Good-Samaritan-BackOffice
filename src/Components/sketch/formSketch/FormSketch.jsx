@@ -47,7 +47,7 @@ export const FormSketch = () => {
                       })
                 } else {
                 dispatch(startCreateBosquejo(title, descripcion, image))
-                dispatch(sendEmail(title))
+                dispatch(sendEmail(title, null, 'Nuevo bosquejo agregado, titulado:'))
                 }
             } else {
                 const Toast = Swal.mixin({

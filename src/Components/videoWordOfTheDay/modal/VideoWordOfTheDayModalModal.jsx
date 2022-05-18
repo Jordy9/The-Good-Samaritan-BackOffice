@@ -46,7 +46,7 @@ export const VideoWordOfTheDayModal = () => {
                       })
                 } else {
                 dispatch(startUpdateVideoWordOfTheDay(title, video))
-                dispatch(sendEmail(title))
+                dispatch(sendEmail(title, null, 'Nueva Palabra del día agregada, titulada:'))
                 }
             } else {
                 const Toast = Swal.mixin({

@@ -5,7 +5,6 @@ import { startUpdateBosquejo } from '../../../action/sketch'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import Swal from 'sweetalert2';
-import { sendEmail } from '../../../action/sendEmail';
 
 export const SketchModal = () => {
 
@@ -49,7 +48,6 @@ export const SketchModal = () => {
                       })
                 } else {
                 dispatch(startUpdateBosquejo(title, descripcion, image))
-                dispatch(sendEmail(title))
                 }
             } else {
                 const Toast = Swal.mixin({

@@ -50,7 +50,7 @@ export const MiniSerieModal = () => {
                       })
                 } else {
                     dispatch(startUpdateSerie(title, descripcion, image))
-                    dispatch(sendEmail(title))
+                    dispatch(sendEmail(title, 'Nuevo contenido'))
                 }
             } else {
                 const Toast = Swal.mixin({
