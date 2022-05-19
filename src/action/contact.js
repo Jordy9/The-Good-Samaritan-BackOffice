@@ -102,6 +102,9 @@ export const SetActiveContact = (Contacts) => ({
 
 export const startDeleteContact = () => {
     return async(dispatch, getState) => {
+      
+        const {socket} = getState().sk
+
         const {activeContact} = getState().co
 
         const resp = await fetchConToken(`contact/${activeContact._id}`, activeContact, 'DELETE')
@@ -109,6 +112,7 @@ export const startDeleteContact = () => {
 
         if(body.ok) {
             dispatch(deleteContact(activeContact))
+            socket?.emit('notifications-user-to-admin-delete', activeContact._id)
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',

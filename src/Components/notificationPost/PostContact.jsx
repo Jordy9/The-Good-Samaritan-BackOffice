@@ -49,14 +49,14 @@ export const PostContact = ({notificationPost}) => {
                 <div className="card-body">
                     <form onSubmit = {handleSubmit}>
                         <div className = 'row'>
-                            <div className="col-6">
+                            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                                 <div className="form-group">
                                     <label>Nombre</label>
                                     <input value={notificationPost?.name} readOnly className = 'form-control bg-transparent text-white' />
                                 </div>
                             </div>
 
-                            <div className="col-6">
+                            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                                 <div className="form-group">
                                     <label>Fecha</label>
                                     <input value={moment(notificationPost?.createdAt).format('MMMM Do YYYY, h:mm a')} readOnly className = 'form-control bg-transparent text-white' />
@@ -83,7 +83,7 @@ export const PostContact = ({notificationPost}) => {
                         </div>
 
                         <div className = 'row'>
-                            <div className="col-6">
+                            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                                 <div className="form-group">
                                     <label>Tema</label>
                                     <input {...getFieldProps('subject')} className = 'form-control bg-transparent text-white' />
@@ -91,7 +91,7 @@ export const PostContact = ({notificationPost}) => {
                                 </div>
                             </div>
 
-                            <div className="col-6">
+                            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                                 <div className="form-group">
                                     <label>Título</label>
                                     <input {...getFieldProps('title')} className = 'form-control bg-transparent text-white' />

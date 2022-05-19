@@ -32,17 +32,10 @@ export const Navb = () => {
         })
     }, [socket, dispatch, uid])
 
-    const [notifyChange, setNotifyChange] = useState(notificationCountChange)
-
     const onClick = () => {
-        socket?.emit('Delete-Notifications-count-admin', uid)
-        setNotificationCountChange(false)
-        setNotifyChange(false)
-    }
-
-    useEffect(() => {
+      socket?.emit('Delete-Notifications-count-admin', uid)
       setNotificationCountChange(false)
-  }, [notifyChange])
+    }
 
     const {pathname} = useLocation()
 
