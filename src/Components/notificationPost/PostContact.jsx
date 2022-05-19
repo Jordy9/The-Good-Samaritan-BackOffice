@@ -32,7 +32,7 @@ export const PostContact = ({notificationPost}) => {
                         .min(3, 'Debe de tener 3 caracteres o más')
                         .required('Requerido'),
             title: Yup.string()
-                        .max(100, 'Debe de tener 50 caracteres o menos')
+                        .max(100, 'Debe de tener 100 caracteres o menos')
                         .min(3, 'Debe de tener 3 caracteres o más')
                         .required('Requerido'),
             descripcion: Yup.string()

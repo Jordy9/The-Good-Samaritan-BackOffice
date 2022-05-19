@@ -66,7 +66,7 @@ export const FormYoutube = () => {
         },
         validationSchema: Yup.object({
             title: Yup.string()
-                    .max(50, 'Debe de tener menos de 50 caracteres')
+                    .max(100, 'Debe de tener menos de 100 caracteres')
                     .min(3, 'Debe de tener minimo 3 caracteres')
                     .required('Requerido'),
             link: Yup.string()
