@@ -47,6 +47,7 @@ export const FormEvent = () => {
                       })
                 } else {
                 dispatch(startCreateEvento(title, image, descripcion))
+                setimag()
                 }
             }else {
                 const Toast = Swal.mixin({
@@ -66,12 +67,6 @@ export const FormEvent = () => {
                     title: 'No tiene el privilegio de crear este evento'
                   })
             }
-            resetForm({
-                title: '',
-                image: document.getElementsByName('image').value = '',
-                descripcion: tinymce.activeEditor.setContent('')
-            })
-            setimag()
         },
         validationSchema: Yup.object({
             image: Yup.string()
