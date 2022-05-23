@@ -43,6 +43,7 @@ import { NotificationPost } from '../Components/notificationPost/NotificationPos
 import { ImageVideo } from '../Components/imageVideo/ImageVideo';
 import { SoundMessage } from '../Components/soundMessage/SoundMessage';
 import { RemoveNewNotificacion } from '../action/notifications';
+import { ChatScreen } from '../Components/chat2.0/ChatScreen';
 
 export const AuthRouter = () => {
 
@@ -115,7 +116,7 @@ export const AuthRouter = () => {
                     <Route path = '/NoBeleaver' component = {NoBeleaverVideo} />
                     <Route path = '/Beleaver' component = {Beleaver} />
                     <Route path = '/BeleaverList' component = {BeleaverList} />
-                    <Route path = '/Chat' component = {ChatPage} />
+                    <Route path = '/Chat' component = {ChatScreen} />
                     <Route path = '/NotificationResponsive' component = {NotificationResponsive} />
                     <Route path = '/NotificationPost/:id' component = {NotificationPost} />
                     <Route path = '/ImageVideo' component = {ImageVideo} />

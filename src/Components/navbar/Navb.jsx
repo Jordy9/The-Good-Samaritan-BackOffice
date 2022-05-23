@@ -228,7 +228,7 @@ export const Navb = () => {
       }, [notificaciones, pathname, uid]);
 
     return (
-        <Navbar fixed='top' className = 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12' expand="lg" bg = 'dark' variant="dark">
+        <Navbar className = 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12' expand="lg" bg = 'dark' variant="dark">
             <Container fluid>
             <Sidebar />
                 <Navbar.Brand style = {{cursor: 'pointer', margin: 0, padding: 0}} >

@@ -1,5 +1,11 @@
 export const Types = {
 
+    MGRespondMessages: '[MG] respond message',
+    MGStopRespondMessages: '[MG] stop respond message',
+    MGScrollMessageOutGing: '[MG] scroll message outgoing',
+    MGScrollMessageClear: '[MG] scroll message clear',
+    MGRemoveMessage: '[MG] remove message',
+    // 
     ivgetImageVideo: '[IV] get ImageVideo',
     ivcreateImageVideo: '[IV] create ImageVideo',
     ivUploadFinish: '[IV] upload finish',

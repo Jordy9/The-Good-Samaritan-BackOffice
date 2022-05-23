@@ -1,0 +1,32 @@
+.hoverChat:hover {
+    background-color: #363535 !important;
+    border-radius: 40px;
+    cursor: pointer;
+}
+
+.focusChat {
+    background-color: #363535 !important;
+    border-radius: 40px;
+    cursor: pointer;
+}
+
+button#input-group-dropdown-3.dropdown-toggle.btn.btn-dark::after {
+    display:none !important;
+}
+
+#input-group-dropdown-3 {
+    border-radius: 50px;
+}
+
+#input-group-dropdown-3 {
+    border: none !important;
+}
+
+#input-group-dropdown-3:hover {
+    border: none !important;
+}
+
+#input-group-dropdown-3:focus {
+    border: none !important;
+}
+

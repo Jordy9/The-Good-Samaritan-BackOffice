@@ -43,7 +43,7 @@ export const AppRouter = () => {
     const dispatch = useDispatch();
     const {checking, uid} = useSelector(state => state.auth)
 
-    const {socket, online, conectarSocket, desconectarSocket} = useSocket('https://good-samaritan-backend.herokuapp.com')
+    const {socket, online, conectarSocket, desconectarSocket} = useSocket(`${process.env.REACT_APP_API_URL.split('/api')[0]}`)
 
     const token = localStorage.getItem('tokenn')
 
