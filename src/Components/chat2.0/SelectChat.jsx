@@ -7,8 +7,8 @@ export const SelectChat = () => {
             <div className='image-round p-4' style={{backgroundColor: '#181818'}}>
                 <h1 className='text-center'><strong>Seleccione a una persona para comenzar una conversación</strong></h1>
                 <hr />
-                <h5 className='text-center'>Dios te bendiga, recuerda que en este chat, podrás hablar con personas que podrán ayudarte en todo lo que necesites de manera espiritual.</h5>
-                <h5 className='text-center'>Si deseas hablar con alguien y está desconectado, escribele, le avisaremos y te responderá lo más pronto posible.</h5>
+                <h5 className='text-center'>Dios te bendiga, recuerda que en este chat, podrás hablar con personas para ayudarlos en todo lo que necesiten de manera espiritual.</h5>
+                <h5 className='text-center'>Si deseas hablar con alguien y está desconectado, escribele, le avisaremos por medio de su correo electrónico.</h5>
             </div>
         </div>
     </div>
