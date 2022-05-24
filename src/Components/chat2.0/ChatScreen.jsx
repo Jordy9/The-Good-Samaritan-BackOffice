@@ -44,7 +44,7 @@ export const ChatScreen = () => {
     }
 
   return (
-    <div className='row'>
+    <div style={{marginTop: '30px'}} className='row'>
         <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <div className="row">
                 <div hidden = {first} className="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">

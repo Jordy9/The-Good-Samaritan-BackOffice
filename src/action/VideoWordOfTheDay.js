@@ -173,7 +173,14 @@ export const startUpdateVideoWordOfTheDay = (title, fileupload) => {
               
               dispatch(updateVideoWordOfTheDay(body.video))
               dispatch(UploadFish())
-              socket?.emit('notifications-admin-to-user-update', body.video)
+
+              const subtitle = 'Nueva Palabra del Día agregada'
+
+              const content = body.video
+
+              const payload = {title, subtitle, content}
+
+              socket?.emit('notifications-admin-to-user-update', payload)
               const ress = await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeVideo.idImage}`, {headers: {'x-token': token}})
               console.log(ress)
               const Toast = Swal.mixin({
@@ -238,7 +245,14 @@ export const startUpdateVideoWordOfTheDay = (title, fileupload) => {
             if (body.ok) {
 
                 dispatch(updateVideoWordOfTheDay(body.video))
-                socket?.emit('notifications-admin-to-user-update', body.video)
+
+                const subtitle = 'Nueva Palabra del Día agregada'
+
+                const content = body.video
+
+                const payload = {title, subtitle, content}
+
+                socket?.emit('notifications-admin-to-user-update', payload)
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
