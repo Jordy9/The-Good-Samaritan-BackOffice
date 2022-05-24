@@ -71,11 +71,14 @@ export const OutgoingMessage = ({msg}) => {
                     ?
                   (msg?.message?.includes('.jpg') || msg?.message?.includes('.png') || msg?.message?.includes('.jpeg') || msg?.message?.includes('.svg'))
                     ?
-                  <img src = {msg?.message} className = 'img-fluid image-round' style = {{width: '100%', height: '150px', objectFit: 'cover'}} alt="" />  
+                    <>
+                      <img src = {msg?.message} className = 'img-fluid image-round' style = {{width: '100%', height: '150px', objectFit: 'cover'}} alt="" />  
+                      <span style={{textDecoration: 'underline', cursor: 'pointer', wordWrap: 'break-word'}} onClick={() => window.open(`${msg?.message}`)}>{msg.message}</span>
+                    </>
                     :
                   <>
                     <iframe className='image-round' title='link' style={{cursor: 'pointer', width: '100%', height: '100%', objectFit: 'cover', overflow: 'hidden'}} src = {msg?.message}></iframe>
-                    <span style={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => window.open(`${msg?.message}`)}>{msg.message}</span>
+                    <span style={{textDecoration: 'underline', cursor: 'pointer', wordWrap: 'break-word'}} onClick={() => window.open(`${msg?.message}`)}>{msg.message}</span>
                   </>
                     :
                   <span style={{wordWrap: 'break-word'}}>{msg?.message}</span>
