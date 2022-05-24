@@ -73,12 +73,12 @@ export const OutgoingMessage = ({msg}) => {
                     ?
                     <>
                       <img src = {msg?.message} className = 'img-fluid image-round' style = {{width: '100%', height: '150px', objectFit: 'cover'}} alt="" />  
-                      <span style={{textDecoration: 'underline', cursor: 'pointer', wordWrap: 'break-word'}} onClick={() => window.open(`${msg?.message}`)}>{msg.message}</span>
+                      <span className='mx-3' style={{textDecoration: 'underline', cursor: 'pointer', wordWrap: 'break-word'}} onClick={() => window.open(`${msg?.message}`)}>{msg.message}</span>
                     </>
                     :
                   <>
                     <iframe className='image-round' title='link' style={{cursor: 'pointer', width: '100%', height: '100%', objectFit: 'cover', overflow: 'hidden'}} src = {msg?.message}></iframe>
-                    <span style={{textDecoration: 'underline', cursor: 'pointer', wordWrap: 'break-word'}} onClick={() => window.open(`${msg?.message}`)}>{msg.message}</span>
+                    <span className='mx-3' style={{textDecoration: 'underline', cursor: 'pointer', wordWrap: 'break-word'}} onClick={() => window.open(`${msg?.message}`)}>{msg.message}</span>
                   </>
                     :
                   <span style={{wordWrap: 'break-word'}}>{msg?.message}</span>

@@ -30,3 +30,8 @@ button#input-group-dropdown-3.dropdown-toggle.btn.btn-dark::after {
     border: none !important;
 }
 
+img {
+    max-width: 100%;
+}
+
+

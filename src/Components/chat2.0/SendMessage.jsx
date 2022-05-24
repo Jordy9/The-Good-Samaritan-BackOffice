@@ -24,7 +24,7 @@ export const SendMessage = () => {
         },
         enableReinitialize: true,
         onSubmit: ({message}) => {
-            if (message.includes('http://') || message.includes('https://' || message.includes('wwww'))) {
+            if (message.includes('http://') || message.includes('https://') || message.includes('wwww')) {
                 setShow(true)
                 resetForm({
                     message: ''

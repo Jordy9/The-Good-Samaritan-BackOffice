@@ -27,7 +27,6 @@ import { PetitionListUser } from '../Components/petition/petitionsListUser/Petit
 import { PetitionListSinCuenta } from '../Components/petition/petitionsListSinCuenta/PetitionListSinCuenta';
 import { Youtube } from '../Components/youtube/Youtube';
 import { YoutubeList } from '../Components/youtube/youtubeList/YoutubeList';
-import { ChatPage } from '../Components/chat/ChatPage';
 import { VideoWordOfTheDay } from '../Components/videoWordOfTheDay/VideoWordOfTheDay'
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
