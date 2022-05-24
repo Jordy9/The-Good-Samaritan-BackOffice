@@ -70,16 +70,16 @@ export const IncomingMessage = ({msg}) => {
                         ?
                     (msg?.message?.includes('.jpg') || msg?.message?.includes('.png') || msg?.message?.includes('.jpeg') || msg?.message?.includes('.svg'))
                         ?
-                        <>
+                        <div style={{padding: (markMessage && msg?._id === messageOutGoing) && '10px'}}>
                             <img src = {msg?.message} className = 'img-fluid image-round' style = {{width: '100%', height: '150px', objectFit: 'cover'}} alt="" /> 
                             <span id={`${msg?._id}`} style={{textDecoration: 'underline', cursor: 'pointer', wordWrap: 'break-word', padding: (markMessage && msg?._id === messageOutGoing) && '10px'}}>{msg.message}</span>
-                        </>
+                        </div>
 
                         :
-                        <>
+                        <div style={{padding: (markMessage && msg?._id === messageOutGoing) && '10px'}}>
                             <iframe className='image-round' title='link' style={{cursor: 'pointer', width: '100%', height: '100%', objectFit: 'cover', overflow: 'hidden'}} src = {msg?.message}></iframe>
                             <span id={`${msg?._id}`} style={{textDecoration: 'underline', cursor: 'pointer', wordWrap: 'break-word', padding: (markMessage && msg?._id === messageOutGoing) && '10px'}} onClick={() => window.open(`${msg?.message}`)}>{msg.message}</span>
-                        </>
+                        </div>
                         :
                     <span id={`${msg?._id}`} style={{wordWrap: 'break-word', padding: (markMessage && msg?._id === messageOutGoing) && '10px'}}>{msg.message}</span>
                     }

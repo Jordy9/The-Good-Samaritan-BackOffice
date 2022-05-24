@@ -75,7 +75,7 @@ export const OutgoingMessage = ({msg}) => {
                     :
                   <>
                     <iframe className='image-round' title='link' style={{cursor: 'pointer', width: '100%', height: '100%', objectFit: 'cover', overflow: 'hidden'}} src = {msg?.message}></iframe>
-                    {/* <span style={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => window.open(`${msg?.message}`)}>{msg.message}</span> */}
+                    <span style={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => window.open(`${msg?.message}`)}>{msg.message}</span>
                   </>
                     :
                   <span style={{wordWrap: 'break-word'}}>{msg?.message}</span>
