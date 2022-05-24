@@ -49,6 +49,7 @@ export const Types = {
     vwdDeleteVideoWordOfTheDay: '[VWD] delete VideoWordOfTheDay',
     vwdUpload: '[VWD] upload vwd',
     vwdUploadFinish: '[VWD] upload finish vwd',
+    vwdPaginateVideo: '[VWD] paginate video',
     // 
     ntDeleteNotification: '[NT] delete notification',
     ntNotificacionesCargadas: '[NT] notificaciones cargadas',

@@ -97,8 +97,8 @@ export const GalleryImages = () => {
 
     return (
         <form onSubmit = {handleSubmit}>
-            <h1 style={{marginTop: '70px'}}>Galería</h1>
-            <div className = 'row my-5'>
+            <h1 style={{marginTop: '30px'}}>Galería</h1>
+            <div className = 'row'>
                 <h4 className='text-center'>Tamaño requerido para la imagen: 1440 x 960</h4>
 
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">

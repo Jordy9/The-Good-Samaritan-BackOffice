@@ -242,9 +242,13 @@ export const Navb = () => {
 
                 </Nav>
 
-                <Nav className="mr-3">
-                  <NavLink to = '/Chat' className = 'nav-link' activeStyle={{color: 'white'}} activeClassName = 'true'><i className="bi bi-chat-text-fill" style={{color: (changeColor) && 'red'}}> </i>Chat</NavLink>
-                </Nav>
+                {
+                  (activeUser?.role === 'Administrador' || activeUser?.role === 'Colaborador')
+                    &&
+                  <Nav className="mr-3">
+                    <NavLink to = '/Chat' className = 'nav-link' activeStyle={{color: 'white'}} activeClassName = 'true'><i className="bi bi-chat-text-fill" style={{color: (changeColor) && 'red'}}> </i>Chat</NavLink>
+                  </Nav>
+                }
 
                 {
                     (activeUser?.role === 'Administrador' || activeUser?.role === 'Colaborador')

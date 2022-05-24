@@ -16,7 +16,7 @@ export const EventsList = () => {
 
     return (
         <>
-          <h1 style = {{marginTop: '70px'}}>Listado de Eventos</h1>
+          <h1 style = {{marginTop: '30px'}}>Listado de Eventos</h1>
           <div className="table-responsive">
             <table className="table text-white bg-dark text-center">
               <thead>

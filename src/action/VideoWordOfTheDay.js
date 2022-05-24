@@ -4,36 +4,36 @@ import { Types } from "../types/Types"
 import Swal from "sweetalert2"
 
 
-export const startGetVideoWordOfTheDay = () => {
-    return async(dispatch) => {
-        const resp = await fetchSinToken('VideoWordOfTheDay')
-        const body = await resp.json()
-
-        if(body.ok) {
-            dispatch(VideoWordOfTheDay(body.video))
-        }
-    }
-}
-
-// export const startGetPaginateMiniSeries = (page) => {
+// export const startGetVideoWordOfTheDay = () => {
 //     return async(dispatch) => {
-//         const resp = await fetchSinToken(`miniserie/series?page=${page || 1}`)
+//         const resp = await fetchSinToken('VideoWordOfTheDay')
 //         const body = await resp.json()
 
 //         if(body.ok) {
-//             dispatch(miniSeries(body.miniSeries))
-//             dispatch(PaginateminiSeries({
-//                 page: body.page,
-//                 total: body.total
-//             }))
+//             dispatch(VideoWordOfTheDay(body.video))
 //         }
 //     }
 // }
 
-// const PaginateminiSeries = (series) => ({
-//     type: Types.miPaginateSerie,
-//     payload: series
-// })
+export const startGetPaginateVideos = (page) => {
+    return async(dispatch) => {
+        const resp = await fetchSinToken(`VideoWordOfTheDay/videos?page=${page || 1}`)
+        const body = await resp.json()
+
+        if(body.ok) {
+            dispatch(VideoWordOfTheDay(body.video))
+            dispatch(PaginateVideos({
+                page: body.page,
+                total: body.total
+            }))
+        }
+    }
+}
+
+const PaginateVideos = (videos) => ({
+    type: Types.vwdPaginateVideo,
+    payload: videos
+})
 
 const VideoWordOfTheDay = (video) => ({
     type: Types.vwdgetVideosWordOfTheDay,

@@ -3,6 +3,7 @@ import { Types } from "../types/Types"
 const initialState = {
     videos: [],
     activeVideo: null,
+    Paginate: [],
     Porcentage: 0
 }
 
@@ -69,6 +70,12 @@ export const VideoWordOfTheDayReducer = (state = initialState, action) => {
             return {
                 ...state,
                 Porcentage: 0
+            }
+
+        case Types.vwdPaginateVideo:
+            return {
+                ...state,
+                Paginate: action.payload
             }
     
         default:

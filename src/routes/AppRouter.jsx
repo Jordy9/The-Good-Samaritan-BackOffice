@@ -29,12 +29,12 @@ import { PublicRoute } from './PublicRoute';
 import moment from 'moment';
 import 'moment/locale/es';
 import { cargarNotificaciones } from '../action/notifications';
-import { startGetVideoWordOfTheDay } from '../action/VideoWordOfTheDay';
 import { startGetNoBeleaverVideo } from '../action/videoNoBeleaver';
 import { startGetBeleaver } from '../action/beleaver';
 import { ForgotPassword } from '../Components/forgotPassword/ForgotPassword';
 import { ResetPassword } from '../Components/forgotPassword/ResetPassword';
 import { startGetImageVideo } from '../action/imageVideo';
+import { startGetPaginateVideos } from '../action/VideoWordOfTheDay';
 
 moment.locale('es');
 
@@ -64,7 +64,7 @@ export const AppRouter = () => {
         dispatch(setActiveUser())
         dispatch(startGetPaginateYoutube())
         dispatch(cargarNotificaciones())
-        dispatch(startGetVideoWordOfTheDay())
+        dispatch(startGetPaginateVideos())
         dispatch(startGetNoBeleaverVideo())
         dispatch(startGetBeleaver())
         dispatch(startGetUsersUsuarios())

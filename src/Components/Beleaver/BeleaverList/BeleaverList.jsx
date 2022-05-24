@@ -10,7 +10,7 @@ export const BeleaverList = () => {
 
     return (
         <>
-          <h1 style = {{marginTop: '70px'}}>Listado de información para nuevos creyentes</h1>
+          <h1 style = {{marginTop: '30px'}}>Listado de información para nuevos creyentes</h1>
           <div className="table-responsive">
             <table className="table text-white bg-dark text-center">
               <thead>

@@ -122,7 +122,7 @@ export const LivesZoom = () => {
     }
 
     return (
-        <div style = {{marginTop: '70px'}} className='row'>
+        <div style = {{marginTop: '30px'}} className='row'>
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
             <h1>Anunciar reunión de zoom</h1>
                 <form onSubmit = {handleSubmit}>

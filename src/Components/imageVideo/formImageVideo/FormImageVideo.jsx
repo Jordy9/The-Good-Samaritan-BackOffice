@@ -109,6 +109,7 @@ export const FormImageVideo = () => {
                 <div className="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
                     <form onSubmit = {handleSubmit}>
                         <div className = 'row'>
+                            <h1 style = {{marginTop: '30px'}}>Banner de la página de home</h1>
                             <h5 className='text-center'>Tamaño requerido para la imagen o video: 1920 x 632</h5>
                             {
                                 (getFieldProps('image')?.value?.length === 0)
@@ -160,8 +161,6 @@ export const FormImageVideo = () => {
                                     (getFieldProps('image').value?.type?.includes('video'))
                                         &&
                                     <div className="form-group d-flex justify-content-center">
-                                        {/* <img src = {imag} style = {{ cursor: 'pointer', height: '200px', maxWidth: '400px' }} className = 'img-fluid rounded' alt=''/> */}
-                                        {/* <video><source src={getFieldProps('image').value} /></video> */}
                                         <video src = {imag || ''} className="img-fluid rounded" alt="" style = {{ cursor: 'pointer', maxHeight: '225px'}}></video>
                                     </div> 
                                 }
@@ -170,7 +169,6 @@ export const FormImageVideo = () => {
                                     (getFieldProps('image').value?.type?.includes('image'))
                                         &&
                                     <div className="form-group d-flex justify-content-center">
-                                        {/* <img src = {imag} style = {{ cursor: 'pointer', height: '200px', maxWidth: '400px' }} className = 'img-fluid rounded' alt=''/> */}
                                         <img src = {imag || ''} className="img-fluid rounded" alt="" style = {{ cursor: 'pointer', maxHeight: '225px'}} />
                                     </div> 
                                 }
@@ -183,7 +181,7 @@ export const FormImageVideo = () => {
                 </div>
 
                 <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                    <h1>Video actual</h1>
+                    <h1 style = {{marginTop: '30px'}}>Video actual</h1>
                     <div className = 'shadow d-flex justify-content-center align-items-center p-4 my-2 bg-dark rounded-lg flex-column'>
                         {
                             (imageVideo)

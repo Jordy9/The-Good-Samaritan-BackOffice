@@ -16,7 +16,7 @@ export const GalleryList = () => {
 
     return (
         <>
-          <h1 style = {{marginTop: '70px'}}>Listado de la galería</h1>
+          <h1 style = {{marginTop: '30px'}}>Listado de la galería</h1>
           <div className="table-responsive">
             <table className="table text-white bg-dark text-center">
               <thead>

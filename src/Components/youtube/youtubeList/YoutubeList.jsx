@@ -18,7 +18,7 @@ export const YoutubeList = () => {
 
     return (
         <>
-          <h1 style = {{marginTop: '70px'}}>Listado de links de videos</h1>
+          <h1 style = {{marginTop: '30px'}}>Listado de links de videos</h1>
           <div className="input-group justify-content-end mb-3">
             <div className="form-outline">
               <input placeholder='Buscador' type="search" value={title} onChange={({target}) => setTitle(target.value)} className="form-control bg-transparent text-white" />

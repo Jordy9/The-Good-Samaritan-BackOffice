@@ -30,7 +30,7 @@ import { YoutubeList } from '../Components/youtube/youtubeList/YoutubeList';
 import { VideoWordOfTheDay } from '../Components/videoWordOfTheDay/VideoWordOfTheDay'
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
-import { videoWordOfTheDayList } from '../Components/videoWordOfTheDay/videoWordOfTheDayList/VideoWordOfTheDayList';
+import { VideoWordOfTheDayList } from '../Components/videoWordOfTheDay/videoWordOfTheDayList/VideoWordOfTheDayList';
 import { NoBeleaverVideo } from '../Components/noBeleaver/NoBeleaverVideo';
 import { NotificationResponsive } from '../Components/notificationResponsive/NotificationResponsive';
 import { Beleaver } from '../Components/Beleaver/Beleaver';
@@ -86,11 +86,11 @@ export const AuthRouter = () => {
         <>
         <Navb />
         <Container>
-            <div className = 'my-4'>
+            <>
                 <Switch>
                     <Route path = '/Dashboard' component = {Dashboard} />
                     <Route path = '/WordOfTheDay' component = {VideoWordOfTheDay} />
-                    <Route path = '/WordOfTheDayList' component = {videoWordOfTheDayList} />
+                    <Route path = '/WordOfTheDayList' component = {VideoWordOfTheDayList} />
                     <Route path = '/MiniSerie' component = {MiniSeries} />
                     <Route path = '/MiniSeriesList' component = {MiniSeriesList} />
                     <Route path = '/Sketch' component = {Sketch} />
@@ -136,7 +136,7 @@ export const AuthRouter = () => {
                         <Redirect to = '/Dashboard' />
                     }
                 </Switch>
-            </div>
+            </>
         </Container>
     </>
     )

@@ -82,7 +82,7 @@ export const Main = () => {
 
     return (
         <>
-        <h1 style={{marginTop: '70px'}}>Carrusel Principal</h1>
+        <h1 style={{marginTop: '30px'}}>Carrusel Principal</h1>
         <form onSubmit = {handleSubmit}>
             <div className = 'row'>
                 <h4 className='text-center'>Tamaño requerido para la imagen: 1280 x 1280</h4>

@@ -7,7 +7,7 @@ import { UserList } from './userList/UserList'
 export const Dashboard = () => {
     return (
         <>
-            <h1 style = {{marginTop: '70px'}}>Listado de Usuarios</h1>
+            <h1 style = {{marginTop: '30px'}}>Listado de Usuarios</h1>
             <UserList />
             <CreateUser />
             <ModalUpdate />
