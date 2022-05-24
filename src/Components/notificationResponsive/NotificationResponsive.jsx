@@ -30,7 +30,8 @@ export const NotificationResponsive = () => {
     }
 
   return (
-    <div style={{marginTop: '70px'}} className='container'>
+    <div style={{marginTop: '30px'}} className='container'>
+        <h1>Notificaciones</h1>
         <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div style={{overflowY: 'auto'}}>

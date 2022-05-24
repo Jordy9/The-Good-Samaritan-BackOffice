@@ -17,7 +17,7 @@ export const NotificationPost = () => {
     }, [notificationPost])
     
   return (
-    <div className="modal-body" style={{marginTop: '70px'}}>
+    <div className="modal-body" style={{marginTop: '30px'}}>
         <div className="shadow bg-dark p-3 rounded">
             <div className='col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12'>
               {
