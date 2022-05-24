@@ -146,6 +146,8 @@ export const clearSetActiveSerie = () => ({
 export const startUpdateSerie = (title, descripcion, fileupload) => {
     return async(dispatch, getState) => {
 
+        const count = descripcion?.length - 1
+
         const {activeSerie} = getState().mi
 
         const {activeUser} = getState().auth
@@ -172,7 +174,7 @@ export const startUpdateSerie = (title, descripcion, fileupload) => {
             if(res.data.ok) {
               const image = res.data.image.url
               const idImage = res.data.image.id
-              const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, {title, image, idImage, descripcion, updatedAt}, 'PUT');
+              const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, {title, image, idImage, descripcion, updatedAt, count}, 'PUT');
               const body = await resp.json()
               
               if (body.ok) {
@@ -239,7 +241,7 @@ export const startUpdateSerie = (title, descripcion, fileupload) => {
 
           } else {
             const {image, idImage} = activeSerie
-            const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, {title, image, idImage, descripcion, updatedAt}, 'PUT');
+            const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, {title, image, idImage, descripcion, updatedAt, count}, 'PUT');
             const body = await resp.json()
 
             if (body.ok) {
