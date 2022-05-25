@@ -4,6 +4,7 @@ import Swal from 'sweetalert2'
 import { ModalOpen, startDeleteUser } from '../../../action/auth'
 import { SetActiveUser } from '../../../action/user'
 import Flags from 'country-flag-icons/react/3x2'
+import moment from 'moment'
 
 export const ModalContainer = (props) => {
 
@@ -56,10 +57,12 @@ export const ModalContainer = (props) => {
           }
         })
       }
+
+      const cumple =  moment(activeUser?.date).format('YYYY-MM-DD') === moment().format('YYYY-MM-DD')
     return (
         <>
           <tr>
-              <th>{name}</th>
+              <th>{name} {(cumple) && '🎂'}</th>
               <td>{lastName}</td>
               <td>{email}</td>
               <td>{CountryOnly[1]}{<Flag className = 'flag ml-2' />}</td>

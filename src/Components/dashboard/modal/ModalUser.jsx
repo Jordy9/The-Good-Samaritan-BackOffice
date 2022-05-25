@@ -200,7 +200,7 @@ export const ModalUser = () => {
                             </div>
 
                             <div className="row">
-                                <div className="col form-group">
+                                <div className="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 form-group">
                                     <label>País</label>
                                     <select {...getFieldProps('country')} id='select-rol' className="form-select form-control bg-transparent text-white">
                                         <option selected>Seleccione una opción</option>
@@ -232,7 +232,7 @@ export const ModalUser = () => {
                                     {touched.city && errors.city && <span style={{color: 'red'}}>{errors.city}</span>}
                                 </div>
 
-                                <div className="col form-group">
+                                <div className="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 form-group">
                                     <label >Número de teléfono</label>
                                     <MaskedInput
                                         {...getFieldProps('number')}
@@ -245,14 +245,14 @@ export const ModalUser = () => {
                             </div>
 
                             <div className="row">
-                                <div className="col form-group">
+                                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 form-group">
                                     <label>Contrasena</label>
                                     <input autoComplete='off' type="text" {...getFieldProps('password')} placeholder = '********' className = 'form-control bg-transparent text-white' />
                                     {touched.password && errors.password && <span style={{color: 'red'}}>{errors.password}</span>}
                                 </div>
 
 
-                                <div className="col form-group">
+                                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 form-group">
                                     <label>Confirmar Contrasena</label>
                                     <input autoComplete='off' type="text" {...getFieldProps('confirmPassword')} placeholder = '********' className = 'form-control bg-transparent text-white' />
                                     {touched.confirmPassword && errors.confirmPassword && <span style={{color: 'red'}}>{errors.confirmPassword}</span>}

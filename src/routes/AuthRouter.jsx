@@ -61,10 +61,10 @@ export const AuthRouter = () => {
     const {newNotfification} = useSelector(state => state.nt)
 
     if (moment().day() > 7 && Peticiones) {
-        const peticionesviejas = Peticiones?.filter(cont => moment(cont?.date, "YYYYMMDD").fromNow() > 'hace 7 días')
-        const peticionesviejasSinCuenta = PeticionSinCuenta?.filter(cont => moment(cont?.date, "YYYYMMDD").fromNow() > 'hace 7 días')
-        const peticionesviejasUser = PeticionesUser?.filter(cont => moment(cont?.date, "YYYYMMDD").fromNow() > 'hace 7 días')
-        const contactosViejos = Contactos?.filter(cont => moment(cont?.date, "YYYYMMDD").fromNow() > 'hace 7 días')
+        const peticionesviejas = Peticiones?.filter(cont => moment(cont?.date, "YYYY-MM-DD").fromNow() > 'hace 7 días')
+        const peticionesviejasSinCuenta = PeticionSinCuenta?.filter(cont => moment(cont?.date, "YYYY-MM-DD").fromNow() > 'hace 7 días')
+        const peticionesviejasUser = PeticionesUser?.filter(cont => moment(cont?.date, "YYYY-MM-DD").fromNow() > 'hace 7 días')
+        const contactosViejos = Contactos?.filter(cont => moment(cont?.date, "YYYY-MM-DD").fromNow() > 'hace 7 días')
         socket?.emit('Eliminar-Contactos', contactosViejos, peticionesviejas, peticionesviejasSinCuenta, peticionesviejasUser)
     }
 

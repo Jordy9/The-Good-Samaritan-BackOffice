@@ -8,14 +8,17 @@ export const ProfileImg = ({imag}) => {
     return (
         <>
             <div className = 'shadow d-flex justify-content-center align-items-center p-4 my-2 bg-dark rounded-lg flex-column'>
-                <div className="person-img">
+                
+                <div className="person-img" style={{width: '250px', height: '250px', borderRadius: '50%', overflow: 'hidden'}}>
                     {
                         (activeUser?.urlImage)
                         ?
-                        <img src = {imag || activeUser?.urlImage} className="img-fluid rounded-circle" alt="..." style = {{height: '350px', width: '300px'}} />
+                        <img src = {imag || activeUser?.urlImage} className="img-fluid" alt="..." style = {{objectFit: 'cover'}} />
                         :
-                        <img src = {imag || perfil1} className="img-fluid rounded-circle" alt="..." style = {{height: '350px', width: '300px'}} />
+                        <img src = {imag || perfil1} className="img-fluid" alt="..." style = {{objectFit: 'cover'}} />
                     }
+
+                </div>
 
                     {
                         (Porcentage > 0)
@@ -27,7 +30,6 @@ export const ProfileImg = ({imag}) => {
                             </div>
                         </div>
                     }
-                </div>
 
                 <div className="person-name my-3">
                     <h3 className = 'text-white'>{activeUser?.name} {activeUser?.lastName}</h3>

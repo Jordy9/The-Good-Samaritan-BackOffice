@@ -4,6 +4,7 @@ import { activeChat, cargarChat } from '../../action/chat'
 import { BorrarNotificaciones } from '../../action/notifications'
 import perfil1 from '../../heroes/User.png'
 import './Chat.css'
+import moment from 'moment'
 
 export const SidebarChat = ({usuarios, istyping}) => {
 
@@ -31,6 +32,8 @@ export const SidebarChat = ({usuarios, istyping}) => {
 
     const notify = lol.filter(not => not.to === uid)
 
+    const cumple =  moment(usuarios?.date).format('YYYY-MM-DD') === moment().format('YYYY-MM-DD')
+
   return (
     <>
         <div className='row p-2 bg-dark my-2 hoverChat' onClick={onclick}>
@@ -52,7 +55,7 @@ export const SidebarChat = ({usuarios, istyping}) => {
             </div>
 
             <div className={`col-7 col-sm-8 col-md-7 col-lg-6 col-xl-7 ${(usuarios?.id === chatActivo) && 'focusChat'}`}>
-                <p className='my-2'>{usuarios.name} {usuarios.lastName}</p>
+                <p className='my-2'>{usuarios.name} {usuarios.lastName} {(cumple) && '🎂'}</p>
                 <p className={`my-2 ${usuarios.online ? 'text-success' : 'text-danger'}`}>{usuarios.online ? 'En linea' : 'Sin conexión'}</p>
                 {
                     (istyping[0] === usuarios && typing?.typing === false)

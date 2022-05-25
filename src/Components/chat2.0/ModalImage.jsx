@@ -1,8 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
+import moment from 'moment'
+import { ModalImageSendBirthday } from './ModalImageSendBirthday'
 
 export const ModalImage = ({image, perfil, user}) => {
 
     const CountryOnly = user[0]?.country?.split(',')
+
+    const cumple =  moment(user[0]?.date).format('YYYY-MM-DD') === moment().format('YYYY-MM-DD')
+
+    const [openModal, setOpenModal] = useState(false)
+
+    const openModalBirthday = () => {
+        setOpenModal(true)
+    }
 
   return (
     <div className="modal fade" id="exampleModalImageChatUser" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -16,6 +26,15 @@ export const ModalImage = ({image, perfil, user}) => {
                     <div className="col-12">
                         
                         <img className='image-round' src = {image || perfil} style = {{objectFit: 'cover', width: '100%', height: '350px'}} alt="" />
+
+                        {
+                            (cumple)
+                                &&
+                            <>
+                                <h3 className='text-center my-1'>{user[0].name} está de cumpleaños 🎂</h3>
+                                <h5 data-bs-dismiss="modal" aria-label="Close" onClick={openModalBirthday} style = {{cursor: 'pointer'}} className='text-center my-1'>¡Felicítalo en su día especial!</h5>
+                            </>
+                        }
 
                         <div className="row mt-5">
                             <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 form-group">
@@ -118,6 +137,7 @@ export const ModalImage = ({image, perfil, user}) => {
             </div>
         </div>
         </div>
+        <ModalImageSendBirthday openModal = {openModal} setOpenModal = {setOpenModal} user = {user} />
     </div>
   )
 }
