@@ -32,7 +32,7 @@ export const ModalImage = ({image, perfil, user}) => {
                                 &&
                             <>
                                 <h3 className='text-center my-1'>{user[0].name} está de cumpleaños 🎂</h3>
-                                <h5 data-bs-dismiss="modal" aria-label="Close" onClick={openModalBirthday} style = {{cursor: 'pointer'}} className='text-center my-1'>¡Felicítalo en su día especial!</h5>
+                                <h5 data-bs-dismiss="modal" aria-label="Close" onClick={openModalBirthday} style = {{cursor: 'pointer'}} className='d-flex justify-content-center my-1 btn btn-outline-primary'>¡Felicítalo en su día especial!</h5>
                             </>
                         }
 
