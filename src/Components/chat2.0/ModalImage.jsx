@@ -6,7 +6,7 @@ export const ModalImage = ({image, perfil, user}) => {
 
     const CountryOnly = user[0]?.country?.split(',')
 
-    const cumple =  moment(user[0]?.date).format('YYYY-MM-DD') === moment().format('YYYY-MM-DD')
+    const cumple =  moment(user[0]?.date).format('MM-DD') === moment().format('MM-DD')
 
     const [openModal, setOpenModal] = useState(false)
 

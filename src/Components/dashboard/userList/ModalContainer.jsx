@@ -58,7 +58,7 @@ export const ModalContainer = (props) => {
         })
       }
 
-      const cumple =  moment(activeUser?.date).format('YYYY-MM-DD') === moment().format('YYYY-MM-DD')
+      const cumple =  moment(activeUser?.date).format('MM-DD') === moment().format('MM-DD')
     return (
         <>
           <tr>

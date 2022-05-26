@@ -32,7 +32,7 @@ export const SidebarChat = ({usuarios, istyping}) => {
 
     const notify = lol.filter(not => not.to === uid)
 
-    const cumple =  moment(usuarios?.date).format('YYYY-MM-DD') === moment().format('YYYY-MM-DD')
+    const cumple =  moment(usuarios?.date).format('MM-DD') === moment().format('MM-DD')
 
   return (
     <>
