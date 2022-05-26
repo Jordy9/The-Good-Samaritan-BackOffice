@@ -14,6 +14,11 @@ export const ModalImage = ({image, perfil, user}) => {
         setOpenModal(true)
     }
 
+    const fechainicio1 = moment(user[0]?.date, 'YYYY-MM-DD')
+    const fechafin2 = moment()
+
+    const age = fechafin2.diff(fechainicio1, 'years')
+
   return (
     <div className="modal fade" id="exampleModalImageChatUser" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog modal-md modal-dialog-centered modal-dialog-scrollable">
@@ -51,7 +56,7 @@ export const ModalImage = ({image, perfil, user}) => {
                         <div className="row">
                             <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 form-group">
                                 <label>Edad</label>
-                                <input readOnly type="text" value={user[0].age} className = 'form-control bg-transparent text-white' />
+                                <input readOnly type="text" value={age} className = 'form-control bg-transparent text-white' />
                             </div>
 
                             <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 form-group">

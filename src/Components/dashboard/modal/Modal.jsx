@@ -97,8 +97,6 @@ export const ModalUpdate = () => {
                         .max(50, 'Debe de tener 50 caracteres o menos')
                         .min(3, 'Debe de tener 3 caracteres o más')
                         .required('Requerido'),
-            age: Yup.string()
-                        .required('Requerido'),
             date: Yup.string()
                         .required('Requerido'),
             email: Yup.string()
