@@ -10,7 +10,7 @@ export const SketchModal = () => {
 
     const {activeBosquejo} = useSelector(state => state.skt)
 
-    const {activeUser} = useSelector(state => state.auth)
+    const {activeUser, uid} = useSelector(state => state.auth)
 
     const {Porcentage} = useSelector(state => state.skt)
 
@@ -27,7 +27,7 @@ export const SketchModal = () => {
         },
         enableReinitialize: true,
         onSubmit: ({title, descripcion, image}) => {
-            if (activeUser?.role === 'Pastor') {
+            if (activeUser?.role === 'Pastor' && activeBosquejo?.user === uid) {
 
                 if (image?.type?.includes('image') === false) {
                     const Toast = Swal.mixin({

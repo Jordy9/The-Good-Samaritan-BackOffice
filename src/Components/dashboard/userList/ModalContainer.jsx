@@ -10,7 +10,7 @@ export const ModalContainer = (props) => {
 
   const {activeUser} = useSelector(state => state.auth)
 
-  const {name, lastName, email, country, id, biliever, role} = props
+  const {name, lastName, email, country, id, biliever, role, date} = props
 
   const CountryOnly = country?.split(',')
 
@@ -58,7 +58,8 @@ export const ModalContainer = (props) => {
         })
       }
 
-      const cumple =  moment(activeUser?.date).format('MM-DD') === moment().format('MM-DD')
+      const cumple =  moment(date).format('MM-DD') === moment().format('MM-DD')
+      
     return (
         <>
           <tr>

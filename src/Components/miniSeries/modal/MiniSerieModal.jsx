@@ -11,7 +11,7 @@ export const MiniSerieModal = () => {
 
     const {activeSerie} = useSelector(state => state.mi)
 
-    const {activeUser} = useSelector(state => state.auth)
+    const {activeUser, uid} = useSelector(state => state.auth)
 
     const {Porcentage} = useSelector(state => state.mi)
 
@@ -29,7 +29,7 @@ export const MiniSerieModal = () => {
         },
         enableReinitialize: true,
         onSubmit: ({title, descripcion, image}) => {
-            if (activeUser?.role === 'Pastor') {
+            if (activeUser?.role === 'Pastor' && activeSerie?.user === uid) {
 
                 if (image.type?.includes('image') === false) {
                     const Toast = Swal.mixin({

@@ -5,12 +5,13 @@ import { startUpdatePetition } from '../../../action/petition'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import h2p from 'html2plaintext'
+import Swal from 'sweetalert2';
 
 export const PetitionModal = () => {
 
     const {activePetitions} = useSelector(state => state.pt)
 
-    const {activeUser} = useSelector(state => state.auth)
+    const {activeUser, uid} = useSelector(state => state.auth)
 
     const dispatch = useDispatch()
 
@@ -21,7 +22,26 @@ export const PetitionModal = () => {
         },
         enableReinitialize: true,
         onSubmit: ({title, descripcion}) => {
-            dispatch(startUpdatePetition(title, descripcion))
+            if (activeUser?.role === 'Pastor' && activePetitions?.user === uid) {
+                dispatch(startUpdatePetition(title, descripcion))
+            } else {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  return Toast.fire({
+                    icon: 'error',
+                    title: 'No tiene el privilegio de editar esta petición'
+                  })
+            }
         },
         validationSchema: Yup.object({
             title: Yup.string()
