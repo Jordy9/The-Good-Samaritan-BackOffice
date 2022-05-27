@@ -39,7 +39,7 @@ export const startCreateImageVideo = (file, url) => {
             formData.append('file', file)
             formData.append('title', title)
     
-            const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload/seriesBosquejos`, formData, {
               headers: {'x-token': token},
               onUploadProgress: (e) =>
                 {dispatch(upload(Math.round( (e.loaded * 100) / e.total )))}
@@ -182,7 +182,7 @@ export const startCreateImageVideo = (file, url) => {
             formData.append('file', file)
             formData.append('title', title)
     
-            const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload/seriesBosquejos`, formData, {
               headers: {'x-token': token}, 
               onUploadProgress: (e) =>
                 {dispatch(upload(Math.round( (e.loaded * 100) / e.total )))}

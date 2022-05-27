@@ -36,7 +36,7 @@ export const startCreateNoBeleaverVideo = (title, file) => {
 
         if(video) {
 
-            const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload/video`, formData, {
                 headers: {'x-token': token},
                 onUploadProgress: (e) =>
                 {dispatch(upload(Math.round( (e.loaded * 100) / e.total )))}
@@ -94,7 +94,7 @@ export const startCreateNoBeleaverVideo = (title, file) => {
                     
                 }
         } else {
-            const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload/video`, formData, {
                 headers: {'x-token': token},
                 onUploadProgress: (e) =>
                     {dispatch(upload(Math.round( (e.loaded * 100) / e.total )))}

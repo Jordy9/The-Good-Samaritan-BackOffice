@@ -51,7 +51,7 @@ export const startCreateVideoWordOfTheDay = (title, file) => {
             formData.append('file', file)
             formData.append('title', title)
 
-            const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload/video`, formData, {
               headers: {'x-token': token},
               onUploadProgress: (e) =>
                 {dispatch(upload(Math.round( (e.loaded * 100) / e.total )))}
@@ -157,7 +157,7 @@ export const startUpdateVideoWordOfTheDay = (title, fileupload) => {
           formData.append('file', fileupload)
           formData.append('title', activeVideo.title)
           
-          const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload`, formData, {
+          const res = await axios.post(`${process.env.REACT_APP_API_URL}/image/upload/video`, formData, {
             headers: {'x-token': token},
             onUploadProgress: (e) =>
             {dispatch(upload(Math.round( (e.loaded * 100) / e.total )))}
