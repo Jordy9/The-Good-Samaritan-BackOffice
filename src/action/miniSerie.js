@@ -46,6 +46,8 @@ export const startCreateMiniSerie = (title, descripcion, file) => {
 
         const {socket} = getState().sk
 
+        const updateCount = moment()
+
         const token = localStorage.getItem('token') || '';
 
             const formData = new FormData()
@@ -61,7 +63,7 @@ export const startCreateMiniSerie = (title, descripcion, file) => {
             if(res.data.ok) {
                 const image = res.data.image.url
                 const idImage = res.data.image.id
-                const resp = await fetchConToken('miniSerie', {title, image, idImage, descripcion}, 'POST');
+                const resp = await fetchConToken('miniSerie', {title, image, idImage, descripcion, updateCount}, 'POST');
                 const body = await resp.json()
 
                 if (body.ok) {
@@ -154,7 +156,7 @@ export const startUpdateSerie = (title, descripcion, fileupload) => {
 
         const {socket} = getState().sk
 
-        const updatedAt = moment()
+        const updateCount = moment()
 
         const token = localStorage.getItem('token') || '';
 
@@ -174,7 +176,7 @@ export const startUpdateSerie = (title, descripcion, fileupload) => {
             if(res.data.ok) {
               const image = res.data.image.url
               const idImage = res.data.image.id
-              const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, {title, image, idImage, descripcion, updatedAt, count}, 'PUT');
+              const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, {title, image, idImage, descripcion, updateCount, count}, 'PUT');
               const body = await resp.json()
               
               if (body.ok) {
@@ -241,7 +243,7 @@ export const startUpdateSerie = (title, descripcion, fileupload) => {
 
           } else {
             const {image, idImage} = activeSerie
-            const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, {title, image, idImage, descripcion, updatedAt, count}, 'PUT');
+            const resp = await fetchConToken(`miniSerie/${activeSerie._id}`, {title, image, idImage, descripcion, updateCount, count}, 'PUT');
             const body = await resp.json()
 
             if (body.ok) {
