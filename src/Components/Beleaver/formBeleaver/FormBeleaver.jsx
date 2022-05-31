@@ -143,6 +143,7 @@ export const FormBeleaver = () => {
                             content="<p>This is the initial content of the editor</p>"
                             init={{
                             plugins: 'autolink link image lists print preview',
+                            contextmenu: false,
                             toolbar: 'undo redo | formatselect | fontselect | fontsizeselect ' +
                             'bold italic backcolor | alignleft aligncenter ' +
                             'alignright alignjustify | bullist numlist outdent indent | ' +

@@ -151,6 +151,7 @@ export const SketchModal = () => {
                                                         init={{
                                                         language: 'es',
                                                         plugins: ['autolink', 'link', 'image', 'lists', 'print', 'preview'],
+                                                        contextmenu: false,
                                                         toolbar: 'undo redo | formatselect | fontselect | fontsizeselect ' +
                                                         'bold italic backcolor | alignleft aligncenter ' +
                                                         'alignright alignjustify | bullist numlist outdent indent | ' +
