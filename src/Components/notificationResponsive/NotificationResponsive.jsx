@@ -1,27 +1,34 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import { setNotificationsPost } from '../../action/auth'
 import { useHistory } from 'react-router-dom'
+import { UpdateNotifications } from '../../action/notificationsAdmin'
 
 export const NotificationResponsive = () => {
 
-    const {activeUser, uid} = useSelector(state => state.auth)
+    const {uid} = useSelector(state => state.auth)
     const {socket} = useSelector(state => state.sk)
 
     const dispatch = useDispatch()
 
-    const [activeUserChange, setActiveUserChange] = useState(activeUser)
-
     const history = useHistory()
 
+    const {notificaciones} = useSelector(state => state.nu)
+
     useEffect(() => {
+
+        let isMountede = true
         socket?.on('notifications-user', (users) => {
 
-            const user = users?.find(user => user.id === uid)
-
-            setActiveUserChange(user)
+            if (isMountede) {
+                dispatch(UpdateNotifications(true))
+            }
         })
+
+        return () => {
+            isMountede = false
+        }
     }, [socket, dispatch, uid])
 
     const setNotify = (noti) => {
@@ -36,7 +43,7 @@ export const NotificationResponsive = () => {
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div style={{overflowY: 'auto'}}>
                     {
-                        activeUserChange?.notifications?.map((notifications, index) => {
+                        notificaciones?.map((notifications, index) => {
                             return (
                                 <div style={{cursor: 'pointer'}} onClick={() => setNotify(notifications)} className='shadow my-2 bg-dark p-3 flex-column' key={notifications+ index}>
                                     <h6 className='text-white text-center'>{notifications.subtitle}</h6>

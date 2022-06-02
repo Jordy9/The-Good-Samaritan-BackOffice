@@ -7,34 +7,53 @@ import logo from '../../heroes/logo.png'
 import { Sidebar } from '../sidebar/Sidebar'
 import moment from 'moment'
 import './Navb.css'
+import { UpdateNotifications } from '../../action/notificationsAdmin'
 
 
 export const Navb = () => {
     const dispatch = useDispatch()
 
     const {activeUser, uid} = useSelector(state => state.auth)
+
     const {socket} = useSelector(state => state.sk)
 
+    const {notificaciones: notificacionesAdmin, updateNotifications} = useSelector(state => state.nu)
+
     const handledLogout = () => {
-        dispatch(startLogout())
+      dispatch(startLogout())
     }
 
-    const [notificationCountChange, setNotificationCountChange] = useState(activeUser?.notificationsCount)
-    const [activeUserChange, setActiveUserChange] = useState(activeUser)
+    useEffect(() => {
+
+      if (notificacionesAdmin && notificacionesAdmin[0]?.users?.filter(not => not === uid)?.length !== 0) {
+        dispatch(UpdateNotifications(false))
+      }
+
+      if (notificacionesAdmin && notificacionesAdmin[0]?.users?.filter(not => not === uid)?.length === 0) {
+        dispatch(UpdateNotifications(true))
+      }
+    }, [dispatch, notificacionesAdmin, uid])
 
     useEffect(() => {
-        socket?.on('notifications-admin', (users) => {
 
-            const user = users?.find(user => user.id === uid)
+      let isMountede = true
+      socket?.on('notifications-admin', () => {
 
-            setNotificationCountChange(true)
-            setActiveUserChange(user)
-        })
+        if (isMountede) {
+          dispatch(UpdateNotifications(true))
+        }
+      })
+
+      return () => {
+        isMountede = false
+      }
     }, [socket, dispatch, uid])
 
     const onClick = () => {
-      socket?.emit('Delete-Notifications-count-admin', uid)
-      setNotificationCountChange(false)
+      if (notificacionesAdmin?.length !== 0) {
+        socket?.emit('Delete-Notifications-count-admin', uid)
+        dispatch(UpdateNotifications(false))
+      }
     }
 
     const {pathname} = useLocation()
@@ -260,7 +279,7 @@ export const Navb = () => {
                             className='mr-2 d-flex align-items-center'
                         >
                             <i onClick={onClick} style={{fontSize: '20px', cursor: 'pointer', margin: 0}} className="bi bi-bell d-flex align-items-center">
-                                <span style={{margin: 0}} className={`${(notificationCountChange === true) && 'p-1 bg-danger border border-light rounded-circle'}`}></span>
+                                <span style={{margin: 0}} className={`${(updateNotifications === true) && 'p-1 bg-danger border border-light rounded-circle'}`}></span>
                             </i>
                         </NavLink>
                     </Nav>
@@ -273,7 +292,7 @@ export const Navb = () => {
                     className='mr-2 d-flex align-items-center'
                     title = {
                         <i onClick={onClick} style={{fontSize: '20px', cursor: 'pointer', margin: 0}} className="bi bi-bell d-flex align-items-center">
-                            <span style={{margin: 0}} className={`${(notificationCountChange === true) && 'p-1 bg-danger border border-light rounded-circle'}`}></span>
+                            <span style={{margin: 0}} className={`${(updateNotifications === true) && 'p-1 bg-danger border border-light rounded-circle'}`}></span>
                         </i>}
                     align={'end'}
                     variant="dark"
@@ -281,7 +300,7 @@ export const Navb = () => {
                     >
                         <div style={{overflowY: 'scroll', height: '400px'}}>
                             {
-                                activeUserChange?.notifications?.map((notifications, index) => {
+                                notificacionesAdmin?.map((notifications, index) => {
                                     return (
                                         <Dropdown.Item onClick={() => setNotify(notifications)} className='shadow my-2 bg-dark p-3 flex-column' key={notifications+ index} style={{width: 'auto', height: 'auto'}}>
                                             <h6 className='text-white text-center'>{notifications.subtitle}</h6>

@@ -5,6 +5,7 @@ import { NotificationPublicAdmin } from '../action/auth';
 import { UsuariosCargados } from '../action/chat';
 import { cargarContactos } from '../action/contact';
 import { BorrarNotificaciones, NotificacionesCargadas } from '../action/notifications';
+import { startGetNotificationsAdmin, StartUpdateNotificationAdmin } from '../action/notificationsAdmin';
 import { cargarPeticiones, cargarPeticionesPastores, cargarPeticionesSinCuenta, startGetPaginatePetitions, startGetPaginatePetitionUser } from '../action/petition';
 
 
@@ -87,6 +88,14 @@ export const useSocket = ( serverPath ) => {
     }, [ socket, dispatch])
 
     useEffect(() => {
+        socket?.on('Deleted-Notifications-count-Admin', (notification) => {
+            if (notification !== null) {
+                dispatch(StartUpdateNotificationAdmin(notification))
+            }
+        })
+    }, [ socket, dispatch])
+
+    useEffect(() => {
         socket?.on('notifications-Show-admin', (notification) => {
 
             if (notification?.subtitle === 'Nueva petición de oración de usuario agregada') {
@@ -94,6 +103,8 @@ export const useSocket = ( serverPath ) => {
             } else if (notification?.subtitle === 'Nueva petición de oración de pastores agregada de: ') {
                 dispatch(startGetPaginatePetitions())
             }
+
+            dispatch(startGetNotificationsAdmin())
 
             dispatch(NotificationPublicAdmin(notification))
         })

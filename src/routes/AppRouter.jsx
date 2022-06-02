@@ -35,6 +35,7 @@ import { ForgotPassword } from '../Components/forgotPassword/ForgotPassword';
 import { ResetPassword } from '../Components/forgotPassword/ResetPassword';
 import { startGetImageVideo } from '../action/imageVideo';
 import { startGetPaginateVideos } from '../action/VideoWordOfTheDay';
+import { startGetNotificationsAdmin } from '../action/notificationsAdmin';
 
 moment.locale('es');
 
@@ -69,6 +70,7 @@ export const AppRouter = () => {
         dispatch(startGetBeleaver())
         dispatch(startGetUsersUsuarios())
         dispatch(startGetImageVideo())
+        dispatch(startGetNotificationsAdmin())
     }, [dispatch])
 
     useEffect(() => {

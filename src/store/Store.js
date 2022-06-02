@@ -14,6 +14,7 @@ import { messagesReducer } from '../reducer/messagesReducer';
 import { miniSeriesReducer } from '../reducer/miniSeriesReducer';
 import { noBeleaverReducer } from '../reducer/noBeleaverReducer';
 import { notificacionReducer } from '../reducer/notificacionReducer';
+import { notificationAdminReducer } from '../reducer/notificationAdminReducer';
 import { paginationReducer } from '../reducer/PaginationReducer';
 import { petitionsReducer } from '../reducer/petitionReducer';
 import { progressBarReducer } from '../reducer/progressBarReducer';
@@ -48,7 +49,8 @@ const reducers = combineReducers({
     bl: beleaverReducer,
     pgr: paginationReducer,
     iv: imageVideoReducer,
-    mg: messagesReducer
+    mg: messagesReducer,
+    nu: notificationAdminReducer
 });
 
 export const store =  createStore(
