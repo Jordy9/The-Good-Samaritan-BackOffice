@@ -183,8 +183,14 @@ export const startUpdateSerie = (title, descripcion, fileupload) => {
                 
                 dispatch(updateSerie(body.miniSerie))
                 dispatch(UploadFish())
+
+                const subtitle = 'Nueva MiniSerie agregada'
+
+                const content = body.miniSerie
+
+                const payload = {title, subtitle, image, content}
                 
-                socket?.emit('notifications-admin-to-user-update', body.miniSerie)
+                socket?.emit('notifications-admin-to-user-update', payload)
                 const ress = await axios.delete(`${process.env.REACT_APP_API_URL}/image/upload/${activeSerie.idImage}`, {headers: {'x-token': token}})
                 console.log(ress)
                 const Toast = Swal.mixin({
