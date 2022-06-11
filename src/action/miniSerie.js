@@ -255,7 +255,15 @@ export const startUpdateSerie = (title, descripcion, fileupload) => {
             if (body.ok) {
 
                 dispatch(updateSerie(body.miniSerie))
-                socket?.emit('notifications-admin-to-user-update', body.miniSerie)
+
+
+                const subtitle = 'Nueva MiniSerie agregada'
+
+                const content = body.miniSerie
+
+                const payload = {title, subtitle, image, content}
+                
+                socket?.emit('notifications-admin-to-user-update', payload)
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
