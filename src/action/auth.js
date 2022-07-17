@@ -476,7 +476,7 @@ export const startDeleteUser = (user) => {
         const {activeUser} = getState().auth 
 
         let resp
-        if (user?.biliever === undefined) {
+        if (user?.role !== 'Usuario') {
             resp = await fetchConToken(`auth/delete/${user.id}`, activeUser, 'DELETE')
         } else {
             resp = await fetchConToken(`users/delete/${user.id}`, activeUser, 'DELETE')
