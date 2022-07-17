@@ -66,9 +66,15 @@ export const ModalContainer = (props) => {
               <th>{name} {(cumple) && '🎂'}</th>
               <td>{lastName}</td>
               <td>{email}</td>
-              <td>{CountryOnly[1]}{<Flag className = 'flag ml-2' />}</td>
               {
-                (biliever !== undefined)
+                (CountryOnly)
+                  ?
+                <td>{CountryOnly[1]}{<Flag className = 'flag ml-2' />}</td>
+                :
+                <td>Sin seleccionar</td>
+              }
+              {
+                (biliever !== undefined || role === 'Usuario')
                   &&
                 <td className='text-primary'><strong>Usuario</strong></td>
               }
